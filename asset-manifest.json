@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.09d3aefc.css",
+    "main.js": "/static/js/main.363000dd.js",
+    "static/media/Montserrat-Regular.woff": "/static/media/Montserrat-Regular.f3e05e510b90ba39ad29.woff",
+    "static/media/Montserrat-Medium.woff": "/static/media/Montserrat-Medium.a95ccbb11b5d6009a829.woff",
+    "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.e3c4beb3143f229f154c.woff",
+    "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.416239b4008fd4aa2ca8.woff2",
+    "static/media/Montserrat-Regular.woff2": "/static/media/Montserrat-Regular.45e055a7b8b6035b78dc.woff2",
+    "static/media/Montserrat-Medium.woff2": "/static/media/Montserrat-Medium.df586248c7d70445473a.woff2",
+    "static/media/hero_bg.webp": "/static/media/hero_bg.597ef666e9be0bd7dd01.webp",
+    "static/media/handle-dots.svg": "/static/media/handle-dots.3d69c545a67ec4fccd2d53ec63f047a9.svg",
+    "index.html": "/index.html",
+    "static/media/diagnal-lines.svg": "/static/media/diagnal-lines.d50980375f150b1881aa0863252c5779.svg",
+    "static/media/arrow-down-drop-2e2e2e.svg": "/static/media/arrow-down-drop-2e2e2e.054b160e96af43d3818b49ee628482ba.svg",
+    "static/media/arrow-down-drop-1f1f1f.svg": "/static/media/arrow-down-drop-1f1f1f.1c6d67d6525c4182a94e3f97e1db81b5.svg",
+    "main.09d3aefc.css.map": "/static/css/main.09d3aefc.css.map",
+    "main.363000dd.js.map": "/static/js/main.363000dd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.09d3aefc.css",
+    "static/js/main.363000dd.js"
+  ]
+}
