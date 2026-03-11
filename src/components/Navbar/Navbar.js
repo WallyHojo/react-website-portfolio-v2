@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { useSAReplay } from '../../hooks/useScrollAnimate';
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
@@ -15,9 +16,12 @@ function Navbar() {
     }
   };
 
+  const ref = useRef(null);
+  useSAReplay(ref);  
+
   return (
     <>
-      <nav className="navbar" >
+      <nav className="navbar">
         <div className="navbar__container">
           <div className="navbar__background"></div>
           <div className="navbar__logo">
@@ -157,7 +161,7 @@ function Navbar() {
       </nav>
 
       {/* Menu */}
-      <div className={`menu section-padding ${menuOpen === true ? "menu--open" : menuOpen === "closing" ? "menu--closing" : ""}`} onAnimationEnd={handleAnimationEnd}>
+      <div className={`menu section-padding ${menuOpen === true ? "menu--open" : menuOpen === "closing" ? "menu--closing" : ""}`} onAnimationEnd={handleAnimationEnd} ref={ref}>
         <div className="menu__backdrop hidden" />
         <div className="menu__ellipse menu__ellipse-1"></div>
         <div className="menu__ellipse menu__ellipse-2"></div>        
@@ -170,11 +174,72 @@ function Navbar() {
           </div>
         </div>        
         <div className="menu__wrapper">
+          <div className="menu__content" sa="left-long fade glacial">
+            <div className="menu__eyebrow flex-all flex-vert-center" sa="left slow delay-200">
+              <span className="menu__eyebrow-icon flex-all flex-vert-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path></svg>
+              </span>
+              <span className="menu__eyebrow-text">Connect with me!</span>
+            </div>
+            <div className="menu__content-heading"  sa="left slow delay-400">
+              Explore My Work, Projects, and Experience
+            </div>
+            <div className="menu__divider"></div>
+            <Link to="/Contact" className="btn btn-primary"  sa="left slow delay-600">
+              <span className="btn__text">Let's Talk</span>
+              <span className="btn__arrow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="16"
+                  viewBox="0 0 15 16"
+                  fill="none"
+                >
+                  <g clipPath="url(#clip0_388_188)">
+                    <path
+                      d="M12.6346 2H5.3634C5.2665 2 5.17356 2.0417 5.10503 2.11593C5.03651 2.19017 4.99801 2.29085 4.99801 2.39582C4.99801 2.5008 5.03651 2.60148 5.10503 2.67571C5.17356 2.74995 5.2665 2.79165 5.3634 2.79165H11.7545L1.10661 14.3269C1.07281 14.3635 1.046 14.407 1.02771 14.4548C1.00941 14.5027 1 14.5539 1 14.6057C1 14.6575 1.00941 14.7088 1.02771 14.7566C1.046 14.8044 1.07281 14.8479 1.10661 14.8845C1.14041 14.9211 1.18053 14.9502 1.22469 14.97C1.26885 14.9898 1.31619 15 1.36398 15C1.41178 15 1.45911 14.9898 1.50328 14.97C1.54744 14.9502 1.58756 14.9211 1.62136 14.8845L12.2692 3.34855V10.2726C12.2692 10.3776 12.3077 10.4782 12.3762 10.5525C12.4448 10.6267 12.5377 10.6684 12.6346 10.6684C12.7315 10.6684 12.8245 10.6267 12.893 10.5525C12.9615 10.4782 13 10.3776 13 10.2726V2.39438C12.9993 2.28977 12.9605 2.18968 12.8921 2.11584C12.8237 2.042 12.7312 2.00038 12.6346 2Z"
+                      fill="#2979FF"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_388_188">
+                      <rect width="15" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+            </Link>            
+          </div>
+          <div className="menu__navigation" sa="right-long fade glacial">
+            <ul className="menu__navigation-links">
+              <div className="menu__navigation-heading" sa="right slow delay-100"><h4>Navigation</h4></div>
+              <li sa="right slow delay-200">
+                <span className="menu__navigation-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path></svg></span>
+                <Link to="/Contact">Home</Link>
+              </li>
+              <li sa="right slow delay-300">
+                <span className="menu__navigation-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path></svg></span>
+                <Link to="/Contact">About</Link>
+              </li>
+              <li sa="right slow delay-400">
+                <span className="menu__navigation-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path></svg></span>
+                <Link to="/Contact">Skills</Link>
+              </li>
+              <li sa="right slow delay-500">
+                <span className="menu__navigation-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path></svg></span>
+                <Link to="/Contact">Work</Link>
+              </li>
+              <li sa="right slow delay-600">
+                <span className="menu__navigation-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path></svg></span>
+                <Link to="/Contact">Resume</Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <svg className="menu__clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148 86" width="148" height="86"><defs><clipPath id="menu-bg-clip-tab" clipPathUnits="userSpaceOnUse"><path d="m 32.943424,59.954421 c 0,-9.20246 -0.184,-28.90798 -0.184,-28.90798 C 32.759424,31.046441 30.5785,0 64,0 h 56 c 2.2204,0.01171875 27.76581,0.07081255 28,27.807171 V 86 H 0 c 18.016698,0 32.802223,-3.309432 32.943424,-26.045552 z"></path></clipPath></defs><rect width="148" height="86" fill="currentColor" clipPath="url(#menu-bg-clip-tab)"></rect></svg>
-      <svg className="menu__clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1706 700" width="100%" height="100%"><defs><clipPath id="menu-bg-clip" clipPathUnits="objectBoundingBox" transform="scale(0.000586510, 0.001272265)"><path d="m 1706,675 c 0,1.56442 -0.4459,25 -31,25 H 28.999986 C 26.17912,700 0,699.991 0,674 V 27 C 0,26.19325 -0.04988178,0 33,0 h 1673 z"></path></clipPath></defs><rect width="1706" height="700" fill="currentColor" clipPath="url(#menu-bg-clip)"></rect></svg>   
+      <svg className="menu__clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1706 700" width="100%" height="100%"><defs><clipPath id="menu-bg-clip" clipPathUnits="objectBoundingBox" transform="scale(0.000586510, 0.001272265)"><path d="m 1706,675 c 0,1.56442 -0.4459,25 -31,25 H 28.999986 C 26.17912,700 0,699.991 0,674 V 27 C 0,26.19325 -0.04988178,0 33,0 h 1673 z"></path></clipPath></defs><rect width="1706" height="700" fill="currentColor" clipPath="url(#menu-bg-clip)"></rect></svg>         
     </>
   );
 }

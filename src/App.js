@@ -1,5 +1,5 @@
 import React from 'react';
-import { useScrollAnimate } from './hooks/useScrollAnimate';
+import { useSA } from './hooks/useScrollAnimate';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -11,7 +11,7 @@ import './styles/global.css';
 import './hooks/useScrollAnimate.css';
 
 function App() {
-  useScrollAnimate();
+  useSA();
   return (
     <Router>
       <Navbar />

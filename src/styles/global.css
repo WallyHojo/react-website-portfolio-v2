@@ -35,7 +35,7 @@
 }
 
 :root {
-  --section-padding-sm: clamp(1.5rem, 3vw, 2rem);
+  --section-padding-sm: 1.875rem clamp(1.5rem, 3vw, 2rem);
   --section-padding-md: clamp(2rem, 5vw, 4rem);
   --section-padding-lg: clamp(3rem, 8vw, 6rem);
   --section-padding-xl: clamp(4rem, 10vw, 8rem);
@@ -62,7 +62,9 @@ html {
 body {
   margin: 0;
   font-family: var(--font-main);
+  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);
   line-height: 1.6;
+  letter-spacing: -0.01em;
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -76,36 +78,34 @@ h2,
 h3 {
   font-family: var(--font-heading);
   color: var(--primary-text);
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .h1,
 h1 {
   font-weight: 500;
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 2.1667rem + 1.4815vw, 3.5rem);
 }
 
 .h2,
 h2 {
   font-weight: 400;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(1.75rem, 1.5rem + 1.1111vw, 2.5rem);
 }
 
 .h3,
 h3 {
   font-weight: 400;
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-size: clamp(1.25rem, 1.0833rem + 0.7407vw, 1.75rem);
 }
 
 .h4,
 h4 {
   font-weight: 400;
-  font-size: clamp(1rem, 2vw, 1.25rem);
 }
 
 p {
   margin-bottom: 1rem;
-  font-size: clamp(1rem, 2vw, 1.25rem);
 }
 
 a {
@@ -122,7 +122,7 @@ a.btn {
   gap: 0.8rem;
   max-width: fit-content;
   height: fit-content;
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
   text-transform: uppercase;
   color: var(--color-background);
   letter-spacing: 1.9px;
@@ -151,7 +151,7 @@ a.btn {
 .btn__text {
   position: relative;
   color: var(--primary-text);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .btn-primary .btn__text {
@@ -258,7 +258,7 @@ img {
   color: var(--disabled-text);
 }
 
-@media (max-wdith: 767px) {
+@media (max-width: 767px) {
   .section-padding {
     padding: var(--section-padding-sm);
   }

@@ -1,4 +1,4 @@
-.section-hero {
+.section__hero {
   position: relative;
   background: radial-gradient(
     ellipse at 85% 10%,
@@ -10,12 +10,13 @@
   overflow: hidden;
 }
 
-.section-hero .text h1.heading {
-  white-space: nowrap;
+.hero-content__left {
+  width: clamp(22.5rem, min(75rem, 74vh), 62rem);
 }
 
-.section-hero .text > :not(h1) {
-  width: min(70rem, 80vh);
+.hero__content h1.heading {
+  font-size: clamp(1.5rem, 0.8333rem + 2.963vw, 3.5rem);
+  white-space: nowrap;
 }
 
 .section-grain::after {
@@ -72,13 +73,11 @@
 
 /* SVG slats — absolutely fills the hero section */
 .slats-svg {
-  position: absolute;
   top: 0;
   right: 0;
-  width: 60%;
   height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .slats-svg rect {
@@ -101,6 +100,10 @@
 
 .slats-svg rect:nth-child(4) {
   animation-delay: 1200ms;
+}
+
+.slats-svg rect:nth-child(5) {
+  animation-delay: 1400ms;
 }
 
 @keyframes slide-slat {
@@ -126,29 +129,28 @@
 }
 
 /* Keep text content above the SVG and grain overlay */
-.content {
+.hero__content {
   position: relative;
   z-index: 2;
 }
 
 .hero__shape {
   position: absolute;
-  z-index: 1;
 }
 
 .dots--1 {
   top: 15%;
-  left: 55%;
+  right: min(40rem, 75vh);
 }
 
 .dots--2 {
   bottom: 10%;
-  left: 25%;
+  left: min(30rem, 55vh);
 }
 
 .arrow-down--1 {
   top: 40%;
-  left: 40%;
+  left: min(50rem, 85vh);
   transform: rotate(-90deg);
 }
 
@@ -165,4 +167,65 @@
 
 .slats-bg img {
   max-width: clamp(220px, 50vw, 416px);
+}
+
+/* Responsive Queries */
+
+@media (max-width: 1199px) {
+  .slats-svg {
+    width: min(48rem, 85vh);
+  }
+
+  .dots--1 {
+    right: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero__content h1.heading {
+    font-weight: 600;
+  }  
+
+  .dots--2 {
+    left: 50%;
+  }
+
+  .arrow-down--1 {
+    left: 75%;
+  }    
+}
+
+@media (max-width: 991px) {
+  .slats-svg rect {
+    animation: slide-slat 600ms ease-out alternate backwards;
+    opacity: 0.15;
+  }
+
+  @keyframes slide-slat {
+    0% {
+      opacity: 0;
+      height: 0vh;
+    }
+    100% {
+      opacity: 0.15;
+      height: 100vh;
+  }
+  }
+
+  @keyframes slide-slat-tall {
+    0% {
+      opacity: 0;
+      height: 0vh;
+    }
+    100% {
+      opacity: 0.15;
+      height: 130vh;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .slats-svg {
+      width: min(62rem, 120vh);
+  } 
 }
