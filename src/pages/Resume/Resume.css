@@ -1,0 +1,15 @@
+.page-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.page-container h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.page-container p {
+  color: var(--color-muted);
+  font-size: 1rem;
+}

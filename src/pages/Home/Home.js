@@ -1,208 +1,246 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import "../../assets/styles/dot-pattern.css";
+import "../../assets/styles/noise.css";
+import { useMagneticSVG } from "../../hooks/useMagneticSVG";
+import { useMarqueeScroll, Marquee } from "../../hooks/useMarqueeScroll";
+import { useTypewriterHeading } from "../../hooks/useTypewriterHeading";
 import heroBg from "../../assets/images/hero_bg.webp";
 import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import handleDots from "../../assets/images/handle-dots.svg";
-import arrowDownDrop1f from "../../assets/images/arrow-down-drop-1f1f1f.svg";
-import arrowDownDrop2e from "../../assets/images/arrow-down-drop-2e2e2e.svg";
+import arrowDown from "../../assets/images/arrow-down.svg";
 
 function Home() {
-  const headings = [
-    "Design Systems",
-    "Accessible Interfaces",
-    "Performance-Focused UI",
-    "Frontend Architecture",
-  ];
+  useMarqueeScroll();
 
-  const typingSpeed = 80;
-  const deletingSpeed = 40;
-  const pauseTime = 1500;
+  const SLAT_COUNT = 5;
+  const magSlatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
+  const slatRefs    = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
 
-  const [displayText, setDisplayText] = useState("");
-  const headingIndex = useRef(0);
-  const charIndex = useRef(0);
-  const isDeleting = useRef(false);
-  const paused = useRef(false);
-  const timeoutId = useRef(null);
+  useMagneticSVG(magSlatRefs.current, slatRefs.current, 10);
 
-  useEffect(() => {
-    function typeEffect() {
-      if (paused.current) return;
-
-      const current = headings[headingIndex.current];
-      const text = current.substring(0, charIndex.current);
-      setDisplayText(text || "\u00A0");
-
-      let delay = typingSpeed;
-
-      if (!isDeleting.current && charIndex.current < current.length) {
-        charIndex.current++;
-      } else if (isDeleting.current && charIndex.current > 0) {
-        charIndex.current--;
-        delay = deletingSpeed;
-      } else if (!isDeleting.current) {
-        isDeleting.current = true;
-        delay = pauseTime;
-      } else {
-        isDeleting.current = false;
-        headingIndex.current = (headingIndex.current + 1) % headings.length;
-      }
-
-      timeoutId.current = setTimeout(typeEffect, delay);
-    }
-
-    function handleVisibilityChange() {
-      if (document.visibilityState === "hidden") {
-        paused.current = true;
-      } else {
-        paused.current = false;
-        typeEffect();
-      }
-    }
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    typeEffect();
-
-    return () => {
-      clearTimeout(timeoutId.current);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
+  const displayHeading = useTypewriterHeading(["Design Systems", "Accessible Interfaces", "Performance-Focused UI", "Frontend Architecture"]);
 
   return (
-    <section className="section section__hero section-grain grain-medium section-padding height-viewport">
-      <div className="hero__content flex-all flex-vert-bottom height-full">
-        <div className="hero-content__left" sa="mirror up-long fade glacial">
-          <h1 className="heading" sa="mirror up slower delay-200">{displayText}</h1>
-          <h2 className="h3 subheading" sa="mirror up slower delay-400">
-            <strong>Hi, I'm Walter Carlson, a UI Engineer</strong> focused on
-            building fast, accessible, and scalable user interfaces that bridge
-            design and engineering.
-          </h2>
-          <p className="text-muted" sa="mirror up glacial delay-600">
-            With a strong focus on performance, usability, and maintainable
-            code, I transform design concepts into polished, production-ready
-            interfaces that deliver consistent experiences across devices.
-          </p>
-          <Link to="/Contact" className="btn btn-primary" sa="mirror up delay-400">
-            <span className="btn__text">Let's Talk</span>
-            <span className="btn__arrow">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="16"
-                viewBox="0 0 15 16"
-                fill="none"
-              >
-                <g clipPath="url(#clip0_388_188)">
-                  <path
-                    d="M12.6346 2H5.3634C5.2665 2 5.17356 2.0417 5.10503 2.11593C5.03651 2.19017 4.99801 2.29085 4.99801 2.39582C4.99801 2.5008 5.03651 2.60148 5.10503 2.67571C5.17356 2.74995 5.2665 2.79165 5.3634 2.79165H11.7545L1.10661 14.3269C1.07281 14.3635 1.046 14.407 1.02771 14.4548C1.00941 14.5027 1 14.5539 1 14.6057C1 14.6575 1.00941 14.7088 1.02771 14.7566C1.046 14.8044 1.07281 14.8479 1.10661 14.8845C1.14041 14.9211 1.18053 14.9502 1.22469 14.97C1.26885 14.9898 1.31619 15 1.36398 15C1.41178 15 1.45911 14.9898 1.50328 14.97C1.54744 14.9502 1.58756 14.9211 1.62136 14.8845L12.2692 3.34855V10.2726C12.2692 10.3776 12.3077 10.4782 12.3762 10.5525C12.4448 10.6267 12.5377 10.6684 12.6346 10.6684C12.7315 10.6684 12.8245 10.6267 12.893 10.5525C12.9615 10.4782 13 10.3776 13 10.2726V2.39438C12.9993 2.28977 12.9605 2.18968 12.8921 2.11584C12.8237 2.042 12.7312 2.00038 12.6346 2Z"
-                    fill="#2979FF"
-                  />
+    <>
+      <section className='section section__hero section-grain grain-medium section-padding height-viewport'>
+        <div className='hero__content flex-all flex-vert-bottom height-full'>
+          <div className='hero-content__left' sa='up-long fade glacial'>
+            <h1 className='heading' sa='up slower delay-200'>
+              {displayHeading}
+            </h1>
+
+            <h2 className='h3 subheading' sa='up slower delay-400'>
+              <strong>Hi, I'm Walter Carlson, a UI Engineer</strong> focused on building fast, accessible, and scalable user interfaces that bridge design and engineering.
+            </h2>
+            <p className='text-muted' sa='up glacial delay-600'>
+              With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
+            </p>
+            <Link to='/Contact' className='btn btn-primary' sa='up delay-400'>
+              <span className='btn__text'>Get in Touch</span>
+              <span className='btn__arrow'>
+                <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
+                  <g clipPath='url(#clip0_388_188)'>
+                    <path
+                      d='M12.6346 2H5.3634C5.2665 2 5.17356 2.0417 5.10503 2.11593C5.03651 2.19017 4.99801 2.29085 4.99801 2.39582C4.99801 2.5008 5.03651 2.60148 5.10503 2.67571C5.17356 2.74995 5.2665 2.79165 5.3634 2.79165H11.7545L1.10661 14.3269C1.07281 14.3635 1.046 14.407 1.02771 14.4548C1.00941 14.5027 1 14.5539 1 14.6057C1 14.6575 1.00941 14.7088 1.02771 14.7566C1.046 14.8044 1.07281 14.8479 1.10661 14.8845C1.14041 14.9211 1.18053 14.9502 1.22469 14.97C1.26885 14.9898 1.31619 15 1.36398 15C1.41178 15 1.45911 14.9898 1.50328 14.97C1.54744 14.9502 1.58756 14.9211 1.62136 14.8845L12.2692 3.34855V10.2726C12.2692 10.3776 12.3077 10.4782 12.3762 10.5525C12.4448 10.6267 12.5377 10.6684 12.6346 10.6684C12.7315 10.6684 12.8245 10.6267 12.893 10.5525C12.9615 10.4782 13 10.3776 13 10.2726V2.39438C12.9993 2.28977 12.9605 2.18968 12.8921 2.11584C12.8237 2.042 12.7312 2.00038 12.6346 2Z'
+                      fill='var(--color-text-primary)'
+                    />
+                  </g>
+
+                  <defs>
+                    <clipPath id='clip0_388_188'>
+                      <rect width='15' height='16' fill='white' />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        <div className='hero__decor'>
+          <div className='hero__shape dots-svg dots--1'>
+            <img src={handleDots} alt='Handle dots' sa='float glacial delay-400 float-loop' />
+          </div>
+          <div className='hero__shape dots-svg dots--2'>
+            <img src={handleDots} alt='Handle dots' sa='float glacial delay-600 float-loop' />
+          </div>
+          <div className='hero__shape arrow-down-svg arrow-down--1'>
+            <img src={arrowDown} alt='Arrow down drop' sa='float glacial delay-800 float-loop' />
+          </div>
+          <div className='hero__shape arrow-down-svg arrow-down--2'>
+            <img src={arrowDown} alt='Arrow down drop' sa='float glacial delay-1000 float-loop' />
+          </div>
+
+          <svg className='hero__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+            <defs>
+              <mask id='slats-mask' maskUnits='userSpaceOnUse' x='0' y='0' width='100%' height='100%'>
+                <g className='slat'>
+                  <g transform='rotate(45, 770, 170)'>
+                    <g ref={el => slatRefs.current[0].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                      <rect x='500' y='-60' width='140' height='100vh' rx='70' ry='70' fill='white' />
+                    </g>
+                  </g>
                 </g>
-                <defs>
-                  <clipPath id="clip0_388_188">
-                    <rect width="15" height="16" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </span>
-          </Link>
-        </div>
-      </div>
 
-      <div className="hero__decor">
-        <svg
-          className="hero__shape slats-svg"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <defs>
-            <mask
-              id="slats-mask"
-              maskUnits="userSpaceOnUse"
-              x="0"
-              y="0"
-              width="100%"
-              height="100%"
-            >
-              <rect
-                x="500"
-                y="-60"
-                width="140"
-                height="100vh"
-                rx="70"
-                ry="70"
-                fill="white"
-                transform="rotate(45, 770, 170)"
-              ></rect>
-              <rect
-                x="705"
-                y="-60"
-                width="140"
-                height="100vh"
-                rx="70"
-                ry="70"
-                fill="white"
-                transform="rotate(45, 970, 205)"
-              ></rect>
-              <rect
-                x="930"
-                y="60"
-                width="140"
-                height="130vh"
-                rx="70"
-                ry="70"
-                fill="white"
-                transform="rotate(45, 1170, 210)"
-              ></rect>
-              <rect
-                x="1165"
-                y="200"
-                width="140"
-                height="100vh"
-                rx="70"
-                ry="70"
-                fill="white"
-                transform="rotate(45, 1370, 200)"
-              ></rect>
-              <rect x="1335" y="60" width="140" height="100vh" rx="70" ry="70" fill="white" transform="rotate(45, 1370, 200)"></rect>
-            </mask>
-          </defs>
-          <image
-            href={heroBg}
-            x="0"
-            y="0"
-            width="130%"
-            height="160%"
-            preserveAspectRatio="xMidYMid slice"
-            mask="url(#slats-mask)"
-          />
-        </svg>
+                <g className='slat'>
+                  <g transform='rotate(45, 970, 205)'>
+                    <g ref={el => slatRefs.current[1].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                      <rect x='705' y='-60' width='140' height='100vh' rx='70' ry='70' fill='white' />
+                    </g>
+                  </g>
+                </g>
 
-        <div className="hero__shape dots-svg dots--1" sa="mirror fade glacial delay-200">
-          <img src={handleDots} alt="Handle dots"clipPath />
+                <g className='slat'>
+                  <g transform='rotate(45, 1170, 210)'>
+                    <g ref={el => slatRefs.current[2].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                      <rect x='930' y='60' width='140' height='130vh' rx='70' ry='70' fill='white' />
+                    </g>
+                  </g>
+                </g>
+
+                <g className='slat'>
+                  <g transform='rotate(45, 1370, 200)'>
+                    <g ref={el => slatRefs.current[3].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                      <rect x='1165' y='200' width='140' height='100vh' rx='70' ry='70' fill='white' />
+                    </g>
+                  </g>
+                </g>
+
+                <g className='slat'>
+                  <g transform='rotate(45, 1370, 200)'>
+                    <g ref={el => slatRefs.current[4].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                      <rect x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='white' />
+                    </g>
+                  </g>
+                </g>                
+              </mask>
+            </defs>
+
+            {/* The masked image */}
+            <image href={heroBg} x='0' y='0' width='130%' height='160%' preserveAspectRatio='xMidYMid slice' mask='url(#slats-mask)' />
+
+            {/*
+              Overlay rects — outside <defs> and <mask>, rendered on top of the image.
+              Identical transforms to the mask rects so hit zones align exactly.
+              fill='transparent' makes them invisible but still hit-testable.
+              pointer-events='all' is required on SVG elements — unlike HTML,
+              SVG ignores pointer events on transparent fills by default.
+            */}
+
+            <g transform='rotate(45, 770, 170)'>
+              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[0].current = el} x='500' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+            </g>
+
+            <g transform='rotate(45, 970, 205)'>
+              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[1].current = el} x='705' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+            </g>
+
+            <g transform='rotate(45, 1170, 210)'>
+              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[2].current = el} x='930' y='60' width='140' height='130vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+            </g>
+
+            <g transform='rotate(45, 1370, 200)'>
+              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[3].current = el} x='1165' y='200' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+            </g>
+
+            <g transform='rotate(45, 1370, 200)'>
+              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[4].current = el} x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+            </g>            
+          </svg>
+
+          <div className='hero__shape slats-bg'>
+            <img src={diagnalLines} alt='diagonal lines' width='416' height='354' />
+          </div>
         </div>
-        <div className="hero__shape dots-svg dots--2" sa="mirror fade glacial delay-400">
-          <img src={handleDots} alt="Handle dots"clipPath />
-        </div>
-        <div className="hero__shape arrow-down-svg arrow-down--1" sa="mirror fade glacial delay-600">
-          <img src={arrowDownDrop1f} alt="Arrow down drop"clipPath />
-        </div>
-        <div className="hero__shape arrow-down-svg arrow-down--2" sa="mirror fade glacial delay-800">
-          <img src={arrowDownDrop2e} alt="Arrow down drop"clipPath />
-        </div>
-        <div className="hero__shape slats-bg">
-          <img
-            src={diagnalLines}
-            alt="diagonal lines background image"
-            width="416"
-            height="354"
-          />
-        </div>
-      </div>      
-    </section>
+      </section>
+      <section className='section section__skills section-grain grain-subtle section-padding'>
+        <Marquee speed='35s' rtl faded pauseOnHover>
+          <span>JSON</span>
+          <span className='divider'>&bull;</span>
+          <span>Responsive Design</span>
+          <span className='divider'>&bull;</span>
+          <span>Testing & Debugging</span>
+          <span className='divider'>&bull;</span>
+          <span>Reliability</span>
+          <span className='divider'>&bull;</span>
+          <span>Teamwork</span>
+          <span className='divider'>&bull;</span>
+          <span>Creativity and Innovation</span>
+          <span className='divider'>&bull;</span>
+          <span>Problem Solving</span>
+          <span className='divider'>&bull;</span>
+          <span>GitHub</span>
+          <span className='divider'>&bull;</span>
+          <span>React.js</span>
+          <span className='divider'>&bull;</span>
+          <span>Web Development</span>
+          <span className='divider'>&bull;</span>
+          <span>Jira</span>
+          <span className='divider'>&bull;</span>
+          <span>Communication</span>
+          <span className='divider'>&bull;</span>
+          <span>Web Support</span>
+          <span className='divider'>&bull;</span>
+          <span>Web Services</span>
+          <span className='divider'>&bull;</span>
+          <span>Web Applications</span>
+          <span className='divider'>&bull;</span>
+          <span>Organization Skills</span>
+          <span className='divider'>&bull;</span>
+          <span>Customer Support</span>
+          <span className='divider'>&bull;</span>
+          <span>HTML</span>
+          <span className='divider'>&bull;</span>
+          <span>Programming</span>
+          <span className='divider'>&bull;</span>
+          <span>Website Building</span>
+          <span className='divider'>&bull;</span>
+        </Marquee>
+
+        <Marquee speed='35s' ltr faded pauseOnHover>
+          <span>WordPress</span>
+          <span className='divider'>&bull;</span>
+          <span>User Interface Design</span>
+          <span className='divider'>&bull;</span>
+          <span>User Experience (UX)</span>
+          <span className='divider'>&bull;</span>
+          <span>XSLT</span>
+          <span className='divider'>&bull;</span>
+          <span>XML</span>
+          <span className='divider'>&bull;</span>
+          <span>ZURB Foundation Framework</span>
+          <span className='divider'>&bull;</span>
+          <span>Search Engine Optimization (SEO)</span>
+          <span className='divider'>&bull;</span>
+          <span>Web Design</span>
+          <span className='divider'>&bull;</span>
+          <span>Responsive Web Design</span>
+          <span className='divider'>&bull;</span>
+          <span>Mobile Web Design</span>
+          <span className='divider'>&bull;</span>
+          <span>Web Interface Design</span>
+          <span className='divider'>&bull;</span>
+          <span>Bootstrap (Framework)</span>
+          <span className='divider'>&bull;</span>
+          <span>Adobe XD</span>
+          <span className='divider'>&bull;</span>
+          <span>Adobe Illustrator</span>
+          <span className='divider'>&bull;</span>
+          <span>HTML5</span>
+          <span className='divider'>&bull;</span>
+          <span>CSS3</span>
+          <span className='divider'>&bull;</span>
+          <span>jQuery</span>
+          <span className='divider'>&bull;</span>
+          <span>PHP</span>
+          <span className='divider'>&bull;</span>
+          <span>Adobe Photoshop</span>
+          <span className='divider'>&bull;</span>
+        </Marquee>
+      </section>
+    </>
   );
 }
 

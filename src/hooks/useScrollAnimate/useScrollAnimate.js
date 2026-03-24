@@ -36,7 +36,8 @@
  * pointer-events, transforms. No prop threading required.
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import './useScrollAnimate.css';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const SEL       = '[sa]';
@@ -50,20 +51,18 @@ const STATE     = [VISIBLE, PREPARE, 'sa-enter-down', 'sa-enter-up', 'sa-exit-do
 // Held at module scope so every hook instance shares one IO + one cache.
 let _observer       = null;
 let _replayObserver = null;
-let _cache          = null;
 let _scrollDir      = 'down';
 let _lastY          = 0;
 let _scrollBound    = false;
 
-function getCache() {
-  if (!_cache) _cache = new WeakMap();
-  return _cache;
-}
+// Initialized at declaration — eliminates getCache() wrapper and its
+// null-check on every IntersectionObserver callback invocation.
+const _cache = new WeakMap();
 
+// Reads [sa] attribute value once per element, caches in WeakMap.
 function getMods(el) {
-  const cache = getCache();
-  if (!cache.has(el)) cache.set(el, el.getAttribute('sa') || '');
-  return cache.get(el);
+  if (!_cache.has(el)) _cache.set(el, el.getAttribute('sa') || '');
+  return _cache.get(el);
 }
 
 function bindScroll() {
@@ -82,8 +81,8 @@ function getObserver() {
   _observer = new IntersectionObserver((entries) => {
     entries.forEach(({ target: el, isIntersecting }) => {
       const mods     = getMods(el);
-      const isMirror = mods.includes('mirror');
-      const isRepeat = mods.includes('repeat') || isMirror;
+      // isRepeat subsumes isMirror — no need for a separate variable
+      const isRepeat = mods.includes('repeat') || mods.includes('mirror');
 
       el.classList.remove('sa-enter-down', 'sa-enter-up', 'sa-exit-down', 'sa-exit-up');
 
@@ -99,9 +98,10 @@ function getObserver() {
     });
   }, { threshold: THRESHOLD, rootMargin: MARGIN });
 
-  // Free GPU layer after transition
+  // Free GPU layer after transition.
+  // hasAttribute is always defined on Element — optional chaining removed.
   document.addEventListener('transitionend', (e) => {
-    if (e.target.hasAttribute?.('sa')) e.target.classList.remove(PREPARE);
+    if (e.target.hasAttribute('sa')) e.target.classList.remove(PREPARE);
   }, { passive: true });
 
   return _observer;
@@ -111,22 +111,21 @@ function getReplayObserver() {
   if (_replayObserver) return _replayObserver;
 
   _replayObserver = new IntersectionObserver((entries) => {
+    // Resolved once per batch — not inside forEach on every entry
+    const obs = getObserver();
+
     entries.forEach(({ target: container, isIntersecting }) => {
       const children = container.querySelectorAll(SEL);
-      const obs      = getObserver();
+
+      // Reset is shared between both branches — done once per child
+      children.forEach(el => {
+        el.classList.remove(...STATE);
+        obs.unobserve(el);
+      });
 
       if (isIntersecting) {
         requestAnimationFrame(() => {
-          children.forEach(el => {
-            el.classList.remove(...STATE);
-            obs.unobserve(el);
-            obs.observe(el);
-          });
-        });
-      } else {
-        children.forEach(el => {
-          el.classList.remove(...STATE);
-          obs.unobserve(el);
+          children.forEach(el => obs.observe(el));
         });
       }
     });

@@ -1,0 +1,73 @@
+/* ══════════════════════════════════════════
+   MARQUEE SCROLL SYSTEM
+
+   Speed is now controlled via the Web Animations
+   API (playbackRate) in useMarqueeScroll.js.
+   The CSS owns only the base animation — no
+   --scroll-speed variable, no calc() on duration.
+   This prevents the compounding drift that occurs
+   when animation-duration is mutated mid-playback.
+   ══════════════════════════════════════════ */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-rtl {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ─── WRAPPER ─── */
+.marquee {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ─── TRACK ─────────────────────────────────
+   Base animation only — duration is fixed.
+   playbackRate is set by useMarqueeScroll.
+   ─────────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--speed, 20s) linear infinite;
+}
+
+/* Reverse direction */
+.marquee--rtl .marquee-track {
+  animation-name: marquee-rtl;
+}
+
+/* Pause on hover */
+.marquee--pausable:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ─── CONTENT COPY ─── */
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: var(--gap, 3rem);
+  padding-right: var(--gap, 3rem);
+  flex-shrink: 0;
+}
+
+/* ─── FADE EDGES ─── */
+.marquee--faded {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}

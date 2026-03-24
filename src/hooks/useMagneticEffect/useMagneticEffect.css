@@ -1,0 +1,100 @@
+/* ══════════════════════════════════════════
+   CUSTOM CURSOR
+   ══════════════════════════════════════════ */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  will-change: left, top;
+
+  /* Hidden by default — shown only when magnetic zone is active */
+  opacity: 0;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-primary-active);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.4s ease,
+    height 0.4s ease,
+    border-color 0.3s ease,
+    opacity 0.3s ease;
+  will-change: left, top;
+
+  /* Hidden by default */
+  opacity: 0;
+}
+
+/* ── Active state: cursor is inside a magnetic zone ── */
+.cursor.cursor--active {
+  opacity: 1;
+}
+
+.cursor-ring.cursor-ring--active {
+  opacity: 1;
+}
+
+/* ── Hover state: cursor is over a magnetic element ── */
+.cursor.cursor--hovering {
+  width: 6px;
+  height: 6px;
+  background: white;
+}
+
+.cursor-ring.cursor-ring--hovering {
+  width: 52px;
+  height: 52px;
+  border-color: var(--color-primary-active);
+}
+
+/* ══════════════════════════════════════════
+   MAGNETIC SYSTEM
+
+   JS writes --mx and --my (values -1 to 1)
+   to each .magnetic element via inline style.
+   CSS reads those and applies transform.
+
+   --strength controls how far the element moves.
+   The transition gives the springy snap-back.
+   ══════════════════════════════════════════ */
+.magnetic {
+  --mx: 0;
+  --my: 0;
+  --strength: 18px;
+  display: inline-block;
+  transform: translate(
+    calc(var(--mx) * var(--strength)),
+    calc(var(--my) * var(--strength))
+  );
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.magnetic:hover {
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Stronger pull for buttons / CTAs */
+.magnetic--strong {
+  --strength: 28px;
+}
+
+/* Subtler pull for text */
+.magnetic--subtle {
+  --strength: 10px;
+}

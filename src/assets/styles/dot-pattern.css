@@ -1,0 +1,24 @@
+.dot-pattern {
+  --dot-size:    2px;
+  --dot-color:   rgba(255, 255, 255, 0.15);
+  --dot-spacing: 24px; /* distance from dot center to dot center */
+
+  background-color: var(--color-bg-base); /* your base bg */
+  background-image: radial-gradient(
+    circle,
+    var(--dot-color) calc(var(--dot-size) / 2),
+    transparent     calc(var(--dot-size) / 2)
+  );
+  background-size: var(--dot-spacing) var(--dot-spacing);
+  background-position: 0 0;
+}
+
+.dot-pattern--offset {
+  background-image:
+    radial-gradient(circle, var(--dot-color) calc(var(--dot-size) / 2), transparent calc(var(--dot-size) / 2)),
+    radial-gradient(circle, var(--dot-color) calc(var(--dot-size) / 2), transparent calc(var(--dot-size) / 2));
+  background-size:    var(--dot-spacing) var(--dot-spacing);
+  background-position:
+    0 0,
+    calc(var(--dot-spacing) / 2) calc(var(--dot-spacing) / 2);
+}

@@ -1,13 +1,13 @@
 import React from 'react';
-import './About.css';
+import './Resume.css';
 
-function About() {
+function Resume() {
   return (
     <section className="page-container">
-      <h2>About</h2>
+      <h2>Resume</h2>
       <p>Tell your story here.</p>
     </section>
   );
 }
 
-export default About;
+export default Resume;

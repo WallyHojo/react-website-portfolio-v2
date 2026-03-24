@@ -96,6 +96,39 @@
 [sa~="float"]            { opacity: 0; transform: translateY(20px); filter: blur(4px); }
 [sa~="float"].sa-visible { opacity: 1; transform: translateY(0); filter: blur(0); }
 
+/* ── Infinite float loop ── */
+@keyframes sa-float-loop {
+  0%   { transform: translateY(0);    }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0);    }
+}
+
+/* ── Infinite pulse loop ── */
+@keyframes sa-pulse-loop {
+  0%, 100% { transform: scale(1);    opacity: 1;    }
+  50%       { transform: scale(1.04); opacity: 0.85; }
+}
+
+/* ── Infinite blur loop ── */
+@keyframes sa-breathe-loop {
+  0%, 100% { filter: blur(0);   opacity: 1;   }
+  50%       { filter: blur(3px); opacity: 0.7; }
+}
+
+/* ── Infinite spin loop ── */
+@keyframes sa-spin-loop {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+[sa~="float-loop"].sa-visible {
+  transition: none;
+  animation: sa-float-loop var(--sa-loop-duration, 3s)
+             var(--sa-loop-easing, ease-in-out)
+             var(--sa-loop-delay, 0ms)
+             infinite;
+}
+
 /* ── Rotate ── */
 [sa~="rotate"]            { opacity: 0; transform: rotate(var(--sa-rotate-deg, -8deg)) scale(0.92); }
 [sa~="rotate"].sa-visible { opacity: 1; transform: rotate(0deg) scale(1); }
@@ -148,6 +181,12 @@
 [sa~="delay-700"] { --sa-delay: 700ms; }
 [sa~="delay-800"] { --sa-delay: 800ms; }
 [sa~="delay-900"] { --sa-delay: 900ms; }
+[sa~="delay-1000"] { --sa-delay: 1000ms; }
+[sa~="delay-1200"] { --sa-delay: 1200ms; }
+[sa~="delay-1400"] { --sa-delay: 1400ms; }
+[sa~="delay-1600"] { --sa-delay: 1600ms; }
+[sa~="delay-1800"] { --sa-delay: 1800ms; }
+[sa~="delay-2000"] { --sa-delay: 2000ms; }
 
 /* ── Easing helpers ── */
 [sa~="ease-out"]    { transition-timing-function: ease-out; }
@@ -167,5 +206,6 @@
     transform: none !important;
     filter: none !important;
     clip-path: none !important;
+    animation: none !important;
   }
 }
