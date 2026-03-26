@@ -196,6 +196,12 @@
   height: 0;
 }
 
+.no-scroll {
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
+}
+
 .menu--open {
   display: block;
   animation: menuOpen 1s ease-out alternate 0.3s backwards;
@@ -309,7 +315,7 @@ ul.menu__nav-links li a {
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--color-bg-overlay);
-  transition: color 0.3s ease-in,
+  transition: color 0.3s ease-in;
 }
 
 ul.menu__nav-links li:is(:hover, .--is-active) a {
@@ -447,7 +453,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 
   .menu__content,
-  .menu__nav, 
+  .menu__nav,
   .menu__footer {
     grid-column: 1 / -1;
   }

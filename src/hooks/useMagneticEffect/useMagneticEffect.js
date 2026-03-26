@@ -54,6 +54,8 @@ export function useMagnetic(sectionRef) {
   }, []);
 
   useEffect(() => {
+    if (window.matchMedia('(hover: none)').matches) return; // Don't initialise the cursor or magnetic system on touch devices
+
     const dot = document.createElement('div');
     dot.className = 'cursor';
     dotRef.current = dot;
@@ -74,8 +76,10 @@ export function useMagnetic(sectionRef) {
   }, [loop]);
 
   useEffect(() => {
+    if (window.matchMedia('(hover: none)').matches) return; // Don't initialise the cursor or magnetic system on touch devices
+
     const isGlobal = !sectionRef?.current;
-    const zone     = sectionRef?.current ?? document.documentElement;
+    const zone     = sectionRef?.current ?? document.documentElement;   
 
     // ── Cursor visibility ─────────────────────────────────────────────────
     const activateCursor = () => {
@@ -130,6 +134,26 @@ export function useMagnetic(sectionRef) {
       dotRef.current?.classList.remove('cursor--hovering');
       ringRef.current?.classList.remove('cursor-ring--hovering');
     };
+
+    // ── Attach color-change listeners ────────────────────────────────────────────
+    // even if it doesn't have the magnetic class
+    const cursorEls = zone.querySelectorAll('[data-cursor]');
+
+    const onCursorEnter = (e) => {
+      const cursorColor = e.currentTarget.dataset.cursor;
+      if (dotRef.current) dotRef.current.dataset.cursor = cursorColor;
+      if (ringRef.current) ringRef.current.dataset.cursor = cursorColor;
+    };
+
+    const onCursorLeave = () => {
+      if (dotRef.current) delete dotRef.current.dataset.cursor;
+      if (ringRef.current) delete ringRef.current.dataset.cursor;
+    };
+
+    cursorEls.forEach(el => {
+      el.addEventListener('mouseenter', onCursorEnter);
+      el.addEventListener('mouseleave', onCursorLeave);
+    });    
 
     // ── SA-aware bind / unbind ────────────────────────────────────────────
     // WeakSet tracks which elements currently have listeners attached,

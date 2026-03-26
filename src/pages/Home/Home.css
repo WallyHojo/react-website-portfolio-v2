@@ -113,6 +113,26 @@
   color: var(--color-text-disabled);
 }
 
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-text-inverse);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none; /* looks like a button, doesn't act like one */
+  user-select: none;
+}
+
+.skill-chip__icon {
+  font-size: 1em;
+  line-height: 1;
+}
+
 /* ========================================================================== */
 /*                                Keyframes                                   */
 /* ========================================================================== */

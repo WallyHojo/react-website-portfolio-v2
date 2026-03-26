@@ -53,6 +53,15 @@ function Navbar() {
   const handleOpen = () => setMenuOpen(true);
   const handleClose = () => setMenuOpen("closing");
 
+  useEffect(() => {
+    // Body class add/remove on menu open/close
+    if (menuOpen === true) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  },);  
+
   const handleAnimationEnd = (e) => {
     // Only fire on the menu element itself, not bubbled events from children
     if (e.target === e.currentTarget && menuOpen === "closing") {
@@ -130,7 +139,7 @@ function Navbar() {
               </span>
             </Link>
             <div className='navbar-right__divider'></div>
-            <div className={`navbar-right__menu flex-all flex-direction-column flex-vert-center flex-space-between ${menuOpen === true ? "is-active" : ""}`} onClick={handleOpen}>
+            <div className={`navbar-right__menu flex-all flex-direction-column flex-vert-center flex-space-between ${menuOpen === true ? "is-active" : ""}`} onClick={handleOpen} data-cursor="accent">
               <span className='menu-icon__bar menu-icon__bar--top'></span>
               <span className='menu-icon__bar menu-icon__bar--bottom'></span>
             </div>
@@ -143,7 +152,7 @@ function Navbar() {
         <div className='menu__ellipse menu__ellipse-1'></div>
         <div className='menu__ellipse menu__ellipse-2'></div>
         <div className='menu__close'>
-          <div className='menu__close-container flex-all flex-vert-center' onClick={handleClose}>
+          <div className='menu__close-container flex-all flex-vert-center' onClick={handleClose} data-cursor="accent">
             <svg className='menu__clip-close' xmlns='http://www.w3.org/2000/svg' width='148.493' height='34' viewBox='0 0 34 34' fill='none'>
               <rect
                 id='menu-close-bar-1'
@@ -182,7 +191,7 @@ function Navbar() {
               Explore My Work, Projects, and Experience
             </div>
             <div className='menu__divider'><hr /></div>
-            <Link to='/contact' className='btn btn-primary' sa='left slow delay-600'>
+            <Link to='/contact' className='btn btn-primary' sa='left slow delay-600' data-cursor="light">
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>

@@ -54,13 +54,38 @@
 .cursor.cursor--hovering {
   width: 6px;
   height: 6px;
-  background: white;
+  background: var(--color-bg-inverse);
 }
 
 .cursor-ring.cursor-ring--hovering {
   width: 52px;
   height: 52px;
   border-color: var(--color-primary-active);
+}
+
+/* Cursor color change */
+.cursor[data-cursor="light"] {
+  background: var(--color-bg-inverse);
+}
+
+.cursor-ring[data-cursor="light"] {
+  border-color: var(--color-bg-inverse);
+}
+
+.cursor[data-cursor="dark"] {
+  background: var(--color-bg-base);
+}
+
+.cursor-ring[data-cursor="dark"] {
+  border-color: var(--color-bg-base);
+}
+
+.cursor[data-cursor="accent"] {
+  background: var(--color-primary);
+}
+
+.cursor-ring[data-cursor="accent"] {
+  border-color: var(--color-primary);
 }
 
 /* ══════════════════════════════════════════

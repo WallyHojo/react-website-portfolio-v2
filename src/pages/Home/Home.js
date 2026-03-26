@@ -11,6 +11,29 @@ import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 
+import { ReactComponent as JsonIcon } from '../../assets/images/icons/json.svg';
+import { ReactComponent as ResponsiveIcon } from '../../assets/images/icons/responsive-design.svg';
+import { ReactComponent as BugIcon } from '../../assets/images/icons/bug.svg';
+import { ReactComponent as ReliabilityIcon } from '../../assets/images/icons/reliability.svg';
+import { ReactComponent as TeamworkIcon } from '../../assets/images/icons/teamwork.svg';
+import { ReactComponent as CreativityIcon } from '../../assets/images/icons/creativity.svg';
+import { ReactComponent as ReactIcon } from '../../assets/images/icons/react.svg';
+import { ReactComponent as SolvingIcon } from '../../assets/images/icons/solving.svg';
+import { ReactComponent as GithubIcon } from '../../assets/images/icons/github.svg';
+import { ReactComponent as WebDevelopmentIcon } from '../../assets/images/icons/web.svg';
+import { ReactComponent as JiraIcon } from '../../assets/images/icons/jira.svg';
+import { ReactComponent as CommunicationIcon } from '../../assets/images/icons/communication.svg';
+import { ReactComponent as WebSupportIcon } from '../../assets/images/icons/support.svg';
+import { ReactComponent as WebServicesIcon } from '../../assets/images/icons/server.svg';
+import { ReactComponent as ApplicationIcon } from '../../assets/images/icons/application.svg';
+import { ReactComponent as OrganizationIcon } from '../../assets/images/icons/organization.svg';
+import { ReactComponent as CustomerSupportIcon } from '../../assets/images/icons/customer.svg';
+import { ReactComponent as ProgrammingIcon } from '../../assets/images/icons/programming.svg';
+import { ReactComponent as WebBuildingIcon } from '../../assets/images/icons/building.svg';
+import { ReactComponent as WordpressIcon } from '../../assets/images/icons/wordpress.svg';
+import { ReactComponent as UserInterfaceDesignIcon } from '../../assets/images/icons/interface.svg';
+import { ReactComponent as UXIcon } from '../../assets/images/icons/ux.svg';
+
 function Home() {
   useMarqueeScroll();
 
@@ -21,6 +44,62 @@ function Home() {
   useMagneticSVG(magSlatRefs.current, slatRefs.current, 10);
 
   const displayHeading = useTypewriterHeading(["Design Systems", "Accessible Interfaces", "Performance-Focused UI", "Frontend Architecture"]);
+
+  const marqueeRow1 = [
+    { label: 'JSON',                    icon: <JsonIcon width={34} height={34} /> },
+    { label: 'Responsive Design',       icon: <ResponsiveIcon width={34} height={34} /> },
+    { label: 'Testing & Debugging',     icon: <BugIcon width={34} height={34} /> },
+    { label: 'Reliability',             icon: <ReliabilityIcon width={34} height={34} /> },
+    { label: 'Teamwork',                icon: <TeamworkIcon width={34} height={34} /> },
+    { label: 'Creativity & Innovation', icon: <CreativityIcon width={34} height={34} /> },
+    { label: 'React.js',                icon: <ReactIcon width={34} height={34} /> },
+    { label: 'Problem Solving',         icon: <SolvingIcon width={34} height={34} /> },
+    { label: 'GitHub',                  icon: <GithubIcon width={34} height={34} /> },
+    { label: 'Web Development',         icon: <WebDevelopmentIcon width={34} height={34} /> },
+    { label: 'Jira',                    icon: <JiraIcon width={34} height={34} /> },
+    { label: 'Communication',           icon: <CommunicationIcon width={34} height={34} /> },
+    { label: 'Web Support',             icon: <WebSupportIcon width={34} height={34} /> },
+    { label: 'Web Services',            icon: <WebServicesIcon width={34} height={34} /> },
+    { label: 'Web Applications',        icon: <ApplicationIcon width={34} height={34} /> },
+    { label: 'Organization Skills',     icon: <OrganizationIcon width={34} height={34} /> },
+    { label: 'Customer Support',        icon: <CustomerSupportIcon width={34} height={34} /> },
+    { label: 'Programming',             icon: <ProgrammingIcon width={34} height={34} /> },
+    { label: 'Website Building',        icon: <WebBuildingIcon width={34} height={34} /> }
+  ];
+
+  const marqueeRow2 = [
+    { label: 'WordPress',               icon: <WordpressIcon width={34} height={34} /> },
+    { label: 'User Interface Design',   icon: <UserInterfaceDesignIcon width={34} height={34} /> },
+    { label: 'User Experience (UX)',    icon: <UXIcon width={34} height={34} /> },
+    { label: 'XSLT',                    icon: ''  },
+    { label: 'XML',                     icon: ''  },
+    { label: 'ZURB Foundation',         icon: ''  },
+    { label: 'SEO',                     icon: ''  },
+    { label: 'Web Design',              icon: ''  },
+    { label: 'Responsive Web Design',   icon: ''  },
+    { label: 'Mobile Web Design',       icon: ''  },
+    { label: 'Web Interface Design',    icon: ''  },
+    { label: 'Bootstrap',               icon: ''  },
+    { label: 'Adobe XD',                icon: ''  },
+    { label: 'Adobe Illustrator',       icon: ''  },
+    { label: 'HTML5',                   icon: ''  },
+    { label: 'CSS3',                    icon: ''  },
+    { label: 'jQuery',                  icon: ''  },
+    { label: 'PHP',                     icon: ''  },
+    { label: 'Adobe Photoshop',         icon: ''  }
+  ];  
+
+  function SkillChip({ label, icon }) {
+    return (
+      <>
+        <span className='skill-chip' aria-label={label}>
+          <span className='skill-chip__icon' aria-hidden='true'>{icon}</span>
+          <span className='skill-chip__label'>{label}</span>
+        </span>
+        <span className='divider' aria-hidden='true'>&bull;</span>
+      </>
+    );
+  }  
 
   return (
     <>
@@ -37,7 +116,7 @@ function Home() {
             <p className='text-muted' sa='up glacial delay-600'>
               With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
             </p>
-            <Link to='/Contact' className='btn btn-primary' sa='up delay-400'>
+            <Link to='/Contact' className='btn btn-primary' sa='up delay-400' data-cursor="light">
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
@@ -157,87 +236,11 @@ function Home() {
       </section>
       <section className='section section__skills section-grain grain-subtle section-padding'>
         <Marquee speed='35s' rtl faded pauseOnHover>
-          <span>JSON</span>
-          <span className='divider'>&bull;</span>
-          <span>Responsive Design</span>
-          <span className='divider'>&bull;</span>
-          <span>Testing & Debugging</span>
-          <span className='divider'>&bull;</span>
-          <span>Reliability</span>
-          <span className='divider'>&bull;</span>
-          <span>Teamwork</span>
-          <span className='divider'>&bull;</span>
-          <span>Creativity and Innovation</span>
-          <span className='divider'>&bull;</span>
-          <span>Problem Solving</span>
-          <span className='divider'>&bull;</span>
-          <span>GitHub</span>
-          <span className='divider'>&bull;</span>
-          <span>React.js</span>
-          <span className='divider'>&bull;</span>
-          <span>Web Development</span>
-          <span className='divider'>&bull;</span>
-          <span>Jira</span>
-          <span className='divider'>&bull;</span>
-          <span>Communication</span>
-          <span className='divider'>&bull;</span>
-          <span>Web Support</span>
-          <span className='divider'>&bull;</span>
-          <span>Web Services</span>
-          <span className='divider'>&bull;</span>
-          <span>Web Applications</span>
-          <span className='divider'>&bull;</span>
-          <span>Organization Skills</span>
-          <span className='divider'>&bull;</span>
-          <span>Customer Support</span>
-          <span className='divider'>&bull;</span>
-          <span>HTML</span>
-          <span className='divider'>&bull;</span>
-          <span>Programming</span>
-          <span className='divider'>&bull;</span>
-          <span>Website Building</span>
-          <span className='divider'>&bull;</span>
+          {marqueeRow1.map(item => <SkillChip key={item.label} {...item} />)}
         </Marquee>
 
         <Marquee speed='35s' ltr faded pauseOnHover>
-          <span>WordPress</span>
-          <span className='divider'>&bull;</span>
-          <span>User Interface Design</span>
-          <span className='divider'>&bull;</span>
-          <span>User Experience (UX)</span>
-          <span className='divider'>&bull;</span>
-          <span>XSLT</span>
-          <span className='divider'>&bull;</span>
-          <span>XML</span>
-          <span className='divider'>&bull;</span>
-          <span>ZURB Foundation Framework</span>
-          <span className='divider'>&bull;</span>
-          <span>Search Engine Optimization (SEO)</span>
-          <span className='divider'>&bull;</span>
-          <span>Web Design</span>
-          <span className='divider'>&bull;</span>
-          <span>Responsive Web Design</span>
-          <span className='divider'>&bull;</span>
-          <span>Mobile Web Design</span>
-          <span className='divider'>&bull;</span>
-          <span>Web Interface Design</span>
-          <span className='divider'>&bull;</span>
-          <span>Bootstrap (Framework)</span>
-          <span className='divider'>&bull;</span>
-          <span>Adobe XD</span>
-          <span className='divider'>&bull;</span>
-          <span>Adobe Illustrator</span>
-          <span className='divider'>&bull;</span>
-          <span>HTML5</span>
-          <span className='divider'>&bull;</span>
-          <span>CSS3</span>
-          <span className='divider'>&bull;</span>
-          <span>jQuery</span>
-          <span className='divider'>&bull;</span>
-          <span>PHP</span>
-          <span className='divider'>&bull;</span>
-          <span>Adobe Photoshop</span>
-          <span className='divider'>&bull;</span>
+          {marqueeRow2.map(item => <SkillChip key={item.label} {...item} />)}
         </Marquee>
       </section>
     </>
