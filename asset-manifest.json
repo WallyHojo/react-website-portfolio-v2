@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.edbaceb7.css",
-    "main.js": "/static/js/main.741b061f.js",
+    "main.js": "/static/js/main.40876641.js",
     "static/media/Montserrat-Regular.woff": "/static/media/Montserrat-Regular.f3e05e510b90ba39ad29.woff",
     "static/media/Montserrat-Medium.woff": "/static/media/Montserrat-Medium.a95ccbb11b5d6009a829.woff",
     "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.e3c4beb3143f229f154c.woff",
@@ -14,32 +14,45 @@
     "static/media/handle-dots.svg": "/static/media/handle-dots.3d69c545a67ec4fccd2d53ec63f047a9.svg",
     "static/media/customer.svg": "/static/media/customer.142b5eaa49c154f9f597f7b5ce84307e.svg",
     "static/media/programming.svg": "/static/media/programming.77ed9886afe8ec39b770f3f34577252a.svg",
+    "static/media/seo.svg": "/static/media/seo.2e1306c05b39c4806243d12779ae99c3.svg",
+    "static/media/xml.svg": "/static/media/xml.ac0f7ab66a3ab6553f803bc3269e6aec.svg",
     "static/media/building.svg": "/static/media/building.8459d16530c91f46112e6fb370df636f.svg",
     "static/media/web.svg": "/static/media/web.9803db9151420e3ffff07f8eef1ff383.svg",
     "static/media/server.svg": "/static/media/server.cfcf318e9e71dbe548632d6cd947dbc1.svg",
+    "static/media/responsive-design.svg": "/static/media/responsive-design.9176774064876b4e8dc321cefb7e05a8.svg",
     "static/media/json.svg": "/static/media/json.aa1c648ee00c3ef995379d353a55bbb5.svg",
+    "static/media/design.svg": "/static/media/design.8bc2a05bdf49d1136b39dc47b9d26c75.svg",
+    "static/media/mobile.svg": "/static/media/mobile.e21980d10579a18f61c93a21f3356f17.svg",
+    "static/media/responsive-mobile.svg": "/static/media/responsive-mobile.b7041688b0609a9718e324dbd5f72fab.svg",
     "static/media/wordpress.svg": "/static/media/wordpress.54692b08cd663be3fde2dcf8f7678fb3.svg",
     "static/media/creativity.svg": "/static/media/creativity.35a5aaa8ba15879f4f4454a44399d4db.svg",
     "static/media/bug.svg": "/static/media/bug.0d9e1a7c11aa7d19aa28e29a875a23cb.svg",
-    "static/media/interface.svg": "/static/media/interface.a3b7525aa8947fc14e9d3e2b5dd2c7fc.svg",
+    "static/media/xslt.svg": "/static/media/xslt.3d6e8841b8b290edf6dc466d03e48f1c.svg",
+    "static/media/interface.svg": "/static/media/interface.83d946afc2ba2ee2918b90a9467ef4ee.svg",
     "static/media/ux.svg": "/static/media/ux.60491a80445235ab751eb5912b61177e.svg",
-    "static/media/responsive-design.svg": "/static/media/responsive-design.cc68938a884d5be5323eb4529f415fbd.svg",
     "static/media/support.svg": "/static/media/support.1d7928ed86604baf03c070ca62a26eec.svg",
     "static/media/teamwork.svg": "/static/media/teamwork.e0ec9c221522f98c2c66f201b5a4bd97.svg",
     "static/media/jira.svg": "/static/media/jira.fb9c7d8c8b21875aaecf3fee99c6a44c.svg",
     "static/media/reliability.svg": "/static/media/reliability.373ea7c8f069c0a1c353b2071aa12c8a.svg",
+    "static/media/css.svg": "/static/media/css.1c5f2d1df36b750e8cb6061ae8660b74.svg",
+    "static/media/bootstrap.svg": "/static/media/bootstrap.2a90f3434c7022093b2ebc3977f3a791.svg",
+    "static/media/ui.svg": "/static/media/ui.e1f2902e19c70306b31bda079ebd8203.svg",
     "static/media/communication.svg": "/static/media/communication.6e8fc7484e8e45bb0b6604c201baa4aa.svg",
     "static/media/github.svg": "/static/media/github.67e6bb4e9079559b339ab783f36b14d1.svg",
     "static/media/react.svg": "/static/media/react.66829be6fff6784223dec73d308ae7b6.svg",
+    "static/media/html.svg": "/static/media/html.a6e2a161bb76ac4096669c30785993a9.svg",
     "static/media/solving.svg": "/static/media/solving.5954f95cfc8b670076202c49d39d725b.svg",
+    "static/media/xd.svg": "/static/media/xd.3e378c8f81b98e6a7082c55576b6f5ee.svg",
+    "static/media/zurb.svg": "/static/media/zurb.15b2ad50c4f9c26f70c3e4ecc6a86970.svg",
+    "static/media/illustrator.svg": "/static/media/illustrator.32ac3b1812d5ce526c59fa7e93c131f8.svg",
     "index.html": "/index.html",
     "static/media/diagnal-lines.svg": "/static/media/diagnal-lines.d50980375f150b1881aa0863252c5779.svg",
     "static/media/arrow-down.svg": "/static/media/arrow-down.b15656a7febabc5b79d0c138d0a3c034.svg",
     "main.edbaceb7.css.map": "/static/css/main.edbaceb7.css.map",
-    "main.741b061f.js.map": "/static/js/main.741b061f.js.map"
+    "main.40876641.js.map": "/static/js/main.40876641.js.map"
   },
   "entrypoints": [
     "static/css/main.edbaceb7.css",
-    "static/js/main.741b061f.js"
+    "static/js/main.40876641.js"
   ]
 }
