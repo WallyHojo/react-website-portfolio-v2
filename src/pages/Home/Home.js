@@ -1,18 +1,19 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import "../../assets/styles/dot-pattern.css";
 import "../../assets/styles/noise.css";
 import { useMagneticSVG } from "../../hooks/useMagneticSVG";
 import { useMarqueeScroll, Marquee } from "../../hooks/useMarqueeScroll";
+import { useDotGrid, DotGrid } from '../../hooks/useDotGrid';
 import { useTypewriterHeading } from "../../hooks/useTypewriterHeading";
 import heroBg from "../../assets/images/hero_bg.webp";
 import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 
+// SVG imports for skill icons
 import { ReactComponent as JsonIcon } from '../../assets/images/icons/json.svg';
-import { ReactComponent as ResponsiveIcon } from '../../assets/images/icons/responsive-design.svg';
+import { ReactComponent as ResponsiveMobileIcon } from '../../assets/images/icons/responsive-mobile.svg';
 import { ReactComponent as BugIcon } from '../../assets/images/icons/bug.svg';
 import { ReactComponent as ReliabilityIcon } from '../../assets/images/icons/reliability.svg';
 import { ReactComponent as TeamworkIcon } from '../../assets/images/icons/teamwork.svg';
@@ -32,74 +33,90 @@ import { ReactComponent as ProgrammingIcon } from '../../assets/images/icons/pro
 import { ReactComponent as WebBuildingIcon } from '../../assets/images/icons/building.svg';
 import { ReactComponent as WordpressIcon } from '../../assets/images/icons/wordpress.svg';
 import { ReactComponent as UserInterfaceDesignIcon } from '../../assets/images/icons/interface.svg';
+import { ReactComponent as XSLTIcon } from '../../assets/images/icons/xslt.svg';
+import { ReactComponent as XMLIcon } from '../../assets/images/icons/xml.svg';
+import { ReactComponent as ZurbIcon } from '../../assets/images/icons/zurb.svg';
+import { ReactComponent as SEOIcon } from '../../assets/images/icons/seo.svg';
+import { ReactComponent as DesignIcon } from '../../assets/images/icons/design.svg';
+import { ReactComponent as ResponsiveDesignIcon } from '../../assets/images/icons/responsive-design.svg';
+import { ReactComponent as MobileIcon } from '../../assets/images/icons/mobile.svg';
+import { ReactComponent as UIIcon } from '../../assets/images/icons/ui.svg';
 import { ReactComponent as UXIcon } from '../../assets/images/icons/ux.svg';
+import { ReactComponent as XDIcon } from '../../assets/images/icons/xd.svg';
+import { ReactComponent as BootstrapIcon } from '../../assets/images/icons/bootstrap.svg';
+import { ReactComponent as IllustratorIcon } from '../../assets/images/icons/illustrator.svg';
+import { ReactComponent as CSSIcon } from '../../assets/images/icons/css.svg';
+import { ReactComponent as HTMLIcon } from '../../assets/images/icons/html.svg';
+
+// Data for marquee skill chips
+const marqueeRow1 = [
+  { label: 'JSON',                    icon: <JsonIcon width={34} height={34} /> },
+  { label: 'Responsive Design',       icon: <ResponsiveMobileIcon width={34} height={34} /> },
+  { label: 'Testing & Debugging',     icon: <BugIcon width={34} height={34} /> },
+  { label: 'Reliability',             icon: <ReliabilityIcon width={34} height={34} /> },
+  { label: 'Teamwork',                icon: <TeamworkIcon width={34} height={34} /> },
+  { label: 'Creativity & Innovation', icon: <CreativityIcon width={34} height={34} /> },
+  { label: 'React.js',                icon: <ReactIcon width={34} height={34} /> },
+  { label: 'Problem Solving',         icon: <SolvingIcon width={34} height={34} /> },
+  { label: 'GitHub',                  icon: <GithubIcon width={34} height={34} /> },
+  { label: 'Web Development',         icon: <WebDevelopmentIcon width={34} height={34} /> },
+  { label: 'Jira',                    icon: <JiraIcon width={34} height={34} /> },
+  { label: 'Communication',           icon: <CommunicationIcon width={34} height={34} /> },
+  { label: 'Web Support',             icon: <WebSupportIcon width={34} height={34} /> },
+  { label: 'Web Services',            icon: <WebServicesIcon width={34} height={34} /> },
+  { label: 'Web Applications',        icon: <ApplicationIcon width={34} height={34} /> },
+  { label: 'Organization Skills',     icon: <OrganizationIcon width={34} height={34} /> },
+  { label: 'Customer Support',        icon: <CustomerSupportIcon width={34} height={34} /> }
+];
+
+// Second row of marquee skills
+const marqueeRow2 = [
+  { label: 'WordPress',               icon: <WordpressIcon width={34} height={34} /> },
+  { label: 'User Interface Design',   icon: <UserInterfaceDesignIcon width={34} height={34} /> },
+  { label: 'User Experience (UX)',    icon: <UXIcon width={34} height={34} /> },
+  { label: 'XSLT',                    icon: <XSLTIcon width={34} height={34} />  },
+  { label: 'XML',                     icon: <XMLIcon width={34} height={34} />  },
+  { label: 'ZURB Foundation',         icon: <ZurbIcon width={34} height={34} />  },
+  { label: 'SEO',                     icon: <SEOIcon width={34} height={34} />  },
+  { label: 'Web Design',              icon: <DesignIcon width={34} height={34} />  },
+  { label: 'Responsive Web Design',   icon: <ResponsiveDesignIcon width={34} height={34} />  },
+  { label: 'Mobile Web Design',       icon: <MobileIcon width={34} height={34} />  },
+  { label: 'Web Interface Design',    icon: <UIIcon width={34} height={34} />  },
+  { label: 'Adobe XD',                icon: <XDIcon width={34} height={34} />  },
+  { label: 'Bootstrap',               icon: <BootstrapIcon width={34} height={34} />  },
+  { label: 'Adobe Illustrator',       icon: <IllustratorIcon width={34} height={34} />  },
+  { label: 'CSS3',                    icon: <CSSIcon width={34} height={34} />  },
+  { label: 'HTML5',                   icon: <HTMLIcon width={34} height={34} />  },
+  { label: 'Website Building',        icon: <WebBuildingIcon width={34} height={34} /> },
+  { label: 'Programming',             icon: <ProgrammingIcon width={34} height={34} /> }
+]; 
+
+// Component for individual skill chips in the marquee
+function SkillChip({ label, icon }) {
+  return (
+    <>
+      <span className='skill-chip' aria-label={label}>
+        <span className='skill-chip__icon' aria-hidden='true'>{icon}</span>
+        <span className='skill-chip__label'>{label}</span>
+      </span>
+      <span className='divider' aria-hidden='true'>&bull;</span>
+    </>
+  );
+}  
 
 function Home() {
   useMarqueeScroll();
+  useDotGrid();
 
+  // Refs for magnetic slats
   const SLAT_COUNT = 5;
   const magSlatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
   const slatRefs    = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
 
   useMagneticSVG(magSlatRefs.current, slatRefs.current, 10);
 
+  // Typewriter effect for hero heading
   const displayHeading = useTypewriterHeading(["Design Systems", "Accessible Interfaces", "Performance-Focused UI", "Frontend Architecture"]);
-
-  const marqueeRow1 = [
-    { label: 'JSON',                    icon: <JsonIcon width={34} height={34} /> },
-    { label: 'Responsive Design',       icon: <ResponsiveIcon width={34} height={34} /> },
-    { label: 'Testing & Debugging',     icon: <BugIcon width={34} height={34} /> },
-    { label: 'Reliability',             icon: <ReliabilityIcon width={34} height={34} /> },
-    { label: 'Teamwork',                icon: <TeamworkIcon width={34} height={34} /> },
-    { label: 'Creativity & Innovation', icon: <CreativityIcon width={34} height={34} /> },
-    { label: 'React.js',                icon: <ReactIcon width={34} height={34} /> },
-    { label: 'Problem Solving',         icon: <SolvingIcon width={34} height={34} /> },
-    { label: 'GitHub',                  icon: <GithubIcon width={34} height={34} /> },
-    { label: 'Web Development',         icon: <WebDevelopmentIcon width={34} height={34} /> },
-    { label: 'Jira',                    icon: <JiraIcon width={34} height={34} /> },
-    { label: 'Communication',           icon: <CommunicationIcon width={34} height={34} /> },
-    { label: 'Web Support',             icon: <WebSupportIcon width={34} height={34} /> },
-    { label: 'Web Services',            icon: <WebServicesIcon width={34} height={34} /> },
-    { label: 'Web Applications',        icon: <ApplicationIcon width={34} height={34} /> },
-    { label: 'Organization Skills',     icon: <OrganizationIcon width={34} height={34} /> },
-    { label: 'Customer Support',        icon: <CustomerSupportIcon width={34} height={34} /> },
-    { label: 'Programming',             icon: <ProgrammingIcon width={34} height={34} /> },
-    { label: 'Website Building',        icon: <WebBuildingIcon width={34} height={34} /> }
-  ];
-
-  const marqueeRow2 = [
-    { label: 'WordPress',               icon: <WordpressIcon width={34} height={34} /> },
-    { label: 'User Interface Design',   icon: <UserInterfaceDesignIcon width={34} height={34} /> },
-    { label: 'User Experience (UX)',    icon: <UXIcon width={34} height={34} /> },
-    { label: 'XSLT',                    icon: ''  },
-    { label: 'XML',                     icon: ''  },
-    { label: 'ZURB Foundation',         icon: ''  },
-    { label: 'SEO',                     icon: ''  },
-    { label: 'Web Design',              icon: ''  },
-    { label: 'Responsive Web Design',   icon: ''  },
-    { label: 'Mobile Web Design',       icon: ''  },
-    { label: 'Web Interface Design',    icon: ''  },
-    { label: 'Bootstrap',               icon: ''  },
-    { label: 'Adobe XD',                icon: ''  },
-    { label: 'Adobe Illustrator',       icon: ''  },
-    { label: 'HTML5',                   icon: ''  },
-    { label: 'CSS3',                    icon: ''  },
-    { label: 'jQuery',                  icon: ''  },
-    { label: 'PHP',                     icon: ''  },
-    { label: 'Adobe Photoshop',         icon: ''  }
-  ];  
-
-  function SkillChip({ label, icon }) {
-    return (
-      <>
-        <span className='skill-chip' aria-label={label}>
-          <span className='skill-chip__icon' aria-hidden='true'>{icon}</span>
-          <span className='skill-chip__label'>{label}</span>
-        </span>
-        <span className='divider' aria-hidden='true'>&bull;</span>
-      </>
-    );
-  }  
 
   return (
     <>
@@ -139,20 +156,20 @@ function Home() {
         </div>
 
         <div className='hero__decor'>
-          <div className='hero__shape dots-svg dots--1'>
+          <div className='decor__shape dots-svg dots--1'>
             <img src={handleDots} alt='Handle dots' sa='float glacial delay-400 float-loop' />
           </div>
-          <div className='hero__shape dots-svg dots--2'>
+          <div className='decor__shape dots-svg dots--2'>
             <img src={handleDots} alt='Handle dots' sa='float glacial delay-600 float-loop' />
           </div>
-          <div className='hero__shape arrow-down-svg arrow-down--1'>
+          <div className='decor__shape arrow-down-svg arrow-down--1'>
             <img src={arrowDown} alt='Arrow down drop' sa='float glacial delay-800 float-loop' />
           </div>
-          <div className='hero__shape arrow-down-svg arrow-down--2'>
+          <div className='decor__shape arrow-down-svg arrow-down--2'>
             <img src={arrowDown} alt='Arrow down drop' sa='float glacial delay-1000 float-loop' />
           </div>
 
-          <svg className='hero__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+          <svg className='decor__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
             <defs>
               <mask id='slats-mask' maskUnits='userSpaceOnUse' x='0' y='0' width='100%' height='100%'>
                 <g className='slat'>
@@ -209,32 +226,37 @@ function Home() {
             */}
 
             <g transform='rotate(45, 770, 170)'>
-              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[0].current = el} x='500' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[0].current = el} x='500' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 970, 205)'>
-              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[1].current = el} x='705' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[1].current = el} x='705' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 1170, 210)'>
-              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[2].current = el} x='930' y='60' width='140' height='130vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[2].current = el} x='930' y='60' width='140' height='130vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 1370, 200)'>
-              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[3].current = el} x='1165' y='200' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[3].current = el} x='1165' y='200' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 1370, 200)'>
-              <rect className='magnetic magnetic--subtle' ref={el => magSlatRefs.current[4].current = el} x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[4].current = el} x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>            
           </svg>
-
-          <div className='hero__shape slats-bg'>
-            <img src={diagnalLines} alt='diagonal lines' width='416' height='354' />
-          </div>
+          <div className='decor__shape slats-bg slats-bg--hero'>
+            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' />
+          </div>          
         </div>
       </section>
-      <section className='section section__skills section-grain grain-subtle section-padding'>
+      <section className='section section__skills section-padding'>
+        <div className='hero__decor'>
+          <DotGrid color="text-disabled" pattern="scatter" size="small" cols={42} className="backdrop-dots" />
+          <div className='decor__shape slats-bg slats-bg--skills' sa='right glacial delay-400'>
+            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' />
+          </div>
+        </div>        
         <Marquee speed='35s' rtl faded pauseOnHover>
           {marqueeRow1.map(item => <SkillChip key={item.label} {...item} />)}
         </Marquee>
@@ -242,6 +264,9 @@ function Home() {
         <Marquee speed='35s' ltr faded pauseOnHover>
           {marqueeRow2.map(item => <SkillChip key={item.label} {...item} />)}
         </Marquee>
+      </section>
+      <section className='section section__work section-grain grain-medium section-padding height-viewport'>
+      
       </section>
     </>
   );

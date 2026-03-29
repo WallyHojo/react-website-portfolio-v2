@@ -50,7 +50,11 @@ function Navbar() {
   Menu open/close
   */
   const [menuOpen, setMenuOpen] = useState(false);
-  const handleOpen = () => setMenuOpen(true);
+  const handleOpen = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setMenuOpen(true);
+  };
   const handleClose = () => setMenuOpen("closing");
 
   useEffect(() => {
@@ -60,7 +64,7 @@ function Navbar() {
     } else {
       document.body.classList.remove('no-scroll');
     }
-  },);  
+  }, [menuOpen]);  
 
   const handleAnimationEnd = (e) => {
     // Only fire on the menu element itself, not bubbled events from children

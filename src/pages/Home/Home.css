@@ -52,7 +52,7 @@
   transition: opacity 0.6s ease-out;
 }
 
-.hero__shape {
+.decor__shape {
   position: absolute;
   z-index: 0;
 }
@@ -83,22 +83,38 @@
 
 .slats-bg {
   bottom: 0;
-  left: 0;
 }
 
+.slats-bg--hero {
+  bottom: calc(730px / -2);
+  left: calc(900px / -2);
+}
+
+.slats-bg--skills {
+  top: calc(730px / -2);
+  left: calc(900px / -1.85);
+}
+
+/* ========================================================================== */
+/*                                Skills Section                              */
+/* ========================================================================== */
+
 .section__skills {
+  background-color: var(--color-bg-surface);
   position: relative;
   display: flex;
   flex-direction: column;
-  row-gap: 32px;
-  background: radial-gradient(ellipse at 15% 10%, #676767 0%, var(--color-bg-subtle) 30%, var(--color-bg-base) 60%, #0d0d0d 100%);
   overflow: hidden;
+}
+
+.section__skills > .marquee + .marquee {
+  margin-top: 32px;
 }
 
 .section__skills .marquee-content span {
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: clamp(1.125rem, 1.0417rem + 0.3704vw, 1.375rem);
 }
 
 .section__skills .marquee-content span:nth-child(4n + 1):not(.divider) {
@@ -121,16 +137,30 @@
   border: 1px solid var(--color-border);
   border-radius: 999px;
   background: var(--color-text-inverse);
+  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
   font-size: 0.875rem;
   font-weight: 500;
   white-space: nowrap;
   pointer-events: none; /* looks like a button, doesn't act like one */
   user-select: none;
+  box-shadow: inset -1px 1px 0px #ffffff24, inset -1px 0px 0px #00000094, inset 0px -1px 0px #ffffff1a;
 }
 
 .skill-chip__icon {
   font-size: 1em;
   line-height: 1;
+}
+
+/* ========================================================================== */
+/*                                Work Section                                */
+/* ========================================================================== */
+
+.section__work {
+  position: relative;
+  background:
+    radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%),
+    radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
+  overflow: hidden;
 }
 
 /* ========================================================================== */
