@@ -47,6 +47,9 @@ import { ReactComponent as BootstrapIcon } from '../../assets/images/icons/boots
 import { ReactComponent as IllustratorIcon } from '../../assets/images/icons/illustrator.svg';
 import { ReactComponent as CSSIcon } from '../../assets/images/icons/css.svg';
 import { ReactComponent as HTMLIcon } from '../../assets/images/icons/html.svg';
+import { ReactComponent as JQUERYIcon } from '../../assets/images/icons/jquery.svg';
+import { ReactComponent as PHPIcon } from '../../assets/images/icons/php.svg';
+import { ReactComponent as PhotoshopIcon } from '../../assets/images/icons/photoshop.svg';
 
 // Data for marquee skill chips
 const marqueeRow1 = [
@@ -66,7 +69,8 @@ const marqueeRow1 = [
   { label: 'Web Services',            icon: <WebServicesIcon width={34} height={34} /> },
   { label: 'Web Applications',        icon: <ApplicationIcon width={34} height={34} /> },
   { label: 'Organization Skills',     icon: <OrganizationIcon width={34} height={34} /> },
-  { label: 'Customer Support',        icon: <CustomerSupportIcon width={34} height={34} /> }
+  { label: 'Customer Support',        icon: <CustomerSupportIcon width={34} height={34} /> },
+  { label: 'JQUERY',                  icon: <JQUERYIcon width={34} height={34} /> }
 ];
 
 // Second row of marquee skills
@@ -88,7 +92,9 @@ const marqueeRow2 = [
   { label: 'CSS3',                    icon: <CSSIcon width={34} height={34} />  },
   { label: 'HTML5',                   icon: <HTMLIcon width={34} height={34} />  },
   { label: 'Website Building',        icon: <WebBuildingIcon width={34} height={34} /> },
-  { label: 'Programming',             icon: <ProgrammingIcon width={34} height={34} /> }
+  { label: 'Programming',             icon: <ProgrammingIcon width={34} height={34} /> },
+  { label: 'PHP',                     icon: <PHPIcon width={34} height={34} /> },
+  { label: 'Adobe Photoshop',         icon: <PhotoshopIcon width={34} height={34} /> }
 ]; 
 
 // Component for individual skill chips in the marquee
@@ -265,7 +271,7 @@ function Home() {
           {marqueeRow2.map(item => <SkillChip key={item.label} {...item} />)}
         </Marquee>
       </section>
-      <section className='section section__work section-grain grain-medium section-padding height-viewport'>
+      <section className='section section__work section-padding height-viewport'>
       
       </section>
     </>

@@ -319,7 +319,7 @@ ul.menu__nav-links li a {
 }
 
 ul.menu__nav-links li:is(:hover, .--is-active) a {
-  color: var(--color-text-inverse);
+  color: var(--color-primary);
 }
 
 .menu__footer {
