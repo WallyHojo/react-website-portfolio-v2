@@ -79,7 +79,7 @@ const marqueeRow2 = [
   { label: 'ZURB Foundation',         icon: <ZurbIcon width={34} height={34} />  },
   { label: 'SEO',                     icon: <SEOIcon width={34} height={34} />  },
   { label: 'Web Design',              icon: <DesignIcon width={34} height={34} />  },
-  { label: 'Responsive Web Design',   icon: <ResponsiveDesignIcon width={34} height={34} />  },
+  { label: 'Responsive Web Design',   icon: <ResponsiveDesignIcon width={34} height={34} /> },
   { label: 'Mobile Web Design',       icon: <MobileIcon width={34} height={34} />  },
   { label: 'Web Interface Design',    icon: <UIIcon width={34} height={34} />  },
   { label: 'Adobe XD',                icon: <XDIcon width={34} height={34} />  },
@@ -95,11 +95,11 @@ const marqueeRow2 = [
 function SkillChip({ label, icon }) {
   return (
     <>
-      <span className='skill-chip' aria-label={label}>
+      <span className='skill-chip' aria-label={label} sa='fade glacial mirror delay-200'>
         <span className='skill-chip__icon' aria-hidden='true'>{icon}</span>
         <span className='skill-chip__label'>{label}</span>
       </span>
-      <span className='divider' aria-hidden='true'>&bull;</span>
+      <span className='divider' aria-hidden='true' sa='fade glacial mirror delay-600'>&bull;</span>
     </>
   );
 }  

@@ -100,7 +100,7 @@
 /* ========================================================================== */
 
 .section__skills {
-  background-color: var(--color-bg-surface);
+  background-color: var(--color-bg-elevated);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -132,7 +132,7 @@
 .skill-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   padding: 6px 14px;
   border: 1px solid var(--color-border);
   border-radius: 999px;
@@ -156,10 +156,8 @@
 /* ========================================================================== */
 
 .section__work {
+  background-color: var(--color-text-inverse);
   position: relative;
-  background:
-    radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%),
-    radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
   overflow: hidden;
 }
 

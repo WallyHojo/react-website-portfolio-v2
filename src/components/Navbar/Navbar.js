@@ -86,46 +86,56 @@ function Navbar() {
           <div className='navbar__background'></div>
           <div className='navbar__logo'>
             <Link to='/'>
-              <svg xmlns='http://www.w3.org/2000/svg' width='54' height='34' viewBox='0 0 445 285'>
+              <svg xmlns='http://www.w3.org/2000/svg' width='54' height='34' viewBox='0 0 320 220'>
                 <defs>
-                  <linearGradient id='draw-a-gradient' x1='0%' y1='0%' x2='100%' y2='0%'>
-                    <stop offset='0%' stopColor='#4ca1d9' />
-                    <stop offset='50%' stopColor='#24265d' />
-                    <stop offset='65%' stopColor='#24265d' />
-                    <stop offset='100%' stopColor='#4ca1d9' />
+                  <linearGradient id='draw-a-gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
+                    <stop offset='0%' stop-color='#52c0ed'></stop>
+                    <stop offset='50%' stop-color='#3d74a6'></stop>
+                    <stop offset='100%' stop-color='#262e64'></stop>
                   </linearGradient>
                   <linearGradient id='draw-b-gradient' x1='0%' y1='0%' x2='100%' y2='0%'>
-                    <stop offset='0%' stopColor='#24265d' />
-                    <stop offset='100%' stopColor='#4ca1d9' />
+                    <stop offset='0%' stop-color='#32578b'></stop>
+                    <stop offset='50%' stop-color='#3d77aa'></stop>
+                    <stop offset='100%' stop-color='#52c0ed'></stop>
                   </linearGradient>
-                  <linearGradient id='draw-c-gradient' x1='0%' y1='0%' x2='0%' y2='100%'>
-                    <stop offset='0%' stopColor='#4ca1d9' />
-                    <stop offset='75%' stopColor='#24265d' />
+                  <linearGradient id='draw-c-gradient' x1='0%' y1='0%' x2='100%' y2='0%'>
+                    <stop offset='0%' stop-color='#448bc3'></stop>
+                    <stop offset='50%' stop-color='#24265d'></stop>
+                    <stop offset='100%' stop-color='#4b9cd4'></stop>
                   </linearGradient>
-                  <linearGradient id='draw-d-gradient' x1='0%' y1='0%' x2='0%' y2='100%'>
-                    <stop offset='0%' stopColor='#4ca1d9' />
-                    <stop offset='75%' stopColor='#24265d' />
+                  <linearGradient id='draw-d-gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
+                    <stop offset='0%' stop-color='#4b9dd5'></stop>
+                    <stop offset='50%' stop-color='#3b679e'></stop>
+                    <stop offset='100%' stop-color='#262c62'></stop>
                   </linearGradient>
-                  <linearGradient id='draw-e-gradient' x1='0%' y1='0%' x2='0%' y2='100%'>
-                    <stop offset='0%' stopColor='#4ca1d9' />
-                    <stop offset='100%' stopColor='#24265d' />
+                  <linearGradient id='draw-e-gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
+                    <stop offset='0%' stop-color='#52bfeb'></stop>
+                    <stop offset='50%' stop-color='#3c6ea1'></stop>
+                    <stop offset='100%' stop-color='#262c63'></stop>
                   </linearGradient>
                 </defs>
 
-                <g className='path-a' transform='translate(5.5 5.5)'>
-                  <path d='m.034.03.43.946.511-.748S1.03.144.972.044C.94.097.48.767.48.767L.15.049S.11-.044.034.029' clipRule='evenodd' fill='url(#draw-a-gradient)' transform='matrix(433.98744 0 0 273.93312 .023 .716)' />
+                <g class='path-a' transform='translate(5.5 5.5)'>
+                  <path clip-rule='evenodd' fill='url(#draw-a-gradient)' d='M149.217 206.328c-11.006 10.647-27.583 8.371-35.084-2.486-8.555-12.117-112.074-160-112.074-160S-12.625 22.999 9.282 6.509c.073.11 139.935 199.819 139.935 199.819'
+                  />
                 </g>
-                <g className='path-b' transform='translate(5.5 5.5)'>
-                  <path d='M.479.772.423.655.856.03s.058-.078.116.02z' clipRule='evenodd' fill='url(#draw-b-gradient)' transform='scale(434.66667 274.66667)' />
+
+                <g class='path-b' transform='translate(5.5 5.5)'>
+                  <path clip-rule='evenodd' fill='url(#draw-b-gradient)' d='m153.961 165.397-15.223-21.687L280.803 6.542S297.71-9.854 315.59 9.267c.032.035-161.629 156.13-161.629 156.13' />
                 </g>
-                <g className='path-c' transform='translate(5.5 5.5)'>
-                  <path d='M.466.97S.452 1 .417 1 .36.976.347.951C.334.927.009.214.009.214S-.027.1.037.029z' clipRule='evenodd' fill='url(#draw-c-gradient)' transform='matrix(434.66667 0 0 274.57989 0 .003)' />
+
+                <g class='path-c' transform='translate(5.5 5.5)'>
+                  <path clip-rule='evenodd' fill='url(#draw-c-gradient)' d='m9.282 6.51 139.935 199.818 167.224-161.5s17.027-16.394-.851-35.56c-.04-.043-161.64 156.11-161.629 156.129L45.721 10.909S31.09-9.867 9.28 6.51' />
                 </g>
-                <g className='path-d' transform='translate(5.5 5)'>
-                  <path d='M.88.97S.808 1.044.764.957L.433.228S.383.118.45.03z' clipRule='evenodd' fill='url(#draw-d-gradient)' transform='matrix(434.66667 0 0 274 1 1.5)' />
+
+                <g class='path-d' transform='translate(5.5 5)'>
+                  <path clip-rule='evenodd' fill='url(#draw-d-gradient)' d='M139.963 9.638c23.715-17.857 35.667 3.52 35.667 3.52S280.098 162.441 283.204 166.76c9.562 13.292 4.071 30.462-6.35 38.363.006.029-136.849-195.447-136.891-195.484'
+                  />
                 </g>
-                <g className='path-e' transform='translate(5.5 5)'>
-                  <path d='M.448.034S.52-.039.564.049C.61.147.896.777.896.777S.946.883.877.97z' clipRule='evenodd' fill='url(#draw-e-gradient)' transform='matrix(434.66667 1 0 274 1.5 1)' />
+
+                <g class='path-e' transform='translate(5.5 5)'>
+                  <path clip-rule='evenodd' fill='url(#draw-e-gradient)' d='M276.854 205.122c-10.324 7.822-29.45 9.046-39.003-3.998-3.435-4.689-107.642-153.701-107.642-153.701s-14.173-19.875 9.754-37.785c.045.065 136.9 195.482 136.89 195.484'
+                  />
                 </g>
               </svg>
             </Link>
@@ -143,7 +153,7 @@ function Navbar() {
               </span>
             </Link>
             <div className='navbar-right__divider'></div>
-            <div className={`navbar-right__menu flex-all flex-direction-column flex-vert-center flex-space-between ${menuOpen === true ? "is-active" : ""}`} onClick={handleOpen} data-cursor="accent">
+            <div className={`navbar-right__menu flex-all flex-direction-column flex-vert-center flex-space-between ${menuOpen === true ? "is-active" : ""}`} onClick={handleOpen} data-cursor='accent'>
               <span className='menu-icon__bar menu-icon__bar--top'></span>
               <span className='menu-icon__bar menu-icon__bar--bottom'></span>
             </div>
@@ -156,7 +166,7 @@ function Navbar() {
         <div className='menu__ellipse menu__ellipse-1'></div>
         <div className='menu__ellipse menu__ellipse-2'></div>
         <div className='menu__close'>
-          <div className='menu__close-container flex-all flex-vert-center' onClick={handleClose} data-cursor="accent">
+          <div className='menu__close-container flex-all flex-vert-center' onClick={handleClose} data-cursor='accent'>
             <svg className='menu__clip-close' xmlns='http://www.w3.org/2000/svg' width='148.493' height='34' viewBox='0 0 34 34' fill='none'>
               <rect
                 id='menu-close-bar-1'
@@ -194,8 +204,10 @@ function Navbar() {
             <div className='menu__content-heading' sa='left slow delay-400'>
               Explore My Work, Projects, and Experience
             </div>
-            <div className='menu__divider'><hr /></div>
-            <Link to='/contact' className='btn btn-primary' sa='left slow delay-600' data-cursor="light">
+            <div className='menu__divider'>
+              <hr />
+            </div>
+            <Link to='/contact' className='btn btn-primary' sa='left slow delay-600' data-cursor='light'>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>

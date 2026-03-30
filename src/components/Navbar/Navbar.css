@@ -69,7 +69,8 @@
 
 .navbar-right__menu {
   width: 82px;
-  height: 15px;
+  height: 35px;
+  padding: 10px 0;
   cursor: pointer;
   animation: hambugerOpenBTN 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
 }
@@ -358,7 +359,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
 
 @keyframes logoScaleLeft {
   0% {
-    transform: translate(-11rem, 0.313rem);
+    transform: translate(-9rem, 0.313rem);
     opacity: 0;
   }
   100% {
