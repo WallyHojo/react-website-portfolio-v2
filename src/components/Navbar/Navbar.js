@@ -163,8 +163,6 @@ function Navbar() {
 
       {/* Menu */}
       <div className={`menu section-padding ${menuOpen === true ? "menu--open" : menuOpen === "closing" ? "menu--closing" : ""}`} onAnimationEnd={handleAnimationEnd} ref={replayRef}>
-        <div className='menu__ellipse menu__ellipse-1'></div>
-        <div className='menu__ellipse menu__ellipse-2'></div>
         <div className='menu__close'>
           <div className='menu__close-container flex-all flex-vert-center' onClick={handleClose} data-cursor='accent'>
             <svg className='menu__clip-close' xmlns='http://www.w3.org/2000/svg' width='148.493' height='34' viewBox='0 0 34 34' fill='none'>
@@ -253,6 +251,8 @@ function Navbar() {
             <hr />
           </div>
         </div>
+        <div className='menu__ellipse menu__ellipse-1'></div>
+        <div className='menu__ellipse menu__ellipse-2'></div>
       </div>
 
       {/* Menu Clipping Paths */}

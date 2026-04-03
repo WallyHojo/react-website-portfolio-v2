@@ -71,6 +71,7 @@ html {
 }
 
 body {
+  background-color: var(--color-bg-base);
   margin: 0;
   font-family: var(--font-main);
   font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);

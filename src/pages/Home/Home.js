@@ -102,8 +102,8 @@ function SkillChip({ label, icon }) {
   return (
     <>
       <span className='skill-chip' aria-label={label} sa='fade glacial mirror delay-200'>
-        <span className='skill-chip__icon' aria-hidden='true'>{icon}</span>
         <span className='skill-chip__label'>{label}</span>
+        <span className='skill-chip__icon' aria-hidden='true'>{icon}</span>
       </span>
       <span className='divider' aria-hidden='true' sa='fade glacial mirror delay-600'>&bull;</span>
     </>
@@ -258,7 +258,7 @@ function Home() {
       </section>
       <section className='section section__skills section-padding'>
         <div className='hero__decor'>
-          <DotGrid color="text-disabled" pattern="scatter" size="small" cols={42} className="backdrop-dots" />
+          <DotGrid color="overlay" pattern="scatter" size="small" cols={42} className="backdrop-dots" />
           <div className='decor__shape slats-bg slats-bg--skills' sa='right glacial delay-400'>
             <img src={diagnalLines} alt='diagonal lines' width='903' height='730' />
           </div>
@@ -270,7 +270,7 @@ function Home() {
         <Marquee speed='35s' ltr faded pauseOnHover>
           {marqueeRow2.map(item => <SkillChip key={item.label} {...item} />)}
         </Marquee>
-      </section>
+      </section> 
       <section className='section section__work section-padding height-viewport'>
       
       </section>

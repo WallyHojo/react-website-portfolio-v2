@@ -44,7 +44,7 @@ const SEL       = '[sa]';
 const VISIBLE   = 'sa-visible';
 const PREPARE   = 'sa-prepare';
 const THRESHOLD = 0.1;
-const MARGIN    = '0px 0px -50px 0px';
+const MARGIN = window.innerWidth < 768 ? '0px 0px 100px 0px' : '0px 0px -50px 0px';
 const STATE     = [VISIBLE, PREPARE, 'sa-enter-down', 'sa-enter-up', 'sa-exit-down', 'sa-exit-up'];
 
 // ── Shared singletons ─────────────────────────────────────────────────────────

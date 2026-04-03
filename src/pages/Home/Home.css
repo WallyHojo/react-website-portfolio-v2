@@ -100,7 +100,6 @@
 /* ========================================================================== */
 
 .section__skills {
-  background-color: var(--color-bg-elevated);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -156,7 +155,6 @@
 /* ========================================================================== */
 
 .section__work {
-  background-color: var(--color-text-inverse);
   position: relative;
   overflow: hidden;
 }
