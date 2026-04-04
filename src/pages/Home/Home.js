@@ -4,98 +4,99 @@ import "./Home.css";
 import "../../assets/styles/noise.css";
 import { useMagneticSVG } from "../../hooks/useMagneticSVG";
 import { useMarqueeScroll, Marquee } from "../../hooks/useMarqueeScroll";
-import { useDotGrid, DotGrid } from '../../hooks/useDotGrid';
+import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
 import { useTypewriterHeading } from "../../hooks/useTypewriterHeading";
+import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 import heroBg from "../../assets/images/hero_bg.webp";
 import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 
 // SVG imports for skill icons
-import { ReactComponent as JsonIcon } from '../../assets/images/icons/json.svg';
-import { ReactComponent as ResponsiveMobileIcon } from '../../assets/images/icons/responsive-mobile.svg';
-import { ReactComponent as BugIcon } from '../../assets/images/icons/bug.svg';
-import { ReactComponent as ReliabilityIcon } from '../../assets/images/icons/reliability.svg';
-import { ReactComponent as TeamworkIcon } from '../../assets/images/icons/teamwork.svg';
-import { ReactComponent as CreativityIcon } from '../../assets/images/icons/creativity.svg';
-import { ReactComponent as ReactIcon } from '../../assets/images/icons/react.svg';
-import { ReactComponent as SolvingIcon } from '../../assets/images/icons/solving.svg';
-import { ReactComponent as GithubIcon } from '../../assets/images/icons/github.svg';
-import { ReactComponent as WebDevelopmentIcon } from '../../assets/images/icons/web.svg';
-import { ReactComponent as JiraIcon } from '../../assets/images/icons/jira.svg';
-import { ReactComponent as CommunicationIcon } from '../../assets/images/icons/communication.svg';
-import { ReactComponent as WebSupportIcon } from '../../assets/images/icons/support.svg';
-import { ReactComponent as WebServicesIcon } from '../../assets/images/icons/server.svg';
-import { ReactComponent as ApplicationIcon } from '../../assets/images/icons/application.svg';
-import { ReactComponent as OrganizationIcon } from '../../assets/images/icons/organization.svg';
-import { ReactComponent as CustomerSupportIcon } from '../../assets/images/icons/customer.svg';
-import { ReactComponent as ProgrammingIcon } from '../../assets/images/icons/programming.svg';
-import { ReactComponent as WebBuildingIcon } from '../../assets/images/icons/building.svg';
-import { ReactComponent as WordpressIcon } from '../../assets/images/icons/wordpress.svg';
-import { ReactComponent as UserInterfaceDesignIcon } from '../../assets/images/icons/interface.svg';
-import { ReactComponent as XSLTIcon } from '../../assets/images/icons/xslt.svg';
-import { ReactComponent as XMLIcon } from '../../assets/images/icons/xml.svg';
-import { ReactComponent as ZurbIcon } from '../../assets/images/icons/zurb.svg';
-import { ReactComponent as SEOIcon } from '../../assets/images/icons/seo.svg';
-import { ReactComponent as DesignIcon } from '../../assets/images/icons/design.svg';
-import { ReactComponent as ResponsiveDesignIcon } from '../../assets/images/icons/responsive-design.svg';
-import { ReactComponent as MobileIcon } from '../../assets/images/icons/mobile.svg';
-import { ReactComponent as UIIcon } from '../../assets/images/icons/ui.svg';
-import { ReactComponent as UXIcon } from '../../assets/images/icons/ux.svg';
-import { ReactComponent as XDIcon } from '../../assets/images/icons/xd.svg';
-import { ReactComponent as BootstrapIcon } from '../../assets/images/icons/bootstrap.svg';
-import { ReactComponent as IllustratorIcon } from '../../assets/images/icons/illustrator.svg';
-import { ReactComponent as CSSIcon } from '../../assets/images/icons/css.svg';
-import { ReactComponent as HTMLIcon } from '../../assets/images/icons/html.svg';
-import { ReactComponent as JQUERYIcon } from '../../assets/images/icons/jquery.svg';
-import { ReactComponent as PHPIcon } from '../../assets/images/icons/php.svg';
-import { ReactComponent as PhotoshopIcon } from '../../assets/images/icons/photoshop.svg';
+import { ReactComponent as JsonIcon } from "../../assets/images/icons/json.svg";
+import { ReactComponent as ResponsiveMobileIcon } from "../../assets/images/icons/responsive-mobile.svg";
+import { ReactComponent as BugIcon } from "../../assets/images/icons/bug.svg";
+import { ReactComponent as ReliabilityIcon } from "../../assets/images/icons/reliability.svg";
+import { ReactComponent as TeamworkIcon } from "../../assets/images/icons/teamwork.svg";
+import { ReactComponent as CreativityIcon } from "../../assets/images/icons/creativity.svg";
+import { ReactComponent as ReactIcon } from "../../assets/images/icons/react.svg";
+import { ReactComponent as SolvingIcon } from "../../assets/images/icons/solving.svg";
+import { ReactComponent as GithubIcon } from "../../assets/images/icons/github.svg";
+import { ReactComponent as WebDevelopmentIcon } from "../../assets/images/icons/web.svg";
+import { ReactComponent as JiraIcon } from "../../assets/images/icons/jira.svg";
+import { ReactComponent as CommunicationIcon } from "../../assets/images/icons/communication.svg";
+import { ReactComponent as WebSupportIcon } from "../../assets/images/icons/support.svg";
+import { ReactComponent as WebServicesIcon } from "../../assets/images/icons/server.svg";
+import { ReactComponent as ApplicationIcon } from "../../assets/images/icons/application.svg";
+import { ReactComponent as OrganizationIcon } from "../../assets/images/icons/organization.svg";
+import { ReactComponent as CustomerSupportIcon } from "../../assets/images/icons/customer.svg";
+import { ReactComponent as ProgrammingIcon } from "../../assets/images/icons/programming.svg";
+import { ReactComponent as WebBuildingIcon } from "../../assets/images/icons/building.svg";
+import { ReactComponent as WordpressIcon } from "../../assets/images/icons/wordpress.svg";
+import { ReactComponent as UserInterfaceDesignIcon } from "../../assets/images/icons/interface.svg";
+import { ReactComponent as XSLTIcon } from "../../assets/images/icons/xslt.svg";
+import { ReactComponent as XMLIcon } from "../../assets/images/icons/xml.svg";
+import { ReactComponent as ZurbIcon } from "../../assets/images/icons/zurb.svg";
+import { ReactComponent as SEOIcon } from "../../assets/images/icons/seo.svg";
+import { ReactComponent as DesignIcon } from "../../assets/images/icons/design.svg";
+import { ReactComponent as ResponsiveDesignIcon } from "../../assets/images/icons/responsive-design.svg";
+import { ReactComponent as MobileIcon } from "../../assets/images/icons/mobile.svg";
+import { ReactComponent as UIIcon } from "../../assets/images/icons/ui.svg";
+import { ReactComponent as UXIcon } from "../../assets/images/icons/ux.svg";
+import { ReactComponent as XDIcon } from "../../assets/images/icons/xd.svg";
+import { ReactComponent as BootstrapIcon } from "../../assets/images/icons/bootstrap.svg";
+import { ReactComponent as IllustratorIcon } from "../../assets/images/icons/illustrator.svg";
+import { ReactComponent as CSSIcon } from "../../assets/images/icons/css.svg";
+import { ReactComponent as HTMLIcon } from "../../assets/images/icons/html.svg";
+import { ReactComponent as JQUERYIcon } from "../../assets/images/icons/jquery.svg";
+import { ReactComponent as PHPIcon } from "../../assets/images/icons/php.svg";
+import { ReactComponent as PhotoshopIcon } from "../../assets/images/icons/photoshop.svg";
 
 // Data for marquee skill chips
 const marqueeRow1 = [
-  { label: 'JSON',                    icon: <JsonIcon width={34} height={34} /> },
-  { label: 'Responsive Design',       icon: <ResponsiveMobileIcon width={34} height={34} /> },
-  { label: 'Testing & Debugging',     icon: <BugIcon width={34} height={34} /> },
-  { label: 'Reliability',             icon: <ReliabilityIcon width={34} height={34} /> },
-  { label: 'Teamwork',                icon: <TeamworkIcon width={34} height={34} /> },
-  { label: 'Creativity & Innovation', icon: <CreativityIcon width={34} height={34} /> },
-  { label: 'React.js',                icon: <ReactIcon width={34} height={34} /> },
-  { label: 'Problem Solving',         icon: <SolvingIcon width={34} height={34} /> },
-  { label: 'GitHub',                  icon: <GithubIcon width={34} height={34} /> },
-  { label: 'Web Development',         icon: <WebDevelopmentIcon width={34} height={34} /> },
-  { label: 'Jira',                    icon: <JiraIcon width={34} height={34} /> },
-  { label: 'Communication',           icon: <CommunicationIcon width={34} height={34} /> },
-  { label: 'Web Support',             icon: <WebSupportIcon width={34} height={34} /> },
-  { label: 'Web Services',            icon: <WebServicesIcon width={34} height={34} /> },
-  { label: 'Web Applications',        icon: <ApplicationIcon width={34} height={34} /> },
-  { label: 'Organization Skills',     icon: <OrganizationIcon width={34} height={34} /> },
-  { label: 'Customer Support',        icon: <CustomerSupportIcon width={34} height={34} /> },
-  { label: 'JQUERY',                  icon: <JQUERYIcon width={34} height={34} /> }
+  { label: "JSON", icon: <JsonIcon width={34} height={34} /> },
+  { label: "Responsive Design", icon: <ResponsiveMobileIcon width={34} height={34} /> },
+  { label: "Testing & Debugging", icon: <BugIcon width={34} height={34} /> },
+  { label: "Reliability", icon: <ReliabilityIcon width={34} height={34} /> },
+  { label: "Teamwork", icon: <TeamworkIcon width={34} height={34} /> },
+  { label: "Creativity & Innovation", icon: <CreativityIcon width={34} height={34} /> },
+  { label: "React.js", icon: <ReactIcon width={34} height={34} /> },
+  { label: "Problem Solving", icon: <SolvingIcon width={34} height={34} /> },
+  { label: "GitHub", icon: <GithubIcon width={34} height={34} /> },
+  { label: "Web Development", icon: <WebDevelopmentIcon width={34} height={34} /> },
+  { label: "Jira", icon: <JiraIcon width={34} height={34} /> },
+  { label: "Communication", icon: <CommunicationIcon width={34} height={34} /> },
+  { label: "Web Support", icon: <WebSupportIcon width={34} height={34} /> },
+  { label: "Web Services", icon: <WebServicesIcon width={34} height={34} /> },
+  { label: "Web Applications", icon: <ApplicationIcon width={34} height={34} /> },
+  { label: "Organization Skills", icon: <OrganizationIcon width={34} height={34} /> },
+  { label: "Customer Support", icon: <CustomerSupportIcon width={34} height={34} /> },
+  { label: "JQUERY", icon: <JQUERYIcon width={34} height={34} /> },
 ];
 
 // Second row of marquee skills
 const marqueeRow2 = [
-  { label: 'WordPress',               icon: <WordpressIcon width={34} height={34} /> },
-  { label: 'User Interface Design',   icon: <UserInterfaceDesignIcon width={34} height={34} /> },
-  { label: 'User Experience (UX)',    icon: <UXIcon width={34} height={34} /> },
-  { label: 'XSLT',                    icon: <XSLTIcon width={34} height={34} />  },
-  { label: 'XML',                     icon: <XMLIcon width={34} height={34} />  },
-  { label: 'ZURB Foundation',         icon: <ZurbIcon width={34} height={34} />  },
-  { label: 'SEO',                     icon: <SEOIcon width={34} height={34} />  },
-  { label: 'Web Design',              icon: <DesignIcon width={34} height={34} />  },
-  { label: 'Responsive Web Design',   icon: <ResponsiveDesignIcon width={34} height={34} /> },
-  { label: 'Mobile Web Design',       icon: <MobileIcon width={34} height={34} />  },
-  { label: 'Web Interface Design',    icon: <UIIcon width={34} height={34} />  },
-  { label: 'Adobe XD',                icon: <XDIcon width={34} height={34} />  },
-  { label: 'Bootstrap',               icon: <BootstrapIcon width={34} height={34} />  },
-  { label: 'Adobe Illustrator',       icon: <IllustratorIcon width={34} height={34} />  },
-  { label: 'CSS3',                    icon: <CSSIcon width={34} height={34} />  },
-  { label: 'HTML5',                   icon: <HTMLIcon width={34} height={34} />  },
-  { label: 'Website Building',        icon: <WebBuildingIcon width={34} height={34} /> },
-  { label: 'Programming',             icon: <ProgrammingIcon width={34} height={34} /> },
-  { label: 'PHP',                     icon: <PHPIcon width={34} height={34} /> },
-  { label: 'Adobe Photoshop',         icon: <PhotoshopIcon width={34} height={34} /> }
-]; 
+  { label: "WordPress", icon: <WordpressIcon width={34} height={34} /> },
+  { label: "User Interface Design", icon: <UserInterfaceDesignIcon width={34} height={34} /> },
+  { label: "User Experience (UX)", icon: <UXIcon width={34} height={34} /> },
+  { label: "XSLT", icon: <XSLTIcon width={34} height={34} /> },
+  { label: "XML", icon: <XMLIcon width={34} height={34} /> },
+  { label: "ZURB Foundation", icon: <ZurbIcon width={34} height={34} /> },
+  { label: "SEO", icon: <SEOIcon width={34} height={34} /> },
+  { label: "Web Design", icon: <DesignIcon width={34} height={34} /> },
+  { label: "Responsive Web Design", icon: <ResponsiveDesignIcon width={34} height={34} /> },
+  { label: "Mobile Web Design", icon: <MobileIcon width={34} height={34} /> },
+  { label: "Web Interface Design", icon: <UIIcon width={34} height={34} /> },
+  { label: "Adobe XD", icon: <XDIcon width={34} height={34} /> },
+  { label: "Bootstrap", icon: <BootstrapIcon width={34} height={34} /> },
+  { label: "Adobe Illustrator", icon: <IllustratorIcon width={34} height={34} /> },
+  { label: "CSS3", icon: <CSSIcon width={34} height={34} /> },
+  { label: "HTML5", icon: <HTMLIcon width={34} height={34} /> },
+  { label: "Website Building", icon: <WebBuildingIcon width={34} height={34} /> },
+  { label: "Programming", icon: <ProgrammingIcon width={34} height={34} /> },
+  { label: "PHP", icon: <PHPIcon width={34} height={34} /> },
+  { label: "Adobe Photoshop", icon: <PhotoshopIcon width={34} height={34} /> },
+];
 
 // Component for individual skill chips in the marquee
 function SkillChip({ label, icon }) {
@@ -103,12 +104,16 @@ function SkillChip({ label, icon }) {
     <>
       <span className='skill-chip' aria-label={label} sa='fade glacial mirror delay-200'>
         <span className='skill-chip__label'>{label}</span>
-        <span className='skill-chip__icon' aria-hidden='true'>{icon}</span>
+        <span className='skill-chip__icon' aria-hidden='true'>
+          {icon}
+        </span>
       </span>
-      <span className='divider' aria-hidden='true' sa='fade glacial mirror delay-600'>&bull;</span>
+      <span className='divider' aria-hidden='true' sa='fade glacial mirror delay-600'>
+        &bull;
+      </span>
     </>
   );
-}  
+}
 
 function Home() {
   useMarqueeScroll();
@@ -117,12 +122,18 @@ function Home() {
   // Refs for magnetic slats
   const SLAT_COUNT = 5;
   const magSlatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
-  const slatRefs    = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
+  const slatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
 
   useMagneticSVG(magSlatRefs.current, slatRefs.current, 10);
 
   // Typewriter effect for hero heading
   const displayHeading = useTypewriterHeading(["Design Systems", "Accessible Interfaces", "Performance-Focused UI", "Frontend Architecture"]);
+
+  // Refs for hero scroll effect
+  const wrapRef = useRef(null);
+  const stageRef = useRef(null);
+
+  useHorizontalScroll(wrapRef, stageRef);
 
   return (
     <>
@@ -139,7 +150,7 @@ function Home() {
             <p className='text-muted' sa='up glacial delay-600'>
               With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
             </p>
-            <Link to='/Contact' className='btn btn-primary' sa='up delay-400' data-cursor="light">
+            <Link to='/Contact' className='btn btn-primary' sa='up delay-400' data-cursor='light'>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
@@ -162,17 +173,18 @@ function Home() {
         </div>
 
         <div className='hero__decor'>
+          <DotGrid color='overlay' pattern='diagonal' size='small' cols={30} count={400} className='backdrop-dots' />
           <div className='decor__shape dots-svg dots--1'>
-            <img src={handleDots} alt='Handle dots' sa='float glacial delay-400 float-loop' />
+            <img src={handleDots} alt='Handle dots' sa='up-long glacial delay-800' />
           </div>
           <div className='decor__shape dots-svg dots--2'>
-            <img src={handleDots} alt='Handle dots' sa='float glacial delay-600 float-loop' />
+            <img src={handleDots} alt='Handle dots' sa='down-long glacial delay-1000' />
           </div>
           <div className='decor__shape arrow-down-svg arrow-down--1'>
-            <img src={arrowDown} alt='Arrow down drop' sa='float glacial delay-800 float-loop' />
+            <img src={arrowDown} alt='Arrow down drop' sa='down-long glacial delay-1200' />
           </div>
           <div className='decor__shape arrow-down-svg arrow-down--2'>
-            <img src={arrowDown} alt='Arrow down drop' sa='float glacial delay-1000 float-loop' />
+            <img src={arrowDown} alt='Arrow down drop' sa='down-long glacial delay-1400' />
           </div>
 
           <svg className='decor__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
@@ -180,7 +192,7 @@ function Home() {
               <mask id='slats-mask' maskUnits='userSpaceOnUse' x='0' y='0' width='100%' height='100%'>
                 <g className='slat'>
                   <g transform='rotate(45, 770, 170)'>
-                    <g ref={el => slatRefs.current[0].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <g ref={(el) => (slatRefs.current[0].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
                       <rect x='500' y='-60' width='140' height='100vh' rx='70' ry='70' fill='white' />
                     </g>
                   </g>
@@ -188,7 +200,7 @@ function Home() {
 
                 <g className='slat'>
                   <g transform='rotate(45, 970, 205)'>
-                    <g ref={el => slatRefs.current[1].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <g ref={(el) => (slatRefs.current[1].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
                       <rect x='705' y='-60' width='140' height='100vh' rx='70' ry='70' fill='white' />
                     </g>
                   </g>
@@ -196,7 +208,7 @@ function Home() {
 
                 <g className='slat'>
                   <g transform='rotate(45, 1170, 210)'>
-                    <g ref={el => slatRefs.current[2].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <g ref={(el) => (slatRefs.current[2].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
                       <rect x='930' y='60' width='140' height='130vh' rx='70' ry='70' fill='white' />
                     </g>
                   </g>
@@ -204,7 +216,7 @@ function Home() {
 
                 <g className='slat'>
                   <g transform='rotate(45, 1370, 200)'>
-                    <g ref={el => slatRefs.current[3].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <g ref={(el) => (slatRefs.current[3].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
                       <rect x='1165' y='200' width='140' height='100vh' rx='70' ry='70' fill='white' />
                     </g>
                   </g>
@@ -212,11 +224,11 @@ function Home() {
 
                 <g className='slat'>
                   <g transform='rotate(45, 1370, 200)'>
-                    <g ref={el => slatRefs.current[4].current = el} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <g ref={(el) => (slatRefs.current[4].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
                       <rect x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='white' />
                     </g>
                   </g>
-                </g>                
+                </g>
               </mask>
             </defs>
 
@@ -232,47 +244,147 @@ function Home() {
             */}
 
             <g transform='rotate(45, 770, 170)'>
-              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[0].current = el} x='500' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[0].current = el)} x='500' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 970, 205)'>
-              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[1].current = el} x='705' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[1].current = el)} x='705' y='-60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 1170, 210)'>
-              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[2].current = el} x='930' y='60' width='140' height='130vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[2].current = el)} x='930' y='60' width='140' height='130vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 1370, 200)'>
-              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[3].current = el} x='1165' y='200' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+              <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[3].current = el)} x='1165' y='200' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
 
             <g transform='rotate(45, 1370, 200)'>
-              <rect className='magnetic magnetic--strong' ref={el => magSlatRefs.current[4].current = el} x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
-            </g>            
+              <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[4].current = el)} x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+            </g>
           </svg>
           <div className='decor__shape slats-bg slats-bg--hero'>
-            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' />
-          </div>          
+            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='up-long glacial delay-1000' />
+          </div>
         </div>
       </section>
       <section className='section section__skills section-padding'>
+        <div className='section__label'>
+          <span className='section__title'>Skills</span>
+          <span className='section__count'>01 toolset</span>
+        </div>
+
         <div className='hero__decor'>
-          <DotGrid color="overlay" pattern="scatter" size="small" cols={42} className="backdrop-dots" />
-          <div className='decor__shape slats-bg slats-bg--skills' sa='right glacial delay-400'>
-            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' />
+          <div className='decor__shape slats-bg slats-bg--skills'>
+            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='left-long glacial delay-200' />
           </div>
         </div>        
         <Marquee speed='35s' rtl faded pauseOnHover>
-          {marqueeRow1.map(item => <SkillChip key={item.label} {...item} />)}
+          {marqueeRow1.map((item) => (
+            <SkillChip key={item.label} {...item} />
+          ))}
         </Marquee>
 
         <Marquee speed='35s' ltr faded pauseOnHover>
-          {marqueeRow2.map(item => <SkillChip key={item.label} {...item} />)}
+          {marqueeRow2.map((item) => (
+            <SkillChip key={item.label} {...item} />
+          ))}
         </Marquee>
-      </section> 
-      <section className='section section__work section-padding height-viewport'>
-      
+      </section>
+      <section className='section section__work'>
+        <div className='work__wrap' ref={wrapRef}>
+          <div className='work__stage' ref={stageRef}>
+            <div className='section__label section-padding'>
+              <span className='section__title'>Projects</span>
+              <span className='section__count'>02 works</span>
+              <div className='work__progress'>
+                <div className='work__progress-fill'></div>
+              </div>
+            </div>
+
+            <div className='work__track section-padding'>
+              <div className='work__card'>
+                <div className='work__card-bg-num'>1</div>
+                <div className='work__card-top'>
+                  <span className='work__card-index'>01 / 05</span>
+                  <span className='work__card-tag'>Branding</span>
+                </div>
+                <div className='work__card-bottom'>
+                  <h2 className='work__card-title'>
+                    Meridian
+                    <br />
+                    Identity
+                  </h2>
+                  <p className='work__card-body'>A complete brand system for a next-generation infrastructure company. Mark, motion, and voice.</p>
+                </div>
+              </div>
+
+              <div className='work__card'>
+                <div className='work__card-bg-num'>2</div>
+                <div className='work__card-top'>
+                  <span className='work__card-index'>02 / 05</span>
+                  <span className='work__card-tag'>Product</span>
+                </div>
+                <div className='work__card-bottom'>
+                  <h2 className='work__card-title'>
+                    Folio
+                    <br />
+                    Dashboard
+                  </h2>
+                  <p className='work__card-body'>End-to-end product design for a portfolio management platform used by 40,000+ investors.</p>
+                </div>
+              </div>
+
+              <div className='work__card'>
+                <div className='work__card-bg-num'>3</div>
+                <div className='work__card-top'>
+                  <span className='work__card-index'>03 / 05</span>
+                  <span className='work__card-tag'>Web</span>
+                </div>
+                <div className='work__card-bottom'>
+                  <h2 className='work__card-title'>
+                    Solaris
+                    <br />
+                    Campaign
+                  </h2>
+                  <p className='work__card-body'>Interactive launch site for a climate-tech startup. 3D environments, scroll storytelling, zero JS frameworks.</p>
+                </div>
+              </div>
+
+              <div className='work__card'>
+                <div className='work__card-bg-num'>4</div>
+                <div className='work__card-top'>
+                  <span className='work__card-index'>04 / 05</span>
+                  <span className='work__card-tag'>Motion</span>
+                </div>
+                <div className='work__card-bottom'>
+                  <h2 className='work__card-title'>
+                    Atlas
+                    <br />
+                    Title Seq.
+                  </h2>
+                  <p className='work__card-body'>Opening title sequence for a feature-length documentary. Type, texture, and sound in lockstep.</p>
+                </div>
+              </div>
+
+              <div className='work__card'>
+                <div className='work__card-bg-num'>5</div>
+                <div className='work__card-top'>
+                  <span className='work__card-index'>05 / 05</span>
+                  <span className='work__card-tag'>Editorial</span>
+                </div>
+                <div className='work__card-bottom'>
+                  <h2 className='work__card-title'>
+                    Kin
+                    <br />
+                    Magazine
+                  </h2>
+                  <p className='work__card-body'>Art direction and layout design for an independent print publication celebrating slow culture.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );

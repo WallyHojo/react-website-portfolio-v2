@@ -59,6 +59,7 @@
 
 /* ── Size variants ── */
 .dot-grid--large .dot::before { width: 8px; height: 8px; }
+.dot-grid--medium .dot::before { width: 4px; height: 4px; }
 .dot-grid--small .dot::before { width: 2px; height: 2px; }
 
 /* ══ A — Column wave ══════════════════════ */

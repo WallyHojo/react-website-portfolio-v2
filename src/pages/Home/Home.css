@@ -96,6 +96,32 @@
 }
 
 /* ========================================================================== */
+/*                                Section Heading                             */
+/* ========================================================================== */
+
+.section__label {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 3rem;
+  padding-top: 0;
+  padding-bottom: 0;  
+  gap: 1.5rem;
+}
+
+.section__title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.section__count {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--color-bg-overlay);
+  text-transform: uppercase;
+}
+
+/* ========================================================================== */
 /*                                Skills Section                              */
 /* ========================================================================== */
 
@@ -129,20 +155,22 @@
 }
 
 .skill-chip {
+  background: var(--color-text-inverse);
+  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;  
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 6px 14px;
+  font-weight: 500;
+  font-size: 0.875rem;  
   border: 1px solid var(--color-border);
   border-radius: 999px;
-  background: var(--color-text-inverse);
-  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
-  font-size: 0.875rem;
-  font-weight: 500;
   white-space: nowrap;
   pointer-events: none; /* looks like a button, doesn't act like one */
   user-select: none;
   box-shadow: inset -1px 1px 0px #ffffff24, inset -1px 0px 0px #00000094, inset 0px -1px 0px #ffffff1a;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .skill-chip__icon {
@@ -154,9 +182,148 @@
 /*                                Work Section                                */
 /* ========================================================================== */
 
+/* ══════════════════════════════════════════
+      HORIZONTAL SCROLL SECTION
+
+      .h-wrap   — tall outer div (provides scroll distance)
+      .h-stage  — sticky viewport-height container
+      .h-track  — the wide row of cards that translates left
+  ══════════════════════════════════════════ */
+
+  :root {
+    /* Card colours */
+    --card-1: #1a1a1a;
+    --card-2: #1a2a1a;
+    --card-3: #2a1a1a;
+    --card-4: #1a1a2a;
+    --card-5: #2a2a1a;
+
+    --card-w:       clamp(310px, 67.70vw, 520px);   /* width of each card */
+    --card-h:       60vh;    /* height of each card */
+    --card-gap:     clamp(21px, 3.125vw, 24px);    /* gap between cards */
+    --card-count:   5;
+
+    /* Total width the track needs to travel:
+        (card-w + gap) * card-count - 1 gap - 100vw
+        We'll drive this via translateX in the keyframe */
+    --pin-height:   400vh;   /* scroll distance */
+  }
+
 .section__work {
   position: relative;
+}
+
+.work__wrap {
+  height: var(--pin-height);
+  position: relative;
+  width: 100%;
+}
+
+.work__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: clip;
+}
+
+.work__progress {
+  width: 120px;
+  height: 1px;
+  background: var(--color-bg-elevated);
+  margin-left: auto;
+  margin-right: 8vw;
+  position: relative;
+  overflow: clip;
+}
+
+.work__progress-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-overlay);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+}
+
+.work__track {
+  display: flex;
+  gap: var(--card-gap);
+  padding-top: 0;
+  padding-bottom: 0;
+  transform: translateX(calc(
+    -1 * var(--p, 0) * (var(--card-w) + var(--card-gap)) * (var(--card-count) - 1)
+  ));
+}
+
+.work__card {
+  flex-shrink: 0;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: 20px;
+  padding: 40px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
   overflow: hidden;
+}
+
+.work__card:nth-child(1) { background: var(--card-1); }
+.work__card:nth-child(2) { background: var(--card-2); }
+.work__card:nth-child(3) { background: var(--card-3); }
+.work__card:nth-child(4) { background: var(--card-4); }
+.work__card:nth-child(5) { background: var(--card-5); }
+
+.work__card-bg-num {
+  position: absolute;
+  bottom: -0.15em;
+  right: 0.05em;
+  font-size: 14rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  user-select: none;
+}
+
+.work__card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.work__card-index {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.work__card-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+.work__card-title {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.work__card-body {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 300;
+  max-width: 34ch;
 }
 
 /* ========================================================================== */
