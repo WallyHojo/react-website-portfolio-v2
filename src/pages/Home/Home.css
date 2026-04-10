@@ -220,13 +220,14 @@
   border-radius: 999px;
   white-space: nowrap;
   pointer-events: none; /* looks like a button, doesn't act like one */
+  -webkit-user-select: none;
   user-select: none;
   box-shadow:
     inset -1px 1px 0px #ffffff24,
     inset -1px 0px 0px #00000094,
     inset 0px -1px 0px #ffffff1a;
-  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 
 .skill-chip__icon {
@@ -423,6 +424,7 @@
   line-height: 1;
   color: rgba(255, 255, 255, 0.04);
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
