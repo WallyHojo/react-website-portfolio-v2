@@ -274,26 +274,9 @@
   width: 100%;
   top: 5%;
   /* inset: 0; */
-
-  /*
-        Pill shape via clip-path inset:
-        inset(top right bottom left round radius)
-        - top 25%, bottom 25% = 50% of height showing
-        - left 58%, right 4%  = narrow strip on the right
-        - round 999px         = fully pill shaped
-      */
   clip-path: inset(25% 46% 25% 46% round 999px);
-
-  /* scroll(root) = tracks the ROOT element's scroll.
-         This is the fix — NOT a named timeline on .morph-wrap */
   animation: pill-expand linear both;
   animation-timeline: scroll(root);
-
-  /*
-        Page total scrollable height ≈ 500vh (100vh hero + 400vh wrap + after)
-        We want animation active from ~100vh to ~380vh of page scroll.
-        As % of total: 100/500 = 20% start, 380/500 = 76% end
-      */
   animation-range: 15% 40%;
 }
 
