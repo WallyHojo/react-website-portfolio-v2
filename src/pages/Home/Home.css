@@ -86,14 +86,14 @@
 }
 
 .slats-bg--hero {
-    bottom: calc(730px / -2);
-    right: 0;
+  bottom: calc(730px / -2);
+  right: 0;
 }
 
 .slats-bg--skills {
-top: calc(730px / 2.25);
-    left: calc(900px / -1.4);
-    transform: scaleY(-1);
+  top: calc(730px / 2.25);
+  left: calc(900px / -1.4);
+  transform: scaleY(-1);
 }
 
 /* Media Queries */
@@ -181,7 +181,7 @@ top: calc(730px / 2.25);
 .section__skills-marquee {
   position: relative;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -240,22 +240,20 @@ top: calc(730px / 2.25);
   gap: 2rem;
 }
 
-
-    .skills__intro-wrapper {
-    height: 400vh;
-    padding-top: 0;
-    padding-bottom: 0;
-    }
+.skills__intro-wrapper {
+  height: 400vh;
+  padding-top: 0;
+  padding-bottom: 0;
+}
 
 .skills__intro-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow: hidden;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .skills__intro-text {
@@ -263,73 +261,71 @@ top: calc(730px / 2.25);
 }
 
 .skills__intro-decor {
-    position: relative;
- height: 100vh;    
-    flex-basis: 50%;
-          animation: blur-expand linear both;
-      animation-timeline: scroll(root);
-      animation-range: 25% 45%;
-
+  position: relative;
+  height: 100vh;
+  flex-basis: 50%;
+  animation: blur-expand linear both;
+  animation-timeline: scroll(root);
+  animation-range: 25% 45%;
 }
 
- .morph-image {
-position: absolute;
-    width: 100%;
-   top: 5%;
-    /* inset: 0; */
+.morph-image {
+  position: absolute;
+  width: 100%;
+  top: 5%;
+  /* inset: 0; */
 
-      /*
+  /*
         Pill shape via clip-path inset:
         inset(top right bottom left round radius)
         - top 25%, bottom 25% = 50% of height showing
         - left 58%, right 4%  = narrow strip on the right
         - round 999px         = fully pill shaped
       */
-      clip-path: inset(25% 46% 25% 46% round 999px);
+  clip-path: inset(25% 46% 25% 46% round 999px);
 
-      /* scroll(root) = tracks the ROOT element's scroll.
+  /* scroll(root) = tracks the ROOT element's scroll.
          This is the fix — NOT a named timeline on .morph-wrap */
-      animation: pill-expand linear both;
-      animation-timeline: scroll(root);
+  animation: pill-expand linear both;
+  animation-timeline: scroll(root);
 
-      /*
+  /*
         Page total scrollable height ≈ 500vh (100vh hero + 400vh wrap + after)
         We want animation active from ~100vh to ~380vh of page scroll.
         As % of total: 100/500 = 20% start, 380/500 = 76% end
       */
-      animation-range: 15% 40%;
-    }
+  animation-range: 15% 40%;
+}
 
-    @keyframes pill-expand {
-      0% {
-          opacity: 0;
-          transform: translateY(100%) scale(0);
-          clip-path: inset(50% 50% 50% 50% round 999px);
-      }
-      100% {
-          opacity: 1;
-          transform: translateY(25%) scale(1);
-          clip-path: inset(0% 0% 0% 0% round 30px);
-      }
-    }
+@keyframes pill-expand {
+  0% {
+    opacity: 0;
+    transform: translateY(100%) scale(0);
+    clip-path: inset(50% 50% 50% 50% round 999px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(25%) scale(1);
+    clip-path: inset(0% 0% 0% 0% round 30px);
+  }
+}
 
-    @keyframes blur-expand {
-      0% {
-          filter: blur(25px);
-      }
-      90% {
-          filter: blur(0px);
-      }                   
-    }    
+@keyframes blur-expand {
+  0% {
+    filter: blur(25px);
+  }
+  90% {
+    filter: blur(0px);
+  }
+}
 
-    .morph-image__img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
- 
+.morph-image__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 
 /* ========================================================================== */
 /*                                Work Section                                */
