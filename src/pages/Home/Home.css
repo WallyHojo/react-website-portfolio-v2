@@ -265,9 +265,14 @@
   position: relative;
   height: 100vh;
   flex-basis: 50%;
-  animation: blur-expand linear both;
+
+  animation-name: blur-expand;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+
   animation-timeline: scroll(root);
-  animation-range: 25% 45%;
+  animation-range: 25% 45%;  
 }
 
 .morph-image {
@@ -276,7 +281,12 @@
   top: 5%;
   /* inset: 0; */
   clip-path: inset(25% 46% 25% 46% round 999px);
-  animation: pill-expand linear both;
+
+  animation-name: pill-expand;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+
   animation-timeline: scroll(root);
   animation-range: 15% 40%;
 }
