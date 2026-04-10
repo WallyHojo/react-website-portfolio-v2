@@ -63,7 +63,6 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
@@ -301,8 +300,8 @@ img {
   height: var(--max-size);  
   aspect-ratio: 1 / 1;
   border-radius: 50%;  
-  filter: blur(250px);
   -webkit-filter: blur(250px);
+  filter: blur(250px);  
   animation: fadeIn 1s ease-in alternate 0.5s backwards;
   z-index: -1;
 }
