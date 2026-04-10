@@ -66,14 +66,14 @@
 .dots--2 {
   bottom: 10%;
   left: min(30rem, 55vh);
-  filter: contrast(0.9);
+  filter: contrast(0.9) !important;
 }
 
 .arrow-down--1 {
   top: 40%;
   left: min(50rem, 85vh);
   transform: rotate(-90deg);
-  filter: contrast(0.9);
+  filter: contrast(0.9) !important;
 }
 
 .arrow-down--2 {
@@ -86,13 +86,58 @@
 }
 
 .slats-bg--hero {
-  bottom: calc(730px / -2);
-  left: calc(900px / -2);
+    bottom: calc(730px / -2);
+    right: 0;
 }
 
 .slats-bg--skills {
-  top: calc(730px / -2);
-  left: calc(900px / -1.85);
+top: calc(730px / 2.25);
+    left: calc(900px / -1.4);
+    transform: scaleY(-1);
+}
+
+/* Media Queries */
+
+@media (width <= 1199px) {
+  .slats-svg {
+    width: min(48rem, 85vh);
+  }
+
+  .dots--1 {
+    right: 50%;
+  }
+}
+
+@media (width <= 991px) {
+  .slat > g {
+    opacity: 0.25;
+  }
+}
+
+@media (width <= 767px) {
+  .hero__content h1.heading {
+    font-weight: 600;
+  }
+
+  .dots--2 {
+    left: 50%;
+  }
+
+  .arrow-down--1 {
+    left: 75%;
+  }
+}
+
+@media (width <= 575px) {
+  .slats-bg {
+    display: none;
+  }
+}
+
+@media (width >= 1200px) {
+  .slats-svg {
+    width: min(62rem, 120vh);
+  }
 }
 
 /* ========================================================================== */
@@ -104,7 +149,7 @@
   align-items: baseline;
   margin-bottom: 3rem;
   padding-top: 0;
-  padding-bottom: 0;  
+  padding-bottom: 0;
   gap: 1.5rem;
 }
 
@@ -121,54 +166,65 @@
   text-transform: uppercase;
 }
 
+/* Media Queries */
+
+@media (width <= 767px) {
+  .section__label {
+    flex-wrap: wrap;
+  }
+}
+
 /* ========================================================================== */
 /*                                Skills Section                              */
 /* ========================================================================== */
 
-.section__skills {
+.section__skills-marquee {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   overflow: hidden;
 }
 
-.section__skills > .marquee + .marquee {
+.skills__marquee-wrap > .marquee + .marquee {
   margin-top: 32px;
 }
 
-.section__skills .marquee-content span {
+.skills__marquee-wrap .marquee-content span {
   text-transform: uppercase;
   font-weight: 600;
   font-size: clamp(1.125rem, 1.0417rem + 0.3704vw, 1.375rem);
 }
 
-.section__skills .marquee-content span:nth-child(4n + 1):not(.divider) {
+.skills__marquee-wrap .marquee-content span:nth-child(4n + 1):not(.divider) {
   color: var(--color-text-disabled);
 }
 
-.section__skills .marquee-content span:nth-child(4n + 3):not(.divider) {
+.skills__marquee-wrap .marquee-content span:nth-child(4n + 3):not(.divider) {
   color: var(--color-text-primary);
 }
 
-.section__skills .marquee-content span.divider {
+.skills__marquee-wrap .marquee-content span.divider {
   color: var(--color-text-disabled);
 }
 
 .skill-chip {
   background: var(--color-text-inverse);
-  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;  
+  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 6px 14px;
   font-weight: 500;
-  font-size: 0.875rem;  
+  font-size: 0.875rem;
   border: 1px solid var(--color-border);
   border-radius: 999px;
   white-space: nowrap;
   pointer-events: none; /* looks like a button, doesn't act like one */
   user-select: none;
-  box-shadow: inset -1px 1px 0px #ffffff24, inset -1px 0px 0px #00000094, inset 0px -1px 0px #ffffff1a;
+  box-shadow:
+    inset -1px 1px 0px #ffffff24,
+    inset -1px 0px 0px #00000094,
+    inset 0px -1px 0px #ffffff1a;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
@@ -177,6 +233,103 @@
   font-size: 1em;
   line-height: 1;
 }
+
+.skills__intro {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+
+    .skills__intro-wrapper {
+    height: 400vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    }
+
+.skills__intro-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+
+}
+
+.skills__intro-text {
+  flex-basis: 40%;
+}
+
+.skills__intro-decor {
+    position: relative;
+ height: 100vh;    
+    flex-basis: 50%;
+          animation: blur-expand linear both;
+      animation-timeline: scroll(root);
+      animation-range: 25% 45%;
+
+}
+
+ .morph-image {
+position: absolute;
+    width: 100%;
+   top: 5%;
+    /* inset: 0; */
+
+      /*
+        Pill shape via clip-path inset:
+        inset(top right bottom left round radius)
+        - top 25%, bottom 25% = 50% of height showing
+        - left 58%, right 4%  = narrow strip on the right
+        - round 999px         = fully pill shaped
+      */
+      clip-path: inset(25% 46% 25% 46% round 999px);
+
+      /* scroll(root) = tracks the ROOT element's scroll.
+         This is the fix — NOT a named timeline on .morph-wrap */
+      animation: pill-expand linear both;
+      animation-timeline: scroll(root);
+
+      /*
+        Page total scrollable height ≈ 500vh (100vh hero + 400vh wrap + after)
+        We want animation active from ~100vh to ~380vh of page scroll.
+        As % of total: 100/500 = 20% start, 380/500 = 76% end
+      */
+      animation-range: 15% 40%;
+    }
+
+    @keyframes pill-expand {
+      0% {
+          opacity: 0;
+          transform: translateY(100%) scale(0);
+          clip-path: inset(50% 50% 50% 50% round 999px);
+      }
+      100% {
+          opacity: 1;
+          transform: translateY(25%) scale(1);
+          clip-path: inset(0% 0% 0% 0% round 30px);
+      }
+    }
+
+    @keyframes blur-expand {
+      0% {
+          filter: blur(25px);
+      }
+      90% {
+          filter: blur(0px);
+      }                   
+    }    
+
+    .morph-image__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+ 
 
 /* ========================================================================== */
 /*                                Work Section                                */
@@ -190,24 +343,24 @@
       .h-track  — the wide row of cards that translates left
   ══════════════════════════════════════════ */
 
-  :root {
-    /* Card colours */
-    --card-1: #1a1a1a;
-    --card-2: #1a2a1a;
-    --card-3: #2a1a1a;
-    --card-4: #1a1a2a;
-    --card-5: #2a2a1a;
+:root {
+  /* Card colours */
+  --card-1: #1a1a1a;
+  --card-2: #1a2a1a;
+  --card-3: #2a1a1a;
+  --card-4: #1a1a2a;
+  --card-5: #2a2a1a;
 
-    --card-w:       clamp(310px, 67.70vw, 520px);   /* width of each card */
-    --card-h:       60vh;    /* height of each card */
-    --card-gap:     clamp(21px, 3.125vw, 24px);    /* gap between cards */
-    --card-count:   5;
+  --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
+  --card-h: 60vh; /* height of each card */
+  --card-gap: clamp(21px, 3.125vw, 24px); /* gap between cards */
+  --card-count: 6;
 
-    /* Total width the track needs to travel:
+  /* Total width the track needs to travel:
         (card-w + gap) * card-count - 1 gap - 100vw
         We'll drive this via translateX in the keyframe */
-    --pin-height:   400vh;   /* scroll distance */
-  }
+  --pin-height: 400vh; /* scroll distance */
+}
 
 .section__work {
   position: relative;
@@ -221,7 +374,7 @@
 
 .work__stage {
   position: sticky;
-  top: 0;
+  top: 5%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -234,7 +387,6 @@
   height: 1px;
   background: var(--color-bg-elevated);
   margin-left: auto;
-  margin-right: 8vw;
   position: relative;
   overflow: clip;
 }
@@ -252,9 +404,7 @@
   gap: var(--card-gap);
   padding-top: 0;
   padding-bottom: 0;
-  transform: translateX(calc(
-    -1 * var(--p, 0) * (var(--card-w) + var(--card-gap)) * (var(--card-count) - 1)
-  ));
+  transform: translateX(calc(-1 * var(--p, 0) * (var(--card-w) + var(--card-gap)) * (var(--card-count) - 1)));
 }
 
 .work__card {
@@ -270,11 +420,21 @@
   overflow: hidden;
 }
 
-.work__card:nth-child(1) { background: var(--card-1); }
-.work__card:nth-child(2) { background: var(--card-2); }
-.work__card:nth-child(3) { background: var(--card-3); }
-.work__card:nth-child(4) { background: var(--card-4); }
-.work__card:nth-child(5) { background: var(--card-5); }
+.work__card:nth-child(1) {
+  background: var(--card-1);
+}
+.work__card:nth-child(2) {
+  background: var(--card-2);
+}
+.work__card:nth-child(3) {
+  background: var(--card-3);
+}
+.work__card:nth-child(4) {
+  background: var(--card-4);
+}
+.work__card:nth-child(5) {
+  background: var(--card-5);
+}
 
 .work__card-bg-num {
   position: absolute;
@@ -326,6 +486,14 @@
   max-width: 34ch;
 }
 
+/* Media Queries */
+
+@media (hover: none) and (pointer: coarse) {
+  .work__progress {
+    flex-basis: 100%;
+  }
+}
+
 /* ========================================================================== */
 /*                                Keyframes                                   */
 /* ========================================================================== */
@@ -375,51 +543,5 @@
   }
   100% {
     transform: translate(9%, 18%);
-  }
-}
-
-/* ========================================================================== */
-/*                                Media Queries                               */
-/* ========================================================================== */
-
-@media (max-width: 1199px) {
-  .slats-svg {
-    width: min(48rem, 85vh);
-  }
-
-  .dots--1 {
-    right: 50%;
-  }
-}
-
-@media (max-width: 991px) {
-  .slat > g {
-    opacity: 0.25;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero__content h1.heading {
-    font-weight: 600;
-  }
-
-  .dots--2 {
-    left: 50%;
-  }
-
-  .arrow-down--1 {
-    left: 75%;
-  }
-}
-
-@media (max-width: 575px) {
-  .slats-bg {
-    display: none;
-  }
-}
-
-@media (min-width: 1200px) {
-  .slats-svg {
-    width: min(62rem, 120vh);
   }
 }

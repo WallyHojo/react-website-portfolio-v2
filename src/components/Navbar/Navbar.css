@@ -117,32 +117,6 @@
   pointer-events: none;
 }
 
-.background__ellipse {
-  --max-size: min(70rem, 80vh);
-  background: var(--color-primary);
-  position: absolute;
-  width: var(--max-size);
-  height: var(--max-size);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;  
-  filter: blur(250px);
-  -webkit-filter: blur(250px);
-  animation: fadeIn 1s ease-in alternate 0.5s backwards;
-  z-index: -1;
-}
-
-.background__ellipse-1 {
-  top: calc(var(--max-size) / 1);
-  left: 0;
-  transform: translate(-50%, -50%);
-}
-
-.background__ellipse-2 {
-  top: 50%;
-  right: 0;
-  transform: translate(50%, -50%);
-}
-
 .menu__wrapper {
   background: radial-gradient(ellipse 100% 40% at 50% 85%, var(--color-text-primary) 0%, transparent 100%), linear-gradient(to bottom, rgb(255 255 255 / 0%) 80%, rgb(0 0 0 / 40%) 100%, transparent 100%);
   position: relative;

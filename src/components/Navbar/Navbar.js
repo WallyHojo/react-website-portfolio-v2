@@ -251,8 +251,8 @@ function Navbar() {
             <hr />
           </div>
         </div>
-        <div className='menu__ellipse menu__ellipse-1'></div>
-        <div className='menu__ellipse menu__ellipse-2'></div>
+        <div className='background__ellipse background__ellipse-1 ellipse--large'></div>
+        <div className='background__ellipse background__ellipse-2 ellipse--large'></div>
       </div>
 
       {/* Menu Clipping Paths */}

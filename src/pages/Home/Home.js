@@ -11,6 +11,7 @@ import heroBg from "../../assets/images/hero_bg.webp";
 import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
+import arrowRight from "../../assets/images/arrow-right.svg";
 
 // SVG imports for skill icons
 import { ReactComponent as JsonIcon } from "../../assets/images/icons/json.svg";
@@ -144,13 +145,13 @@ function Home() {
               {displayHeading}
             </h1>
 
-            <h2 className='h3 subheading' sa='up slower delay-400'>
-              <strong>Hi, I'm Walter Carlson, a UI Engineer</strong> focused on building fast, accessible, and scalable user interfaces that bridge design and engineering.
+            <h2 className='h3 sub-heading' sa='up slower delay-400'>
+              <strong>Hi, I'm Walter Carlson, a UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
             </h2>
-            <p className='text-muted' sa='up glacial delay-600'>
+            <p className='text-muted' sa='up slower delay-600'>
               With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
             </p>
-            <Link to='/Contact' className='btn btn-primary' sa='up delay-400' data-cursor='light'>
+            <Link to='/Contact' className='btn btn-primary' sa='up glacial delay-800' data-cursor='light'>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
@@ -173,19 +174,24 @@ function Home() {
         </div>
 
         <div className='hero__decor'>
-          <DotGrid color='overlay' pattern='diagonal' size='small' cols={30} count={400} className='backdrop-dots' />
-          <div className='decor__shape dots-svg dots--1'>
+          <DotGrid color='overlay' pattern='diagonal' size='small' cols={30} count={400} className='backdrop-dots hidden-xs' />
+          
+          <div className='decor__shape dots--1' sa='float float-y float-y-loop delay-1000'>
             <img src={handleDots} alt='Handle dots' sa='up-long glacial delay-800' />
           </div>
-          <div className='decor__shape dots-svg dots--2'>
+          <div className='decor__shape dots--2' sa='float float-y float-y-loop delay-1200'>
             <img src={handleDots} alt='Handle dots' sa='down-long glacial delay-1000' />
           </div>
-          <div className='decor__shape arrow-down-svg arrow-down--1'>
-            <img src={arrowDown} alt='Arrow down drop' sa='down-long glacial delay-1200' />
+          <div className='decor__shape arrow-down-svg arrow-down--1' sa='float float-x float-x-loop delay-1400'>
+            <img src={arrowRight} alt='Arrow down drop' sa='right-long glacial delay-1200' />
           </div>
-          <div className='decor__shape arrow-down-svg arrow-down--2'>
+          <div className='decor__shape arrow-down-svg arrow-down--2' sa='float float-y float-y-loop delay-1600'>
             <img src={arrowDown} alt='Arrow down drop' sa='down-long glacial delay-1400' />
           </div>
+
+          <div className='decor__shape slats-bg slats-bg--hero'>
+            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='up glacial delay-600' />
+          </div>          
 
           <svg className='decor__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
             <defs>
@@ -263,47 +269,71 @@ function Home() {
               <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[4].current = el)} x='1335' y='60' width='140' height='100vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
             </g>
           </svg>
-          <div className='decor__shape slats-bg slats-bg--hero'>
-            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='up-long glacial delay-1000' />
-          </div>
         </div>
       </section>
-      <section className='section section__skills section-padding'>
-        <div className='section__label'>
-          <span className='section__title'>Skills</span>
-          <span className='section__count'>01 toolset</span>
+
+      <section className='section section__skills'>
+        <div className='section__skills-marquee section-padding'>
+          <div className='section__label'>
+            <h2 className='section__title' sa='up slower mirror delay-200'>Skills</h2>
+            <span className='section__count' sa='right-long glacial mirror delay-400'>01 toolset</span>
+          </div>
+    
+          <div className='skills__marquee-wrap'>
+            <Marquee speed='35s' rtl faded pauseOnHover>
+              {marqueeRow1.map((item) => (
+                <SkillChip key={item.label} {...item} />
+              ))}
+            </Marquee>
+
+            <Marquee speed='35s' ltr faded pauseOnHover>
+              {marqueeRow2.map((item) => (
+                <SkillChip key={item.label} {...item} />
+              ))}
+            </Marquee>
+          </div>
+         
         </div>
 
-        <div className='hero__decor'>
-          <div className='decor__shape slats-bg slats-bg--skills'>
-            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='left-long glacial delay-200' />
-          </div>
-        </div>        
-        <Marquee speed='35s' rtl faded pauseOnHover>
-          {marqueeRow1.map((item) => (
-            <SkillChip key={item.label} {...item} />
-          ))}
-        </Marquee>
+         <div className='hero__decor relative'>
+            <div className='decor__shape slats-bg slats-bg--skills'>
+              <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='fade slow' />
+            </div>
+          </div>         
 
-        <Marquee speed='35s' ltr faded pauseOnHover>
-          {marqueeRow2.map((item) => (
-            <SkillChip key={item.label} {...item} />
-          ))}
-        </Marquee>
+        <div className='skills__intro-wrapper section-padding'>
+          <div className='skills__intro-container'>
+            <div className='skills__intro-text'>
+              <h3 className='sub-heading' sa='up slower mirror delay-200'><strong>Built for <span className='text-primary'>Modern Web Experiences</span></strong></h3>
+              <p sa='up slower mirror delay-400'>With strengths in concept development, wireframing, prototyping, visual design, and front-end execution, I bring ideas to life through thoughtful problem-solving and user-centered design. Every stage is guided by usability, responsiveness, and precision.</p>        
+            </div>
+            <div className='skills__intro-decor'>
+              <div className='morph-image'>
+              <img
+                className='morph-image__img'
+                src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80'
+                alt='Mountain landscape at golden hour'
+              />
+              </div>
+            </div>
+          </div>
+        </div>         
+                
       </section>
+    
       <section className='section section__work'>
         <div className='work__wrap' ref={wrapRef}>
           <div className='work__stage' ref={stageRef}>
             <div className='section__label section-padding'>
-              <span className='section__title'>Projects</span>
-              <span className='section__count'>02 works</span>
+              <h2 className='section__title' sa='up slower mirror delay-200'>Projects</h2>
+              <span className='section__count' sa='right-long glacial mirrordelay-400'>02 works</span>
               <div className='work__progress'>
                 <div className='work__progress-fill'></div>
               </div>
             </div>
 
-            <div className='work__track section-padding'>
-              <div className='work__card'>
+            <div className='work__track section-padding'>              
+              <div className='work__card magnetic magnetic--subtle'>
                 <div className='work__card-bg-num'>1</div>
                 <div className='work__card-top'>
                   <span className='work__card-index'>01 / 05</span>
@@ -319,7 +349,7 @@ function Home() {
                 </div>
               </div>
 
-              <div className='work__card'>
+              <div className='work__card magnetic magnetic--subtle'>
                 <div className='work__card-bg-num'>2</div>
                 <div className='work__card-top'>
                   <span className='work__card-index'>02 / 05</span>
@@ -335,7 +365,7 @@ function Home() {
                 </div>
               </div>
 
-              <div className='work__card'>
+              <div className='work__card magnetic magnetic--subtle'>
                 <div className='work__card-bg-num'>3</div>
                 <div className='work__card-top'>
                   <span className='work__card-index'>03 / 05</span>
@@ -351,7 +381,7 @@ function Home() {
                 </div>
               </div>
 
-              <div className='work__card'>
+              <div className='work__card magnetic magnetic--subtle'>
                 <div className='work__card-bg-num'>4</div>
                 <div className='work__card-top'>
                   <span className='work__card-index'>04 / 05</span>
@@ -367,7 +397,7 @@ function Home() {
                 </div>
               </div>
 
-              <div className='work__card'>
+              <div className='work__card magnetic magnetic--subtle'>
                 <div className='work__card-bg-num'>5</div>
                 <div className='work__card-top'>
                   <span className='work__card-index'>05 / 05</span>
@@ -382,6 +412,22 @@ function Home() {
                   <p className='work__card-body'>Art direction and layout design for an independent print publication celebrating slow culture.</p>
                 </div>
               </div>
+
+              <div className='work__card magnetic magnetic--subtle'>
+                <div className='work__card-bg-num'>&gt;</div>
+                <div className='work__card-top'>
+                  <span className='work__card-index'>08 / 10</span>
+                  <span className='work__card-tag'>Legacy</span>
+                </div>
+                <div className='work__card-bottom'>
+                  <h2 className='work__card-title'>
+                    Explore
+                    <br />
+                    Work
+                  </h2>
+                  <p className='work__card-body'>View all projects and discover the process behind the work, from strategy and design to final implementation.</p>
+                </div>
+              </div>              
             </div>
           </div>
         </div>
