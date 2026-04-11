@@ -1,9 +1,18 @@
 .section__hero {
   position: relative;
-  background:
-    radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%),
-    radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
+  background: radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
   overflow: hidden;
+}
+
+.section__hero::before {
+  content: '';
+  /* background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%); */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
 }
 
 .hero-content__left {
@@ -93,7 +102,7 @@
 .slats-bg--skills {
   top: calc(730px / 2.25);
   left: calc(900px / -1.4);
-  transform: scaleY(-1);
+
 }
 
 /* Media Queries */

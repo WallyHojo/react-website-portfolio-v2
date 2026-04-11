@@ -285,16 +285,7 @@ img {
   color: var(--color-primary);
 }
 
-.ellipse--large {
-  --max-size: min(70rem, 80vh);
-}
-
-.ellipse--small {
-  --max-size: min(30rem, 40vh);
-}
-
 .background__ellipse {
-  background: var(--color-primary);
   position: absolute;
   width: var(--max-size);
   height: var(--max-size);  
@@ -316,6 +307,28 @@ img {
   top: 50%;
   right: 0;
   transform: translate(50%, -50%);
+}
+
+.ellipse--large {
+  --max-size: min(70rem, 80vh);
+}
+
+.ellipse--small {
+  --max-size: min(30rem, 40vh);
+  filter: blur(70px);
+  opacity: 0.75;  
+}
+
+.ellipse--blue {
+  background: var(--color-primary);
+}
+
+.ellipse--dark {
+  
+}
+
+.ellipse--light {
+  
 }
 
 /* ========================================================================== */

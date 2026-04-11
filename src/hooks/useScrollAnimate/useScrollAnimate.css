@@ -48,6 +48,38 @@
 [sa~="right-long"]            { opacity: 0; transform: translateX(calc(var(--sa-distance, 160px) * -1)); }
 [sa~="right-long"].sa-visible { opacity: 1; transform: translateX(0); }
 
+/* ── Diagonal: Top-Left → Bottom-Right (enters from top-left) ── */
+[sa~="diag-tl-br"]            { opacity: 0; transform: translate(calc(var(--sa-distance, 60px) * -1), calc(var(--sa-distance, 60px) * -1)); }
+[sa~="diag-tl-br"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
+/* ── Diagonal: Top-Left → Bottom-Right Long ── */
+[sa~="diag-tl-br-long"]            { opacity: 0; transform: translate(calc(var(--sa-distance, 140px) * -1), calc(var(--sa-distance, 140px) * -1)); }
+[sa~="diag-tl-br-long"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
+/* ── Diagonal: Top-Right → Bottom-Left (enters from top-right) ── */
+[sa~="diag-tr-bl"]            { opacity: 0; transform: translate(var(--sa-distance, 60px), calc(var(--sa-distance, 60px) * -1)); }
+[sa~="diag-tr-bl"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
+/* ── Diagonal: Top-Right → Bottom-Left Long ── */
+[sa~="diag-tr-bl-long"]            { opacity: 0; transform: translate(var(--sa-distance, 140px), calc(var(--sa-distance, 140px) * -1)); }
+[sa~="diag-tr-bl-long"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
+/* ── Diagonal: Bottom-Left → Top-Right (enters from bottom-left) ── */
+[sa~="diag-bl-tr"]            { opacity: 0; transform: translate(calc(var(--sa-distance, 60px) * -1), var(--sa-distance, 60px)); }
+[sa~="diag-bl-tr"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
+/* ── Diagonal: Bottom-Left → Top-Right Long ── */
+[sa~="diag-bl-tr-long"]            { opacity: 0; transform: translate(calc(var(--sa-distance, 140px) * -1), var(--sa-distance, 140px)); }
+[sa~="diag-bl-tr-long"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
+/* ── Diagonal: Bottom-Right → Top-Left (enters from bottom-right) ── */
+[sa~="diag-br-tl"]            { opacity: 0; transform: translate(var(--sa-distance, 60px), var(--sa-distance, 60px)); }
+[sa~="diag-br-tl"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
+/* ── Diagonal: Bottom-Right → Top-Left Long ── */
+[sa~="diag-br-tl-long"]            { opacity: 0; transform: translate(var(--sa-distance, 140px), var(--sa-distance, 140px)); }
+[sa~="diag-br-tl-long"].sa-visible { opacity: 1; transform: translate(0, 0); }
+
 /* ── Zoom In ── */
 [sa~="zoom-in"]            { opacity: 0; transform: scale(var(--sa-scale, 0.82)); }
 [sa~="zoom-in"].sa-visible { opacity: 1; transform: scale(1); }
@@ -181,6 +213,14 @@
 [sa~="mirror"][sa~="rotate"].sa-exit-up      { opacity: 0; transform: rotate(var(--sa-rotate-deg, -8deg)) scale(0.92); }
 [sa~="mirror"][sa~="skew-left"].sa-exit-up   { opacity: 0; transform: skewX(-12deg) translateX(30px); }
 [sa~="mirror"][sa~="skew-right"].sa-exit-up  { opacity: 0; transform: skewX(12deg) translateX(-30px); }
+[sa~="mirror"][sa~="diag-tl-br"].sa-exit-up      { opacity: 0; transform: translate(calc(var(--sa-distance, 60px) * -1), calc(var(--sa-distance, 60px) * -1)); }
+[sa~="mirror"][sa~="diag-tl-br-long"].sa-exit-up { opacity: 0; transform: translate(calc(var(--sa-distance, 140px) * -1), calc(var(--sa-distance, 140px) * -1)); }
+[sa~="mirror"][sa~="diag-tr-bl"].sa-exit-up      { opacity: 0; transform: translate(var(--sa-distance, 60px), calc(var(--sa-distance, 60px) * -1)); }
+[sa~="mirror"][sa~="diag-tr-bl-long"].sa-exit-up { opacity: 0; transform: translate(var(--sa-distance, 140px), calc(var(--sa-distance, 140px) * -1)); }
+[sa~="mirror"][sa~="diag-bl-tr"].sa-exit-up      { opacity: 0; transform: translate(calc(var(--sa-distance, 60px) * -1), var(--sa-distance, 60px)); }
+[sa~="mirror"][sa~="diag-bl-tr-long"].sa-exit-up { opacity: 0; transform: translate(calc(var(--sa-distance, 140px) * -1), var(--sa-distance, 140px)); }
+[sa~="mirror"][sa~="diag-br-tl"].sa-exit-up      { opacity: 0; transform: translate(var(--sa-distance, 60px), var(--sa-distance, 60px)); }
+[sa~="mirror"][sa~="diag-br-tl-long"].sa-exit-up { opacity: 0; transform: translate(var(--sa-distance, 140px), var(--sa-distance, 140px)); }
 
 /* ── Duration helpers ── */
 [sa~="fast"]    { --sa-duration: 320ms; }

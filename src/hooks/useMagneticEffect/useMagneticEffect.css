@@ -11,15 +11,20 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
-  will-change: left, top;
-
-  /* Hidden by default — shown only when magnetic zone is active */
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    background 0.3s ease,
+    transform 0.15s ease,
+    opacity 0.3s ease;
+  will-change: left, top, transform;
   opacity: 0;
 }
 
 .cursor-ring {
+  --velocity-scale: 1;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -29,19 +34,18 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(var(--velocity-scale));
   transition:
     width 0.4s ease,
     height 0.4s ease,
     border-color 0.3s ease,
-    opacity 0.3s ease;
-  will-change: left, top;
-
-  /* Hidden by default */
+    opacity 0.3s ease,
+    transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: left, top, transform;
   opacity: 0;
 }
 
-/* ── Active state: cursor is inside a magnetic zone ── */
+/* ── Active: cursor entered the zone ─────────────── */
 .cursor.cursor--active {
   opacity: 1;
 }
@@ -50,7 +54,21 @@
   opacity: 1;
 }
 
-/* ── Hover state: cursor is over a magnetic element ── */
+/* ── Idle: no movement for ~1.2 s ────────────────── */
+.cursor.cursor--idle {
+  width: 6px;
+  height: 6px;
+  opacity: 0.4;
+}
+
+.cursor-ring.cursor-ring--idle {
+  width: 50px;
+  height: 50px;
+  opacity: 0.25;
+  border-style: dashed;
+}
+
+/* ── Hover: over a .magnetic / interactive element ── */
 .cursor.cursor--hovering {
   width: 6px;
   height: 6px;
@@ -61,13 +79,41 @@
   width: 52px;
   height: 52px;
   border-color: var(--color-primary-active);
+  --velocity-scale: 1 !important; /* lock scale while hovering */
 }
 
-/* Cursor color change */
+/* ── Click: mousedown ─────────────────────────────── */
+.cursor.cursor--clicking {
+  transform: translate(-50%, -50%) scale(0.65);
+  transition:
+    width 0.08s ease-out,
+    height 0.08s ease-out,
+    background 0.1s ease,
+    transform 0.08s ease-out,
+    opacity 0.1s ease;
+}
+
+.cursor-ring.cursor-ring--clicking {
+  width: 28px;
+  height: 28px;
+  border-width: 2px;
+  border-color: var(--color-primary);
+  --velocity-scale: 1 !important;
+  transition:
+    width 0.1s ease-out,
+    height 0.1s ease-out,
+    border-color 0.1s ease,
+    border-width 0.1s ease,
+    opacity 0.1s ease,
+    transform 0.12s ease-out;
+}
+
+/* ══════════════════════════════════════════
+   CONTEXTUAL COLOR  (data-cursor attribute)
+   ══════════════════════════════════════════ */
 .cursor[data-cursor="light"] {
   background: var(--color-bg-inverse);
 }
-
 .cursor-ring[data-cursor="light"] {
   border-color: var(--color-bg-inverse);
 }
@@ -75,7 +121,6 @@
 .cursor[data-cursor="dark"] {
   background: var(--color-text-inverse);
 }
-
 .cursor-ring[data-cursor="dark"] {
   border-color: var(--color-text-inverse);
 }
@@ -83,7 +128,6 @@
 .cursor[data-cursor="accent"] {
   background: var(--color-primary);
 }
-
 .cursor-ring[data-cursor="accent"] {
   border-color: var(--color-primary);
 }
@@ -91,12 +135,12 @@
 /* ══════════════════════════════════════════
    MAGNETIC SYSTEM
 
-   JS writes --mx and --my (values -1 to 1)
-   to each .magnetic element via inline style.
-   CSS reads those and applies transform.
+   JS writes --mx, --my (−1 to 1) to each
+   .magnetic element via inline style.
+   CSS translates those into movement.
 
-   --strength controls how far the element moves.
-   The transition gives the springy snap-back.
+   --strength controls displacement magnitude.
+   Transition gives the springy snap-back.
    ══════════════════════════════════════════ */
 .magnetic {
   --mx: 0;
@@ -119,7 +163,7 @@
   --strength: 28px;
 }
 
-/* Subtler pull for text */
+/* Subtler pull for text / icons */
 .magnetic--subtle {
   --strength: 10px;
 }

@@ -151,7 +151,7 @@ function Home() {
             <p className='text-muted' sa='up slower delay-600'>
               With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
             </p>
-            <Link to='/Contact' className='btn btn-primary' sa='up glacial delay-800' data-cursor='light'>
+            <Link to='/Contact' className='btn btn-primary' sa='up slow delay-600' data-cursor='light'>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
@@ -174,7 +174,7 @@ function Home() {
         </div>
 
         <div className='hero__decor'>
-          <DotGrid color='overlay' pattern='diagonal' size='small' cols={30} count={400} className='backdrop-dots hidden-xs' />
+          <DotGrid color='overlay' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
           
           <div className='decor__shape dots--1' sa='float float-y float-y-loop delay-1000'>
             <img src={handleDots} alt='Handle dots' sa='up-long glacial delay-800' />
@@ -189,9 +189,9 @@ function Home() {
             <img src={arrowDown} alt='Arrow down drop' sa='down-long glacial delay-1400' />
           </div>
 
-          <div className='decor__shape slats-bg slats-bg--hero'>
-            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='up glacial delay-600' />
-          </div>          
+          {/*<div className='decor__shape slats-bg slats-bg--hero'>
+            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial delay-600' />
+          </div>*/}
 
           <svg className='decor__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
             <defs>
@@ -292,16 +292,17 @@ function Home() {
               ))}
             </Marquee>
           </div>
-         
         </div>
 
-         <div className='hero__decor relative'>
-            <div className='decor__shape slats-bg slats-bg--skills'>
-              <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='fade slow' />
-            </div>
-          </div>         
-
         <div className='skills__intro-wrapper section-padding'>
+         <div className='hero__decor relative'>
+            {/*<div className='decor__shape slats-bg slats-bg--skills'>
+              <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial' />
+            </div>*/}
+            <div sa='diag-tl-br-long glacial mirror delay-600'><div className='background__ellipse background__ellipse-1 ellipse--blue ellipse--small'></div></div>
+            <div sa='diag-br-tl-long glacial mirror delay-600'><div className='background__ellipse background__ellipse-2 ellipse--blue ellipse--small'></div></div>
+          </div>
+
           <div className='skills__intro-container'>
             <div className='skills__intro-text'>
               <h3 className='sub-heading' sa='up slower mirror delay-200'><strong>Built for <span className='text-primary'>Modern Web Experiences</span></strong></h3>
@@ -317,8 +318,7 @@ function Home() {
               </div>
             </div>
           </div>
-        </div>         
-                
+        </div>
       </section>
     
       <section className='section section__work'>
