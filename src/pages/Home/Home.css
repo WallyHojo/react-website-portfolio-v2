@@ -26,6 +26,14 @@
   white-space: nowrap;
 }
 
+.hero__decor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* SVG slats — absolutely fills the hero section */
 .slats-svg {
   top: 0px;
@@ -272,6 +280,7 @@
 
 .skills__intro-decor {
   position: relative;
+  width: 100%;
   height: 100vh;
   flex-basis: 50%;
 
@@ -287,7 +296,8 @@
 .morph-image {
   position: absolute;
   width: 100%;
-  top: 5%;
+  top: 50%;
+  transform: translateY(-50%);
   /* inset: 0; */
   clip-path: inset(25% 46% 25% 46% round 999px);
 
@@ -303,12 +313,10 @@
 @keyframes pill-expand {
   0% {
     opacity: 0;
-    transform: translateY(100%) scale(0);
     clip-path: inset(50% 50% 50% 50% round 999px);
   }
   100% {
     opacity: 1;
-    transform: translateY(25%) scale(1);
     clip-path: inset(0% 0% 0% 0% round 30px);
   }
 }
@@ -328,6 +336,16 @@
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+/* Media Queries */
+
+@media (max-width: 991px) {
+  .skills__intro-container {
+    padding-top: 50%;
+    flex-direction: column;
+    justify-content: start;
+  }
 }
 
 /* ========================================================================== */

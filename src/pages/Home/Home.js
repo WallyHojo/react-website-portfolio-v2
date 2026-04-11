@@ -294,13 +294,13 @@ function Home() {
           </div>
         </div>
 
-        <div className='skills__intro-wrapper section-padding'>
-         <div className='hero__decor relative'>
+        <div className='skills__intro-wrapper section-padding relative'>
+          <div className='hero__decor'>
             {/*<div className='decor__shape slats-bg slats-bg--skills'>
               <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial' />
             </div>*/}
-            <div sa='diag-tl-br-long glacial mirror delay-600'><div className='background__ellipse background__ellipse-1 ellipse--blue ellipse--small'></div></div>
-            <div sa='diag-br-tl-long glacial mirror delay-600'><div className='background__ellipse background__ellipse-2 ellipse--blue ellipse--small'></div></div>
+            <div className='background__ellipse background__ellipse-1 ellipse--blue ellipse--small'></div>
+            <div className='background__ellipse background__ellipse-2 ellipse--blue ellipse--small'></div>
           </div>
 
           <div className='skills__intro-container'>
