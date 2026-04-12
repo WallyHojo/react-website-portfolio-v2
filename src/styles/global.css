@@ -323,12 +323,8 @@ img {
   background: var(--color-primary);
 }
 
-.ellipse--dark {
-  
-}
-
 .ellipse--light {
-  
+  background: var(--color-text-disabled);
 }
 
 /* ========================================================================== */

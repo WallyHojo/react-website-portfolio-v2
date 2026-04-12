@@ -174,7 +174,7 @@ function Home() {
         </div>
 
         <div className='hero__decor'>
-          <DotGrid color='overlay' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
+          <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
           
           <div className='decor__shape dots--1' sa='float float-y float-y-loop delay-1000'>
             <img src={handleDots} alt='Handle dots' sa='up-long glacial delay-800' />
@@ -280,13 +280,13 @@ function Home() {
           </div>
     
           <div className='skills__marquee-wrap'>
-            <Marquee speed='35s' rtl faded pauseOnHover>
+            <Marquee speed='60s' rtl faded pauseOnHover>
               {marqueeRow1.map((item) => (
                 <SkillChip key={item.label} {...item} />
               ))}
             </Marquee>
 
-            <Marquee speed='35s' ltr faded pauseOnHover>
+            <Marquee speed='60s' ltr faded pauseOnHover>
               {marqueeRow2.map((item) => (
                 <SkillChip key={item.label} {...item} />
               ))}
@@ -296,6 +296,7 @@ function Home() {
 
         <div className='skills__intro-wrapper section-padding relative'>
           <div className='hero__decor'>
+            <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={2000} className='backdrop-dots hidden-xs' />
             {/*<div className='decor__shape slats-bg slats-bg--skills'>
               <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial' />
             </div>*/}
