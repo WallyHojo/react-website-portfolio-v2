@@ -13,25 +13,28 @@
 @font-face {
   font-family: "Montserrat";
   src:
-    url("../assets/fonts/Montserrat-Medium.woff2") format("woff2"),
-    url("../assets/fonts/Montserrat-Medium.woff") format("woff");
+    url("../../public/media/Montserrat-Medium.woff2") format("woff2"),
+    url("../../public/media/Montserrat-Medium.woff") format("woff");
   font-weight: 500;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Montserrat";
   src:
-    url("../assets/fonts/Montserrat-Regular.woff2") format("woff2"),
-    url("../assets/fonts/Montserrat-Regular.woff") format("woff");
+    url("../../public/media/Montserrat-Regular.woff2") format("woff2"),
+    url("../../public/media/Montserrat-Regular.woff") format("woff");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Inter";
   src:
-    url("../assets/fonts/Inter-Regular.woff2") format("woff2"),
-    url("../assets/fonts/Inter-Regular.woff") format("woff");
+    url("../../public/media/Inter-Regular.woff2") format("woff2"),
+    url("../../public/media/Inter-Regular.woff") format("woff");
   font-weight: 400;
+  font-display: swap;
 }
 
 :root {

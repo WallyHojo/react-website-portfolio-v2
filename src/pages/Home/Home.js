@@ -147,16 +147,16 @@ function Home() {
           <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
           
           <div className='decor__shape dots--1' sa='float float-y float-y-loop delay-1000'>
-            <img src={handleDots} alt='Handle dots' sa='up-long glacial delay-800' />
+            <img src={handleDots} width='52' height='33' alt='Handle dots' sa='up-long glacial delay-800' />
           </div>
           <div className='decor__shape dots--2' sa='float float-y float-y-loop delay-1200'>
-            <img src={handleDots} alt='Handle dots' sa='down-long glacial delay-1000' />
+            <img src={handleDots} width='52' height='33' alt='Handle dots' sa='down-long glacial delay-1000' />
           </div>
           <div className='decor__shape arrow-down-svg arrow-down--1' sa='float float-x float-x-loop delay-1400'>
-            <img src={arrowRight} alt='Arrow down drop' sa='right-long glacial delay-1200' />
+            <img src={arrowRight} width='54' height='16' alt='Arrow down drop' sa='right-long glacial delay-1200' />
           </div>
           <div className='decor__shape arrow-down-svg arrow-down--2' sa='float float-y float-y-loop delay-1600'>
-            <img src={arrowDown} alt='Arrow down drop' sa='down-long glacial delay-1400' />
+            <img src={arrowDown} width='54' height='16' alt='Arrow down drop' sa='down-long glacial delay-1400' />
           </div>
 
           {/*<div className='decor__shape slats-bg slats-bg--hero'>
@@ -240,7 +240,7 @@ function Home() {
             </g>
           </svg>
         </div>
-                
+
         <div className='hero__content flex-all flex-vert-bottom height-full'>
           <div className='hero-content__left' sa='up-long fade glacial'>
             <h1 className='heading' sa='up slower delay-200'>
