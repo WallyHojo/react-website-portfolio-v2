@@ -1,6 +1,3 @@
-import { useEffect, useRef, useCallback } from 'react';
-import './useMagneticEffect.css';
-
 /**
  * useMagnetic
  *
@@ -8,7 +5,7 @@ import './useMagneticEffect.css';
  *   1. Hidden  — outside any active zone
  *   2. Idle    — inside zone, no movement (after ~1.2 s)
  *   3. Default — inside zone, moving
- *   4. Hover   — over a .magnetic or interactive element
+ *   4. Hover   — over a .magnetic element
  *   5. Click   — mousedown (scales dot down, ring contracts)
  *
  * Also supports:
@@ -17,75 +14,81 @@ import './useMagneticEffect.css';
  *   - SA-awareness: defers magnetic listeners on [sa] elements
  *     until they receive the `sa-visible` class
  *
- * @param {React.RefObject|null} [sectionRef]
- *   Optional ref scoping the active zone to one element.
- *   Omit (or pass null) for site-wide behaviour.
+ * @param {React.RefObject<Element>|null} [sectionRef]
+ *   Scopes the active zone to one element. Omit for site-wide behaviour.
  *
- * Usage – site-wide:
- *   useMagnetic();
- *
- * Usage – scoped:
- *   const ref = useRef(null);
- *   useMagnetic(ref);
- *   <section ref={ref}> … </section>
+ * @example
+ *   useMagnetic();                    // site-wide
+ *   useMagnetic(useRef(sectionEl));   // scoped
  */
+
+import { useEffect, useRef } from 'react';
+import './useMagneticEffect.css';
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// § 1 · Pure helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
+const lerp  = (a, b, t) => a + (b - a) * t;
+const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+
+/** Resets magnetic CSS vars on an element. */
+const resetMagVars = el => {
+  el.style.setProperty('--mx', '0');
+  el.style.setProperty('--my', '0');
+};
+
+/** Returns true when the primary input device supports hover (non-touch). */
+const hasHoverPointer = () => !window.matchMedia('(hover: none)').matches;
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// § 2 · Hook
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function useMagnetic(sectionRef) {
-  const dotRef   = useRef(null);
-  const ringRef  = useRef(null);
-  const mouse    = useRef({ x: 0, y: 0 });
-  const ring     = useRef({ x: 0, y: 0 });
-  const prev     = useRef({ x: 0, y: 0 });
-  const rafId    = useRef(null);
-  const isInZone = useRef(false);
+  const dotRef  = useRef(null);
+  const ringRef = useRef(null);
+
+  // Mutable state stored in refs to avoid triggering re-renders.
+  const mouse     = useRef({ x: 0, y: 0 });
+  const ringPos   = useRef({ x: 0, y: 0 });
+  const prevMouse = useRef({ x: 0, y: 0 });
+  const rafId     = useRef(null);
   const idleTimer = useRef(null);
-  const isIdle    = useRef(false);
-  const isHovering = useRef(false);
-  const isClicking = useRef(false);
+  const state     = useRef({ inZone: false, hovering: false, clicking: false });
 
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 
-  const loop = useCallback(() => {
-    const mx = mouse.current.x;
-    const my = mouse.current.y;
-
-    // Velocity-based ring scale
-    const vx = mx - prev.current.x;
-    const vy = my - prev.current.y;
-    const speed = Math.sqrt(vx * vx + vy * vy);
-    prev.current = { x: mx, y: my };
-
-    ring.current.x = lerp(ring.current.x, mx, 0.12);
-    ring.current.y = lerp(ring.current.y, my, 0.12);
-
-    if (ringRef.current) {
-      ringRef.current.style.left = `${ring.current.x}px`;
-      ringRef.current.style.top  = `${ring.current.y}px`;
-
-      // Only apply velocity scale when in default state (not clicking/hovering)
-      if (!isHovering.current && !isClicking.current && isInZone.current) {
-        const velocityScale = 1 + clamp(speed * 0.012, 0, 0.45);
-        ringRef.current.style.setProperty('--velocity-scale', velocityScale.toFixed(3));
-      }
-    }
-
-    rafId.current = requestAnimationFrame(loop);
-  }, []);
-
-  // ── DOM creation ────────────────────────────────────────────────────────
+  // ── rAF animation loop ──────────────────────────────────────────────────
   useEffect(() => {
-    if (window.matchMedia('(hover: none)').matches) return;
+    if (!hasHoverPointer()) return;
 
-    const dot = document.createElement('div');
-    dot.className = 'cursor';
-    dotRef.current = dot;
-
-    const ringEl = document.createElement('div');
-    ringEl.className = 'cursor-ring';
+    const dot    = Object.assign(document.createElement('div'), { className: 'cursor' });
+    const ringEl = Object.assign(document.createElement('div'), { className: 'cursor-ring' });
+    dotRef.current  = dot;
     ringRef.current = ringEl;
+    document.body.append(dot, ringEl);
 
-    document.body.appendChild(dot);
-    document.body.appendChild(ringEl);
+    const loop = () => {
+      const { x: mx, y: my } = mouse.current;
+      const speed = Math.hypot(mx - prevMouse.current.x, my - prevMouse.current.y);
+      prevMouse.current = { x: mx, y: my };
+
+      ringPos.current.x = lerp(ringPos.current.x, mx, 0.12);
+      ringPos.current.y = lerp(ringPos.current.y, my, 0.12);
+
+      ringEl.style.left = `${ringPos.current.x}px`;
+      ringEl.style.top  = `${ringPos.current.y}px`;
+
+      const { hovering, clicking, inZone } = state.current;
+      if (!hovering && !clicking && inZone) {
+        ringEl.style.setProperty('--velocity-scale', (1 + clamp(speed * 0.012, 0, 0.45)).toFixed(3));
+      }
+
+      rafId.current = requestAnimationFrame(loop);
+    };
+
     rafId.current = requestAnimationFrame(loop);
 
     return () => {
@@ -93,231 +96,201 @@ export function useMagnetic(sectionRef) {
       ringEl.remove();
       cancelAnimationFrame(rafId.current);
     };
-  }, [loop]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Event listeners & logic ─────────────────────────────────────────────
+
+  // ── Event listeners & observers ─────────────────────────────────────────
   useEffect(() => {
-    if (window.matchMedia('(hover: none)').matches) return;
+    if (!hasHoverPointer()) return;
 
     const isGlobal = !sectionRef?.current;
     const zone     = sectionRef?.current ?? document.documentElement;
+    const dot      = dotRef.current;
+    const ring     = ringRef.current;
+    const s        = state.current;
 
-    // ── State helpers ─────────────────────────────────────────────────────
-    const setIdle = () => {
-      if (isHovering.current || isClicking.current) return;
-      isIdle.current = true;
-      dotRef.current?.classList.add('cursor--idle');
-      ringRef.current?.classList.add('cursor-ring--idle');
-    };
+    // ── Cursor class helpers ────────────────────────────────────────────────
 
-    const clearIdle = () => {
-      isIdle.current = false;
-      dotRef.current?.classList.remove('cursor--idle');
-      ringRef.current?.classList.remove('cursor-ring--idle');
-    };
+    const cursorCls   = (...names) => ({ add: () => names.forEach(n => { dot?.classList.add(n);    ring?.classList.add(n.replace('cursor', 'cursor-ring')); }),
+                                         remove: () => names.forEach(n => { dot?.classList.remove(n); ring?.classList.remove(n.replace('cursor', 'cursor-ring')); }) });
 
-    const resetIdleTimer = () => {
+    const activeCls   = cursorCls('cursor--active');
+    const idleCls     = cursorCls('cursor--idle');
+    const hoverCls    = cursorCls('cursor--hovering');
+    const clickCls    = cursorCls('cursor--clicking');
+
+    // ── Idle management ─────────────────────────────────────────────────────
+
+    const clearIdle = () => { s.idle = false; idleCls.remove(); };
+
+    const scheduleIdle = () => {
       clearTimeout(idleTimer.current);
       clearIdle();
-      idleTimer.current = setTimeout(setIdle, 1200);
+      idleTimer.current = setTimeout(() => {
+        if (!s.hovering && !s.clicking) { s.idle = true; idleCls.add(); }
+      }, 1200);
     };
 
-    const activateCursor = () => {
-      isInZone.current = true;
-      dotRef.current?.classList.add('cursor--active');
-      ringRef.current?.classList.add('cursor-ring--active');
-      resetIdleTimer();
+    // ── Zone activation ─────────────────────────────────────────────────────
+
+    const activate = () => {
+      s.inZone = true;
+      activeCls.add();
+      scheduleIdle();
     };
 
-    const deactivateCursor = () => {
-      isInZone.current = false;
+    const deactivate = () => {
+      s.inZone = s.hovering = s.clicking = false;
       clearTimeout(idleTimer.current);
       clearIdle();
-      isHovering.current = false;
-      isClicking.current = false;
-      dotRef.current?.classList.remove(
-        'cursor--active', 'cursor--hovering',
-        'cursor--clicking', 'cursor--idle'
-      );
-      ringRef.current?.classList.remove(
-        'cursor-ring--active', 'cursor-ring--hovering',
-        'cursor-ring--clicking', 'cursor-ring--idle'
-      );
-      zone.querySelectorAll('.magnetic').forEach(el => {
-        el.style.setProperty('--mx', '0');
-        el.style.setProperty('--my', '0');
-      });
+      activeCls.remove(); hoverCls.remove(); clickCls.remove();
+      zone.querySelectorAll('.magnetic').forEach(resetMagVars);
     };
 
-    if (isGlobal) activateCursor();
+    if (isGlobal) activate();
 
-    // ── Mouse tracking ────────────────────────────────────────────────────
-    const onMouseMove = (e) => {
-      mouse.current.x = e.clientX;
-      mouse.current.y = e.clientY;
+    // ── Mouse tracking ──────────────────────────────────────────────────────
 
-      if (dotRef.current) {
-        dotRef.current.style.left = `${e.clientX}px`;
-        dotRef.current.style.top  = `${e.clientY}px`;
-      }
-
-      resetIdleTimer();
+    const onMouseMove = ({ clientX, clientY }) => {
+      mouse.current.x = clientX;
+      mouse.current.y = clientY;
+      if (dot) { dot.style.left = `${clientX}px`; dot.style.top = `${clientY}px`; }
+      scheduleIdle();
     };
 
-    // ── Click state ───────────────────────────────────────────────────────
+    // ── Click state ─────────────────────────────────────────────────────────
+
     const onMouseDown = () => {
-      if (!isInZone.current) return;
-      isClicking.current = true;
-      dotRef.current?.classList.add('cursor--clicking');
-      ringRef.current?.classList.add('cursor-ring--clicking');
+      if (!s.inZone) return;
+      s.clicking = true;
+      clickCls.add();
     };
 
     const onMouseUp = () => {
-      isClicking.current = false;
-      dotRef.current?.classList.remove('cursor--clicking');
-      ringRef.current?.classList.remove('cursor-ring--clicking');
+      s.clicking = false;
+      clickCls.remove();
     };
 
-    // ── Magnetic pull handlers ────────────────────────────────────────────
-    const onMagneticMove = (e) => {
-      const el = e.currentTarget;
-      const r  = el.getBoundingClientRect();
-      const cx = r.left + r.width  / 2;
-      const cy = r.top  + r.height / 2;
+    // ── Magnetic pull ───────────────────────────────────────────────────────
 
-      el.style.setProperty('--mx', ((e.clientX - cx) / (r.width  / 2)).toFixed(3));
-      el.style.setProperty('--my', ((e.clientY - cy) / (r.height / 2)).toFixed(3));
+    const onMagneticMove = ({ currentTarget: el, clientX, clientY }) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((clientX - (r.left + r.width  / 2)) / (r.width  / 2)).toFixed(3));
+      el.style.setProperty('--my', ((clientY - (r.top  + r.height / 2)) / (r.height / 2)).toFixed(3));
 
-      if (!isHovering.current) {
-        isHovering.current = true;
-        dotRef.current?.classList.add('cursor--hovering');
-        ringRef.current?.classList.add('cursor-ring--hovering');
-        ringRef.current?.style.setProperty('--velocity-scale', '1');
+      if (!s.hovering) {
+        s.hovering = true;
+        hoverCls.add();
+        ring?.style.setProperty('--velocity-scale', '1');
       }
     };
 
-    const onMagneticLeave = (e) => {
-      const el = e.currentTarget;
-      el.style.setProperty('--mx', '0');
-      el.style.setProperty('--my', '0');
-
-      isHovering.current = false;
-      dotRef.current?.classList.remove('cursor--hovering');
-      ringRef.current?.classList.remove('cursor-ring--hovering');
+    const onMagneticLeave = ({ currentTarget: el }) => {
+      resetMagVars(el);
+      s.hovering = false;
+      hoverCls.remove();
     };
 
-    // ── Contextual color ──────────────────────────────────────────────────
-    const cursorEls = zone.querySelectorAll('[data-cursor]');
+    // ── Contextual color ────────────────────────────────────────────────────
 
-    const onCursorEnter = (e) => {
-      const color = e.currentTarget.dataset.cursor;
-      if (dotRef.current)  dotRef.current.dataset.cursor  = color;
-      if (ringRef.current) ringRef.current.dataset.cursor = color;
+    const onCursorEnter = ({ currentTarget: el }) => {
+      if (dot)  dot.dataset.cursor  = el.dataset.cursor;
+      if (ring) ring.dataset.cursor = el.dataset.cursor;
     };
 
     const onCursorLeave = () => {
-      if (dotRef.current)  delete dotRef.current.dataset.cursor;
-      if (ringRef.current) delete ringRef.current.dataset.cursor;
+      if (dot)  delete dot.dataset.cursor;
+      if (ring) delete ring.dataset.cursor;
     };
 
+    const cursorEls = zone.querySelectorAll('[data-cursor]');
     cursorEls.forEach(el => {
       el.addEventListener('mouseenter', onCursorEnter);
       el.addEventListener('mouseleave', onCursorLeave);
     });
 
-    // ── SA-aware bind / unbind ────────────────────────────────────────────
+    // ── SA-aware magnetic bind / unbind ─────────────────────────────────────
+
     const bound = new WeakSet();
 
-    const bindListeners = (el) => {
+    const bind = el => {
       if (bound.has(el)) return;
       bound.add(el);
       el.addEventListener('mousemove',  onMagneticMove);
       el.addEventListener('mouseleave', onMagneticLeave);
     };
 
-    const unbindListeners = (el) => {
+    const unbind = el => {
       if (!bound.has(el)) return;
       bound.delete(el);
       el.removeEventListener('mousemove',  onMagneticMove);
       el.removeEventListener('mouseleave', onMagneticLeave);
     };
 
-    const syncMagnetic = (el) => {
-      if (!el.hasAttribute('sa')) {
-        bindListeners(el);
-        return;
-      }
-      if (el.classList.contains('sa-visible')) {
-        bindListeners(el);
-      } else {
-        unbindListeners(el);
-        el.style.setProperty('--mx', '0');
-        el.style.setProperty('--my', '0');
-      }
+    const detach = el => { unbind(el); resetMagVars(el); };
+
+    /** Bind immediately, or wait for sa-visible if the element is SA-animated. */
+    const sync = el => {
+      const ready = !el.hasAttribute('sa') || el.classList.contains('sa-visible');
+      if (ready) bind(el); else detach(el);
     };
 
-    const fullDetach = (el) => {
-      unbindListeners(el);
-      el.style.setProperty('--mx', '0');
-      el.style.setProperty('--my', '0');
-    };
-
-    const saObserver = new MutationObserver((mutations) => {
+    // Watch for sa-visible class changes on .magnetic[sa] elements.
+    const saObserver = new MutationObserver(mutations => {
       for (const { target } of mutations) {
-        if (!(target instanceof Element)) continue;
-        if (!target.classList.contains('magnetic') || !target.hasAttribute('sa')) continue;
-        syncMagnetic(target);
+        if (target instanceof Element && target.classList.contains('magnetic') && target.hasAttribute('sa')) {
+          sync(target);
+        }
       }
     });
 
-    const domObserver = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        mutation.addedNodes.forEach(node => {
-          if (!(node instanceof Element)) return;
-          if (node.classList.contains('magnetic')) syncMagnetic(node);
-          node.querySelectorAll?.('.magnetic').forEach(syncMagnetic);
-        });
-        mutation.removedNodes.forEach(node => {
-          if (!(node instanceof Element)) return;
-          if (node.classList.contains('magnetic')) fullDetach(node);
-          node.querySelectorAll?.('.magnetic').forEach(fullDetach);
-        });
+    // Watch for .magnetic elements being added/removed from the DOM.
+    const domObserver = new MutationObserver(mutations => {
+      for (const { addedNodes, removedNodes } of mutations) {
+        for (const node of addedNodes) {
+          if (!(node instanceof Element)) continue;
+          if (node.classList.contains('magnetic')) sync(node);
+          node.querySelectorAll('.magnetic').forEach(sync);
+        }
+        for (const node of removedNodes) {
+          if (!(node instanceof Element)) continue;
+          if (node.classList.contains('magnetic')) detach(node);
+          node.querySelectorAll('.magnetic').forEach(detach);
+        }
       }
     });
 
-    zone.querySelectorAll('.magnetic').forEach(syncMagnetic);
+    zone.querySelectorAll('.magnetic').forEach(sync);
     saObserver.observe(zone,  { attributes: true, attributeFilter: ['class'], subtree: true });
     domObserver.observe(zone, { childList: true, subtree: true });
 
-    // ── Zone & global listeners ───────────────────────────────────────────
+    // ── Global listeners ────────────────────────────────────────────────────
+
     document.addEventListener('mousemove',  onMouseMove);
     document.addEventListener('mousedown',  onMouseDown);
     document.addEventListener('mouseup',    onMouseUp);
 
     if (!isGlobal) {
-      zone.addEventListener('mouseenter', activateCursor);
-      zone.addEventListener('mouseleave', deactivateCursor);
+      zone.addEventListener('mouseenter', activate);
+      zone.addEventListener('mouseleave', deactivate);
     }
 
     return () => {
       clearTimeout(idleTimer.current);
-      domObserver.disconnect();
       saObserver.disconnect();
+      domObserver.disconnect();
       document.removeEventListener('mousemove',  onMouseMove);
       document.removeEventListener('mousedown',  onMouseDown);
       document.removeEventListener('mouseup',    onMouseUp);
-
       if (!isGlobal) {
-        zone.removeEventListener('mouseenter', activateCursor);
-        zone.removeEventListener('mouseleave', deactivateCursor);
+        zone.removeEventListener('mouseenter', activate);
+        zone.removeEventListener('mouseleave', deactivate);
       }
-
-      zone.querySelectorAll('.magnetic').forEach(fullDetach);
-
+      zone.querySelectorAll('.magnetic').forEach(detach);
       cursorEls.forEach(el => {
         el.removeEventListener('mouseenter', onCursorEnter);
         el.removeEventListener('mouseleave', onCursorLeave);
       });
     };
-  }, [sectionRef]);
+  }, [sectionRef]); // eslint-disable-line react-hooks/exhaustive-deps
 }

@@ -82,7 +82,7 @@ function Navbar() {
     <>
       {/* Navigation */}
       <nav className={`navbar navbar ${isScrolled ? "navbar__scrolled" : ""}`}>
-        <div className='navbar__container' sa='down slow fast' ref={refHeaderHeight}>
+        <div className='navbar__container' sa='down slower' ref={refHeaderHeight}>
           <div className='navbar__background'></div>
           <div className='navbar__logo'>
             <Link to='/'>

@@ -1,11 +1,13 @@
 .section__hero {
   position: relative;
-  background: radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
+  background:
+    radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%),
+    radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
   overflow: hidden;
 }
 
 .section__hero::before {
-  content: '';
+  content: "";
   /* background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%); */
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%);
   position: absolute;
@@ -37,8 +39,8 @@
 
 /* SVG slats — absolutely fills the hero section */
 .slats-svg {
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   height: 100%;
   z-index: 1;
   pointer-events: all;
@@ -111,7 +113,6 @@
 .slats-bg--skills {
   top: calc(730px / 2.25);
   left: calc(900px / -1.4);
-
 }
 
 /* Media Queries */
@@ -122,7 +123,8 @@
   }
 
   .dots--1 {
-    right: 50%;
+    top: 20%;
+    right: 60%;
   }
 }
 
@@ -193,6 +195,101 @@
 }
 
 /* ========================================================================== */
+/*                                Overview Section                            */
+/* ========================================================================== */
+
+@property --n1 {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+@property --n2 {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+@property --n3 {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+@property --n4 {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+ul.overview__list {
+  list-style-type: none;
+  display: grid;
+  gap: 20px;
+}
+
+ul.overview__list li .overview__list-stat {
+  background: color-mix(in srgb, var(--color-bg-elevated) 50%, transparent);
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.75rem;
+  height: stretch;
+  padding: 1rem;
+  border-radius: 6px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px 0 rgba(16, 24, 32, 0.15), 0 0 0 1px rgba(16, 24, 32, 0.05);
+}
+
+ul.overview__list :is(span, p) {
+  line-height: 1;
+}
+
+ul.overview__list span.stat__number {
+  display: flex;
+  flex-direction: column;
+}
+
+ul.overview__list span.stat__value {
+  font-weight: bold;
+  font-size: 1.875rem;
+  vertical-align: sub;
+}
+
+ul.overview__list p.stat__label {
+  margin-bottom: 0;
+  font-size: 0.875rem;
+}
+
+/* Media Queries */
+
+@media (width <= 767px) {
+    ul.overview__list {
+     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 768px) and (width <= 1279px) {
+    ul.overview__list {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+}
+
+@media (width >= 1280px) {
+  .section__overview {
+    padding: 0;
+  }
+  .section__overview-inner {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 55%;
+    max-width: 62.5rem;
+    padding: 0 var(--section-padding-lg) var(--section-padding-lg) 0;
+  }
+  ul.overview__list {
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  }
+}
+
+/* ========================================================================== */
 /*                                Skills Section                              */
 /* ========================================================================== */
 
@@ -204,7 +301,7 @@
 }
 
 .skills__marquee-wrap > .marquee + .marquee {
-  margin-top: 32px;
+  margin-top: 2rem;
 }
 
 .skills__marquee-wrap .marquee-content span {
@@ -230,8 +327,8 @@
   background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 14px;
+  gap: 0.625rem;
+  padding: 0.375rem 0.875rem;
   font-weight: 500;
   font-size: 0.875rem;
   border: 1px solid var(--color-border);
@@ -272,7 +369,6 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
 }
 
 .skills__intro-text {
@@ -291,7 +387,7 @@
   animation-fill-mode: both;
 
   animation-timeline: scroll(root);
-  animation-range: 25% 45%;  
+  animation-range: 25% 45%;
 }
 
 .morph-image {
@@ -371,7 +467,7 @@
 
   --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
   --card-h: 60vh; /* height of each card */
-  --card-gap: clamp(21px, 3.125vw, 24px); /* gap between cards */
+  --card-gap: clamp(1.313rem, 3.125vw, 1.5rem); /* gap between cards */
   --card-count: 6;
 
   /* Total width the track needs to travel:
@@ -430,7 +526,7 @@
   width: var(--card-w);
   height: var(--card-h);
   border-radius: 20px;
-  padding: 40px 44px;
+  padding: 2.5rem 2.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -485,7 +581,7 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 5px 10px;
+  padding: 0.313rem 0.625rem;
   border-radius: 999px;
 }
 

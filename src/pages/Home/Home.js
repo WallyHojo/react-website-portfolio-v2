@@ -2,18 +2,22 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import "../../assets/styles/noise.css";
+
+// Hooks
 import { useMagneticSVG } from "../../hooks/useMagneticSVG";
 import { useMarqueeScroll, Marquee } from "../../hooks/useMarqueeScroll";
 import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
 import { useTypewriterHeading } from "../../hooks/useTypewriterHeading";
 import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
+
+// Assets
 import heroBg from "../../assets/images/hero_bg.webp";
-import diagnalLines from "../../assets/images/diagnal-lines.svg";
+/*import diagnalLines from "../../assets/images/diagnal-lines.svg";*/
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
 
-// SVG imports for skill icons
+// SVG skill icons
 import { ReactComponent as JsonIcon } from "../../assets/images/icons/json.svg";
 import { ReactComponent as ResponsiveMobileIcon } from "../../assets/images/icons/responsive-mobile.svg";
 import { ReactComponent as BugIcon } from "../../assets/images/icons/bug.svg";
@@ -139,40 +143,6 @@ function Home() {
   return (
     <>
       <section className='section section__hero section-grain grain-medium section-padding height-viewport'>
-        <div className='hero__content flex-all flex-vert-bottom height-full'>
-          <div className='hero-content__left' sa='up-long fade glacial'>
-            <h1 className='heading' sa='up slower delay-200'>
-              {displayHeading}
-            </h1>
-
-            <h2 className='h3 sub-heading' sa='up slower delay-400'>
-              <strong>Hi, I'm Walter Carlson, a UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
-            </h2>
-            <p className='text-muted' sa='up slower delay-600'>
-              With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
-            </p>
-            <Link to='/Contact' className='btn btn-primary' sa='up slow delay-600' data-cursor='light'>
-              <span className='btn__text'>Get in Touch</span>
-              <span className='btn__arrow'>
-                <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
-                  <g clipPath='url(#clip0_388_188)'>
-                    <path
-                      d='M12.6346 2H5.3634C5.2665 2 5.17356 2.0417 5.10503 2.11593C5.03651 2.19017 4.99801 2.29085 4.99801 2.39582C4.99801 2.5008 5.03651 2.60148 5.10503 2.67571C5.17356 2.74995 5.2665 2.79165 5.3634 2.79165H11.7545L1.10661 14.3269C1.07281 14.3635 1.046 14.407 1.02771 14.4548C1.00941 14.5027 1 14.5539 1 14.6057C1 14.6575 1.00941 14.7088 1.02771 14.7566C1.046 14.8044 1.07281 14.8479 1.10661 14.8845C1.14041 14.9211 1.18053 14.9502 1.22469 14.97C1.26885 14.9898 1.31619 15 1.36398 15C1.41178 15 1.45911 14.9898 1.50328 14.97C1.54744 14.9502 1.58756 14.9211 1.62136 14.8845L12.2692 3.34855V10.2726C12.2692 10.3776 12.3077 10.4782 12.3762 10.5525C12.4448 10.6267 12.5377 10.6684 12.6346 10.6684C12.7315 10.6684 12.8245 10.6267 12.893 10.5525C12.9615 10.4782 13 10.3776 13 10.2726V2.39438C12.9993 2.28977 12.9605 2.18968 12.8921 2.11584C12.8237 2.042 12.7312 2.00038 12.6346 2Z'
-                      fill='var(--color-text-primary)'
-                    />
-                  </g>
-
-                  <defs>
-                    <clipPath id='clip0_388_188'>
-                      <rect width='15' height='16' fill='white' />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </span>
-            </Link>
-          </div>
-        </div>
-
         <div className='hero__decor'>
           <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
           
@@ -270,9 +240,88 @@ function Home() {
             </g>
           </svg>
         </div>
+                
+        <div className='hero__content flex-all flex-vert-bottom height-full'>
+          <div className='hero-content__left' sa='up-long fade glacial'>
+            <h1 className='heading' sa='up slower delay-200'>
+              {displayHeading}
+            </h1>
+
+            <h2 className='h3 sub-heading' sa='up slower delay-400'>
+              <strong>Hi, I'm Walter Carlson, a UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
+            </h2>
+            <p className='text-muted' sa='up slower delay-600'>
+              With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
+            </p>
+            <br />
+            <Link to='/Contact' className='btn btn-primary' sa='up slow delay-600' data-cursor='light'>
+              <span className='btn__text'>Get in Touch</span>
+              <span className='btn__arrow'>
+                <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
+                  <g clipPath='url(#clip0_388_188)'>
+                    <path
+                      d='M12.6346 2H5.3634C5.2665 2 5.17356 2.0417 5.10503 2.11593C5.03651 2.19017 4.99801 2.29085 4.99801 2.39582C4.99801 2.5008 5.03651 2.60148 5.10503 2.67571C5.17356 2.74995 5.2665 2.79165 5.3634 2.79165H11.7545L1.10661 14.3269C1.07281 14.3635 1.046 14.407 1.02771 14.4548C1.00941 14.5027 1 14.5539 1 14.6057C1 14.6575 1.00941 14.7088 1.02771 14.7566C1.046 14.8044 1.07281 14.8479 1.10661 14.8845C1.14041 14.9211 1.18053 14.9502 1.22469 14.97C1.26885 14.9898 1.31619 15 1.36398 15C1.41178 15 1.45911 14.9898 1.50328 14.97C1.54744 14.9502 1.58756 14.9211 1.62136 14.8845L12.2692 3.34855V10.2726C12.2692 10.3776 12.3077 10.4782 12.3762 10.5525C12.4448 10.6267 12.5377 10.6684 12.6346 10.6684C12.7315 10.6684 12.8245 10.6267 12.893 10.5525C12.9615 10.4782 13 10.3776 13 10.2726V2.39438C12.9993 2.28977 12.9605 2.18968 12.8921 2.11584C12.8237 2.042 12.7312 2.00038 12.6346 2Z'
+                      fill='var(--color-text-primary)'
+                    />
+                  </g>
+
+                  <defs>
+                    <clipPath id='clip0_388_188'>
+                      <rect width='15' height='16' fill='white' />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className='section section__overview section-padding'>
+        <div className='section__overview-inner'>
+          <ul className='overview__list'>
+            <li sa='diag-tr-bl slow delay-200'>
+              <div className='overview__list-stat'>
+                <div className='stat__number'>
+              <span className='stat__value' sa='count mirror delay-400' data-sa-to='18'></span>
+              <span className='stat__suffix'>+</span>
+              </div>
+              <p className='stat__label'>Years of Experience</p>
+              </div>
+            </li>
+            <li sa='diag-tr-bl slow delay-400'>
+              <div className='overview__list-stat'>
+                <div className='stat__number'>
+              <span className='stat__value' sa='count mirror delay-400' data-sa-to='600'></span>
+              <span className='stat__suffix'>+</span>
+              </div>
+              <p className='stat__label'>Websites Delivered</p>
+              </div>
+            </li>
+            <li sa='diag-tr-bl slow delay-600'>
+              <div className='overview__list-stat'>
+                <div className='stat__number'>
+              <span className='stat__value' sa='count mirror delay-400' data-sa-to='120'></span>
+              <span className='stat__suffix'>+</span>
+              </div>
+              <p className='stat__label'>Happy Clients</p>
+              </div>
+            </li>
+            <li sa='diag-tr-bl slow delay-800'>
+              <div className='overview__list-stat'>
+                <div className='stat__number'>
+              <span className='stat__value' sa='count mirror delay-400' data-sa-to='6'></span>
+              <span className='stat__suffix'>+</span>
+              </div>
+              <p className='stat__label'>Automotive Verticals</p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </section>
 
       <section className='section section__skills'>
+
         <div className='section__skills-marquee section-padding'>
           <div className='section__label'>
             <h2 className='section__title' sa='up slower mirror delay-200'>Skills</h2>

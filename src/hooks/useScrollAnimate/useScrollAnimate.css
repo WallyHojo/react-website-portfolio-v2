@@ -261,6 +261,11 @@
 [sa~="expo"]        { transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
 [sa~="back"]        { transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
+/* ── Count ── */
+/* No visual CSS needed — JS writes textContent directly via rAF.        */
+/* Reduced-motion: skip to final value instantly (handled in the block   */
+/* below via a dedicated rule).                                          */
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   [sa] {
@@ -272,4 +277,6 @@
     clip-path: none !important;
     animation: none !important;
   }
+  /* Counter: snap straight to target — JS reads this flag via getComputedStyle. */
+  [sa~="count"] { --sa-duration: 0ms; }
 }

@@ -19,8 +19,8 @@
   align-items: center;
   padding: 0.938rem 1.563rem;
   border-radius: 1.875rem;
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   will-change: backdrop-filter;
 }
 
@@ -63,7 +63,7 @@
 .navbar-right__divider {
   height: 30px;
   width: 1px;
-  background-color: var(--color-bg-subtle);
+  background: var(--color-bg-subtle);
   box-shadow: 1px 0 0 #6b6b6b;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .menu-icon__bar {
-  background-color: var(--color-text-primary);
+  background: var(--color-text-primary);
   display: block;
   width: 3.75rem;
   height: 0.188rem;
@@ -127,8 +127,8 @@
   padding-block: clamp(1.875rem, 6.66vw, 5rem);
   padding-inline: clamp(1.875rem, 6.66vw, 5rem);
   border-radius: 20px 0 20px 20px;
-  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   will-change: backdrop-filter;
   /* clip-path: url(#menu-bg-clip); */
   z-index: 100;
@@ -145,7 +145,7 @@
 
 .menu__wrapper,
 .menu__close-container {
-  background-color: color-mix(in srgb, var(--color-text-primary) 90%, transparent);
+  background: color-mix(in srgb, var(--color-text-primary) 90%, transparent);
   pointer-events: all;
 }
 
