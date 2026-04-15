@@ -156,7 +156,7 @@ function Home() {
             <img src={arrowRight} width='54' height='16' alt='Arrow down drop' sa='right-long glacial delay-1200' />
           </div>
           <div className='decor__shape arrow-down-svg arrow-down--2' sa='float float-y float-y-loop delay-1600'>
-            <img src={arrowDown} width='54' height='182' alt='Arrow down drop' sa='down-long glacial delay-1400' />
+            <img src={arrowDown} width='16' height='54' alt='Arrow down drop' sa='down-long glacial delay-1400' />
           </div>
 
           {/*<div className='decor__shape slats-bg slats-bg--hero'>
