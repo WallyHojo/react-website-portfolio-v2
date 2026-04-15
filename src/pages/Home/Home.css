@@ -198,25 +198,8 @@
 /*                                Overview Section                            */
 /* ========================================================================== */
 
-@property --n1 {
-  syntax: "<integer>";
-  initial-value: 0;
-  inherits: false;
-}
-@property --n2 {
-  syntax: "<integer>";
-  initial-value: 0;
-  inherits: false;
-}
-@property --n3 {
-  syntax: "<integer>";
-  initial-value: 0;
-  inherits: false;
-}
-@property --n4 {
-  syntax: "<integer>";
-  initial-value: 0;
-  inherits: false;
+.section__overview {
+  overflow: hidden;
 }
 
 ul.overview__list {
@@ -230,7 +213,7 @@ ul.overview__list li .overview__list-stat {
   display: flex;
   flex-direction: column;
   row-gap: 0.75rem;
-  height: stretch;
+  height: -webkit-fill-available;
   padding: 1rem;
   border-radius: 6px;
   -webkit-backdrop-filter: blur(10px);
