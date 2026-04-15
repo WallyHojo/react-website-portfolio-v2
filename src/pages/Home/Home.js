@@ -243,18 +243,18 @@ function Home() {
 
         <div className='hero__content flex-all flex-vert-bottom height-full'>
           <div className='hero-content__left' sa='up-long fade glacial'>
-            <h1 className='heading' sa='up slower delay-200'>
+            <h1 className='heading'>
               {displayHeading}
             </h1>
 
-            <h2 className='h3 sub-heading' sa='up slower delay-400'>
+            <h2 className='h3 sub-heading'>
               <strong>Hi, I'm Walter Carlson, a UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
             </h2>
-            <p className='text-muted' sa='up slower delay-600'>
+            <p className='text-muted'>
               With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
             </p>
             <br />
-            <Link to='/Contact' className='btn btn-primary' sa='up slow delay-600' data-cursor='light'>
+            <Link to='/Contact' className='btn btn-primary' data-cursor='light'>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
