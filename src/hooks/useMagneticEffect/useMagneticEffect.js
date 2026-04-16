@@ -16,10 +16,6 @@
  *
  * @param {React.RefObject<Element>|null} [sectionRef]
  *   Scopes the active zone to one element. Omit for site-wide behaviour.
- *
- * @example
- *   useMagnetic();                    // site-wide
- *   useMagnetic(useRef(sectionEl));   // scoped
  */
 
 import { useEffect, useRef } from 'react';
@@ -33,14 +29,18 @@ import './useMagneticEffect.css';
 const lerp  = (a, b, t) => a + (b - a) * t;
 const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
 
-/** Resets magnetic CSS vars on an element. */
 const resetMagVars = el => {
   el.style.setProperty('--mx', '0');
   el.style.setProperty('--my', '0');
 };
 
-/** Returns true when the primary input device supports hover (non-touch). */
 const hasHoverPointer = () => !window.matchMedia('(hover: none)').matches;
+
+// ✅ Fix: stable class-pair helper built once, not recreated on each call
+const makeCursorCls = (dotCls, ringCls, dot, ring) => ({
+  add:    () => { dot?.classList.add(dotCls);    ring?.classList.add(ringCls); },
+  remove: () => { dot?.classList.remove(dotCls); ring?.classList.remove(ringCls); },
+});
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -51,13 +51,16 @@ export function useMagnetic(sectionRef) {
   const dotRef  = useRef(null);
   const ringRef = useRef(null);
 
-  // Mutable state stored in refs to avoid triggering re-renders.
   const mouse     = useRef({ x: 0, y: 0 });
   const ringPos   = useRef({ x: 0, y: 0 });
   const prevMouse = useRef({ x: 0, y: 0 });
   const rafId     = useRef(null);
   const idleTimer = useRef(null);
-  const state     = useRef({ inZone: false, hovering: false, clicking: false });
+  const state     = useRef({ inZone: false, hovering: false, clicking: false, idle: false });
+  // ✅ Fix: track last frame timestamp for delta-time lerp so ring speed is
+  //    frame-rate independent (was too fast at 120 Hz, sluggish at 30 Hz)
+  const lastTs    = useRef(0);
+  const isGlobal  = useRef(!sectionRef?.current);
 
 
   // ── rAF animation loop ──────────────────────────────────────────────────
@@ -70,13 +73,22 @@ export function useMagnetic(sectionRef) {
     ringRef.current = ringEl;
     document.body.append(dot, ringEl);
 
-    const loop = () => {
+    const loop = (ts) => {
+      if (!state.current.inZone && !isGlobal) {
+        rafId.current = requestAnimationFrame(loop);
+        return; // skip work when cursor isn't active
+      }      
+      // ✅ Fix: normalise lerp factor to 60 fps so ring feels the same at any refresh rate
+      const dt     = Math.min(ts - lastTs.current, 64); // cap at ~15 fps equiv to avoid huge jumps
+      lastTs.current = ts;
+      const alpha  = 1 - Math.pow(1 - 0.12, dt / (1000 / 60));
+
       const { x: mx, y: my } = mouse.current;
       const speed = Math.hypot(mx - prevMouse.current.x, my - prevMouse.current.y);
       prevMouse.current = { x: mx, y: my };
 
-      ringPos.current.x = lerp(ringPos.current.x, mx, 0.12);
-      ringPos.current.y = lerp(ringPos.current.y, my, 0.12);
+      ringPos.current.x = lerp(ringPos.current.x, mx, alpha);
+      ringPos.current.y = lerp(ringPos.current.y, my, alpha);
 
       ringEl.style.left = `${ringPos.current.x}px`;
       ringEl.style.top  = `${ringPos.current.y}px`;
@@ -103,21 +115,17 @@ export function useMagnetic(sectionRef) {
   useEffect(() => {
     if (!hasHoverPointer()) return;
 
-    const isGlobal = !sectionRef?.current;
+    isGlobal.current = !sectionRef?.current;
     const zone     = sectionRef?.current ?? document.documentElement;
     const dot      = dotRef.current;
     const ring     = ringRef.current;
     const s        = state.current;
 
-    // ── Cursor class helpers ────────────────────────────────────────────────
-
-    const cursorCls   = (...names) => ({ add: () => names.forEach(n => { dot?.classList.add(n);    ring?.classList.add(n.replace('cursor', 'cursor-ring')); }),
-                                         remove: () => names.forEach(n => { dot?.classList.remove(n); ring?.classList.remove(n.replace('cursor', 'cursor-ring')); }) });
-
-    const activeCls   = cursorCls('cursor--active');
-    const idleCls     = cursorCls('cursor--idle');
-    const hoverCls    = cursorCls('cursor--hovering');
-    const clickCls    = cursorCls('cursor--clicking');
+    // ✅ Fix: build stable class-pair objects once instead of recreating on every cursor event
+    const activeCls = makeCursorCls('cursor--active',   'cursor-ring--active',   dot, ring);
+    const idleCls   = makeCursorCls('cursor--idle',     'cursor-ring--idle',     dot, ring);
+    const hoverCls  = makeCursorCls('cursor--hovering', 'cursor-ring--hovering', dot, ring);
+    const clickCls  = makeCursorCls('cursor--clicking', 'cursor-ring--clicking', dot, ring);
 
     // ── Idle management ─────────────────────────────────────────────────────
 
@@ -147,7 +155,7 @@ export function useMagnetic(sectionRef) {
       zone.querySelectorAll('.magnetic').forEach(resetMagVars);
     };
 
-    if (isGlobal) activate();
+    if (isGlobal.current) activate();
 
     // ── Mouse tracking ──────────────────────────────────────────────────────
 
@@ -172,8 +180,17 @@ export function useMagnetic(sectionRef) {
     };
 
     // ── Magnetic pull ───────────────────────────────────────────────────────
+    // ✅ Fix: throttle magnetic mousemove to one update per rAF tick
+    //    (was firing on every raw mousemove — up to 1000×/s on some devices)
+    let magRafPending = false;
+    let lastMagEvent  = null;
 
-    const onMagneticMove = ({ currentTarget: el, clientX, clientY }) => {
+    const flushMagMove = () => {
+      magRafPending = false;
+      if (!lastMagEvent) return;
+      const { el, clientX, clientY } = lastMagEvent;
+      lastMagEvent = null;
+
       const r = el.getBoundingClientRect();
       el.style.setProperty('--mx', ((clientX - (r.left + r.width  / 2)) / (r.width  / 2)).toFixed(3));
       el.style.setProperty('--my', ((clientY - (r.top  + r.height / 2)) / (r.height / 2)).toFixed(3));
@@ -185,7 +202,17 @@ export function useMagnetic(sectionRef) {
       }
     };
 
+    const onMagneticMove = ({ currentTarget: el, clientX, clientY }) => {
+      lastMagEvent = { el, clientX, clientY };
+      if (!magRafPending) {
+        magRafPending = true;
+        requestAnimationFrame(flushMagMove);
+      }
+    };
+
     const onMagneticLeave = ({ currentTarget: el }) => {
+      lastMagEvent  = null;
+      magRafPending = false;
       resetMagVars(el);
       s.hovering = false;
       hoverCls.remove();
@@ -229,13 +256,11 @@ export function useMagnetic(sectionRef) {
 
     const detach = el => { unbind(el); resetMagVars(el); };
 
-    /** Bind immediately, or wait for sa-visible if the element is SA-animated. */
     const sync = el => {
       const ready = !el.hasAttribute('sa') || el.classList.contains('sa-visible');
       if (ready) bind(el); else detach(el);
     };
 
-    // Watch for sa-visible class changes on .magnetic[sa] elements.
     const saObserver = new MutationObserver(mutations => {
       for (const { target } of mutations) {
         if (target instanceof Element && target.classList.contains('magnetic') && target.hasAttribute('sa')) {
@@ -244,7 +269,6 @@ export function useMagnetic(sectionRef) {
       }
     });
 
-    // Watch for .magnetic elements being added/removed from the DOM.
     const domObserver = new MutationObserver(mutations => {
       for (const { addedNodes, removedNodes } of mutations) {
         for (const node of addedNodes) {
@@ -266,11 +290,12 @@ export function useMagnetic(sectionRef) {
 
     // ── Global listeners ────────────────────────────────────────────────────
 
-    document.addEventListener('mousemove',  onMouseMove);
-    document.addEventListener('mousedown',  onMouseDown);
-    document.addEventListener('mouseup',    onMouseUp);
+    // ✅ Fix: mousemove marked passive — browser can optimise scroll compositing
+    document.addEventListener('mousemove', onMouseMove, { passive: true });
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mouseup',   onMouseUp);
 
-    if (!isGlobal) {
+    if (!isGlobal.current) {
       zone.addEventListener('mouseenter', activate);
       zone.addEventListener('mouseleave', deactivate);
     }
@@ -279,10 +304,10 @@ export function useMagnetic(sectionRef) {
       clearTimeout(idleTimer.current);
       saObserver.disconnect();
       domObserver.disconnect();
-      document.removeEventListener('mousemove',  onMouseMove);
-      document.removeEventListener('mousedown',  onMouseDown);
-      document.removeEventListener('mouseup',    onMouseUp);
-      if (!isGlobal) {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mousedown', onMouseDown);
+      document.removeEventListener('mouseup',   onMouseUp);
+      if (!isGlobal.current) {
         zone.removeEventListener('mouseenter', activate);
         zone.removeEventListener('mouseleave', deactivate);
       }

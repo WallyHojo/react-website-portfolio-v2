@@ -1,23 +1,11 @@
 /* ══════════════════════════════════════════
    MARQUEE SCROLL SYSTEM
 
-   Speed is now controlled via the Web Animations
-   API (playbackRate) in useMarqueeScroll.js.
-   The CSS owns only the base animation — no
-   --scroll-speed variable, no calc() on duration.
-   This prevents the compounding drift that occurs
-   when animation-duration is mutated mid-playback.
+   Motion is driven entirely by useMarqueeScroll.js
+   via RAF + translate3d. There is NO CSS animation
+   on .marquee-track — the JS hook disables it on
+   mount and owns the transform from that point on.
    ══════════════════════════════════════════ */
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes marquee-rtl {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
-}
 
 /* ─── WRAPPER ─── */
 .marquee {
@@ -26,23 +14,12 @@
 }
 
 /* ─── TRACK ─────────────────────────────────
-   Base animation only — duration is fixed.
-   playbackRate is set by useMarqueeScroll.
+   No animation here — JS sets transform every frame.
+   will-change is set by the hook at runtime.
    ─────────────────────────────────────────── */
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee var(--speed, 20s) linear infinite;
-}
-
-/* Reverse direction */
-.marquee--rtl .marquee-track {
-  animation-name: marquee-rtl;
-}
-
-/* Pause on hover */
-.marquee--pausable:hover .marquee-track {
-  animation-play-state: paused;
 }
 
 /* ─── CONTENT COPY ─── */
@@ -70,4 +47,12 @@
     black 92%,
     transparent 100%
   );
+}
+
+/* ─── PAUSE ON HOVER ─── */
+/* JS respects this via a data attribute if needed,
+   or you can toggle a paused class from the component */
+.marquee--pausable:hover .marquee-track {
+  /* Signal to JS — actual pause handled in hook if desired */
+  pointer-events: none;
 }

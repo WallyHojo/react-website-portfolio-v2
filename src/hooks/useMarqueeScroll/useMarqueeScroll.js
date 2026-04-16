@@ -1,90 +1,84 @@
 import { useEffect } from 'react';
 
 // ── Module-level utilities ───────────────────────────────────────────────────
-// Defined once per module, not recreated on every useEffect run.
 const lerp  = (a, b, t) => a + (b - a) * t;
 const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
 
-const WINDOW  = 5;      // rolling average sample count
-const EPSILON = 0.0005; // settle threshold
-const MAX_DELTA = 200;  // discard jumps larger than this (px)
+const WINDOW    = 5;    // rolling-average sample count
+const MAX_DELTA = 200;  // ignore scroll jumps larger than this (px)
 
 /**
  * useMarqueeScroll
  *
- * Controls marquee speed via playbackRate on each .marquee-track
- * Web Animation — not by mutating animation-duration, which
- * compounds floating-point drift over time.
- *
- * Mount once above any <Marquee> components in the tree.
+ * Drives every .marquee-track purely via RAF + CSS transform.
+ * No CSS animation is used — this avoids all playbackRate jitter.
  *
  * @param {object} [options]
- * @param {number} [options.boost=1.75]       Peak playbackRate above 1
- * @param {number} [options.ease=0.08]        Lerp rate speed → velTarget
- * @param {number} [options.decay=0.16]       Lerp rate velTarget → 0 per frame
- * @param {number} [options.sensitivity=0.18] Scroll px → velocity (pre-clamp)
+ * @param {number} [options.baseSpeed=0.5]    px/frame at rest
+ * @param {number} [options.boost=2.5]        speed multiplier added while scrolling
+ * @param {number} [options.ease=0.06]        lerp rate: current → target speed
+ * @param {number} [options.decay=0.12]       lerp rate: boost → 0 after scroll stops
+ * @param {number} [options.sensitivity=0.25] scroll px → boost amount
  */
 export function useMarqueeScroll({
-  boost       = 1.75,
-  ease        = 0.08,
-  decay       = 0.16,
-  sensitivity = 0.18,
+  baseSpeed   = 1.0,
+  boost       = 4.0,
+  ease        = 0.06,
+  decay       = 0.08,
+  sensitivity = 0.4,
 } = {}) {
   useEffect(() => {
-    // ── State ──────────────────────────────────────────────────────────────
-    let velTarget = 0;
-    let speed     = 0;
-    let lastY     = window.scrollY;
-    let rafId     = null;
-    let anims     = [];
 
-    // Ring buffer — avoids % on unbounded dIdx and keeps sum O(1)
-    const ring = new Float32Array(WINDOW); // typed array: faster alloc + access
-    let   rIdx = 0;
-    let   rSum = 0;
+    // ── Per-track state ────────────────────────────────────────────────────
+    let tracks = [];
 
-    // ── Animation cache ────────────────────────────────────────────────────
-    const getAnims = () => {
-      anims = Array.from(document.querySelectorAll('.marquee-track'))
-        .reduce((acc, el) => {
-          el.getAnimations().forEach(a => {
-            if (a.playState !== 'finished') acc.push(a);
-          });
-          return acc;
-        }, []);
+    const initTracks = () => {
+      tracks = Array.from(document.querySelectorAll('.marquee-track')).map(el => {
+        // Disable CSS animation entirely — JS owns the transform from here
+        el.style.animation  = 'none';
+        el.style.willChange = 'transform';
+
+        const rtl  = el.closest('.marquee--rtl') !== null;
+        const halfW = el.scrollWidth / 2;
+        // RTL starts at -halfW so the seam is off-screen immediately
+        const offset = rtl ? -halfW : 0;
+
+        return { el, halfW, offset, rtl };
+      });
     };
 
-    // applyRate is called every RAF frame — keep it lean
-    const applyRate = (rate) => {
-      for (let i = 0; i < anims.length; i++) anims[i].playbackRate = rate;
-    };
+    // ── Velocity state ─────────────────────────────────────────────────────
+    let boostTarget  = 0;
+    let scrollBoost  = 0;
+    let currentSpeed = baseSpeed;
+    let lastY        = window.scrollY;
+    let rafId        = null;
 
-    // ── Reset ──────────────────────────────────────────────────────────────
-    const reset = () => {
-      velTarget = 0;
-      speed     = 0;
-      lastY     = window.scrollY;
-      rSum      = 0;
-      ring.fill(0);
-      rIdx = 0;
-      applyRate(1);
-      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-    };
+    const ring = new Float32Array(WINDOW);
+    let rIdx = 0;
+    let rSum = 0;
 
-    // ── RAF tick ───────────────────────────────────────────────────────────
+    // ── RAF loop ───────────────────────────────────────────────────────────
     const tick = () => {
-      velTarget = lerp(velTarget, 0,         decay);
-      speed     = lerp(speed,     velTarget, ease);
+      boostTarget = lerp(boostTarget, 0,           decay);
+      scrollBoost = lerp(scrollBoost, boostTarget, ease);
 
-      // Cheapest exit first — avoids applyRate call when already settled
-      if (speed < EPSILON && velTarget < EPSILON) {
-        speed = velTarget = 0;
-        applyRate(1);
-        rafId = null;
-        return;
+      const targetSpeed = baseSpeed + scrollBoost * boost;
+      currentSpeed      = lerp(currentSpeed, targetSpeed, ease);
+
+      for (let i = 0; i < tracks.length; i++) {
+        const t   = tracks[i];
+        const dir = t.rtl ? 1 : -1;
+
+        t.offset += currentSpeed * dir;
+
+        // Seamless loop — reset by exactly one content-copy width
+        if (!t.rtl && t.offset <= -t.halfW) t.offset += t.halfW;
+        if ( t.rtl && t.offset >=  0)       t.offset -= t.halfW;
+
+        t.el.style.transform = `translate3d(${t.offset}px, 0, 0)`;
       }
 
-      applyRate(1 + speed * boost);
       rafId = requestAnimationFrame(tick);
     };
 
@@ -95,33 +89,44 @@ export function useMarqueeScroll({
 
       if (delta > MAX_DELTA) return;
 
-      // O(1) rolling average via running sum — no reduce() per event
-      rSum       -= ring[rIdx];
-      ring[rIdx]  = delta;
-      rSum       += delta;
-      rIdx        = (rIdx + 1) % WINDOW;
+      rSum      -= ring[rIdx];
+      ring[rIdx] = delta;
+      rSum      += delta;
+      rIdx       = (rIdx + 1) % WINDOW;
 
-      velTarget = clamp((rSum / WINDOW) * sensitivity, 0, 1);
-
-      if (!rafId) rafId = requestAnimationFrame(tick);
+      boostTarget = clamp((rSum / WINDOW) * sensitivity, 0, 1);
     };
 
-    // ── Visibility / focus guards ──────────────────────────────────────────
-    const onVisible = () => { if (document.visibilityState === 'visible') reset(); };
+    // ── Visibility guard ───────────────────────────────────────────────────
+    const onVisible = () => {
+      if (document.visibilityState === 'hidden') {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else {
+        lastY = window.scrollY;
+        if (!rafId) rafId = requestAnimationFrame(tick);
+      }
+    };
 
     // ── Init ───────────────────────────────────────────────────────────────
-    // One deferred frame lets React finish painting marquee elements
-    rafId = requestAnimationFrame(() => { getAnims(); rafId = null; });
+    rafId = requestAnimationFrame(() => {
+      initTracks();
+      rafId = requestAnimationFrame(tick);
+    });
 
     window.addEventListener('scroll',             onScroll,  { passive: true });
     document.addEventListener('visibilitychange', onVisible);
-    window.addEventListener('focus',              reset);
 
     return () => {
       window.removeEventListener('scroll',             onScroll);
       document.removeEventListener('visibilitychange', onVisible);
-      window.removeEventListener('focus',              reset);
-      reset();
+      cancelAnimationFrame(rafId);
+
+      tracks.forEach(t => {
+        t.el.style.transform  = '';
+        t.el.style.animation  = '';
+        t.el.style.willChange = '';
+      });
     };
-  }, [boost, ease, decay, sensitivity]);
+  }, [baseSpeed, boost, ease, decay, sensitivity]);
 }

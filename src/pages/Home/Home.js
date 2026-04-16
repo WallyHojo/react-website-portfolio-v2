@@ -59,60 +59,66 @@ import { ReactComponent as PhotoshopIcon } from "../../assets/images/icons/photo
 
 // Data for marquee skill chips
 const marqueeRow1 = [
-  { label: "JSON", icon: <JsonIcon width={34} height={34} /> },
-  { label: "Responsive Design", icon: <ResponsiveMobileIcon width={34} height={34} /> },
-  { label: "Testing & Debugging", icon: <BugIcon width={34} height={34} /> },
-  { label: "Reliability", icon: <ReliabilityIcon width={34} height={34} /> },
-  { label: "Teamwork", icon: <TeamworkIcon width={34} height={34} /> },
-  { label: "Creativity & Innovation", icon: <CreativityIcon width={34} height={34} /> },
-  { label: "React.js", icon: <ReactIcon width={34} height={34} /> },
-  { label: "Problem Solving", icon: <SolvingIcon width={34} height={34} /> },
-  { label: "GitHub", icon: <GithubIcon width={34} height={34} /> },
-  { label: "Web Development", icon: <WebDevelopmentIcon width={34} height={34} /> },
-  { label: "Jira", icon: <JiraIcon width={34} height={34} /> },
-  { label: "Communication", icon: <CommunicationIcon width={34} height={34} /> },
-  { label: "Web Support", icon: <WebSupportIcon width={34} height={34} /> },
-  { label: "Web Services", icon: <WebServicesIcon width={34} height={34} /> },
-  { label: "Web Applications", icon: <ApplicationIcon width={34} height={34} /> },
-  { label: "Organization Skills", icon: <OrganizationIcon width={34} height={34} /> },
-  { label: "Customer Support", icon: <CustomerSupportIcon width={34} height={34} /> },
-  { label: "JQUERY", icon: <JQUERYIcon width={34} height={34} /> },
+  { label: "JSON", icon: <JsonIcon />, color: "var(--card-3)" },
+  { label: "Responsive Design", icon: <ResponsiveMobileIcon />, color: "var(--card-2)" },
+  { label: "Testing & Debugging", icon: <BugIcon />, color: "var(--card-1)" },
+  { label: "Reliability", icon: <ReliabilityIcon />, color: "var(--card-5)" },
+  { label: "Teamwork", icon: <TeamworkIcon />, color: "var(--card-5)" },
+  { label: "Creativity & Innovation", icon: <CreativityIcon />, color: "var(--card-5)" },
+  { label: "React.js", icon: <ReactIcon />, color: "var(--card-2)" },
+  { label: "Problem Solving", icon: <SolvingIcon />, color: "var(--card-5)" },
+  { label: "GitHub", icon: <GithubIcon />, color: "var(--card-4)" },
+  { label: "Web Development", icon: <WebDevelopmentIcon />, color: "var(--card-1)" },
+  { label: "Jira", icon: <JiraIcon />, color: "var(--card-4)" },
+  { label: "Communication", icon: <CommunicationIcon />, color: "var(--card-5)" },
+  { label: "Web Support", icon: <WebSupportIcon />, color: "var(--card-1)" },
+  { label: "Web Services", icon: <WebServicesIcon />, color: "var(--card-3)" },
+  { label: "Web Applications", icon: <ApplicationIcon />, color: "var(--card-1)" },
+  { label: "Organization Skills", icon: <OrganizationIcon />, color: "var(--card-5)" },
+  { label: "Customer Support", icon: <CustomerSupportIcon />, color: "var(--card-5)" },
+  { label: "JQUERY", icon: <JQUERYIcon />, color: "var(--card-4)" },
 ];
 
 // Second row of marquee skills
 const marqueeRow2 = [
-  { label: "WordPress", icon: <WordpressIcon width={34} height={34} /> },
-  { label: "User Interface Design", icon: <UserInterfaceDesignIcon width={34} height={34} /> },
-  { label: "User Experience (UX)", icon: <UXIcon width={34} height={34} /> },
-  { label: "XSLT", icon: <XSLTIcon width={34} height={34} /> },
-  { label: "XML", icon: <XMLIcon width={34} height={34} /> },
-  { label: "ZURB Foundation", icon: <ZurbIcon width={34} height={34} /> },
-  { label: "SEO", icon: <SEOIcon width={34} height={34} /> },
-  { label: "Web Design", icon: <DesignIcon width={34} height={34} /> },
-  { label: "Responsive Web Design", icon: <ResponsiveDesignIcon width={34} height={34} /> },
-  { label: "Mobile Web Design", icon: <MobileIcon width={34} height={34} /> },
-  { label: "Web Interface Design", icon: <UIIcon width={34} height={34} /> },
-  { label: "Adobe XD", icon: <XDIcon width={34} height={34} /> },
-  { label: "Bootstrap", icon: <BootstrapIcon width={34} height={34} /> },
-  { label: "Adobe Illustrator", icon: <IllustratorIcon width={34} height={34} /> },
-  { label: "CSS3", icon: <CSSIcon width={34} height={34} /> },
-  { label: "HTML5", icon: <HTMLIcon width={34} height={34} /> },
-  { label: "Website Building", icon: <WebBuildingIcon width={34} height={34} /> },
-  { label: "Programming", icon: <ProgrammingIcon width={34} height={34} /> },
-  { label: "PHP", icon: <PHPIcon width={34} height={34} /> },
-  { label: "Adobe Photoshop", icon: <PhotoshopIcon width={34} height={34} /> },
+  { label: "WordPress", icon: <WordpressIcon />, color: "var(--card-4)" },
+  { label: "User Interface Design", icon: <UserInterfaceDesignIcon />, color: "var(--card-6)" },
+  { label: "User Experience (UX)", icon: <UXIcon />, color: "var(--card-6)" },
+  { label: "XSLT", icon: <XSLTIcon />, color: "var(--card-3)" },
+  { label: "XML", icon: <XMLIcon />, color: "var(--card-3)" },
+  { label: "ZURB Foundation", icon: <ZurbIcon />, color: "var(--card-4)" },
+  { label: "SEO", icon: <SEOIcon />, color: "var(--card-1)" },
+  { label: "Web Design", icon: <DesignIcon />, color: "var(--card-6)" },
+  { label: "Responsive Web Design", icon: <ResponsiveDesignIcon />, color: "var(--card-2)" },
+  { label: "Mobile Web Design", icon: <MobileIcon />, color: "var(--card-2)" },
+  { label: "Web Interface Design", icon: <UIIcon />, color: "var(--card-6)" },
+  { label: "Adobe XD", icon: <XDIcon />, color: "var(--card-6)" },
+  { label: "Bootstrap", icon: <BootstrapIcon />, color: "var(--card-4)" },
+  { label: "Adobe Illustrator", icon: <IllustratorIcon />, color: "var(--card-6)" },
+  { label: "CSS3", icon: <CSSIcon />, color: "var(--card-2)" },
+  { label: "HTML5", icon: <HTMLIcon />, color: "var(--card-2)" },
+  { label: "Website Building", icon: <WebBuildingIcon />, color: "var(--card-1)" },
+  { label: "Programming", icon: <ProgrammingIcon />, color: "var(--card-1)" },
+  { label: "PHP", icon: <PHPIcon />, color: "var(--card-3)" },
+  { label: "Adobe Photoshop", icon: <PhotoshopIcon />, color: "var(--card-6)" },
 ];
 
 // Component for individual skill chips in the marquee
-function SkillChip({ label, icon }) {
+function SkillChip({ label, icon, color }) {
   return (
     <>
-      <span className='skill-chip' aria-label={label} sa='fade glacial mirror delay-200'>
+      <span
+        className='skill-chip'
+        aria-label={label}
+        sa='fade glacial mirror delay-200'
+        style={{ "--shadow-color": color, color: color }}
+      >
         <span className='skill-chip__label'>{label}</span>
         <span className='skill-chip__icon' aria-hidden='true'>
           {icon}
         </span>
       </span>
+
       <span className='divider' aria-hidden='true' sa='fade glacial mirror delay-600'>
         &bull;
       </span>
@@ -329,13 +335,13 @@ function Home() {
           </div>
     
           <div className='skills__marquee-wrap'>
-            <Marquee speed='60s' rtl faded pauseOnHover>
+            <Marquee rtl faded pauseOnHover>
               {marqueeRow1.map((item) => (
                 <SkillChip key={item.label} {...item} />
               ))}
             </Marquee>
 
-            <Marquee speed='60s' ltr faded pauseOnHover>
+            <Marquee ltr faded pauseOnHover>
               {marqueeRow2.map((item) => (
                 <SkillChip key={item.label} {...item} />
               ))}

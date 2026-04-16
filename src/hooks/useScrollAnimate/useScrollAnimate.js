@@ -6,25 +6,8 @@
  * ── useSA ────────────────────────────────────────────────────────────────────
  * Bootstraps the animation engine once for the page. Call at the app root.
  *
- *   function App() {
- *     useSA();
- *     return <>{children}</>;
- *   }
- *
  * ── useSAReplay ───────────────────────────────────────────────────────────────
  * Re-animates all [sa] children each time a container becomes visible.
- * Works with any show/hide mechanism (classes, display, visibility, transforms).
- *
- *   function NavOverlay() {
- *     const ref = useRef(null);
- *     useSAReplay(ref);
- *     return (
- *       <div ref={ref}>
- *         <h2 sa="up">Hello</h2>
- *         <p  sa="up delay-100">World</p>
- *       </div>
- *     );
- *   }
  *
  * ── Counter animation ─────────────────────────────────────────────────────────
  * Add sa="count" to animate a number when the element enters the viewport.
@@ -32,16 +15,11 @@
  * Data attributes:
  *   data-sa-to        {number}  Target value (required)
  *   data-sa-from      {number}  Start value (default: 0)
- *   data-sa-duration  {number}  Duration ms (default: 1500; overrides --sa-duration)
+ *   data-sa-duration  {number}  Duration ms (default: 1500)
  *   data-sa-prefix    {string}  Prepended to the number (e.g. "$")
  *   data-sa-suffix    {string}  Appended to the number  (e.g. "%", "+")
  *   data-sa-decimals  {number}  Fixed decimal places (default: 0)
  *   data-sa-separator {string}  Thousands separator (default: "")
- *
- * Example:
- *   <span sa="up count" data-sa-to="600" data-sa-suffix="+" data-sa-separator=",">600+</span>
- *
- * Counters replay on re-entry when combined with `repeat` or `mirror`.
  */
 
 import { useEffect } from 'react';
@@ -70,8 +48,8 @@ const CLS = {
   exitUp:    'sa-exit-up',
 };
 
-const ALL_STATE_CLASSES = Object.values(CLS);
-const DIRECTIONAL_CLASSES = [CLS.enterDown, CLS.enterUp, CLS.exitDown, CLS.exitUp];
+const ALL_STATE_CLASSES    = Object.values(CLS);
+const DIRECTIONAL_CLASSES  = [CLS.enterDown, CLS.enterUp, CLS.exitDown, CLS.exitUp];
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -89,22 +67,18 @@ let scrollDirection = 'down';
 let lastScrollY = 0;
 let scrollListenerBound = false;
 
-/** Caches the `sa` attribute string per element to avoid repeated DOM reads. */
-const modifierCache = new WeakMap();
+// ✅ Fix: track how many useSA() instances are active so we can tear down the
+//    singleton when the last consumer unmounts (important for HMR / StrictMode)
+let saRefCount = 0;
 
-/** Maps elements to their active rAF ids so counters can be cancelled cleanly. */
-const counterRAFs = new WeakMap();
+const modifierCache = new WeakMap();
+const counterRAFs   = new WeakMap();
 
 
 // ─────────────────────────────────────────────────────────────────────────────
 // § 3 · Pure helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * Returns the cached modifier set for an element.
- * @param {Element} el
- * @returns {Set<string>}
- */
 function getMods(el) {
   if (!modifierCache.has(el)) {
     modifierCache.set(el, new Set((el.getAttribute('sa') || '').split(/\s+/).filter(Boolean)));
@@ -112,19 +86,8 @@ function getMods(el) {
   return modifierCache.get(el);
 }
 
-/**
- * Ease-out cubic — consistent with the default CSS cubic-bezier(0.16, 1, 0.3, 1).
- * @param {number} t - Progress [0, 1].
- * @returns {number}
- */
 const easeOutCubic = t => 1 - (1 - t) ** 3;
 
-/**
- * Formats an animated counter value using the element's data-* config.
- * @param {number}  value
- * @param {Element} el
- * @returns {string}
- */
 function formatCounter(value, el) {
   const { saDecimals = '0', saSeparator = '', saPrefix = '', saSuffix = '' } = el.dataset;
   const decimals = parseInt(saDecimals, 10);
@@ -139,11 +102,6 @@ function formatCounter(value, el) {
   return `${saPrefix}${str}${saSuffix}`;
 }
 
-/**
- * Resolves counter duration: data-sa-duration → --sa-duration CSS var → default.
- * @param {Element} el
- * @returns {number}
- */
 function resolveCounterDuration(el) {
   if (el.dataset.saDuration) return parseInt(el.dataset.saDuration, 10);
   const cssVar = parseInt(getComputedStyle(el).getPropertyValue('--sa-duration') || '0', 10);
@@ -155,10 +113,6 @@ function resolveCounterDuration(el) {
 // § 4 · Counter animation
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * Cancels any running counter rAF on el.
- * @param {Element} el
- */
 function cancelCounter(el) {
   if (counterRAFs.has(el)) {
     cancelAnimationFrame(counterRAFs.get(el));
@@ -166,22 +120,13 @@ function cancelCounter(el) {
   }
 }
 
-/**
- * Resets el's text to its `from` value and cancels any running animation.
- * @param {Element} el
- */
 function resetCounter(el) {
   cancelCounter(el);
   el.textContent = formatCounter(parseFloat(el.dataset.saFrom ?? '0'), el);
 }
 
-/**
- * Starts a counter animation on el, cancelling any prior run first.
- * @param {Element} el
- */
 function startCounter(el) {
   cancelCounter(el);
-
   const from      = parseFloat(el.dataset.saFrom ?? '0');
   const to        = parseFloat(el.dataset.saTo   ?? '0');
   const duration  = resolveCounterDuration(el);
@@ -190,11 +135,10 @@ function startCounter(el) {
   const tick = now => {
     const progress = Math.min((now - startTime) / duration, 1);
     el.textContent = formatCounter(from + (to - from) * easeOutCubic(progress), el);
-
     if (progress < 1) {
       counterRAFs.set(el, requestAnimationFrame(tick));
     } else {
-      el.textContent = formatCounter(to, el); // snap to exact target
+      el.textContent = formatCounter(to, el);
       counterRAFs.delete(el);
     }
   };
@@ -222,11 +166,6 @@ function ensureScrollListener() {
 // § 6 · Intersection callbacks
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * @param {Element}              el
- * @param {Set<string>}          mods
- * @param {IntersectionObserver} observer
- */
 function onEnter(el, mods, observer) {
   if (mods.has('down-only') && scrollDirection !== 'down') return;
   if (mods.has('up-only')   && scrollDirection !== 'up')   return;
@@ -234,27 +173,16 @@ function onEnter(el, mods, observer) {
   el.classList.add(CLS.prepare, CLS.visible, scrollDirection === 'down' ? CLS.enterDown : CLS.enterUp);
 
   if (mods.has('count')) startCounter(el);
-
   if (!mods.has('repeat') && !mods.has('mirror')) observer.unobserve(el);
 }
 
-/**
- * @param {Element}     el
- * @param {Set<string>} mods
- */
 function onExit(el, mods) {
   el.classList.add(scrollDirection === 'down' ? CLS.exitDown : CLS.exitUp);
-
   if (!mods.has('repeat') && !mods.has('mirror')) return;
-
   el.classList.remove(CLS.visible);
   if (mods.has('count')) resetCounter(el);
 }
 
-/**
- * @param {IntersectionObserverEntry[]} entries
- * @param {IntersectionObserver}        observer
- */
 function mainCallback(entries, observer) {
   for (const { target: el, isIntersecting } of entries) {
     el.classList.remove(...DIRECTIONAL_CLASSES);
@@ -263,14 +191,12 @@ function mainCallback(entries, observer) {
   }
 }
 
-/** @param {IntersectionObserverEntry[]} entries */
 function replayCallback(entries) {
   const observer = getMainObserver();
 
   for (const { target: container, isIntersecting } of entries) {
     const children = container.querySelectorAll(SELECTOR);
 
-    // Always reset so stale classes don't linger between open/close cycles.
     for (const el of children) {
       el.classList.remove(...ALL_STATE_CLASSES);
       if (getMods(el).has('count')) resetCounter(el);
@@ -278,7 +204,6 @@ function replayCallback(entries) {
     }
 
     if (isIntersecting) {
-      // Defer one frame so class removals are committed before re-observing.
       requestAnimationFrame(() => { for (const el of children) observer.observe(el); });
     }
   }
@@ -289,21 +214,32 @@ function replayCallback(entries) {
 // § 7 · Observer factories (singletons)
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** @returns {IntersectionObserver} */
 function getMainObserver() {
   if (mainObserver) return mainObserver;
 
   mainObserver = new IntersectionObserver(mainCallback, MAIN_OBSERVER_OPTIONS);
 
-  // Remove the GPU compositing hint once each element's transition completes.
-  document.addEventListener('transitionend', ({ target }) => {
-    if (target.hasAttribute?.('sa')) target.classList.remove(CLS.prepare);
-  }, { passive: true });
+  // ✅ Fix: scope transitionend to the observer's own elements only, and use
+  //    a named handler so it can be removed when the observer is torn down.
+  //    Previously this added an irremovable anonymous listener to document.
+  mainObserver._onTransitionEnd = ({ target }) => {
+    if (target?.hasAttribute('sa')) target.classList.remove(CLS.prepare);
+  };
+  document.addEventListener('transitionend', mainObserver._onTransitionEnd, { passive: true });
 
   return mainObserver;
 }
 
-/** @returns {IntersectionObserver} */
+// ✅ Fix: teardown helper so HMR / StrictMode unmount doesn't leave stale observers
+function teardownMainObserver() {
+  if (!mainObserver) return;
+  if (mainObserver._onTransitionEnd) {
+    document.removeEventListener('transitionend', mainObserver._onTransitionEnd);
+  }
+  mainObserver.disconnect();
+  mainObserver = null;
+}
+
 function getReplayObserver() {
   if (!replayObserver) {
     replayObserver = new IntersectionObserver(replayCallback, { threshold: 0 });
@@ -319,24 +255,27 @@ function getReplayObserver() {
 /**
  * Bootstraps the scroll-animate engine for the page.
  * Call once at the application root. Safe in React StrictMode.
- *
- * @example
- *   function App() { useSA(); return <>{children}</>; }
  */
 export function useSA() {
   useEffect(() => {
     if (!('IntersectionObserver' in window)) {
-      // Fallback: reveal all elements immediately so no content stays hidden.
       document.querySelectorAll(SELECTOR).forEach(el => el.classList.add(CLS.visible));
       return;
     }
 
+    // ✅ Fix: ref-count so the singleton is rebuilt cleanly after HMR teardown
+    saRefCount++;
     ensureScrollListener();
     const observer = getMainObserver();
     document.querySelectorAll(SELECTOR).forEach(el => observer.observe(el));
 
-    // No cleanup: the singleton observer lives for the page lifetime.
-    // Disconnecting on StrictMode's synthetic unmount would break the real mount.
+    return () => {
+      saRefCount--;
+      if (saRefCount === 0) {
+        // Last consumer unmounted — safe to tear down (happens in dev HMR / StrictMode)
+        teardownMainObserver();
+      }
+    };
   }, []);
 }
 
@@ -344,13 +283,6 @@ export function useSA() {
  * Re-animates all [sa] children every time the container comes into view.
  *
  * @param {React.RefObject<Element>} containerRef
- *
- * @example
- *   function NavOverlay() {
- *     const ref = useRef(null);
- *     useSAReplay(ref);
- *     return <div ref={ref}><h2 sa="up">Hello</h2></div>;
- *   }
  */
 export function useSAReplay(containerRef) {
   useEffect(() => {

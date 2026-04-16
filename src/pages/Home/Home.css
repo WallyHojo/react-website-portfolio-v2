@@ -323,7 +323,10 @@ ul.overview__list p.stat__label {
   box-shadow:
     inset -1px 1px 0px #ffffff24,
     inset -1px 0px 0px #00000094,
-    inset 0px -1px 0px #ffffff1a;
+    inset 0px -1px 0px #ffffff1a,
+    inset 0 0 15px var(--shadow-color),
+    0 10px 24px 0 rgba(16, 24, 32, 0.15),
+    0 0 0 1px rgba(16, 24, 32, 0.05);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
@@ -370,7 +373,7 @@ ul.overview__list p.stat__label {
   animation-fill-mode: both;
 
   animation-timeline: scroll(root);
-  animation-range: 25% 45%;
+  animation-range: 0% cover 40%;
 }
 
 .morph-image {
@@ -387,7 +390,7 @@ ul.overview__list p.stat__label {
   animation-fill-mode: both;
 
   animation-timeline: scroll(root);
-  animation-range: 15% 40%;
+  animation-range: 0% cover 40%;
 }
 
 @keyframes pill-expand {
@@ -447,6 +450,7 @@ ul.overview__list p.stat__label {
   --card-3: #2a1a1a;
   --card-4: #1a1a2a;
   --card-5: #2a2a1a;
+  --card-6: #1a2a2a;
 
   --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
   --card-h: 60vh; /* height of each card */
