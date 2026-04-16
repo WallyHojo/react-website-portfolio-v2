@@ -1,7 +1,14 @@
+const Critters = require('critters-webpack-plugin');
+
 module.exports = {
-  plugins: [
-    {
-      plugin: require('critters'),
+  webpack: {
+    plugins: {
+      add: [
+        new Critters({
+          preload: 'swap',
+          pruneSource: false,
+        }),
+      ],
     },
-  ],
+  },
 };
