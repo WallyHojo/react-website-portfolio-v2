@@ -248,7 +248,7 @@ function Home() {
         </div>
 
         <div className='hero__content flex-all flex-vert-bottom height-full'>
-          <div className='hero-content__left'>
+          <div className='hero-content__left' sa='fade glacial'>
             <h1 className='heading'>
               {displayHeading}
             </h1>

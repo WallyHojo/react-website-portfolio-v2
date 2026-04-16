@@ -10,33 +10,6 @@
   padding: 0;
 }
 
-@font-face {
-  font-family: "Montserrat";
-  src:
-    url('../../public/media/Montserrat-Medium.woff2') format('woff2'),
-    url('../../public/media/Montserrat-Medium.woff') format('woff');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Montserrat";
-  src:
-    url('../../public/media/Montserrat-Regular.woff2') format('woff2'),
-    url('../../public/media/Montserrat-Regular.woff') format('woff');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src:
-    url('../../public/media/Inter-Regular.woff2') format('woff2'),
-    url('../../public/media/Inter-Regular.woff') format('woff');
-  font-weight: 400;
-  font-display: swap;
-}
-
 :root {
   --section-padding-sm: 2.5rem clamp(1.5rem, 3vw, 2rem);
   --section-padding-md: clamp(2.5rem, 5vw, 4rem);
