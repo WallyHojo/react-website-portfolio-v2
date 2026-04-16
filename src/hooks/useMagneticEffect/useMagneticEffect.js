@@ -182,6 +182,17 @@ export function useMagnetic(sectionRef) {
     // ── Magnetic pull ───────────────────────────────────────────────────────
     // ✅ Fix: throttle magnetic mousemove to one update per rAF tick
     //    (was firing on every raw mousemove — up to 1000×/s on some devices)
+    // ── Magnetic pull ───────────────────────────────────────────────────────
+
+    let rectCache = new WeakMap();
+
+    const getRect = el => {
+      if (!rectCache.has(el)) rectCache.set(el, el.getBoundingClientRect());
+      return rectCache.get(el);
+    };
+
+    const invalidateRects = () => { rectCache = new WeakMap(); };
+
     let magRafPending = false;
     let lastMagEvent  = null;
 
@@ -191,7 +202,7 @@ export function useMagnetic(sectionRef) {
       const { el, clientX, clientY } = lastMagEvent;
       lastMagEvent = null;
 
-      const r = el.getBoundingClientRect();
+      const r = getRect(el);   // ← read from cache, not live DOM
       el.style.setProperty('--mx', ((clientX - (r.left + r.width  / 2)) / (r.width  / 2)).toFixed(3));
       el.style.setProperty('--my', ((clientY - (r.top  + r.height / 2)) / (r.height / 2)).toFixed(3));
 
@@ -214,9 +225,14 @@ export function useMagnetic(sectionRef) {
       lastMagEvent  = null;
       magRafPending = false;
       resetMagVars(el);
+      rectCache.delete(el);   // drop stale entry when cursor leaves
       s.hovering = false;
       hoverCls.remove();
     };
+
+    // Invalidate cached rects whenever the page layout could change
+    window.addEventListener('resize', invalidateRects,          { passive: true });
+    document.addEventListener('scroll', invalidateRects,        { passive: true, capture: true });
 
     // ── Contextual color ────────────────────────────────────────────────────
 
@@ -307,6 +323,8 @@ export function useMagnetic(sectionRef) {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mousedown', onMouseDown);
       document.removeEventListener('mouseup',   onMouseUp);
+      window.removeEventListener('resize',  invalidateRects);
+      document.removeEventListener('scroll', invalidateRects, { capture: true });
       if (!isGlobal.current) {
         zone.removeEventListener('mouseenter', activate);
         zone.removeEventListener('mouseleave', deactivate);
@@ -315,7 +333,7 @@ export function useMagnetic(sectionRef) {
       cursorEls.forEach(el => {
         el.removeEventListener('mouseenter', onCursorEnter);
         el.removeEventListener('mouseleave', onCursorLeave);
-      });
+      });      
     };
   }, [sectionRef]); // eslint-disable-line react-hooks/exhaustive-deps
 }
