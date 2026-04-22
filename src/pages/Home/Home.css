@@ -1,15 +1,22 @@
 .section__hero {
   position: relative;
   background:
-    radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%),
-    radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
+    radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%),
+    radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%),
+    radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%),
+    radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%),
+    linear-gradient(to right, #101010 0%, #333333 50%);
   overflow: hidden;
 }
 
 .section__hero::before {
   content: "";
   /* background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%); */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgb(24 24 24) 100%
+  );
   position: absolute;
   left: 0;
   bottom: 0;
@@ -28,7 +35,7 @@
   white-space: nowrap;
 }
 
-.hero__decor {
+.section__decor {
   position: absolute;
   top: 0;
   right: 0;
@@ -218,7 +225,9 @@ ul.overview__list li .overview__list-stat {
   border-radius: 6px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 25px 0 rgba(16, 24, 32, 0.15), 0 0 0 1px rgba(16, 24, 32, 0.05);
+  box-shadow:
+    0 10px 25px 0 rgba(16, 24, 32, 0.15),
+    0 0 0 1px rgba(16, 24, 32, 0.05);
 }
 
 ul.overview__list :is(span, p) {
@@ -244,13 +253,13 @@ ul.overview__list p.stat__label {
 /* Media Queries */
 
 @media (width <= 767px) {
-    ul.overview__list {
-     grid-template-columns: repeat(2, 1fr);
+  ul.overview__list {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (width >= 768px) and (width <= 1279px) {
-    ul.overview__list {
+  ul.overview__list {
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   }
 }
@@ -293,21 +302,29 @@ ul.overview__list p.stat__label {
   font-size: clamp(1.125rem, 1.0417rem + 0.3704vw, 1.375rem);
 }
 
-.skills__marquee-wrap .marquee-content span:nth-child(4n + 1):not(.divider) {
-  color: var(--color-text-disabled);
-}
-
-.skills__marquee-wrap .marquee-content span:nth-child(4n + 3):not(.divider) {
+.skills__marquee-wrap .marquee-content > span:nth-child(4n + 1) {
   color: var(--color-text-primary);
 }
 
-.skills__marquee-wrap .marquee-content span.divider {
+.skills__marquee-wrap .marquee-content > span:nth-child(4n + 3) {
+  color: var(--color-text-tertiary);
+}
+
+.skills__marquee-wrap .marquee-content > span.divider {
   color: var(--color-text-disabled);
 }
 
 .skill-chip {
   background: var(--color-text-inverse);
-  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
+  background: linear-gradient(
+      180deg,
+      #ffffff2e 0%,
+      #9191911f 35%,
+      #45454517 60%,
+      #9191911f 80%,
+      #ffffff2e 100%
+    )
+    border-box;
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
@@ -365,8 +382,73 @@ ul.overview__list p.stat__label {
   position: relative;
   width: 100%;
   height: 100vh;
+  max-height: 576px;
   flex-basis: 50%;
+}
 
+/* Web Experiences Skills Chips */
+
+.skills__intro-decor .skill[data-chip] {
+  position: absolute;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: scroll(root);
+  animation-range: 20% cover 40%;
+}
+
+.skills__intro-decor .skill[data-chip] .skill-chip {
+  text-transform: uppercase;
+  font-weight: 600;
+
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+
+/* Experience Skill Chip One */
+
+.skills__intro-decor .skill[data-chip="1"] {
+  animation-name: chip-transform-1;
+}
+
+.skills__intro-decor .skill[data-chip="1"] .skill-chip {
+  animation-name: chip-zig-zag-1;
+}
+
+/* Experience Skill Chip Two */
+
+.skills__intro-decor .skill[data-chip="2"] {
+  animation-name: chip-transform-2;
+}
+
+.skills__intro-decor .skill[data-chip="2"] .skill-chip {
+  animation-name: chip-zig-zag-2;
+}
+
+/* Experience Skill Chip Three */
+
+.skills__intro-decor .skill[data-chip="3"] {
+  animation-name: chip-transform-3;
+}
+
+.skills__intro-decor .skill[data-chip="3"] .skill-chip {
+  animation-name: chip-zig-zag-3;
+}
+
+/* Experience Skill Chip Four */
+
+.skills__intro-decor .skill[data-chip="4"] {
+  animation-name: chip-transform-4;
+}
+
+.skills__intro-decor .skill[data-chip="4"] .skill-chip {
+  animation-name: chip-zig-zag-4;
+}
+
+.decor__image-wrapper {
+  height: 100%;
   animation-name: blur-expand;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -376,12 +458,12 @@ ul.overview__list p.stat__label {
   animation-range: 0% cover 40%;
 }
 
-.morph-image {
+.decor-image {
   position: absolute;
   width: 100%;
   top: 50%;
   transform: translateY(-50%);
-  /* inset: 0; */
+
   clip-path: inset(25% 46% 25% 46% round 999px);
 
   animation-name: pill-expand;
@@ -391,6 +473,175 @@ ul.overview__list p.stat__label {
 
   animation-timeline: scroll(root);
   animation-range: 0% cover 40%;
+}
+
+.decor-image__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.skills__ellipse-1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: 0; /* sits behind .morph-image */
+
+  animation-name: ellipse-enter-left;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+
+  animation-timeline: scroll(root);
+  animation-range: 0% cover 40%;
+}
+
+/* Media Queries */
+
+@media (max-width: 991px) {
+  .skills__intro-container {
+    padding-top: 50%;
+    flex-direction: column;
+    justify-content: start;
+  }
+}
+
+/* ========================================================================== */
+/*                                Keyframes                                   */
+/* ========================================================================== */
+
+@keyframes chip-transform-1 {
+  0% {
+    top: 30%;
+    left: 20%;
+    transform: translate(-20%, -30%);
+  }
+  100% {
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 0%);
+  }
+}
+
+@keyframes chip-zig-zag-1 {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-8px) translateX(6px);
+  }
+  50% {
+    transform: translateY(-16px) translateX(0px);
+  }
+  75% {
+    transform: translateY(-8px) translateX(-6px);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+}
+
+@keyframes chip-transform-2 {
+  0% {
+    top: 35%;
+    left: 80%;
+    transform: translate(-80%, -35%);
+  }
+
+  100% {
+    top: 0%;
+    left: 100%;
+    transform: translate(-100%, 0%);
+  }
+}
+
+@keyframes chip-zig-zag-2 {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  25% {
+    transform: translate(6px, -6px) rotate(2deg);
+  }
+  50% {
+    transform: translate(0px, -12px) rotate(0deg);
+  }
+  75% {
+    transform: translate(-6px, -6px) rotate(-2deg);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+}
+
+@keyframes chip-transform-3 {
+  0% {
+    top: 75%;
+    left: 75%;
+    transform: translate(-75%, -75%);
+  }
+  100% {
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, -100%);
+  }
+}
+
+@keyframes chip-zig-zag-3 {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  33% {
+    transform: translate(8px, -10px);
+  }
+  66% {
+    transform: translate(-8px, -10px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes chip-transform-4 {
+  0% {
+    top: 65%;
+    left: 25%;
+    transform: translate(-25%, -65%);
+  }
+  100% {
+    top: 100%;
+    left: 0%;
+    transform: translate(0%, -100%);
+  }
+}
+
+@keyframes chip-zig-zag-4 {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  25% {
+    transform: translateX(10px) translateY(5px);
+  }
+  50% {
+    transform: translateX(0px) translateY(10px);
+  }
+  75% {
+    transform: translateX(-10px) translateY(5px);
+  }
+  100% {
+    transform: translateX(0px) translateY(0px);
+  }
+}
+
+@keyframes blur-expand {
+  0% {
+    filter: blur(25px);
+  }
+  90% {
+    filter: blur(0px);
+  }
 }
 
 @keyframes pill-expand {
@@ -404,30 +655,17 @@ ul.overview__list p.stat__label {
   }
 }
 
-@keyframes blur-expand {
+@keyframes ellipse-enter-left {
   0% {
-    filter: blur(25px);
+    opacity: 0;
+    transform: translate(-200%, -500%);
   }
-  90% {
-    filter: blur(0px);
+  30% {
+    opacity: 1;
   }
-}
-
-.morph-image__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-/* Media Queries */
-
-@media (max-width: 991px) {
-  .skills__intro-container {
-    padding-top: 50%;
-    flex-direction: column;
-    justify-content: start;
+  100% {
+    opacity: 1;
+    transform: translate(0);
   }
 }
 
@@ -505,7 +743,12 @@ ul.overview__list p.stat__label {
   gap: var(--card-gap);
   padding-top: 0;
   padding-bottom: 0;
-  transform: translateX(calc(-1 * var(--p, 0) * (var(--card-w) + var(--card-gap)) * (var(--card-count) - 1)));
+  transform: translateX(
+    calc(
+      -1 * var(--p, 0) * (var(--card-w) + var(--card-gap)) *
+        (var(--card-count) - 1)
+    )
+  );
 }
 
 .work__card {

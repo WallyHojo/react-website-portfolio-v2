@@ -2,14 +2,6 @@
    Global Styles
    ================================ */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   --section-padding-sm: 2.5rem clamp(1.5rem, 3vw, 2rem);
   --section-padding-md: clamp(2.5rem, 5vw, 4rem);
@@ -19,22 +11,30 @@
   --font-heading: "Montserrat", sans-serif;
   --font-main: "Inter", sans-serif;
 
-  --color-bg-base:        #1f1f1f; /* app background */
-  --color-bg-subtle:      #262626; /* slight variation / sections */
-  --color-bg-elevated:    #2e2e2e; /* cards, panels */
-  --color-bg-surface:     #3d3d3d; /* modals, glass surfaces */
-  --color-bg-overlay:     #4c4c4c; /* top-level overlays */
-  --color-bg-inverse:     #ffffff; /* for contrast sections */  
+  --color-bg-base: #1f1f1f; /* app background */
+  --color-bg-subtle: #262626; /* slight variation / sections */
+  --color-bg-elevated: #2e2e2e; /* cards, panels */
+  --color-bg-surface: #3d3d3d; /* modals, glass surfaces */
+  --color-bg-overlay: #4c4c4c; /* top-level overlays */
+  --color-bg-inverse: #ffffff; /* for contrast sections */
 
-  --color-text-primary:   #f1f1f1; /* main content */
+  --color-text-primary: #f1f1f1; /* main content */
   --color-text-secondary: #c9c9c9; /* supporting text */
-  --color-text-tertiary:  #a8a8a8; /* less emphasis */
-  --color-text-disabled:  #9a9a9a; /* disabled */
-  --color-text-inverse:   #121212; /* text on light bg */  
+  --color-text-tertiary: #a8a8a8; /* less emphasis */
+  --color-text-disabled: #9a9a9a; /* disabled */
+  --color-text-inverse: #121212; /* text on light bg */
 
-  --color-primary:        #2979ff;
-  --color-primary-hover:  #4c94ff;
-  --color-primary-active: #1f5fd1;  
+  --color-primary: #2979ff;
+  --color-primary-hover: #4c94ff;
+  --color-primary-active: #1f5fd1;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -264,11 +264,11 @@ img {
 .background__ellipse {
   position: absolute;
   width: var(--max-size);
-  height: var(--max-size);  
+  height: var(--max-size);
   aspect-ratio: 1 / 1;
-  border-radius: 50%;  
+  border-radius: 50%;
   -webkit-filter: blur(250px);
-  filter: blur(250px);  
+  filter: blur(250px);
   animation: fadeIn 1s ease-in alternate 0.5s backwards;
   z-index: -1;
 }
@@ -292,7 +292,7 @@ img {
 .ellipse--small {
   --max-size: min(30rem, 40vh);
   filter: blur(70px);
-  opacity: 0.75;  
+  opacity: 0.75;
 }
 
 .ellipse--blue {
@@ -355,14 +355,14 @@ img {
   }
 }
 
-@media (width >= 1280px) { 
+@media (width >= 1280px) {
   .section-padding {
     padding: var(--section-padding-lg);
-  } 
+  }
 }
 
 @media (width >= 1536px) {
   .hidden-xxl {
     display: none !important;
-  }  
+  }
 }
