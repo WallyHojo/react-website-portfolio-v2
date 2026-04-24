@@ -344,7 +344,6 @@ img {
 @media (width <= 767px) {
   .section-padding {
     padding: var(--section-padding-sm);
-    padding-bottom: env(safe-area-inset-bottom, 16px); /* iOS + fallback */
   }
 }
 
