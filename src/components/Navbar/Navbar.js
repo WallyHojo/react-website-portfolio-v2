@@ -86,7 +86,7 @@ function Navbar() {
           <div className='navbar__background'></div>
           <div className='navbar__logo'>
             <Link to='/'>
-              <svg xmlns='http://www.w3.org/2000/svg' width='54' height='34' viewBox='0 0 320 220'>
+              <svg xmlns='http://www.w3.org/2000/svg' width='54' height='35' viewBox='0 0 320 220'>
                 <defs>
                   <linearGradient id='draw-a-gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
                     <stop offset='0%' stopColor='#52c0ed'></stop>

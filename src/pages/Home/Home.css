@@ -395,11 +395,10 @@ ul.overview__list p.stat__label {
 
 .skills__intro-decor {
   position: relative;
-  /*width: 100%;*/
+  width: 100%;
   height: 100vh; /*fallback*/
   height: 100dvh;
   max-height: 575px;
-  min-width: 325px;
   flex-basis: 50%;
 }
 
@@ -485,7 +484,7 @@ ul.overview__list p.stat__label {
   display: block;
 }
 
-.skills__intro-decor .decor-image__img[class*='--'] {
+.skills__intro-decor .decor-image__img[class*="--"] {
   animation-name: fade-in;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -525,8 +524,9 @@ ul.overview__list p.stat__label {
 .skills__ellipse-1 {
   top: 50%;
   left: 50%;
-  animation: fade-in 1s ease-out both,
-           skill-ellipse-pulse 5s linear infinite;
+  animation:
+    fade-in 1s ease-out both,
+    skill-ellipse-pulse 5s linear infinite;
 
   animation-timeline: scroll(root), auto;
   animation-range: 5% cover 15%;
@@ -539,10 +539,13 @@ ul.overview__list p.stat__label {
     flex-direction: column;
   }
 
-  .skills__intro-container > div {
-    flex: 1;
+  .skills__intro-container .skills__intro-text {
+    flex: auto;
   }
 
+  .skills__intro-container .skills__intro-decor {
+    flex: 3;
+  }  
 }
 
 /* ========================================================================== */
@@ -676,16 +679,72 @@ ul.overview__list p.stat__label {
     opacity: 0;
   }
   100% {
-    opacity: 1;    
+    opacity: 1;
   }
 }
 
 @keyframes skill-ellipse-pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(-50%, -50%) scale(0.75);
   }
   50% {
     transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+@media (width <= 575px) {
+  @keyframes chip-transform-1 {
+    0% {
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -20%);
+    }
+    100% {
+      top: 35%;
+      left: -10%;
+      transform: translate(-10%, -35%);
+    }
+  }
+
+  @keyframes chip-transform-2 {
+    0% {
+      top: 35%;
+      left: 100%;
+      transform: translate(-100%, -35%);
+    }
+
+    100% {
+      top: 20%;
+      left: 120%;
+      transform: translate(-100%, -20%);
+    }
+  }
+
+  @keyframes chip-transform-3 {
+    0% {
+      top: 85%;
+      left: 0%;
+      transform: translate(0%, -85%);
+    }
+    100% {
+      top: 85%;
+      left: 120%;
+      transform: translate(-110%, -85%);
+    }
+  }
+
+  @keyframes chip-transform-4 {
+    0% {
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -65%);
+    }
+    100% {
+      top: 90%;
+      left: -20%;
+      transform: translate(0%, -90%);
+    }
   }
 }
 
@@ -865,7 +924,7 @@ ul.overview__list p.stat__label {
   .work__stage {
     justify-content: end;
     padding-bottom: 30px;
-  } 
+  }
 }
 
 /* ========================================================================== */

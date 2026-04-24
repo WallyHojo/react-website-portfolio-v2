@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.938rem 1.563rem;
+  padding: clamp(0.625rem, 1.30vw, 0.938rem) 1.563rem;
   border-radius: 1.875rem;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -38,6 +38,7 @@
 }
 
 .navbar__logo {
+  height: 35px;
   line-height: initial;
   filter: brightness(1.25);
 }
