@@ -857,7 +857,7 @@ ul.overview__list p.stat__label {
 
 /* Media Queries */
 
-@media only screen and (max-width: 375px) and (orientation: portrait) {
+@media only screen and (max-width: 575px) and (orientation: portrait) {
   .skills__intro-text {
     justify-content: end;
   }
