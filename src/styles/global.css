@@ -49,7 +49,7 @@ body {
   background-color: var(--color-bg-base);
   margin: 0;
   font-family: var(--font-main);
-  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);
+  font-size: clamp(0.875rem, 0.7679rem + 0.5357vw, 1.25rem);
   line-height: 1.6;
   letter-spacing: -0.01em;
   color: var(--color-text-primary);

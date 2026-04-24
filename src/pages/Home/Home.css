@@ -389,10 +389,6 @@ ul.overview__list p.stat__label {
   flex-basis: 40%;
 }
 
-.skills__intro-text p {
-  margin-bottom: 0;
-}
-
 .skills__intro-decor {
   position: relative;
   width: 100%;
