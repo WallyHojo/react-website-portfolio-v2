@@ -401,6 +401,7 @@ ul.overview__list p.stat__label {
 /* Web Experiences Skills Chips */
 
 .skills__intro-decor .skill[data-chip] {
+  display: none;
   position: absolute;
   animation-duration: 1s;
   animation-timing-function: linear;

@@ -316,9 +316,9 @@ function Home() {
                   <img src={wsBG} width='773' height='723' alt='workstation background img' className='decor-image__img --bg' />
                 </div>
               </div>
-              {/*{WEB_EXPERIENCES.map((item) => (
+              {WEB_EXPERIENCES.map((item) => (
                 <SkillChip2 key={item.label} {...item} />
-              ))}*/}                
+              ))}                
             </div>
           </div>
         </div>
