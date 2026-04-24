@@ -289,6 +289,10 @@ img {
   --max-size: min(70rem, 80vh);
 }
 
+.ellipse--medium {
+  --max-size: min(50rem, 60vh);
+}
+
 .ellipse--small {
   --max-size: min(30rem, 40vh);
   filter: blur(70px);

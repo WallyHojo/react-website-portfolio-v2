@@ -18,6 +18,13 @@ import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
 
+import wsBG from "../../assets/images/workstation/bg.webp";
+import wsChair from "../../assets/images/workstation/chair_img.webp";
+import wsKeyboardMouse from "../../assets/images/workstation/keyboard-mouse_img.webp";
+import wsMoniterLeft from "../../assets/images/workstation/monitor-left_img.webp";
+import wsMoniterRight from "../../assets/images/workstation/monitor-right_img.webp";
+import wsTower from "../../assets/images/workstation/tower_img.webp";
+
 // Component for individual skill chips in the marquee
 function SkillChip({ label, icon, color }) {
   return (
@@ -288,8 +295,7 @@ function Home() {
             {/*<div className='decor__shape slats-bg slats-bg--skills'>
               <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial' />
             </div>
-            <div className='background__ellipse background__ellipse-2 ellipse--blue ellipse--small'></div>
-            <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--small'></div>*/}
+            <div className='background__ellipse background__ellipse-2 ellipse--blue ellipse--small'></div>*/}
           </div>
 
           <div className='skills__intro-container'>
@@ -298,24 +304,27 @@ function Home() {
               <p>With strengths in concept development, wireframing, prototyping, visual design, and front-end execution, I bring ideas to life through thoughtful problem-solving and user-centered design. Every stage is guided by usability, responsiveness, and precision.</p>        
             </div>
             <div className='skills__intro-decor'>
-              {WEB_EXPERIENCES.map((item) => (
-                <SkillChip2 key={item.label} {...item} />
-              ))}                 
+              <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--medium hidden-xs'></div>
+              <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--small visible-xs'></div>
               <div className='decor__image-wrapper'>
-                <div className='decor-image'>               
-                <img
-                  className='decor-image__img'
-                  src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80'
-                  alt='Mountain landscape at golden hour'
-                />
+                <div className='decor-image'>
+                  <img src={wsChair} width='773' height='723' alt='workstation chair img' className='decor-image__img --chair' />
+                  <img src={wsTower} width='773' height='723' alt='workstation tower img' className='decor-image__img --tower' />
+                  <img src={wsKeyboardMouse} width='773' height='723' alt='workstation keyboard mouse img' className='decor-image__img --keyboard' />
+                  <img src={wsMoniterRight} width='773' height='723' alt='workstation monitor right img' className='decor-image__img --monitorRight' />
+                  <img src={wsMoniterLeft} width='773' height='723' alt='workstation monitor left img' className='decor-image__img --monitorLeft' />
+                  <img src={wsBG} width='773' height='723' alt='workstation background img' className='decor-image__img --bg' />
                 </div>
               </div>
+              {WEB_EXPERIENCES.map((item) => (
+                <SkillChip2 key={item.label} {...item} />
+              ))}                
             </div>
           </div>
         </div>
       </section>
     
-      <section className='section section__work' aria-label='Featured Projects'>
+      <section className='section section__work section-padding' aria-label='Featured Projects'>
         <div className='work__wrap' ref={wrapRef} role='region' aria-roledescription='horizontal scroll'>
           <div className='work__stage' ref={stageRef} role='list' aria-label='Project cards'>
             <div className='section__label section-padding'>

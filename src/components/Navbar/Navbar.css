@@ -1,8 +1,8 @@
 :root {
-  --navigation-padding-sm: 1.875rem clamp(1.5rem, 3vw, 2rem);
-  --navigation-padding-md: 1.875rem clamp(2rem, 5vw, 4rem);
-  --navigation-padding-lg: 1.875rem clamp(3rem, 8vw, 6rem);
-  --navigation-padding-xl: 1.875rem clamp(4rem, 10vw, 8rem);
+  --navigation-padding-sm: clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 3vw, 2rem) 0;
+  --navigation-padding-md: 1.875rem clamp(2rem, 5vw, 4rem) 0;
+  --navigation-padding-lg: 1.875rem clamp(3rem, 8vw, 6rem) 0;
+  --navigation-padding-xl: 1.875rem clamp(4rem, 10vw, 8rem) 0;
 }
 
 .navbar {

@@ -26,7 +26,8 @@
 
 .hero-content__left {
   position: relative;
-  width: clamp(22.5rem, min(75rem, 74vh), 62rem);
+  width: clamp(22.5rem, min(75rem, 74vh), 62rem); /*fallback*/
+  width: clamp(22.5rem, min(75rem, 74dvh), 62rem);
   z-index: 1;
 }
 
@@ -86,19 +87,22 @@
 
 .dots--1 {
   top: 15%;
-  right: min(40rem, 75vh);
+  right: min(40rem, 75vh); /*fallback*/
+  right: min(40rem, 75dvh);
   opacity: 0.5;
 }
 
 .dots--2 {
   bottom: 10%;
-  left: min(30rem, 55vh);
+  left: min(30rem, 55vh); /*fallback*/
+  left: min(30rem, 55dvh);
   filter: contrast(0.9) !important;
 }
 
 .arrow-down--1 {
   top: 40%;
-  left: min(50rem, 85vh);
+  left: min(50rem, 85vh); /*fallback*/
+  left: min(50rem, 85dvh);
   transform: rotate(-90deg);
   filter: contrast(0.9) !important;
 }
@@ -126,7 +130,8 @@
 
 @media (width <= 1199px) {
   .slats-svg {
-    width: min(48rem, 85vh);
+    width: min(48rem, 85vh); /*fallback*/
+    width: min(48rem, 85dvh);
   }
 
   .dots--1 {
@@ -163,7 +168,8 @@
 
 @media (width >= 1200px) {
   .slats-svg {
-    width: min(62rem, 120vh);
+    width: min(62rem, 120vh); /*fallback*/
+    width: min(62rem, 120dvh);
   }
 }
 
@@ -360,7 +366,8 @@ ul.overview__list p.stat__label {
 }
 
 .skills__intro-wrapper {
-  height: 400vh;
+  height: 350vh; /*fallback*/
+  height: 350dvh;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -371,18 +378,27 @@ ul.overview__list p.stat__label {
   align-items: center;
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100vh; /*fallback*/
+  height: 100dvh;
 }
 
 .skills__intro-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex-basis: 40%;
+}
+
+.skills__intro-text p {
+  margin-bottom: 0;
 }
 
 .skills__intro-decor {
   position: relative;
   width: 100%;
-  height: 100vh;
-  max-height: 576px;
+  height: 100vh; /*fallback*/
+  height: 100dvh;
+  max-height: 575px;
   flex-basis: 50%;
 }
 
@@ -394,7 +410,7 @@ ul.overview__list p.stat__label {
   animation-timing-function: linear;
   animation-fill-mode: both;
   animation-timeline: scroll(root);
-  animation-range: 20% cover 40%;
+  animation-range: 25% cover 35%;
 }
 
 .skills__intro-decor .skill[data-chip] .skill-chip {
@@ -447,66 +463,85 @@ ul.overview__list p.stat__label {
   animation-name: chip-zig-zag-4;
 }
 
-.decor__image-wrapper {
+.skills__intro-decor .decor__image-wrapper {
   height: 100%;
-  animation-name: blur-expand;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-
-  animation-timeline: scroll(root);
-  animation-range: 0% cover 40%;
 }
 
-.decor-image {
+.skills__intro-decor .decor-image {
   position: absolute;
   width: 100%;
+  height: inherit;
   top: 50%;
   transform: translateY(-50%);
-
-  clip-path: inset(25% 46% 25% 46% round 999px);
-
-  animation-name: pill-expand;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-
-  animation-timeline: scroll(root);
-  animation-range: 0% cover 40%;
 }
 
-.decor-image__img {
+.skills__intro-decor .decor-image__img {
+  position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
 }
 
+.skills__intro-decor .decor-image__img[class*='--'] {
+  animation-name: fade-in;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+.skills__intro-decor .--monitorLeft {
+  animation-range: 10% cover 20%;
+  animation-timeline: scroll(root);
+  z-index: 1;
+}
+
+.skills__intro-decor .--monitorRight {
+  animation-range: 15% cover 25%;
+  animation-timeline: scroll(root);
+  z-index: 2;
+}
+
+.skills__intro-decor .--keyboard {
+  animation-range: 25% cover 30%;
+  animation-timeline: scroll(root);
+  z-index: 3;
+}
+
+.skills__intro-decor .--tower {
+  animation-range: 25% cover 30%;
+  animation-timeline: scroll(root);
+  z-index: 4;
+}
+
+.skills__intro-decor .--chair {
+  animation-range: 30% cover 40%;
+  animation-timeline: scroll(root);
+  z-index: 5;
+}
+
 .skills__ellipse-1 {
-  position: absolute;
   top: 50%;
   left: 50%;
-  translate: -50% -50%;
-  z-index: 0; /* sits behind .morph-image */
+  animation: fade-in 1s ease-out both,
+           skill-ellipse-pulse 5s linear infinite;
 
-  animation-name: ellipse-enter-left;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: both;
-
-  animation-timeline: scroll(root);
-  animation-range: 0% cover 40%;
+  animation-timeline: scroll(root), auto;
+  animation-range: 5% cover 15%;
 }
 
 /* Media Queries */
 
 @media (max-width: 991px) {
   .skills__intro-container {
-    padding-top: 50%;
     flex-direction: column;
-    justify-content: start;
   }
+
+  .skills__intro-container > div {
+    flex: 1;
+  }
+
 }
 
 /* ========================================================================== */
@@ -520,9 +555,9 @@ ul.overview__list p.stat__label {
     transform: translate(-20%, -30%);
   }
   100% {
-    top: 0%;
-    left: 0%;
-    transform: translate(0%, 0%);
+    top: 20%;
+    left: 15%;
+    transform: translate(-15%, -20%);
   }
 }
 
@@ -552,9 +587,9 @@ ul.overview__list p.stat__label {
   }
 
   100% {
-    top: 0%;
-    left: 100%;
-    transform: translate(-100%, 0%);
+    top: 10%;
+    left: 90%;
+    transform: translate(-90%, -10%);
   }
 }
 
@@ -583,9 +618,9 @@ ul.overview__list p.stat__label {
     transform: translate(-75%, -75%);
   }
   100% {
-    top: 100%;
-    left: 100%;
-    transform: translate(-100%, -100%);
+    top: 90%;
+    left: 90%;
+    transform: translate(-90%, -90%);
   }
 }
 
@@ -611,9 +646,9 @@ ul.overview__list p.stat__label {
     transform: translate(-25%, -65%);
   }
   100% {
-    top: 100%;
-    left: 0%;
-    transform: translate(0%, -100%);
+    top: 90%;
+    left: 10%;
+    transform: translate(-10%, -90%);
   }
 }
 
@@ -635,37 +670,21 @@ ul.overview__list p.stat__label {
   }
 }
 
-@keyframes blur-expand {
+@keyframes fade-in {
   0% {
-    filter: blur(25px);
+    opacity: 0;
   }
-  90% {
-    filter: blur(0px);
+  100% {
+    opacity: 1;    
   }
 }
 
-@keyframes pill-expand {
-  0% {
-    opacity: 0;
-    clip-path: inset(50% 50% 50% 50% round 999px);
+@keyframes skill-ellipse-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.75);
   }
-  100% {
-    opacity: 1;
-    clip-path: inset(0% 0% 0% 0% round 30px);
-  }
-}
-
-@keyframes ellipse-enter-left {
-  0% {
-    opacity: 0;
-    transform: translate(-200%, -500%);
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0);
+  50% {
+    transform: translate(-50%, -50%) scale(0.9);
   }
 }
 
@@ -691,18 +710,22 @@ ul.overview__list p.stat__label {
   --card-6: #1a2a2a;
 
   --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
-  --card-h: 60vh; /* height of each card */
+  --card-h: 60vh; /* height of each card - fallback */
+  --card-h: 60dvh; /* height of each card */
   --card-gap: clamp(1.313rem, 3.125vw, 1.5rem); /* gap between cards */
   --card-count: 6;
 
   /* Total width the track needs to travel:
         (card-w + gap) * card-count - 1 gap - 100vw
         We'll drive this via translateX in the keyframe */
-  --pin-height: 400vh; /* scroll distance */
+  --pin-height: 400vh; /* scroll distance - fallback */
+  --pin-height: 400dvh; /* scroll distance */
 }
 
 .section__work {
   position: relative;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .work__wrap {
@@ -713,8 +736,9 @@ ul.overview__list p.stat__label {
 
 .work__stage {
   position: sticky;
-  top: 5%;
-  height: 100vh;
+  top: 0%;
+  height: 100vh; /*fallback*/
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -833,10 +857,14 @@ ul.overview__list p.stat__label {
 
 /* Media Queries */
 
-@media (hover: none) and (pointer: coarse) {
-  .work__progress {
-    flex-basis: 100%;
+@media only screen and (max-width: 375px) and (orientation: portrait) {
+  .skills__intro-text {
+    justify-content: end;
   }
+  .work__stage {
+    justify-content: end;
+    padding-bottom: 30px;
+  } 
 }
 
 /* ========================================================================== */
