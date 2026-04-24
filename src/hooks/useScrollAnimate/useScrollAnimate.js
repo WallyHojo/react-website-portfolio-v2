@@ -3,8 +3,11 @@
  *
  * Two hooks, zero dependencies beyond a ref. Import the companion CSS alongside.
  *
- * ── useSA ────────────────────────────────────────────────────────────────────
+ * ── useSA ─────────────────────────────────────────────────────────────────────
  * Bootstraps the animation engine once for the page. Call at the app root.
+ *
+ * ── useSARouteSync ────────────────────────────────────────────────────────────
+ * Pass location.pathname from useLocation() to re-animate on route changes.
  *
  * ── useSAReplay ───────────────────────────────────────────────────────────────
  * Re-animates all [sa] children each time a container becomes visible.
@@ -38,7 +41,6 @@ const MAIN_OBSERVER_OPTIONS = {
   rootMargin: window.innerWidth < 768 ? '0px 0px 100px 0px' : '0px 0px -50px 0px',
 };
 
-/** @enum {string} */
 const CLS = {
   visible:   'sa-visible',
   prepare:   'sa-prepare',
@@ -48,94 +50,74 @@ const CLS = {
   exitUp:    'sa-exit-up',
 };
 
-const ALL_STATE_CLASSES    = Object.values(CLS);
-const DIRECTIONAL_CLASSES  = [CLS.enterDown, CLS.enterUp, CLS.exitDown, CLS.exitUp];
+const ALL_STATE_CLASSES   = Object.values(CLS);
+const DIRECTIONAL_CLASSES = [CLS.enterDown, CLS.enterUp, CLS.exitDown, CLS.exitUp];
 
 
 // ─────────────────────────────────────────────────────────────────────────────
 // § 2 · Module-level singletons
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** @type {IntersectionObserver|null} */
-let mainObserver = null;
-
-/** @type {IntersectionObserver|null} */
-let replayObserver = null;
-
-/** @type {'down'|'up'} */
-let scrollDirection = 'down';
-let lastScrollY = 0;
+let mainObserver        = null;
+let replayObserver      = null;
+let scrollDirection     = 'down';
+let lastScrollY         = 0;
 let scrollListenerBound = false;
+let saRefCount          = 0;
 
-// ✅ Fix: track how many useSA() instances are active so we can tear down the
-//    singleton when the last consumer unmounts (important for HMR / StrictMode)
-let saRefCount = 0;
-
-const modifierCache = new WeakMap();
-const counterRAFs   = new WeakMap();
+const counterRAFs = new WeakMap();
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-// § 3 · Pure helpers
+// § 3 · Helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-function getMods(el) {
-  if (!modifierCache.has(el)) {
-    modifierCache.set(el, new Set((el.getAttribute('sa') || '').split(/\s+/).filter(Boolean)));
-  }
-  return modifierCache.get(el);
-}
+const getMods = el =>
+  new Set((el.getAttribute('sa') || '').split(/\s+/).filter(Boolean));
 
 const easeOutCubic = t => 1 - (1 - t) ** 3;
 
 function formatCounter(value, el) {
   const { saDecimals = '0', saSeparator = '', saPrefix = '', saSuffix = '' } = el.dataset;
-  const decimals = parseInt(saDecimals, 10);
-  let str = value.toFixed(decimals);
-
+  let str = value.toFixed(parseInt(saDecimals, 10));
   if (saSeparator) {
     const [int, dec] = str.split('.');
     const formatted  = int.replace(/\B(?=(\d{3})+(?!\d))/g, saSeparator);
     str = dec !== undefined ? `${formatted}.${dec}` : formatted;
   }
-
   return `${saPrefix}${str}${saSuffix}`;
 }
 
-function resolveCounterDuration(el) {
-  if (el.dataset.saDuration) return parseInt(el.dataset.saDuration, 10);
-  const cssVar = parseInt(getComputedStyle(el).getPropertyValue('--sa-duration') || '0', 10);
-  return cssVar || COUNTER_DURATION_MS;
-}
+const resolveCounterDuration = el =>
+  parseInt(el.dataset.saDuration, 10) ||
+  parseInt(getComputedStyle(el).getPropertyValue('--sa-duration'), 10) ||
+  COUNTER_DURATION_MS;
 
 
 // ─────────────────────────────────────────────────────────────────────────────
 // § 4 · Counter animation
 // ─────────────────────────────────────────────────────────────────────────────
 
-function cancelCounter(el) {
-  if (counterRAFs.has(el)) {
-    cancelAnimationFrame(counterRAFs.get(el));
-    counterRAFs.delete(el);
-  }
-}
+const cancelCounter = el => {
+  if (counterRAFs.has(el)) { cancelAnimationFrame(counterRAFs.get(el)); counterRAFs.delete(el); }
+};
 
-function resetCounter(el) {
+const resetCounter = el => {
   cancelCounter(el);
   el.textContent = formatCounter(parseFloat(el.dataset.saFrom ?? '0'), el);
-}
+};
 
 function startCounter(el) {
   cancelCounter(el);
-  const from      = parseFloat(el.dataset.saFrom ?? '0');
-  const to        = parseFloat(el.dataset.saTo   ?? '0');
-  const duration  = resolveCounterDuration(el);
-  const startTime = performance.now();
+  const from     = parseFloat(el.dataset.saFrom ?? '0');
+  const to       = parseFloat(el.dataset.saTo   ?? '0');
+  const duration = resolveCounterDuration(el);
+  const start    = performance.now();
 
   const tick = now => {
-    const progress = Math.min((now - startTime) / duration, 1);
-    el.textContent = formatCounter(from + (to - from) * easeOutCubic(progress), el);
-    if (progress < 1) {
+    const p = Math.min((now - start) / duration, 1);
+    el.textContent = formatCounter(from + (to - from) * easeOutCubic(p), el);
+    if (p < 1) {
       counterRAFs.set(el, requestAnimationFrame(tick));
     } else {
       el.textContent = formatCounter(to, el);
@@ -148,80 +130,34 @@ function startCounter(el) {
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-// § 5 · Scroll direction tracking
-// ─────────────────────────────────────────────────────────────────────────────
-
-function ensureScrollListener() {
-  if (scrollListenerBound) return;
-  lastScrollY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    scrollDirection = window.scrollY >= lastScrollY ? 'down' : 'up';
-    lastScrollY = window.scrollY;
-  }, { passive: true });
-  scrollListenerBound = true;
-}
-
-
-// ─────────────────────────────────────────────────────────────────────────────
-// § 6 · Intersection callbacks
-// ─────────────────────────────────────────────────────────────────────────────
-
-function onEnter(el, mods, observer) {
-  if (mods.has('down-only') && scrollDirection !== 'down') return;
-  if (mods.has('up-only')   && scrollDirection !== 'up')   return;
-
-  el.classList.add(CLS.prepare, CLS.visible, scrollDirection === 'down' ? CLS.enterDown : CLS.enterUp);
-
-  if (mods.has('count')) startCounter(el);
-  if (!mods.has('repeat') && !mods.has('mirror')) observer.unobserve(el);
-}
-
-function onExit(el, mods) {
-  el.classList.add(scrollDirection === 'down' ? CLS.exitDown : CLS.exitUp);
-  if (!mods.has('repeat') && !mods.has('mirror')) return;
-  el.classList.remove(CLS.visible);
-  if (mods.has('count')) resetCounter(el);
-}
-
-function mainCallback(entries, observer) {
-  for (const { target: el, isIntersecting } of entries) {
-    el.classList.remove(...DIRECTIONAL_CLASSES);
-    const mods = getMods(el);
-    if (isIntersecting) onEnter(el, mods, observer); else onExit(el, mods);
-  }
-}
-
-function replayCallback(entries) {
-  const observer = getMainObserver();
-
-  for (const { target: container, isIntersecting } of entries) {
-    const children = container.querySelectorAll(SELECTOR);
-
-    for (const el of children) {
-      el.classList.remove(...ALL_STATE_CLASSES);
-      if (getMods(el).has('count')) resetCounter(el);
-      observer.unobserve(el);
-    }
-
-    if (isIntersecting) {
-      requestAnimationFrame(() => { for (const el of children) observer.observe(el); });
-    }
-  }
-}
-
-
-// ─────────────────────────────────────────────────────────────────────────────
-// § 7 · Observer factories (singletons)
+// § 5 · Observer factories
 // ─────────────────────────────────────────────────────────────────────────────
 
 function getMainObserver() {
   if (mainObserver) return mainObserver;
 
-  mainObserver = new IntersectionObserver(mainCallback, MAIN_OBSERVER_OPTIONS);
+  mainObserver = new IntersectionObserver((entries, observer) => {
+    for (const { target: el, isIntersecting } of entries) {
+      el.classList.remove(...DIRECTIONAL_CLASSES);
+      const mods = getMods(el);
+      const dir  = scrollDirection;
 
-  // ✅ Fix: scope transitionend to the observer's own elements only, and use
-  //    a named handler so it can be removed when the observer is torn down.
-  //    Previously this added an irremovable anonymous listener to document.
+      if (isIntersecting) {
+        if (mods.has('down-only') && dir !== 'down') continue;
+        if (mods.has('up-only')   && dir !== 'up')   continue;
+        el.classList.add(CLS.prepare, CLS.visible, dir === 'down' ? CLS.enterDown : CLS.enterUp);
+        if (mods.has('count')) startCounter(el);
+        if (!mods.has('repeat') && !mods.has('mirror')) observer.unobserve(el);
+      } else {
+        el.classList.add(dir === 'down' ? CLS.exitDown : CLS.exitUp);
+        if (mods.has('repeat') || mods.has('mirror')) {
+          el.classList.remove(CLS.visible);
+          if (mods.has('count')) resetCounter(el);
+        }
+      }
+    }
+  }, MAIN_OBSERVER_OPTIONS);
+
   mainObserver._onTransitionEnd = ({ target }) => {
     if (target?.hasAttribute('sa')) target.classList.remove(CLS.prepare);
   };
@@ -230,32 +166,52 @@ function getMainObserver() {
   return mainObserver;
 }
 
-// ✅ Fix: teardown helper so HMR / StrictMode unmount doesn't leave stale observers
-function teardownMainObserver() {
-  if (!mainObserver) return;
-  if (mainObserver._onTransitionEnd) {
-    document.removeEventListener('transitionend', mainObserver._onTransitionEnd);
-  }
-  mainObserver.disconnect();
-  mainObserver = null;
-}
-
 function getReplayObserver() {
-  if (!replayObserver) {
-    replayObserver = new IntersectionObserver(replayCallback, { threshold: 0 });
-  }
+  if (replayObserver) return replayObserver;
+
+  replayObserver = new IntersectionObserver(entries => {
+    const observer = getMainObserver();
+    for (const { target: container, isIntersecting } of entries) {
+      const children = [...container.querySelectorAll(SELECTOR)];
+      children.forEach(el => {
+        el.classList.remove(...ALL_STATE_CLASSES);
+        if (getMods(el).has('count')) resetCounter(el);
+        observer.unobserve(el);
+      });
+      if (isIntersecting) requestAnimationFrame(() => children.forEach(el => observer.observe(el)));
+    }
+  }, { threshold: 0 });
+
   return replayObserver;
 }
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-// § 8 · Public React hooks
+// § 6 · Teardown + re-init
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * Bootstraps the scroll-animate engine for the page.
- * Call once at the application root. Safe in React StrictMode.
- */
+function teardownMainObserver() {
+  if (!mainObserver) return;
+  document.removeEventListener('transitionend', mainObserver._onTransitionEnd);
+  mainObserver.disconnect();
+  mainObserver = null;
+}
+
+function reinitializeAnimations() {
+  const observer = getMainObserver();
+  document.querySelectorAll(SELECTOR).forEach(el => {
+    el.classList.remove(...ALL_STATE_CLASSES);
+    if (getMods(el).has('count')) resetCounter(el);
+    observer.unobserve(el);
+    observer.observe(el);
+  });
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// § 7 · Public React hooks
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function useSA() {
   useEffect(() => {
     if (!('IntersectionObserver' in window)) {
@@ -263,32 +219,50 @@ export function useSA() {
       return;
     }
 
-    // ✅ Fix: ref-count so the singleton is rebuilt cleanly after HMR teardown
     saRefCount++;
-    ensureScrollListener();
-    const observer = getMainObserver();
-    document.querySelectorAll(SELECTOR).forEach(el => observer.observe(el));
+
+    if (!scrollListenerBound) {
+      lastScrollY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        scrollDirection = window.scrollY >= lastScrollY ? 'down' : 'up';
+        lastScrollY = window.scrollY;
+      }, { passive: true });
+      scrollListenerBound = true;
+    }
+
+    document.querySelectorAll(SELECTOR).forEach(el => getMainObserver().observe(el));
+
+    const handlePageShow = e => { if (e.persisted) reinitializeAnimations(); };
+    window.addEventListener('pageshow', handlePageShow);
 
     return () => {
-      saRefCount--;
-      if (saRefCount === 0) {
-        // Last consumer unmounted — safe to tear down (happens in dev HMR / StrictMode)
-        teardownMainObserver();
-      }
+      window.removeEventListener('pageshow', handlePageShow);
+      if (--saRefCount === 0) teardownMainObserver();
     };
   }, []);
 }
 
 /**
- * Re-animates all [sa] children every time the container comes into view.
+ * Re-initializes all [sa] elements on every route change.
+ * Call inside <Router> in AppInner, passing location.pathname from useLocation().
  *
- * @param {React.RefObject<Element>} containerRef
+ * Usage:
+ *   import { useLocation } from 'react-router-dom';
+ *   const location = useLocation();
+ *   useSARouteSync(location.pathname);
+ *
+ * @param {string} pathname - current route path
  */
+export function useSARouteSync(pathname) {
+  useEffect(() => {
+    requestAnimationFrame(reinitializeAnimations);
+  }, [pathname]);
+}
+
 export function useSAReplay(containerRef) {
   useEffect(() => {
     const el = containerRef.current;
     if (!el || !('IntersectionObserver' in window)) return;
-
     const observer = getReplayObserver();
     observer.observe(el);
     return () => observer.unobserve(el);

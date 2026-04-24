@@ -1,7 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useMagnetic } from './hooks/useMagneticEffect/useMagneticEffect';
-import { useSA } from './hooks/useScrollAnimate';
+import { useSA, useSARouteSync } from './hooks/useScrollAnimate/useScrollAnimate';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -12,13 +12,13 @@ import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
 import Resume from './pages/Resume/Resume';
 
-function App() {
-  useSA();
-  useSmoothScroll();
-  useMagnetic();
+// Must be a child of <Router> so useLocation() works
+function AppInner() {
+  const location = useLocation();
+  useSARouteSync(location.pathname);
 
   return (
-    <Router>
+    <>
       <Navbar />
       <main>
         <Routes>
@@ -31,6 +31,18 @@ function App() {
         </Routes>
       </main>
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  useSA();
+  useSmoothScroll();
+  useMagnetic();
+
+  return (
+    <Router>
+      <AppInner />
     </Router>
   );
 }

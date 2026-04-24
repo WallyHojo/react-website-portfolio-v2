@@ -205,7 +205,7 @@ function Navbar() {
             <div className='menu__divider'>
               <hr />
             </div>
-            <Link to='/contact' className='btn btn-primary' sa='left slow delay-600' data-cursor='light'>
+            <Link to='/contact' className='btn btn-primary' sa='left slow delay-600' data-cursor='light' onClick={handleClose}>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
@@ -242,7 +242,7 @@ function Navbar() {
                       />
                     </svg>
                   </span>
-                  <Link to={to}>{label}</Link>
+                  <Link to={to} onClick={handleClose}>{label}</Link>
                 </li>
               ))}
             </ul>
