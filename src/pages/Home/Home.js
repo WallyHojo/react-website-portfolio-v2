@@ -26,7 +26,7 @@ import wsMoniterRight from "../../assets/images/workstation/monitor-right_img.we
 import wsTower from "../../assets/images/workstation/tower_img.webp";
 
 // Component for individual skill chips in the marquee
-function SkillChip({ label, icon, color }) {
+const SkillChip = React.memo(({ label, icon, color }) => {
   return (
     <>
       <span
@@ -45,9 +45,9 @@ function SkillChip({ label, icon, color }) {
       </span>
     </>
   );
-}
+});
 
-function SkillChip2({ label, icon, color, number }) {
+const SkillChip2 = React.memo(({ label, icon, color, number }) => {
   return (
     <>
       <span className='skill' data-chip={number}>
@@ -64,7 +64,7 @@ function SkillChip2({ label, icon, color, number }) {
       </span>
     </>
   );
-}
+});
 
 function Home() {
   useMarqueeScroll();
@@ -200,7 +200,7 @@ function Home() {
               With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
             </p>
             <br />
-            <Link to='/Contact' className='btn btn-primary' data-cursor='light'>
+            <Link to='/contact' className='btn btn-primary' data-cursor='light'>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
@@ -335,7 +335,7 @@ function Home() {
               </div>
             </div>
 
-            <div className='work__track section-padding' role='list' aria-label='Project cards'>              
+            <div className='work__track section-padding'>              
               <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='Project 1: Meridian Identity'>
                 <div className='work__card-bg-num'>1</div>
                 <div className='work__card-top'>

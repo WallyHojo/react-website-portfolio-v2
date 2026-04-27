@@ -109,7 +109,7 @@ function Footer() {
 
         <div className='footer__top--right'>
           <Link to='/contact' className='btn' sa='left-long slower mirror'>
-            <span className='btn__text'>Get In Touch</span>
+            <span className='btn__text'>Get in Touch</span>
             <span className='btn__arrow'>
               <ArrowIcon />
             </span>

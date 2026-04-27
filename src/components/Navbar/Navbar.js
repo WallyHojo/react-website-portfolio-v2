@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useSAReplay } from "../../hooks/useScrollAnimate/useScrollAnimate";
 import { useActiveRoute } from "../../hooks/useActiveRoute";
@@ -13,38 +13,50 @@ function Navbar() {
   const refHeaderHeight = useRef(null); //create the ref
 
   const [isScrolled, setIsScrolled] = useState(false);
-  const lastScrollTop = useRef(0); // To track the last scroll position
-  const scrollTimeoutRef = useRef(null); // To handle timeout for showing the header
+  const lastScrollTop = useRef(0);
+  const scrollTimeoutRef = useRef(null);
+  const debounceRef = useRef(null);
+
+  // Debounced scroll handler for better performance
+  const handleScroll = useCallback(() => {
+    const headerHeight = refHeaderHeight.current?.offsetHeight || 0;
+    const currentScrollTop = window.scrollY;
+
+    setIsScrolled(currentScrollTop > headerHeight);
+    lastScrollTop.current = currentScrollTop;
+
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+  }, []);
 
   useEffect(() => {
     if (refHeaderHeight.current) {
       setHeaderHeight(refHeaderHeight.current.offsetHeight);
     }
 
-    const handleScroll = () => {
-      const headerHeight = refHeaderHeight.current.offsetHeight;
-      const currentScrollTop = window.scrollY;
+    // Debounced scroll listener (passive for better performance)
+    const debouncedScroll = () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+      debounceRef.current = setTimeout(() => {
+        handleScroll();
+      }, 16); // ~60fps
+    };
 
-      // Determine if the user has scrolled past the header height
-      setIsScrolled(currentScrollTop > headerHeight);
+    window.addEventListener("scroll", debouncedScroll, { passive: true });
 
-      // Update last scroll position
-      lastScrollTop.current = currentScrollTop;
-
-      // Clear the previous timeout if it exists
+    return () => {
+      window.removeEventListener("scroll", debouncedScroll);
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
     };
-
-    // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [headerHeight]);
+  }, [handleScroll]);
 
   /*
   Menu open/close
@@ -85,7 +97,7 @@ function Navbar() {
         <div className='navbar__container' sa='down slower' ref={refHeaderHeight}>
           <div className='navbar__background'></div>
           <div className='navbar__logo'>
-            <Link to='/'>
+            <Link to='/' aria-label='Walter Carlson - UI Engineer Home'>
               <svg xmlns='http://www.w3.org/2000/svg' width='54' height='35' viewBox='0 0 320 220'>
                 <defs>
                   <linearGradient id='draw-a-gradient' x1='0%' y1='0%' x2='100%' y2='100%'>

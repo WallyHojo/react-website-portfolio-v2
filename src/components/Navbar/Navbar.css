@@ -21,7 +21,6 @@
   border-radius: 1.875rem;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  will-change: backdrop-filter;
 }
 
 .navbar__background {
