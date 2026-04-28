@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import emailjs from '@emailjs/browser';
 import { MARQUEE_ROW1, MARQUEE_ROW2, WEB_EXPERIENCES } from "../../config/skillChips.js";
+import { WORK_LIST } from "../../config/workList.js";
 import "./Home.css";
 import "../../assets/styles/noise.css";
 
@@ -47,7 +49,7 @@ const SkillChip = React.memo(({ label, icon, color }) => {
   );
 });
 
-const SkillChip2 = React.memo(({ label, icon, color, number }) => {
+const ExperienceSkillChip = React.memo(({ label, icon, color, number }) => {
   return (
     <>
       <span className='skill' data-chip={number}>
@@ -62,6 +64,26 @@ const SkillChip2 = React.memo(({ label, icon, color, number }) => {
           </span>
         </span>
       </span>
+    </>
+  );
+});
+
+// Component for individual work cards in the Projects section
+const WorkCard = React.memo(({ title, description, tag, number, total, symbol }) => {
+  const formattedIndex = `${String(number).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+  return (
+    <>
+      <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label={`Project ${number}: ${title}`}>
+        <div className='work__card-bg-num'>{symbol || number}</div>
+        <div className='work__card-top'>
+          <span className='work__card-index'>{formattedIndex}</span>
+          <span className='work__card-tag'>{tag}</span>
+        </div>
+        <div className='work__card-bottom'>
+          <h2 className='work__card-title'>{title}</h2>
+          <p className='work__card-body'>{description}</p>
+        </div>
+      </div>
     </>
   );
 });
@@ -85,6 +107,72 @@ function Home() {
   const stageRef = useRef(null);
 
   useHorizontalScroll(wrapRef, stageRef);
+
+  const form = useRef();
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    // Update state based on the field being changed
+    if (name === 'firstName') setFirstName(value);
+    else if (name === 'lastName') setLastName(value);
+    else if (name === 'email') setEmail(value);
+    else if (name === 'message') setMessage(value);
+
+    // Clear error and success messages on input change
+    setError('');
+    setSuccess('');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const namePattern = /^[a-zA-Z]{2,}$/; // Letters only, at least 2 characters
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
+
+    if (!namePattern.test(firstName)) {
+      setError('First name must be at least 2 letters long and contain only letters.');
+      return;
+    }
+    if (!namePattern.test(lastName)) {
+      setError('Last name must be at least 2 letters long and contain only letters.');
+      return;
+    }
+    if (!emailPattern.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    // Send email using EmailJS
+    const templateParams = {
+      firstName,
+      lastName,
+      email,
+      message,
+    };
+
+    emailjs.send('service_6wyqnpf', 'template_fpcny71', templateParams, 'XLYQ7l_ypaQaiyMdp')
+      .then((response) => {
+        console.log('Email sent successfully!', response.status, response.text);
+        setSuccess('Email sent successfully!');
+        // Clear the form
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setMessage('');
+      })
+      .catch((err) => {
+        console.error('Failed to send email:', err);
+        setError('Failed to send email. Please try again later.');
+      });
+  };  
 
   return (
     <>
@@ -291,7 +379,7 @@ function Home() {
 
         <div className='skills__intro-wrapper relative'>
           <div className='section__decor'>
-            <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={2000} className='backdrop-dots hidden-xs' />
+            <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={2000} className='backdrop-dots hidden-xs' />            
             {/*<div className='decor__shape slats-bg slats-bg--skills'>
               <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial' />
             </div>
@@ -305,19 +393,19 @@ function Home() {
             </div>
             <div className='skills__intro-decor h-full relative'>
               <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--medium hidden-xs'></div>
-              <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--small visible-xs'></div>
+              <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--small visible-xs'></div>                         
               <div className='decor__image-wrapper h-full'>
                 <div className='decor-image'>
-                  <img src={wsChair} width='773' height='723' alt='workstation chair img' className='decor-image__img --chair' />
+                  <img src={wsChair} width='773' height='723' alt='workstation chair img' className='decor-image__img --chair' />                 
                   <img src={wsTower} width='773' height='723' alt='workstation tower img' className='decor-image__img --tower' />
                   <img src={wsKeyboardMouse} width='773' height='723' alt='workstation keyboard mouse img' className='decor-image__img --keyboard' />
                   <img src={wsMoniterRight} width='773' height='723' alt='workstation monitor right img' className='decor-image__img --monitorRight' />
                   <img src={wsMoniterLeft} width='773' height='723' alt='workstation monitor left img' className='decor-image__img --monitorLeft' />
                   <img src={wsBG} width='773' height='723' alt='workstation background img' className='decor-image__img --bg' />
                 </div>
-              </div>
-              {WEB_EXPERIENCES.map((item) => (
-                <SkillChip2 key={item.label} {...item} />
+              </div>             
+              {WEB_EXPERIENCES.map((item, index) => (
+                <ExperienceSkillChip key={item.label} {...item} number={index + 1} />
               ))}                
             </div>
           </div>
@@ -335,103 +423,50 @@ function Home() {
               </div>
             </div>
 
-            <div className='work__track'>              
-              <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='Project 1: Meridian Identity'>
-                <div className='work__card-bg-num'>1</div>
-                <div className='work__card-top'>
-                  <span className='work__card-index'>01 / 05</span>
-                  <span className='work__card-tag'>Branding</span>
-                </div>
-                <div className='work__card-bottom'>
-                  <h2 className='work__card-title'>
-                    Meridian
-                    <br />
-                    Identity
-                  </h2>
-                  <p className='work__card-body'>A complete brand system for a next-generation infrastructure company. Mark, motion, and voice.</p>
-                </div>
-              </div>
-
-              <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='Project 2: Folio Dashboard'>
-                <div className='work__card-bg-num'>2</div>
-                <div className='work__card-top'>
-                  <span className='work__card-index'>02 / 05</span>
-                  <span className='work__card-tag'>Product</span>
-                </div>
-                <div className='work__card-bottom'>
-                  <h2 className='work__card-title'>
-                    Folio
-                    <br />
-                    Dashboard
-                  </h2>
-                  <p className='work__card-body'>End-to-end product design for a portfolio management platform used by 40,000+ investors.</p>
-                </div>
-              </div>
-
-              <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='Project 3: Solaris Campaign'>
-                <div className='work__card-bg-num'>3</div>
-                <div className='work__card-top'>
-                  <span className='work__card-index'>03 / 05</span>
-                  <span className='work__card-tag'>Web</span>
-                </div>
-                <div className='work__card-bottom'>
-                  <h2 className='work__card-title'>
-                    Solaris
-                    <br />
-                    Campaign
-                  </h2>
-                  <p className='work__card-body'>Interactive launch site for a climate-tech startup. 3D environments, scroll storytelling, zero JS frameworks.</p>
-                </div>
-              </div>
-
-              <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='Project 4: Atlas Title Sequence'>
-                <div className='work__card-bg-num'>4</div>
-                <div className='work__card-top'>
-                  <span className='work__card-index'>04 / 05</span>
-                  <span className='work__card-tag'>Motion</span>
-                </div>
-                <div className='work__card-bottom'>
-                  <h2 className='work__card-title'>
-                    Atlas
-                    <br />
-                    Title Seq.
-                  </h2>
-                  <p className='work__card-body'>Opening title sequence for a feature-length documentary. Type, texture, and sound in lockstep.</p>
-                </div>
-              </div>
-
-              <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='Project 5: Kin Magazine'>
-                <div className='work__card-bg-num'>5</div>
-                <div className='work__card-top'>
-                  <span className='work__card-index'>05 / 05</span>
-                  <span className='work__card-tag'>Editorial</span>
-                </div>
-                <div className='work__card-bottom'>
-                  <h2 className='work__card-title'>
-                    Kin
-                    <br />
-                    Magazine
-                  </h2>
-                  <p className='work__card-body'>Art direction and layout design for an independent print publication celebrating slow culture.</p>
-                </div>
-              </div>
-
-              <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='View all projects'>
-                <div className='work__card-bg-num'>&gt;</div>
-                <div className='work__card-top'>
-                  <span className='work__card-index'>08 / 10</span>
-                  <span className='work__card-tag'>Legacy</span>
-                </div>
-                <div className='work__card-bottom'>
-                  <h2 className='work__card-title'>
-                    Explore
-                    <br />
-                    Work
-                  </h2>
-                  <p className='work__card-body'>View all projects and discover the process behind the work, from strategy and design to final implementation.</p>
-                </div>
-              </div>              
+            <div className='work__track'>    
+              {WORK_LIST.map((item, index) => (
+                <WorkCard key={item.label} {...item} number={index + 1} total={WORK_LIST.length} />
+              ))}     
             </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section className='section section__contact section-padding' aria-label='Contact Information'>
+        <div className='contact__container'>
+          <div className='contact__content'>
+            <h3 className='mb-2'>Get in Touch</h3>
+            <p className='lead'>I'd love to hear from you! Whether you have a question or just want to say hello, feel free to reach out. Please fill out the form below, and I'll get back to you as soon as possible.</p>
+          </div>
+          <div className='contact__form'>
+              <div className='row'>
+                <div className='col col-md-8 offset-md-2'>
+                  <p>Fields marked with (<span className='text-danger'>*</span>) are required.</p>
+                  <form ref={form} onSubmit={handleSubmit} id='contact'>
+                    <div className='row'>
+                      <div className='col col-md-6'>
+                        <label>First Name <small>(<span className='text-danger'>*</span>)</small></label>
+                        <input value={firstName} onChange={handleChange} type='text' name='firstName' id='firstName' required />
+                      </div>
+                      <div className='col col-md-6'>
+                        <label>Last Name <small>(<span className='text-danger'>*</span>)</small></label>
+                        <input value={lastName} onChange={handleChange} type='text' name='lastName' id='lastName' required /> 
+                      </div>
+                    </div>     
+                    <div className='col'>
+                      <label>Email <small>(<span className='text-danger'>*</span>)</small></label>
+                      <input value={email} onChange={handleChange} type='email' name='email' id='email' required />              
+                      <label>Message</label>
+                      <textarea value={message} onChange={handleChange} name='message' rows='5' id='message' />    
+                      {error && <p style={{ color: 'red' }}>{error}</p>}
+                      {success && <p style={{ color: 'green' }}>{success}</p>}                            
+                      <input type='submit' value='Submit' id='submit' className='border-0 text-white' />              
+                    </div>
+                  </form>
+              
+              </div>
+            </div>            
           </div>
         </div>
       </section>

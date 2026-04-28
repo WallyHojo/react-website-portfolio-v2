@@ -85,8 +85,8 @@ export const MARQUEE_ROW2 = [
 ];
 
 export const WEB_EXPERIENCES = [
-  { label: "Visual Design", icon: <ReliabilityIcon />, color: "var(--card-5)", number: "1" },    
-  { label: "Prototyping", icon: <BugIcon />, color: "var(--card-1)", number: "2" },  
-  { label: "Wireframing", icon: <ResponsiveMobileIcon />, color: "var(--card-2)", number: "3" },
-  { label: "Development", icon: <JsonIcon />, color: "var(--card-3)", number: "4" }
+  { label: "Visual Design", icon: <CreativityIcon />, color: "var(--card-6)" },    
+  { label: "Prototyping", icon: <UserInterfaceDesignIcon />, color: "var(--card-6)" },  
+  { label: "Wireframing", icon: <DesignIcon />, color: "var(--card-6)" },
+  { label: "Development", icon: <ProgrammingIcon />, color: "var(--card-6)" }
 ];

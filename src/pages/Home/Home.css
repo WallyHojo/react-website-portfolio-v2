@@ -330,7 +330,7 @@ ul.overview__list p.stat__label {
   gap: 0.625rem;
   padding: 0.375rem 0.875rem;
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: clamp(0.625rem, 2.43vw, 0.875rem);
   border: 1px solid var(--color-border);
   border-radius: 999px;
   white-space: nowrap;
@@ -386,7 +386,6 @@ ul.overview__list p.stat__label {
 /* Web Experiences Skills Chips */
 
 .skills__intro-decor .skill[data-chip] {
-  display: none;
   position: absolute;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -462,38 +461,39 @@ ul.overview__list p.stat__label {
 }
 
 .skills__intro-decor .decor-image__img[class*="--"] {
-  animation-name: fade-in;
+  animation-name: drop-in-fade;
   animation-duration: 1s;
   animation-timing-function: linear;
-  animation-fill-mode: both;
+  animation-fill-mode: both;  
+
 }
 
 .skills__intro-decor .--monitorLeft {
-  animation-range: 10% cover 20%;
+  animation-range: 15% cover 25%;
   animation-timeline: scroll(root);
   z-index: 1;
 }
 
 .skills__intro-decor .--monitorRight {
-  animation-range: 15% cover 25%;
+  animation-range: 20% cover 30%;
   animation-timeline: scroll(root);
   z-index: 2;
 }
 
 .skills__intro-decor .--keyboard {
-  animation-range: 25% cover 30%;
+  animation-range: 30% cover 35%;
   animation-timeline: scroll(root);
   z-index: 3;
 }
 
 .skills__intro-decor .--tower {
-  animation-range: 25% cover 30%;
+  animation-range: 30% cover 35%;
   animation-timeline: scroll(root);
   z-index: 4;
 }
 
 .skills__intro-decor .--chair {
-  animation-range: 30% cover 40%;
+  animation-range: 35% cover 45%;
   animation-timeline: scroll(root);
   z-index: 5;
 }
@@ -518,6 +518,17 @@ ul.overview__list p.stat__label {
 
   .skills__intro-container .skills__intro-text {
     flex: auto;
+  }
+}
+
+@media (width <= 575px) {
+  .skills__intro-decor .skill[data-chip] {
+    animation-range: 15% cover 25%;
+  }
+
+  .skill-chip__icon svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -656,6 +667,18 @@ ul.overview__list p.stat__label {
   }
 }
 
+@keyframes drop-in-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 @keyframes skill-ellipse-pulse {
   0%,
   100% {
@@ -668,56 +691,55 @@ ul.overview__list p.stat__label {
 
 @media (width <= 575px) {
   @keyframes chip-transform-1 {
-    0% {
-      top: 20%;
-      left: 50%;
-      transform: translate(-50%, -20%);
-    }
-    100% {
-      top: 35%;
-      left: -10%;
-      transform: translate(-10%, -35%);
-    }
+0% {
+    top: 30%;
+    left: 0%;
+    transform: translate(-0%, -30%);
+}
+100% {
+    top: 15%;
+    left: 0%;
+    transform: translate(-0%, -15%);
+}
   }
 
   @keyframes chip-transform-2 {
-    0% {
-      top: 35%;
-      left: 100%;
-      transform: translate(-100%, -35%);
-    }
-
-    100% {
-      top: 20%;
-      left: 120%;
-      transform: translate(-100%, -20%);
-    }
+0% {
+    top: 35%;
+    left: 100%;
+    transform: translate(-100%, -35%);
+}
+100% {
+    top: 20%;
+    left: 100%;
+    transform: translate(-100%, -20%);
+}
   }
 
   @keyframes chip-transform-3 {
-    0% {
-      top: 85%;
-      left: 0%;
-      transform: translate(0%, -85%);
-    }
-    100% {
-      top: 85%;
-      left: 120%;
-      transform: translate(-110%, -85%);
-    }
+0% {
+    top: 65%;
+    left: 0%;
+    transform: translate(-0%, -65%);
+}
+100% {
+    top: 80%;
+    left: 0%;
+    transform: translate(-0%, -80%);
+}
   }
 
   @keyframes chip-transform-4 {
-    0% {
-      top: 65%;
-      left: 50%;
-      transform: translate(-50%, -65%);
-    }
-    100% {
-      top: 90%;
-      left: -20%;
-      transform: translate(0%, -90%);
-    }
+0% {
+    top: 65%;
+    left: 100%;
+    transform: translate(-100%, -65%);
+}
+100% {
+    top: 85%;
+    left: 100%;
+    transform: translate(-100%, -85%);
+}
   }
 }
 
@@ -866,6 +888,7 @@ ul.overview__list p.stat__label {
 }
 
 .work__card-title {
+  width: 80%;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
   line-height: 1;
   letter-spacing: 0.02em;
