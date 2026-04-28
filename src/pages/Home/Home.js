@@ -414,7 +414,7 @@ function Home() {
     
       <section className='section section__work' aria-label='Featured Projects'>
         <div className='work__wrap' ref={wrapRef} role='region' aria-roledescription='horizontal scroll'>
-          <div className='work__stage h-viewport-small sticky section-padding' ref={stageRef} role='list' aria-label='Project cards'>
+          <div className='work__stage h-viewport-small sticky section-padding' ref={stageRef}>
             <div className='section__label' role='presentation'>
               <h2 className='section__title' sa='up slower mirror delay-200'>Projects</h2>
               <span className='section__count' sa='right-long glacial mirrordelay-400'>02 works</span>
@@ -423,7 +423,7 @@ function Home() {
               </div>
             </div>
 
-            <div className='work__track'>    
+            <div className='work__track' role='list' aria-label='Project cards'>    
               {WORK_LIST.map((item, index) => (
                 <WorkCard key={item.label} {...item} number={index + 1} total={WORK_LIST.length} />
               ))}     
