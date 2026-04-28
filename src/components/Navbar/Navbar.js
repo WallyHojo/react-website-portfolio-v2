@@ -14,23 +14,17 @@ function Navbar() {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const lastScrollTop = useRef(0);
-  const scrollTimeoutRef = useRef(null);
   const debounceRef = useRef(null);
 
-  // Debounced scroll handler for better performance
+  // Scroll handler for detecting scroll position
   const handleScroll = useCallback(() => {
-    const headerHeight = refHeaderHeight.current?.offsetHeight || 0;
     const currentScrollTop = window.scrollY;
-
-    setIsScrolled(currentScrollTop > headerHeight);
+    setIsScrolled(currentScrollTop > (headerHeight || 0));
     lastScrollTop.current = currentScrollTop;
-
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-  }, []);
+  }, [headerHeight]);
 
   useEffect(() => {
+    // Set initial header height
     if (refHeaderHeight.current) {
       setHeaderHeight(refHeaderHeight.current.offsetHeight);
     }
@@ -52,11 +46,20 @@ function Navbar() {
       if (debounceRef.current) {
         clearTimeout(debounceRef.current);
       }
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     };
   }, [handleScroll]);
+
+  // Update header height on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (refHeaderHeight.current) {
+        setHeaderHeight(refHeaderHeight.current.offsetHeight);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   /*
   Menu open/close
