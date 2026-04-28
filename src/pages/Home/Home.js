@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import emailjs from '@emailjs/browser';
+import ContactForm from '../../components/Form/Form.js';
 import { MARQUEE_ROW1, MARQUEE_ROW2, WEB_EXPERIENCES } from "../../config/skillChips.js";
 import { WORK_LIST } from "../../config/workList.js";
 import "./Home.css";
@@ -19,7 +19,6 @@ import heroBg from "../../assets/images/hero_bg.webp";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
-
 import wsBG from "../../assets/images/workstation/bg.webp";
 import wsChair from "../../assets/images/workstation/chair_img.webp";
 import wsKeyboardMouse from "../../assets/images/workstation/keyboard-mouse_img.webp";
@@ -108,75 +107,9 @@ function Home() {
 
   useHorizontalScroll(wrapRef, stageRef);
 
-  const form = useRef();
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    // Update state based on the field being changed
-    if (name === 'firstName') setFirstName(value);
-    else if (name === 'lastName') setLastName(value);
-    else if (name === 'email') setEmail(value);
-    else if (name === 'message') setMessage(value);
-
-    // Clear error and success messages on input change
-    setError('');
-    setSuccess('');
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const namePattern = /^[a-zA-Z]{2,}$/; // Letters only, at least 2 characters
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
-
-    if (!namePattern.test(firstName)) {
-      setError('First name must be at least 2 letters long and contain only letters.');
-      return;
-    }
-    if (!namePattern.test(lastName)) {
-      setError('Last name must be at least 2 letters long and contain only letters.');
-      return;
-    }
-    if (!emailPattern.test(email)) {
-      setError('Please enter a valid email address.');
-      return;
-    }
-
-    // Send email using EmailJS
-    const templateParams = {
-      firstName,
-      lastName,
-      email,
-      message,
-    };
-
-    emailjs.send('service_6wyqnpf', 'template_fpcny71', templateParams, 'XLYQ7l_ypaQaiyMdp')
-      .then((response) => {
-        console.log('Email sent successfully!', response.status, response.text);
-        setSuccess('Email sent successfully!');
-        // Clear the form
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setMessage('');
-      })
-      .catch((err) => {
-        console.error('Failed to send email:', err);
-        setError('Failed to send email. Please try again later.');
-      });
-  };  
-
   return (
     <>
-      <section className='section section__hero section-grain grain-medium section-padding h-viewport-dynamic' aria-label='Introduction and Hero'>
+      <section className='section section__hero section__grain --grain-medium section-padding h-viewport-dynamic' aria-label='Introduction and Hero'>
         <div className='section__decor'>
           <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
           
@@ -433,41 +366,17 @@ function Home() {
         </div>
       </section>
 
-      <section className='section section__contact section-padding' aria-label='Contact Information'>
-        <div className='contact__container'>
-          <div className='contact__content'>
-            <h3 className='mb-2'>Get in Touch</h3>
-            <p className='lead'>I'd love to hear from you! Whether you have a question or just want to say hello, feel free to reach out. Please fill out the form below, and I'll get back to you as soon as possible.</p>
+      <section className='section section__contact section__grain --grain-subtle section-padding relative' aria-label='Contact Information'>
+          <div className='section__label'>
+          <h2 className='section__title' sa='up slower mirror delay-200'>Contact</h2>
+          <span className='section__count' sa='right-long glacial mirror delay-400'>03 form</span>
+        </div>        
+        <div className='contact__container flex-all flex-direction-row flex-space-between flex-wrap'>
+          <div className='contact__content' sa='up slower mirror delay-400'>
+            <h3 className='sub-heading'><strong>Get in Touch</strong></h3>
+            <p>I'd love to hear from you! Whether you have a question or just want to say hello, feel free to reach out. Please fill out the form, and I'll get back to you as soon as possible.</p>
           </div>
-          <div className='contact__form'>
-              <div className='row'>
-                <div className='col col-md-8 offset-md-2'>
-                  <p>Fields marked with (<span className='text-danger'>*</span>) are required.</p>
-                  <form ref={form} onSubmit={handleSubmit} id='contact'>
-                    <div className='row'>
-                      <div className='col col-md-6'>
-                        <label htmlFor='firstName'>First Name <small>(<span className='text-danger'>*</span>)</small></label>
-                        <input value={firstName} onChange={handleChange} type='text' name='firstName' id='firstName' required />
-                      </div>
-                      <div className='col col-md-6'>
-                        <label htmlFor='lastName'>Last Name <small>(<span className='text-danger'>*</span>)</small></label>
-                        <input value={lastName} onChange={handleChange} type='text' name='lastName' id='lastName' required /> 
-                      </div>
-                    </div>     
-                    <div className='col'>
-                      <label htmlFor='email'>Email <small>(<span className='text-danger'>*</span>)</small></label>
-                      <input value={email} onChange={handleChange} type='email' name='email' id='email' required />              
-                      <label htmlFor='message'>Message</label>
-                      <textarea value={message} onChange={handleChange} name='message' rows='5' id='message' />    
-                      {error && <p style={{ color: 'red' }}>{error}</p>}
-                      {success && <p style={{ color: 'green' }}>{success}</p>}                            
-                      <input type='submit' value='Submit' id='submit' className='border-0 text-white' />              
-                    </div>
-                  </form>
-              
-              </div>
-            </div>            
-          </div>
+          <ContactForm />
         </div>
       </section>
     </>

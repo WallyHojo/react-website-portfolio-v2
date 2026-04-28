@@ -1,0 +1,42 @@
+.form__group {
+    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+}
+.group__field {
+    flex: 1;
+}
+.form__group label {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+.form__group :is(input, textarea) {
+    background-color: transparent;
+    width: 100%;
+    padding-block: 1.6rem;
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+    border: none;
+    border-bottom: 1px solid var(--color-primary);
+}
+.form__group input {
+    height: 40px;
+}
+
+.form__group :is(input, textarea):focus {
+    outline: none;
+}
+
+button#submit {
+    background-color: transparent;
+    border: none;
+}
+
+/* Media Queries */
+
+@media (width <= 767px) {
+    .group__field {
+        flex: auto;
+    }
+}

@@ -906,13 +906,13 @@ ul.overview__list p.stat__label {
 
 /* Media Queries */
 
-@media only screen and (max-width: 575px) and (orientation: portrait) {
+@media only screen and (width <= 575px) and (orientation: portrait) {
   .skills__intro-text {
     justify-content: end;
   }
   .work__stage {
     justify-content: end;
-    padding-bottom: 30px;
+    padding-bottom: 1.875rem;
   }
 }
 
@@ -931,39 +931,28 @@ ul.overview__list p.stat__label {
   }
 }
 
-/* Shifting position on each step fakes a new noise frame */
-@keyframes grain {
-  0% {
-    transform: translate(0, 0);
+/* ========================================================================== */
+/*                                Form Section                                */
+/* ========================================================================== */
+
+.contact__content {
+  flex-basis: 30%;
+}
+
+.contact__form {
+  flex-basis: 50%;
+}
+
+/* Media Queries */
+
+@media (width <= 991px) {
+  .contact__container {
+    flex-direction: column;
+    gap: 2rem;
   }
-  10% {
-    transform: translate(-5%, -10%);
-  }
-  20% {
-    transform: translate(-15%, 5%);
-  }
-  30% {
-    transform: translate(7%, -25%);
-  }
-  40% {
-    transform: translate(-5%, 25%);
-  }
-  50% {
-    transform: translate(-15%, 10%);
-  }
-  60% {
-    transform: translate(15%, 0);
-  }
-  70% {
-    transform: translate(0, 15%);
-  }
-  80% {
-    transform: translate(3%, 35%);
-  }
-  90% {
-    transform: translate(-10%, 10%);
-  }
-  100% {
-    transform: translate(9%, 18%);
+
+  .contact__content,
+  .contact__form {
+    flex-basis: auto;
   }
 }

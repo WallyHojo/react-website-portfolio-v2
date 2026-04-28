@@ -1,4 +1,8 @@
-.section-grain::after {
+.section__grain {
+  overflow: hidden;
+}
+
+.section__grain::after {
   content: "";
   position: absolute;
   inset: -200%;
@@ -13,14 +17,14 @@
   animation: grain 0.8s steps(1) infinite;
 }
 
-.grain-subtle {
+.--grain-subtle {
   --grain-card-opacity: 0.05;
 }
 
-.grain-medium {
+.--grain-medium {
   --grain-card-opacity: 0.08;
 }
 
-.grain-heavy {
+.--grain-heavy {
   --grain-card-opacity: 0.12;
 }

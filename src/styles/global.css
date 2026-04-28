@@ -104,7 +104,7 @@ a {
   color: inherit;
 }
 
-a.btn {
+:is(a,button).btn {
   position: relative;
   display: inline-block;
   display: flex;
@@ -211,6 +211,10 @@ img {
 
 .flex-direction-column {
   flex-direction: column;
+}
+
+.flex-direction-row {
+  flex-direction: row;
 }
 
 .flex-wrap {

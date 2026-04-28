@@ -16,6 +16,7 @@ const Resume = lazy(() => import('./pages/Resume/Resume'));
 
 // Must be a child of <Router> so useLocation() works
 function AppInner() {
+  // Sync route changes with scroll animations
   const location = useLocation();
   useSARouteSync(location.pathname);
 
