@@ -1,3 +1,14 @@
+# Robots.txt for Walter Carlson Portfolio
 # https://www.robotstxt.org/robotstxt.html
+
+# Allow all search engine bots
 User-agent: *
-Disallow:
+Allow: /
+Disallow: 
+
+# Crawl settings for optimal indexing
+Crawl-delay: 1
+Request-rate: 30/60
+
+# Sitemap
+Sitemap: https://v2.waltercarlson.dev/sitemap.xml

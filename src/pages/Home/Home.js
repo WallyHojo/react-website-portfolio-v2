@@ -415,7 +415,7 @@ function Home() {
       <section className='section section__work' aria-label='Featured Projects'>
         <div className='work__wrap' ref={wrapRef} role='region' aria-roledescription='horizontal scroll'>
           <div className='work__stage h-viewport-small sticky section-padding' ref={stageRef} role='list' aria-label='Project cards'>
-            <div className='section__label'>
+            <div className='section__label' role='presentation'>
               <h2 className='section__title' sa='up slower mirror delay-200'>Projects</h2>
               <span className='section__count' sa='right-long glacial mirrordelay-400'>02 works</span>
               <div className='work__progress' aria-hidden='true'>
@@ -446,18 +446,18 @@ function Home() {
                   <form ref={form} onSubmit={handleSubmit} id='contact'>
                     <div className='row'>
                       <div className='col col-md-6'>
-                        <label>First Name <small>(<span className='text-danger'>*</span>)</small></label>
+                        <label htmlFor='firstName'>First Name <small>(<span className='text-danger'>*</span>)</small></label>
                         <input value={firstName} onChange={handleChange} type='text' name='firstName' id='firstName' required />
                       </div>
                       <div className='col col-md-6'>
-                        <label>Last Name <small>(<span className='text-danger'>*</span>)</small></label>
+                        <label htmlFor='lastName'>Last Name <small>(<span className='text-danger'>*</span>)</small></label>
                         <input value={lastName} onChange={handleChange} type='text' name='lastName' id='lastName' required /> 
                       </div>
                     </div>     
                     <div className='col'>
-                      <label>Email <small>(<span className='text-danger'>*</span>)</small></label>
+                      <label htmlFor='email'>Email <small>(<span className='text-danger'>*</span>)</small></label>
                       <input value={email} onChange={handleChange} type='email' name='email' id='email' required />              
-                      <label>Message</label>
+                      <label htmlFor='message'>Message</label>
                       <textarea value={message} onChange={handleChange} name='message' rows='5' id='message' />    
                       {error && <p style={{ color: 'red' }}>{error}</p>}
                       {success && <p style={{ color: 'green' }}>{success}</p>}                            
