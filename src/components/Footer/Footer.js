@@ -221,7 +221,7 @@ function Footer() {
         <div className='footer__bottom--left' sa='up mirror slow'>
           <p className='footer__copyright'>© {new Date().getFullYear()} Walter Carlson. All rights reserved.</p>
         </div>
-        <div className='footer__bottom--middle' sa='up mirror slow delay-100'>
+        <div className='footer__bottom--middle' sa='up mirror slow delay-200'>
           <ul className='footer__nav-socials' aria-label='Social links'>
             {SOCIAL_LINKS.map(({ href, label, icon }) => (
               <li key={label}>

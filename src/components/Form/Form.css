@@ -12,7 +12,7 @@
     overflow: hidden;
 }
 .form__group :is(input, textarea) {
-    background-color: transparent;
+    background: none !important;
     width: 100%;
     padding-block: 1.6rem;
     font-size: 1.125rem;
@@ -24,8 +24,15 @@
     height: 40px;
 }
 
-.form__group :is(input, textarea):focus {
+.form__group :is(input, textarea):is(:focus) {   
     outline: none;
+}
+
+.form__group :is(:is(input, textarea):is(:focus), :is(input, textarea):-webkit-autofill, :is(input, textarea):-webkit-autofill:is(:hover,:focus,:active)) {
+  -webkit-text-fill-color: var(--color-text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
+  outline: none;
+  color: var(--color-text-primary);
 }
 
 button#submit {

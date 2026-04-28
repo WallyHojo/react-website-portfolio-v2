@@ -15,7 +15,7 @@ import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 
 // Assets
 import heroBg from "../../assets/images/hero_bg.webp";
-/*import diagnalLines from "../../assets/images/diagnal-lines.svg";*/
+import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
@@ -125,10 +125,6 @@ function Home() {
           <div className='decor__shape arrow-down-svg arrow-down--2' sa='float float-y float-y-loop delay-1600'>
             <img src={arrowDown} width='16' height='54' alt='Arrow down drop' sa='down-long glacial delay-1400' />
           </div>
-
-          {/*<div className='decor__shape slats-bg slats-bg--hero'>
-            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial delay-600' />
-          </div>*/}
 
           <svg className='decor__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
             <defs>
@@ -313,10 +309,6 @@ function Home() {
         <div className='skills__intro-wrapper relative'>
           <div className='section__decor'>
             <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={2000} className='backdrop-dots hidden-xs' />            
-            {/*<div className='decor__shape slats-bg slats-bg--skills'>
-              <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial' />
-            </div>
-            <div className='background__ellipse background__ellipse-2 ellipse--blue ellipse--small'></div>*/}
           </div>
 
           <div className='skills__intro-container h-viewport-small sticky'>
@@ -367,12 +359,17 @@ function Home() {
       </section>
 
       <section className='section section__contact section__grain --grain-subtle section-padding relative' aria-label='Contact Information'>
-          <div className='section__label'>
+        <div className='section__decor'>
+          <div className='decor__shape slats-bg slats-bg--skills'>
+            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial mirror delay-400' />
+          </div>            
+        </div>         
+        <div className='section__label'>
           <h2 className='section__title' sa='up slower mirror delay-200'>Contact</h2>
           <span className='section__count' sa='right-long glacial mirror delay-400'>03 form</span>
         </div>        
         <div className='contact__container flex-all flex-direction-row flex-space-between flex-wrap'>
-          <div className='contact__content' sa='up slower mirror delay-400'>
+          <div className='contact__content' sa='up slower mirror delay-400'>           
             <h3 className='sub-heading'><strong>Get in Touch</strong></h3>
             <p>I'd love to hear from you! Whether you have a question or just want to say hello, feel free to reach out. Please fill out the form, and I'll get back to you as soon as possible.</p>
           </div>

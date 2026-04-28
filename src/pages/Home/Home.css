@@ -155,12 +155,6 @@
   }
 }
 
-@media (width <= 575px) {
-  .slats-bg {
-    display: none;
-  }
-}
-
 @media (width >= 1200px) {
   .slats-svg {
     width: min(62rem, 120vh);
@@ -834,6 +828,7 @@ ul.overview__list p.stat__label {
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 25px 0 rgba(16, 24, 32, 0.15), 0 0 0 1px rgba(16, 24, 32, 0.05);
 }
 
 .work__card:nth-child(1) {
