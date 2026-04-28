@@ -84,7 +84,7 @@ const Form = () => {
 
     return (
         <>
-        <div className='contact__form'>
+        <div className='contact__form relative'>
             <p><small>Fields marked with (<span className='text-danger'>*</span>) are required.</small></p>
             <form ref={form} onSubmit={handleSubmit} id='contact'>
                 <div className='form__group flex-all flex-direction-row flex-wrap'>

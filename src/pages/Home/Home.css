@@ -936,6 +936,7 @@ ul.overview__list p.stat__label {
 
 .contact__form {
   flex-basis: 50%;
+  z-index: 1;
 }
 
 /* Media Queries */
