@@ -88,7 +88,7 @@ function Home() {
 
   return (
     <>
-      <section className='section section__hero section-grain grain-medium section-padding height-viewport'>
+      <section className='section section__hero section-grain grain-medium section-padding h-viewport-dynamic' aria-label='Introduction and Hero'>
         <div className='section__decor'>
           <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
           
@@ -187,7 +187,7 @@ function Home() {
           </svg>
         </div>
 
-        <div className='hero__content flex-all flex-vert-bottom height-full'>
+        <div className='hero__content flex-all flex-vert-bottom h-full'>
           <div className='hero-content__left' sa='fade glacial'>
             <h1 className='heading'>
               {displayHeading}
@@ -223,7 +223,7 @@ function Home() {
         </div>
       </section>
 
-      <section className='section section__overview section-padding'>
+      <section className='section section__overview section-padding' aria-label='Professional Overview'>
         <div className='section__overview-inner'>
           <ul className='overview__list'>
             <li sa='diag-tr-bl slow delay-200'>
@@ -266,9 +266,9 @@ function Home() {
         </div>
       </section>
 
-      <section className='section section__skills'>
+      <section className='section section__skills section-padding' aria-label='Skills and Expertise'>
 
-        <div className='section__skills-marquee section-padding'>
+        <div className='section__skills-marquee'>
           <div className='section__label'>
             <h2 className='section__title' sa='up slower mirror delay-200'>Skills</h2>
             <span className='section__count' sa='right-long glacial mirror delay-400'>01 toolset</span>
@@ -289,7 +289,7 @@ function Home() {
           </div>
         </div>
 
-        <div className='skills__intro-wrapper section-padding relative'>
+        <div className='skills__intro-wrapper relative'>
           <div className='section__decor'>
             <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={2000} className='backdrop-dots hidden-xs' />
             {/*<div className='decor__shape slats-bg slats-bg--skills'>
@@ -298,15 +298,15 @@ function Home() {
             <div className='background__ellipse background__ellipse-2 ellipse--blue ellipse--small'></div>*/}
           </div>
 
-          <div className='skills__intro-container'>
+          <div className='skills__intro-container h-viewport-small sticky'>
             <div className='skills__intro-text' sa='down-long glacial mirror'>
               <h3 className='sub-heading'><strong>Built for <span className='text-primary'>Modern Web Experiences</span></strong></h3>
               <p>With strengths in concept development, wireframing, prototyping, visual design, and front-end execution, I bring ideas to life through thoughtful problem-solving and user-centered design. Every stage is guided by usability, responsiveness, and precision.</p>        
             </div>
-            <div className='skills__intro-decor'>
+            <div className='skills__intro-decor h-full relative'>
               <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--medium hidden-xs'></div>
               <div className='background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--small visible-xs'></div>
-              <div className='decor__image-wrapper'>
+              <div className='decor__image-wrapper h-full'>
                 <div className='decor-image'>
                   <img src={wsChair} width='773' height='723' alt='workstation chair img' className='decor-image__img --chair' />
                   <img src={wsTower} width='773' height='723' alt='workstation tower img' className='decor-image__img --tower' />
@@ -324,10 +324,10 @@ function Home() {
         </div>
       </section>
     
-      <section className='section section__work section-padding' aria-label='Featured Projects'>
+      <section className='section section__work' aria-label='Featured Projects'>
         <div className='work__wrap' ref={wrapRef} role='region' aria-roledescription='horizontal scroll'>
-          <div className='work__stage' ref={stageRef} role='list' aria-label='Project cards'>
-            <div className='section__label section-padding'>
+          <div className='work__stage h-viewport-small sticky section-padding' ref={stageRef} role='list' aria-label='Project cards'>
+            <div className='section__label'>
               <h2 className='section__title' sa='up slower mirror delay-200'>Projects</h2>
               <span className='section__count' sa='right-long glacial mirrordelay-400'>02 works</span>
               <div className='work__progress' aria-hidden='true'>
@@ -335,7 +335,7 @@ function Home() {
               </div>
             </div>
 
-            <div className='work__track section-padding'>              
+            <div className='work__track'>              
               <div className='work__card magnetic magnetic--subtle' role='listitem' aria-label='Project 1: Meridian Identity'>
                 <div className='work__card-bg-num'>1</div>
                 <div className='work__card-top'>

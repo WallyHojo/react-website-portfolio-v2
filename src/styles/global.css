@@ -201,6 +201,10 @@ img {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .flex-all {
   display: flex;
 }
@@ -229,11 +233,19 @@ img {
   justify-content: space-between;
 }
 
-.height-viewport {
+.h-viewport {
   height: 100vh;
 }
 
-.height-full {
+.h-viewport-small {
+  height: 100svh;
+}
+
+.h-viewport-dynamic {
+  height: 100dvh;
+}
+
+.h-full {
   height: 100%;
 }
 

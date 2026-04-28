@@ -26,8 +26,7 @@
 
 .hero-content__left {
   position: relative;
-  width: clamp(22.5rem, min(75rem, 74vh), 62rem); /*fallback*/
-  width: clamp(22.5rem, min(75rem, 74dvh), 62rem);
+  width: clamp(22.5rem, min(75rem, 74vh), 62rem);
   z-index: 1;
 }
 
@@ -87,22 +86,19 @@
 
 .dots--1 {
   top: 15%;
-  right: min(40rem, 75vh); /*fallback*/
-  right: min(40rem, 75dvh);
+  right: min(40rem, 75vh);
   opacity: 0.5;
 }
 
 .dots--2 {
   bottom: 10%;
-  left: min(30rem, 55vh); /*fallback*/
-  left: min(30rem, 55dvh);
+  left: min(30rem, 55vh);
   filter: contrast(0.9) !important;
 }
 
 .arrow-down--1 {
   top: 40%;
-  left: min(50rem, 85vh); /*fallback*/
-  left: min(50rem, 85dvh);
+  left: min(50rem, 85vh);
   transform: rotate(-90deg);
   filter: contrast(0.9) !important;
 }
@@ -130,8 +126,7 @@
 
 @media (width <= 1199px) {
   .slats-svg {
-    width: min(48rem, 85vh); /*fallback*/
-    width: min(48rem, 85dvh);
+    width: min(48rem, 85vh);
   }
 
   .dots--1 {
@@ -168,8 +163,7 @@
 
 @media (width >= 1200px) {
   .slats-svg {
-    width: min(62rem, 120vh); /*fallback*/
-    width: min(62rem, 120dvh);
+    width: min(62rem, 120vh);
   }
 }
 
@@ -366,20 +360,14 @@ ul.overview__list p.stat__label {
 }
 
 .skills__intro-wrapper {
-  height: 350dvh;
-  height: 350vh; /*fallback*/
-  padding-top: 0;
-  padding-bottom: 0;
+  height: 350vh;
 }
 
 .skills__intro-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
   top: 0;
-  height: 100dvh;
-  height: 100vh; /*fallback*/  
 }
 
 .skills__intro-text {
@@ -390,10 +378,7 @@ ul.overview__list p.stat__label {
 }
 
 .skills__intro-decor {
-  position: relative;
   width: 100%;
-  height: 100dvh;
-  height: 100vh; /*fallback*/
   max-height: 575px;
   flex-basis: 50%;
 }
@@ -460,10 +445,6 @@ ul.overview__list p.stat__label {
   animation-name: chip-zig-zag-4;
 }
 
-.skills__intro-decor .decor__image-wrapper {
-  height: 100%;
-}
-
 .skills__intro-decor .decor-image {
   position: absolute;
   width: 100%;
@@ -478,7 +459,6 @@ ul.overview__list p.stat__label {
   height: 100%;
   object-fit: contain;
   object-position: center;
-  display: block;
 }
 
 .skills__intro-decor .decor-image__img[class*="--"] {
@@ -539,10 +519,6 @@ ul.overview__list p.stat__label {
   .skills__intro-container .skills__intro-text {
     flex: auto;
   }
-
-  .skills__intro-container .skills__intro-decor {
-    flex: 3;
-  }  
 }
 
 /* ========================================================================== */
@@ -767,35 +743,28 @@ ul.overview__list p.stat__label {
   --card-6: #1a2a2a;
 
   --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
-  --card-h: 60vh; /* height of each card - fallback */
-  --card-h: 60dvh; /* height of each card */
+  --card-h: 60svh; /* height of each card */
   --card-gap: clamp(1.313rem, 3.125vw, 1.5rem); /* gap between cards */
   --card-count: 6;
 
   /* Total width the track needs to travel:
         (card-w + gap) * card-count - 1 gap - 100vw
         We'll drive this via translateX in the keyframe */
-  --pin-height: 400vh; /* scroll distance - fallback */
-  --pin-height: 400dvh; /* scroll distance */
+  --pin-height: 400svh; /* scroll distance */
 }
 
 .section__work {
-  position: relative;
   padding-left: 0;
   padding-right: 0;
 }
 
 .work__wrap {
   height: var(--pin-height);
-  position: relative;
   width: 100%;
 }
 
 .work__stage {
-  position: sticky;
   top: 0%;
-  height: 100vh; /*fallback*/
-  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
