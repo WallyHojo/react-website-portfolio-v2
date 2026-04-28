@@ -40,8 +40,13 @@ function AppInner() {
 }
 
 function App() {
+  // Critical: scroll animations
   useSA();
+  
+  // Deferred: smooth scroll (100ms delay to prioritize first paint)
   useSmoothScroll();
+  
+  // Non-critical: magnetic cursor effect
   useMagnetic();
 
   return (
