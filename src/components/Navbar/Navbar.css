@@ -10,6 +10,14 @@
   width: 100%;
   top: 0;
   z-index: 99;
+  transition: transform .5s ease-in;
+}
+
+.header-visible {
+  transform: translateY(0); /* Show the header */
+}
+.header-hidden {
+  transform: translateY(-100%); /* Hide the header by moving it up */
 }
 
 .navbar__container {
@@ -17,14 +25,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: clamp(0.625rem, 1.30vw, 0.938rem) 1.563rem;
+  padding: clamp(0.625rem, 1.3vw, 0.938rem) 1.563rem;
   border-radius: 1.875rem;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
 .navbar__background {
-  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
+  background: linear-gradient(
+      180deg,
+      #ffffff2e 0%,
+      #9191911f 35%,
+      #45454517 60%,
+      #9191911f 80%,
+      #ffffff2e 100%
+    )
+    border-box;
   position: absolute;
   left: 0;
   width: 100%;
@@ -71,11 +87,13 @@
   width: 82px;
   height: 35px;
   padding: 10px 0;
-  animation: hambugerOpenBTN 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
+  animation: hambugerOpenBTN 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s
+    both;
 }
 
 .navbar-right__menu.is-active {
-  animation: hambugerCloseBTN 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+  animation: hambugerCloseBTN 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s
+    forwards;
 }
 
 .menu-icon__bar {
@@ -119,7 +137,10 @@
 .menu__wrapper {
   position: relative;
   display: grid;
-  grid-template-columns: [content-start] repeat(12, minmax(0, 10rem)) [content-end];
+  grid-template-columns: [content-start] repeat(
+      12,
+      minmax(0, 10rem)
+    ) [content-end];
   gap: 3rem;
   width: 100%;
   height: clamp(calc(100% - 5.25rem), calc(100% - 24vw), calc(100% - 3rem));
@@ -173,8 +194,8 @@
   pointer-events: none;
 }
 
-.no-scroll {
-  overflow: hidden;
+.no-scroll:where(html, body) {
+  overflow: hidden !important;
   height: 100%;
 }
 
@@ -238,7 +259,13 @@
 
 .menu__nav {
   display: grid;
-  grid-template-columns: [content-start] repeat(6, minmax(0, 10rem)) [gap-start] minmax(3rem, 10vw) [gap-end] repeat(6, minmax(0, 10rem)) [content-end];
+  grid-template-columns: [content-start] repeat(
+      6,
+      minmax(0, 10rem)
+    ) [gap-start] minmax(3rem, 10vw) [gap-end] repeat(
+      6,
+      minmax(0, 10rem)
+    ) [content-end];
   grid-column: span 6 / content-end;
 }
 

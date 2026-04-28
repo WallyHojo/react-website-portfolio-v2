@@ -8,18 +8,26 @@ import "./Navbar.css";
 function Navbar() {
   /*
   Header scroll up/down
-  */
+  */  
   const [headerHeight, setHeaderHeight] = useState(0); //ref for header height
   const refHeaderHeight = useRef(null); //create the ref
-
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const lastScrollTop = useRef(0);
   const debounceRef = useRef(null);
 
-  // Scroll handler for detecting scroll position
+  // Scroll handler for detecting scroll position and direction
   const handleScroll = useCallback(() => {
     const currentScrollTop = window.scrollY;
     setIsScrolled(currentScrollTop > (headerHeight || 0));
+    
+    // Detect scroll direction: if scrolling down, hide header; if scrolling up, show header
+    if (currentScrollTop < lastScrollTop.current) {
+      setIsHeaderVisible(true); // Scrolling up
+    } else if (currentScrollTop > lastScrollTop.current) {
+      setIsHeaderVisible(false); // Scrolling down
+    }
+    
     lastScrollTop.current = currentScrollTop;
   }, [headerHeight]);
 
@@ -73,11 +81,11 @@ function Navbar() {
   const handleClose = () => setMenuOpen("closing");
 
   useEffect(() => {
-    // Body class add/remove on menu open/close
+    // Body and html class add/remove on menu open/close
     if (menuOpen === true) {
-      document.body.classList.add('no-scroll');
+      [document.documentElement, document.body].forEach(el => el.classList.add('no-scroll'));
     } else {
-      document.body.classList.remove('no-scroll');
+      [document.documentElement, document.body].forEach(el => el.classList.remove('no-scroll'));
     }
   }, [menuOpen]);  
 
@@ -96,7 +104,7 @@ function Navbar() {
   return (
     <>
       {/* Navigation */}
-      <nav className={`navbar navbar ${isScrolled ? "navbar__scrolled" : ""}`}>
+      <nav className={`navbar ${isScrolled ? "navbar__scrolled" : ""} ${isHeaderVisible ? "header-visible" : "header-hidden"}`}>
         <div className='navbar__container' sa='down slower' ref={refHeaderHeight}>
           <div className='navbar__background'></div>
           <div className='navbar__logo'>
