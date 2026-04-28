@@ -358,7 +358,7 @@ function Home() {
         </div>
       </section>
 
-      <section className='section section__contact section__grain --grain-subtle section-padding relative' aria-label='Contact Information'>
+      <section className='section section__contact section__grain --grain-medium section-padding relative' aria-label='Contact Information'>
         <div className='section__decor'>
           <div className='decor__shape slats-bg slats-bg--skills'>
             <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial mirror delay-400' />
@@ -370,7 +370,7 @@ function Home() {
         </div>        
         <div className='contact__container flex-all flex-direction-row flex-space-between flex-wrap'>
           <div className='contact__content' sa='up slower mirror delay-400'>           
-            <h3 className='sub-heading'><strong>Get in Touch</strong></h3>
+            <h3 className='sub-heading'><strong><span className='text-primary'>Get in Touch</span></strong></h3>
             <p>I'd love to hear from you! Whether you have a question or just want to say hello, feel free to reach out. Please fill out the form, and I'll get back to you as soon as possible.</p>
           </div>
           <ContactForm />
