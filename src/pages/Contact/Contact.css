@@ -1,0 +1,6 @@
+.slats-bg--contact {
+  transform: scaleY(-1) scaleX(-1);
+  bottom: calc(730px / 2.25);
+  right: calc(900px / -2.25);
+  left: initial;
+}

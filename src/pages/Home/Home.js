@@ -15,10 +15,10 @@ import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 
 // Assets
 import heroBg from "../../assets/images/hero_bg.webp";
-import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
+import diagnalLines from "../../assets/images/diagnal-lines.svg";
 import wsBG from "../../assets/images/workstation/bg.webp";
 import wsChair from "../../assets/images/workstation/chair_img.webp";
 import wsKeyboardMouse from "../../assets/images/workstation/keyboard-mouse_img.webp";
@@ -205,7 +205,7 @@ function Home() {
         </div>
 
         <div className='hero__content flex-all flex-vert-bottom h-full'>
-          <div className='hero-content__left' sa='fade glacial'>
+          <div className='content__left' sa='fade glacial'>
             <h1 className='heading'>
               {displayHeading}
             </h1>
@@ -216,7 +216,6 @@ function Home() {
             <p className='text-muted'>
               With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.
             </p>
-            <br />
             <Link to='/contact' className='btn btn-primary' data-cursor='light'>
               <span className='btn__text'>Get in Touch</span>
               <span className='btn__arrow'>
@@ -285,10 +284,10 @@ function Home() {
 
       <section className='section section__skills section-padding' aria-label='Skills and Expertise'>
 
-        <div className='section__skills-marquee'>
+        <div className='section__skills-marquee section-padding'>
           <div className='section__label'>
             <h2 className='section__title' sa='up slower mirror delay-200'>Skills</h2>
-            <span className='section__count' sa='right-long glacial mirror delay-400'>01 toolset</span>
+            <span className='section__count' sa='right glacial mirror delay-400'>01 toolset</span>
           </div>
     
           <div className='skills__marquee-wrap'>
@@ -342,7 +341,7 @@ function Home() {
           <div className='work__stage h-viewport-small sticky section-padding' ref={stageRef}>
             <div className='section__label' role='presentation'>
               <h2 className='section__title' sa='up slower mirror delay-200'>Projects</h2>
-              <span className='section__count' sa='right-long glacial mirrordelay-400'>02 works</span>
+              <span className='section__count' sa='right glacial mirror delay-400'>02 works</span>
               <div className='work__progress' aria-hidden='true'>
                 <div className='work__progress-fill'></div>
               </div>
@@ -358,22 +357,39 @@ function Home() {
         </div>
       </section>
 
-      <section className='section section__contact section__grain --grain-medium section-padding relative' aria-label='Contact Information'>
-        <div className='section__decor'>
-          <div className='decor__shape slats-bg slats-bg--skills'>
-            <img src={diagnalLines} alt='diagonal lines' width='903' height='730' sa='diag-bl-tr glacial mirror delay-400' />
-          </div>            
-        </div>         
-        <div className='section__label'>
-          <h2 className='section__title' sa='up slower mirror delay-200'>Contact</h2>
-          <span className='section__count' sa='right-long glacial mirror delay-400'>03 form</span>
-        </div>        
-        <div className='contact__container flex-all flex-direction-row flex-space-between flex-wrap'>
-          <div className='contact__content' sa='up slower mirror delay-400'>           
-            <h3 className='sub-heading'><strong><span className='text-primary'>Get in Touch</span></strong></h3>
-            <p>I'd love to hear from you! Whether you have a question or just want to say hello, feel free to reach out. Please fill out the form, and I'll get back to you as soon as possible.</p>
+      <section className="section section__contact section__grain --grain-medium section-padding relative"
+        aria-label="Contact Information"
+      >
+        <div className="section__decor">
+          <div className="decor__shape slats-bg slats-bg--contact">
+            <img
+              src={diagnalLines}
+              alt="diagonal lines"
+              width="903"
+              height="730"
+              sa="diag-bl-tr glacial mirror delay-400"
+            />
           </div>
-          <ContactForm />
+        </div>
+        <div className="section__label">
+          <h2 className="section__title" sa="up slower mirror delay-200">
+            Contact
+          </h2>
+          <span
+            className="section__count"
+            sa="right glacial mirror delay-400"
+          >
+            03 form
+          </span>
+        </div>
+        <div className="contact__container flex-all flex-direction-row flex-space-between flex-wrap">
+          <div className="contact__content flex-all flex-direction-column" sa="up slower mirror delay-400">
+            <div class="menu__eyebrow flex-all flex-vert-center sa-visible sa-enter-up" sa="left slow delay-200"><span class="menu__eyebrow-icon flex-all flex-vert-center"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path></svg></span><span class="menu__eyebrow-text">Get in Touch</span></div>
+            <p>Whether you're reaching out about a role, a team, or a potential fit, I’m always open to meaningful conversations around web development opportunities.</p>
+          </div>
+          <div className="contact__form relative">
+            <ContactForm />
+          </div>
         </div>
       </section>
     </>

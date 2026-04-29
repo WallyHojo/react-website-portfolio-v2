@@ -81,14 +81,13 @@ function Navbar() {
   const handleClose = () => setMenuOpen("closing");
 
   useEffect(() => {
-    // Body and html class add/remove on menu open/close
     if (menuOpen === true) {
-      [document.documentElement, document.body].forEach(el => el.classList.add('no-scroll'));
+      document.documentElement.classList.add('no-scroll');
     } else {
-      [document.documentElement, document.body].forEach(el => el.classList.remove('no-scroll'));
+      document.documentElement.classList.remove('no-scroll');
     }
-  }, [menuOpen]);  
-
+  }, [menuOpen]);
+  
   const handleAnimationEnd = (e) => {
     // Only fire on the menu element itself, not bubbled events from children
     if (e.target === e.currentTarget && menuOpen === "closing") {

@@ -194,9 +194,12 @@
   pointer-events: none;
 }
 
-.no-scroll:where(html, body) {
-  overflow: hidden !important;
-  height: 100%;
+html.no-scroll {
+  overflow: hidden;
+}
+
+html.no-scroll nav.navbar {
+  transform: translateY(0) !important;
 }
 
 .menu--open {

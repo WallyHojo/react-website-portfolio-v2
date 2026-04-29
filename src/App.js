@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useMagnetic } from './hooks/useMagneticEffect/useMagneticEffect';
 import { useSA, useSARouteSync } from './hooks/useScrollAnimate/useScrollAnimate';
+import useScrollToTop from "./hooks/useScrollToTop";
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -19,6 +20,9 @@ function AppInner() {
   // Sync route changes with scroll animations
   const location = useLocation();
   useSARouteSync(location.pathname);
+
+  // Scroll to top on route change
+  useScrollToTop();
 
   return (
     <>
