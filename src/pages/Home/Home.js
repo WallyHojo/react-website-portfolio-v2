@@ -98,12 +98,16 @@ function Home() {
 
   useHorizontalScroll(wrapRef, stageRef);
 
+  const isMobile = useIsMobile();
+
   return (
     <>
       {/* Hero Section */}
       <section className="section section__hero section__grain --grain-medium section-padding h-viewport-small" aria-label="Introduction and Hero">
         <div className="section__decor">
-          <DotGrid color="surface" pattern="scatter" size="small" cols={30} count={500} className="backdrop-dots hidden-mobile" magnetic />
+          {!isMobile && (
+            <DotGrid color="surface" pattern="scatter" size="small" cols={30} count={500} className="backdrop-dots" magnetic />
+          )}
 
           <div className="decor__shape dots--1" sa="float float-y float-y-loop delay-1000">
             <img src={handleDots} width="52" height="33" alt="Handle dots" sa="up-long glacial delay-800" />
