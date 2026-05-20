@@ -1,12 +1,4 @@
 :root {
-  /* Card colours */
-  --card-1: #1a1a1a;
-  --card-2: #1a2a1a;
-  --card-3: #2a1a1a;
-  --card-4: #1a1a2a;
-  --card-5: #2a2a1a;
-  --card-6: #1a2a2a;
-
   --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
   --card-h: 60svh; /* height of each card */
   --card-gap: clamp(1.313rem, 3.125vw, 1.5rem); /* gap between cards */
@@ -723,6 +715,7 @@ ul.overview__list p.stat__label {
 }
 
 .work__card {
+  background-color: var(--card-background);
   flex-shrink: 0;
   width: var(--card-w);
   height: var(--card-h);
@@ -735,20 +728,15 @@ ul.overview__list p.stat__label {
     0 0 0 1px rgba(16, 24, 32, 0.05);
 }
 
-.work__card:nth-child(1) {
-  background: var(--card-1);
-}
-.work__card:nth-child(2) {
-  background: var(--card-2);
-}
-.work__card:nth-child(3) {
-  background: var(--card-3);
-}
-.work__card:nth-child(4) {
-  background: var(--card-4);
-}
-.work__card:nth-child(5) {
-  background: var(--card-5);
+.work__card::after {
+  content: '';
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--card-background) 50%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90%;
+  z-index: -1;
 }
 
 .work__card-bg-num {
@@ -778,6 +766,20 @@ ul.overview__list p.stat__label {
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 0.313rem 0.625rem;
   border-radius: 999px;
+}
+
+.work__card-img {
+  left: 0;
+  width: 100%;
+  top: 0;
+  z-index: -2;
+}
+
+.work__card-img img {
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 
 .work__card-title {

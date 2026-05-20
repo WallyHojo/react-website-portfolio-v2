@@ -57,15 +57,18 @@ const ExperienceSkillChip = React.memo(({ image, alt, number }) => {
 });
 
 // Component for individual work cards in the Projects section
-const WorkCard = React.memo(({ title, description, tag, number, total, symbol }) => {
+const WorkCard = React.memo(({ title, description, tag, image, number, total, symbol, backgroundColor }) => {
   const formattedIndex = `${String(number).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
   return (
     <>
-      <div className="work__card flex-all flex-direction-column flex-space-between magnetic magnetic--subtle" role="listitem" aria-label={`Project ${number}: ${title}`}>
+      <div className="work__card flex-all flex-direction-column flex-space-between relative magnetic magnetic--subtle" role="listitem" aria-label={`Project ${number}: ${title}`} style={{ "--card-background": backgroundColor }}>
+        <div className="work__card-img absolute"><img src={image} alt={title} /></div>
         <div className="work__card-bg-num">{symbol || number}</div>
-        <div className="work__card-top flex-all flex-space-between flex-vert-center">
-          <span className="work__card-index">{formattedIndex}</span>
-          <span className="work__card-tag">{tag}</span>
+        <div className="work__card-top">
+          <div className="work__card-data flex-all flex-space-between flex-vert-center">
+            <span className="work__card-index">{formattedIndex}</span>
+            <span className="work__card-tag">{tag}</span>
+          </div>
         </div>
         <div className="work__card-bottom">
           <h2 className="work__card-title">{title}</h2>
