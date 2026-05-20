@@ -169,7 +169,7 @@ const Form = () => {
         <button
         type="submit"
         id="submit"
-        className="btn btn-primary"
+        className="btn btn-primary magnetic magnetic--subtle"
         data-cursor="light"
         >
         <span className="btn__text">Send Message</span>

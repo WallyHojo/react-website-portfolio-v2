@@ -1,7 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+// Hooks
 import { useActiveRoute } from "../../hooks/useActiveRoute";
+
+// Config
 import { NAV_LINKS } from "../../config/navLinks";
+
 import "./Footer.css";
 
 const SOCIAL_LINKS = [
@@ -94,9 +99,9 @@ function Footer() {
       <div className='footer__top section-padding'>
         <div className='footer__top--left'>
           <nav className='footer__nav' aria-label='Footer navigation'>
-            <ul className='footer__nav-links menu__nav-links'>
+            <ul className='footer__nav-links menu__nav-links' sa='right-long slow mirror'>
               {NAV_LINKS.map(({ to, label, animationDelay, exact }) => (
-                <li key={to} className={`menu__nav-link nav-link__${label.toLowerCase()} ${isActive(to, { exact }) ? "--is-active" : ""}`.trim()} sa={`right slow mirror ${animationDelay}`} data-cursor='light'>
+                <li key={to} className={`menu__nav-link nav-link__${label.toLowerCase()} ${isActive(to, { exact }) ? "--is-active" : ""}`.trim()}>
                   <span className='menu__nav-arrow'>
                     <ArrowIcon />
                   </span>
@@ -108,7 +113,7 @@ function Footer() {
         </div>
 
         <div className='footer__top--right'>
-          <Link to='/contact' className='btn' sa='left-long slower mirror'>
+          <Link to='/contact' className='btn' sa='left-long slower mirror delay-200'>
             <span className='btn__text'>Get in Touch</span>
             <span className='btn__arrow'>
               <ArrowIcon />
@@ -221,7 +226,7 @@ function Footer() {
         <div className='footer__bottom--left' sa='up mirror slow'>
           <p className='footer__copyright'>© {new Date().getFullYear()} Walter Carlson. All rights reserved.</p>
         </div>
-        <div className='footer__bottom--middle' sa='up mirror slow delay-200'>
+        <div className='footer__bottom--middle' sa='up mirror slower delay-200'>
           <ul className='footer__nav-socials' aria-label='Social links'>
             {SOCIAL_LINKS.map(({ href, label, icon }) => (
               <li key={label}>

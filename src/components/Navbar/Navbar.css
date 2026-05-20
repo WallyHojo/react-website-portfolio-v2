@@ -10,7 +10,7 @@
   width: 100%;
   top: 0;
   z-index: 99;
-  transition: transform .5s ease-in;
+  transition: transform 0.5s ease-in;
 }
 
 .header-visible {
@@ -32,15 +32,7 @@
 }
 
 .navbar__background {
-  background: linear-gradient(
-      180deg,
-      #ffffff2e 0%,
-      #9191911f 35%,
-      #45454517 60%,
-      #9191911f 80%,
-      #ffffff2e 100%
-    )
-    border-box;
+  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
   position: absolute;
   left: 0;
   width: 100%;
@@ -61,15 +53,15 @@
 .path-a,
 .path-b,
 .path-c {
-  animation: fadeIn 0.6s linear normal both;
+  animation: menu-fade-in 0.6s linear normal both;
 }
 
 .path-d,
 .path-e {
   will-change: transform;
   animation:
-    logoScaleLeft 0.6s ease-in 0.8s backwards,
-    logoFloat 2s ease-in-out 1.8s infinite alternate;
+    menu-logo-scale-left 0.6s ease-in 0.8s backwards,
+    menu-logo-float 2s ease-in-out 1.8s infinite alternate;
 }
 
 .navbar__right {
@@ -87,13 +79,11 @@
   width: 82px;
   height: 35px;
   padding: 10px 0;
-  animation: hambugerOpenBTN 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s
-    both;
+  animation: menu-hamburger-open-btn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
 }
 
 .navbar-right__menu.is-active {
-  animation: hambugerCloseBTN 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s
-    forwards;
+  animation: menu-hamburger-close-btn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
 }
 
 .menu-icon__bar {
@@ -137,10 +127,9 @@
 .menu__wrapper {
   position: relative;
   display: grid;
-  grid-template-columns: [content-start] repeat(
-      12,
-      minmax(0, 10rem)
-    ) [content-end];
+  grid-template-columns:
+    [content-start] repeat(12, minmax(0, 10rem))
+    [content-end];
   gap: 3rem;
   width: 100%;
   height: clamp(calc(100% - 5.25rem), calc(100% - 24vw), calc(100% - 3rem));
@@ -204,26 +193,26 @@ html.no-scroll nav.navbar {
 
 .menu--open {
   display: block;
-  animation: menuOpen 1s ease-out alternate 0.3s backwards;
+  animation: menu-open 1s ease-out alternate 0.3s backwards;
 }
 
 .menu--closing {
   display: block;
-  animation: menuClose 1s ease-in both;
+  animation: menu-close 1s ease-in both;
   pointer-events: none;
   will-change: transform, opacity;
 }
 
 .menu--open :is(#menu-close-bar-1, #menu-close-bar-2) {
   animation:
-    xOpenBTN 0.6s ease-in 0.4s both,
-    fadeIn 0.4s cubic-bezier(0.95, 0.05, 0.795, 0.035) both;
+    menu-x-open-btn 0.6s ease-in 0.4s both,
+    menu-fade-in 0.4s cubic-bezier(0.95, 0.05, 0.795, 0.035) both;
 }
 
 .menu--closing :is(#menu-close-bar-1, #menu-close-bar-2) {
   animation:
-    xCloseBTN 0.6s ease-in both,
-    fadeOut 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035) 0.4s both;
+    menu-x-close-btn 0.6s ease-in both,
+    menu-fade-out 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035) 0.4s both;
 }
 
 .menu__content {
@@ -262,13 +251,10 @@ html.no-scroll nav.navbar {
 
 .menu__nav {
   display: grid;
-  grid-template-columns: [content-start] repeat(
-      6,
-      minmax(0, 10rem)
-    ) [gap-start] minmax(3rem, 10vw) [gap-end] repeat(
-      6,
-      minmax(0, 10rem)
-    ) [content-end];
+  grid-template-columns:
+    [content-start] repeat(6, minmax(0, 10rem))
+    [gap-start] minmax(3rem, 10vw) [gap-end] repeat(6, minmax(0, 10rem))
+    [content-end];
   grid-column: span 6 / content-end;
 }
 
@@ -334,11 +320,25 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   grid-column: content-start / span 12;
 }
 
+.menu__ellipse-1 {
+  top: calc(var(--max-size) / 1);
+  left: 0;
+  transform: translate(-50%, -50%);
+  animation: menu-fade-in 1s ease-in alternate 0.5s backwards;
+}
+
+.menu__ellipse-2 {
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+  animation: menu-fade-in 1s ease-in alternate 0.5s backwards;
+}
+
 /* ========================================================================== */
 /*                                Keyframes                                   */
 /* ========================================================================== */
 
-@keyframes fadeIn {
+@keyframes menu-fade-in {
   0% {
     opacity: 0;
   }
@@ -347,7 +347,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes fadeOut {
+@keyframes menu-fade-out {
   0% {
     opacity: 1;
   }
@@ -356,7 +356,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes logoFloat {
+@keyframes menu-logo-float {
   from {
     transform: translate(0.344rem, 0.313rem);
   }
@@ -365,7 +365,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes logoScaleLeft {
+@keyframes menu-logo-scale-left {
   0% {
     transform: translate(-9rem, 0.313rem);
     opacity: 0;
@@ -376,7 +376,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes menuOpen {
+@keyframes menu-open {
   from {
     opacity: 0;
     transform: scale(1.05);
@@ -389,7 +389,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes menuClose {
+@keyframes menu-close {
   from {
     opacity: 1;
     transform: scale(1);
@@ -402,7 +402,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes hambugerOpenBTN {
+@keyframes menu-hamburger-open-btn {
   from {
     opacity: 0;
     transform: scale(0.8);
@@ -413,7 +413,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes hambugerCloseBTN {
+@keyframes menu-hamburger-close-btn {
   from {
     opacity: 1;
     transform: scale(1);
@@ -424,7 +424,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes xOpenBTN {
+@keyframes menu-x-open-btn {
   from {
     width: 10px;
   }
@@ -433,7 +433,7 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
   }
 }
 
-@keyframes xCloseBTN {
+@keyframes menu-x-close-btn {
   from {
     width: 45.6946px;
   }

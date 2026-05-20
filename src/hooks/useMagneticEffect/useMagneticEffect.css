@@ -146,7 +146,6 @@
   --mx: 0;
   --my: 0;
   --strength: 18px;
-  display: inline-block;
   transform: translate(
     calc(var(--mx) * var(--strength)),
     calc(var(--my) * var(--strength))

@@ -5,15 +5,25 @@ import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
 import ContactForm from '../../components/Form/Form.js';
 import './Contact.css';
 
+// Hooks
+import { useMagneticSVG } from "../../hooks/useMagneticSVG";
+
 // Assets
+import heroBg from "../../assets/images/hero-contact_bg.webp";
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
-import diagnalLines from "../../assets/images/diagnal-lines.svg";
 
 function Contact() {
   useDotGrid();  
   useSA();
+
+  // Refs for magnetic slats
+  const SLAT_COUNT = 5;
+  const magSlatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
+  const slatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
+
+  useMagneticSVG(magSlatRefs.current, slatRefs.current, 10);  
 
   const formSection = useRef(null);
   const navigate = useNavigate();
@@ -37,7 +47,7 @@ function Contact() {
     <>
     <section className='section section__hero section__grain --grain-medium section-padding' aria-label='Contact Heading and Introduction'>
       <div className='section__decor'>
-        <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
+        <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={300} className='backdrop-dots hidden-xs' />
         
         <div className='decor__shape dots--1' sa='float float-y float-y-loop delay-1000'>
           <img src={handleDots} width='52' height='33' alt='Handle dots' sa='up-long glacial delay-800' />
@@ -51,6 +61,83 @@ function Contact() {
         <div className='decor__shape arrow-down-svg arrow-down--2' sa='float float-y float-y-loop delay-1600'>
           <img src={arrowDown} width='16' height='54' alt='Arrow down drop' sa='down-long glacial delay-1400' />
         </div>
+
+        <svg className='decor__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+          <defs>
+            <mask id='slats-mask' maskUnits='userSpaceOnUse' x='0' y='0' width='100%' height='100%'>
+              <g className='slat'>
+                <g transform='rotate(45, 770, 170)'>
+                  <g ref={(el) => (slatRefs.current[0].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <rect x='250' y='-60' width='140' height='80vh' rx='70' ry='70' fill='white' />
+                  </g>
+                </g>
+              </g>
+
+              <g className='slat'>
+                <g transform='rotate(45, 970, 205)'>
+                  <g ref={(el) => (slatRefs.current[1].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <rect x='455' y='-60' width='140' height='80vh' rx='70' ry='70' fill='white' />
+                  </g>
+                </g>
+              </g>
+
+              <g className='slat'>
+                <g transform='rotate(45, 1170, 210)'>
+                  <g ref={(el) => (slatRefs.current[2].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <rect x='680' y='60' width='140' height='110vh' rx='70' ry='70' fill='white' />
+                  </g>
+                </g>
+              </g>
+
+              <g className='slat'>
+                <g transform='rotate(45, 1370, 200)'>
+                  <g ref={(el) => (slatRefs.current[3].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <rect x='915' y='200' width='140' height='80vh' rx='70' ry='70' fill='white' />
+                  </g>
+                </g>
+              </g>
+
+              <g className='slat'>
+                <g transform='rotate(45, 1370, 200)'>
+                  <g ref={(el) => (slatRefs.current[4].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
+                    <rect x='1085' y='60' width='140' height='80vh' rx='70' ry='70' fill='white' />
+                  </g>
+                </g>
+              </g>
+            </mask>
+          </defs>
+
+          {/* The masked image */}
+          <image href={heroBg} x='-50' y='0' width='145%' height='200%' preserveAspectRatio='xMidYMid slice' mask='url(#slats-mask)' />
+
+          {/*
+            Overlay rects — outside <defs> and <mask>, rendered on top of the image.
+            Identical transforms to the mask rects so hit zones align exactly.
+            fill='transparent' makes them invisible but still hit-testable.
+            pointer-events='all' is required on SVG elements — unlike HTML,
+            SVG ignores pointer events on transparent fills by default.
+          */}
+
+          <g transform='rotate(45, 770, 170)'>
+            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[0].current = el)} x='250' y='-60' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+          </g>
+
+          <g transform='rotate(45, 970, 205)'>
+            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[1].current = el)} x='455' y='-60' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+          </g>
+
+          <g transform='rotate(45, 1170, 210)'>
+            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[2].current = el)} x='680' y='60' width='140' height='110vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+          </g>
+
+          <g transform='rotate(45, 1370, 200)'>
+            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[3].current = el)} x='915' y='200' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+          </g>
+
+          <g transform='rotate(45, 1370, 200)'>
+            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[4].current = el)} x='1085' y='60' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
+          </g>
+        </svg>        
       </div>
       <div className='hero__content flex-all flex-vert-bottom h-full'>
         <div className='content__left' sa='fade glacial'>
@@ -80,17 +167,6 @@ function Contact() {
     </section>
 
     <section className="section section__contact section-padding relative" aria-label="Contact Information">
-      <div className="section__decor">
-        <div className="decor__shape slats-bg slats-bg--contact">
-          <img
-            src={diagnalLines}
-            alt="diagonal lines"
-            width="903"
-            height="730"
-            sa="diag-bl-tr glacial mirror delay-400"
-          />
-        </div>
-      </div>
       <div className="section__label">
         <h2 className="section__title" sa="up slower mirror delay-200">
           Contact

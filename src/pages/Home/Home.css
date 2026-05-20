@@ -1,3 +1,23 @@
+:root {
+  /* Card colours */
+  --card-1: #1a1a1a;
+  --card-2: #1a2a1a;
+  --card-3: #2a1a1a;
+  --card-4: #1a1a2a;
+  --card-5: #2a2a1a;
+  --card-6: #1a2a2a;
+
+  --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
+  --card-h: 60svh; /* height of each card */
+  --card-gap: clamp(1.313rem, 3.125vw, 1.5rem); /* gap between cards */
+  --card-count: 6;
+
+  /* Total width the track needs to travel:
+        (card-w + gap) * card-count - 1 gap - 100vw
+        We'll drive this via translateX in the keyframe */
+  --pin-height: 400svh; /* scroll distance */
+}
+
 /* SVG slats — absolutely fills the hero section */
 .slats-svg {
   top: 0;
@@ -91,15 +111,11 @@
 
 @media (width <= 991px) {
   .slat > g {
-    opacity: 0.25;
+    opacity: 0.5;
   }
 }
 
 @media (width <= 767px) {
-  .hero__content h1.heading {
-    font-weight: 600;
-  }
-
   .dots--2 {
     left: 50%;
   }
@@ -131,8 +147,6 @@ ul.overview__list {
 
 ul.overview__list li .overview__list-stat {
   background: color-mix(in srgb, var(--color-bg-elevated) 50%, transparent);
-  display: flex;
-  flex-direction: column;
   row-gap: 0.75rem;
   height: -webkit-fill-available;
   padding: 1rem;
@@ -146,11 +160,6 @@ ul.overview__list li .overview__list-stat {
 
 ul.overview__list :is(span, p) {
   line-height: 1;
-}
-
-ul.overview__list span.stat__number {
-  display: flex;
-  flex-direction: column;
 }
 
 ul.overview__list span.stat__value {
@@ -196,17 +205,33 @@ ul.overview__list p.stat__label {
 }
 
 /* ========================================================================== */
+/*                                About Section                               */
+/* ========================================================================== */
+
+.about__intro-container {
+  max-width: clamp(22.5rem, 90vw, 84rem);
+}
+
+.about__intro-container .section__decor {
+  overflow: visible;
+}
+
+.about__intro-text h2 {
+  font-size: clamp(1.375rem, -0.1667rem + 6.8519vw, 6rem);
+  line-height: 1.25;
+}
+
+.about__intro-text h3 {
+  max-width: clamp(22.5rem, 55vw, 65rem);
+  font-size: clamp(1rem, 0.8333rem + 0.7407vw, 1.5rem);
+}
+
+/* ========================================================================== */
 /*                                Skills Section                              */
 /* ========================================================================== */
 
-.section__skills-marquee {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-top: 0;
-  padding-right: 0;
-  padding-left: 0;  
-  overflow: hidden;
+.skills__marquee-wrap {
+  width: 100%;
 }
 
 .skills__marquee-wrap > .marquee + .marquee {
@@ -227,21 +252,15 @@ ul.overview__list p.stat__label {
   color: var(--color-text-tertiary);
 }
 
+/*
 .skills__marquee-wrap .marquee-content > span.divider {
   color: var(--color-text-disabled);
 }
+*/
 
 .skill-chip {
   background: var(--color-text-inverse);
-  background: linear-gradient(
-      180deg,
-      #ffffff2e 0%,
-      #9191911f 35%,
-      #45454517 60%,
-      #9191911f 80%,
-      #ffffff2e 100%
-    )
-    border-box;
+  background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
@@ -266,37 +285,15 @@ ul.overview__list p.stat__label {
 }
 
 .skill-chip__icon {
-  font-size: 1em;
   line-height: 1;
 }
 
-.skills__intro {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.skills__intro-wrapper {
-  height: 350vh;
-}
-
-.skills__intro-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  top: 0;
-}
-
-.skills__intro-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.skills__content {
   flex-basis: 40%;
 }
 
 .skills__intro-decor {
-  width: 100%;
-  max-height: 575px;
+  max-width: 100%;
   flex-basis: 50%;
 }
 
@@ -304,27 +301,34 @@ ul.overview__list p.stat__label {
 
 .skills__intro-decor .skill[data-chip] {
   position: absolute;
+
   animation-duration: 1s;
   animation-timing-function: linear;
   animation-fill-mode: both;
   animation-timeline: scroll(root);
-  animation-range: 25% cover 35%;
 }
 
 .skills__intro-decor .skill[data-chip] .skill-chip {
-  text-transform: uppercase;
-  font-weight: 600;
+  background: var(--background-color);
+  box-shadow: none;
 
-  animation-duration: 10s;
+  animation-duration: 30s;
   animation-timing-function: linear;
   animation-fill-mode: both;
   animation-iteration-count: infinite;
+}
+
+.skills__intro-decor .skill[data-chip] .skill-chip img {
+  max-width: initial;
+  animation: shadow-breathe 3s ease-in-out infinite;
 }
 
 /* Experience Skill Chip One */
 
 .skills__intro-decor .skill[data-chip="1"] {
   animation-name: chip-transform-1;
+  animation-range: 20% cover 30%;
+  transform-origin: left center;
 }
 
 .skills__intro-decor .skill[data-chip="1"] .skill-chip {
@@ -335,6 +339,8 @@ ul.overview__list p.stat__label {
 
 .skills__intro-decor .skill[data-chip="2"] {
   animation-name: chip-transform-2;
+  animation-range: 22% cover 32%;
+  transform-origin: right center;
 }
 
 .skills__intro-decor .skill[data-chip="2"] .skill-chip {
@@ -345,6 +351,8 @@ ul.overview__list p.stat__label {
 
 .skills__intro-decor .skill[data-chip="3"] {
   animation-name: chip-transform-3;
+  animation-range: 18% cover 28%;
+  transform-origin: right center;
 }
 
 .skills__intro-decor .skill[data-chip="3"] .skill-chip {
@@ -355,97 +363,71 @@ ul.overview__list p.stat__label {
 
 .skills__intro-decor .skill[data-chip="4"] {
   animation-name: chip-transform-4;
+  animation-range: 24% cover 34%;
+  transform-origin: left center;
 }
 
 .skills__intro-decor .skill[data-chip="4"] .skill-chip {
   animation-name: chip-zig-zag-4;
 }
 
-.skills__intro-decor .decor-image {
-  position: absolute;
-  width: 100%;
-  height: inherit;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.skills__intro-decor .decor-image__img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-.skills__intro-decor .decor-image__img[class*="--"] {
-  animation-name: drop-in-fade;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;  
-
-}
-
-.skills__intro-decor .--monitorLeft {
-  animation-range: 15% cover 25%;
-  animation-timeline: scroll(root);
-  z-index: 1;
-}
-
-.skills__intro-decor .--monitorRight {
-  animation-range: 20% cover 30%;
-  animation-timeline: scroll(root);
-  z-index: 2;
-}
-
-.skills__intro-decor .--keyboard {
-  animation-range: 30% cover 35%;
-  animation-timeline: scroll(root);
-  z-index: 3;
-}
-
-.skills__intro-decor .--tower {
-  animation-range: 30% cover 35%;
-  animation-timeline: scroll(root);
-  z-index: 4;
-}
-
-.skills__intro-decor .--chair {
-  animation-range: 35% cover 45%;
-  animation-timeline: scroll(root);
-  z-index: 5;
-}
-
 .skills__ellipse-1 {
   top: 50%;
-  left: 50%;
-  animation:
-    fade-in 1s ease-out both,
-    skill-ellipse-pulse 5s linear infinite;
+  left: 75%;
+  animation-name: skill-ellipse;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
 
-  animation-timeline: scroll(root), auto;
-  animation-range: 5% cover 15%;
+  animation-timeline: scroll(root);
+  animation-range: 10% 40%;
 }
 
 /* Media Queries */
 
-@media (max-width: 991px) {
+@media (width <= 991px) {
   .skills__intro-container {
     flex-direction: column;
   }
 
-  .skills__intro-container .skills__intro-text {
-    flex: auto;
+  .skills__intro-container > div {
+    flex: 1;
+  }
+
+  .skills__content {
+    justify-content: end;
+  }  
+
+  .skills__intro-decor {
+    justify-content: center;
   }
 }
 
 @media (width <= 575px) {
-  .skills__intro-decor .skill[data-chip] {
-    animation-range: 15% cover 25%;
+  .skills__content {
+    flex: 2;
+  }
+}
+
+@media (width >= 576px) {
+  .skills__intro-wrapper {
+    height: 250vh;
   }
 
-  .skill-chip__icon svg {
-    width: 20px;
-    height: 20px;
+  .skills__intro-container {
+    top: 0;
+  }
+}
+
+@media (width >= 768px) {
+  .skills__marquee-wrap {
+    opacity: 0.25;
+  }  
+}
+
+@media (width >= 992px) {
+  .skills__intro-decor {
+    overflow: hidden;
   }
 }
 
@@ -454,48 +436,55 @@ ul.overview__list p.stat__label {
 /* ========================================================================== */
 
 @keyframes chip-transform-1 {
-  0% {
-    top: 30%;
-    left: 20%;
-    transform: translate(-20%, -30%);
-  }
-  100% {
+0% {
+    opacity: 0;
     top: 20%;
-    left: 15%;
-    transform: translate(-15%, -20%);
-  }
+    left: 10%;
+    transform: translate(-10%, -20%) scale(0) rotate(-0deg);
+}
+100% {
+    opacity: 1;
+    top: 30%;
+    left: 10%;
+    transform: translate(-10%, -30%) scale(0.9) rotate(-15deg);
+}
 }
 
 @keyframes chip-zig-zag-1 {
   0% {
-    transform: translateY(0px) translateX(0px);
+    transform: translate(0px, 0px);
   }
-  25% {
-    transform: translateY(-8px) translateX(6px);
+  20% {
+    transform: translate(18px, -22px);
   }
-  50% {
-    transform: translateY(-16px) translateX(0px);
+  40% {
+    transform: translate(-12px, -42px);
   }
-  75% {
-    transform: translateY(-8px) translateX(-6px);
+  60% {
+    transform: translate(24px, -64px);
+  }
+  80% {
+    transform: translate(-18px, -30px);
   }
   100% {
-    transform: translateY(0px) translateX(0px);
+    transform: translate(0px, 0px);
   }
 }
 
 @keyframes chip-transform-2 {
-  0% {
-    top: 35%;
+0% {
+    opacity: 0;
+    top: 30%;
     left: 80%;
-    transform: translate(-80%, -35%);
-  }
+    transform: translate(-80%, -30%) scale(0) rotate(0deg);
+}
+100% {
+    opacity: 1;
+    top: 40%;
+    left: 80%;
+    transform: translate(-80%, -40%) scale(0.75) rotate(15deg);
+}
 
-  100% {
-    top: 10%;
-    left: 90%;
-    transform: translate(-90%, -10%);
-  }
 }
 
 @keyframes chip-zig-zag-2 {
@@ -503,13 +492,13 @@ ul.overview__list p.stat__label {
     transform: translate(0px, 0px) rotate(0deg);
   }
   25% {
-    transform: translate(6px, -6px) rotate(2deg);
+    transform: translate(-24px, 18px) rotate(-8deg);
   }
   50% {
-    transform: translate(0px, -12px) rotate(0deg);
+    transform: translate(20px, 42px) rotate(6deg);
   }
   75% {
-    transform: translate(-6px, -6px) rotate(-2deg);
+    transform: translate(-16px, 68px) rotate(-10deg);
   }
   100% {
     transform: translate(0px, 0px) rotate(0deg);
@@ -517,147 +506,169 @@ ul.overview__list p.stat__label {
 }
 
 @keyframes chip-transform-3 {
-  0% {
-    top: 75%;
-    left: 75%;
-    transform: translate(-75%, -75%);
-  }
-  100% {
-    top: 90%;
+0% {
+    opacity: 0;
+    top: 93%;
     left: 90%;
-    transform: translate(-90%, -90%);
-  }
+    transform: translate(-90%, -93%) scale(0) rotate(0deg);
+}
+100% {
+    opacity: 1;
+    top: 80%;
+    left: 90%;
+    transform: translate(-90%, -80%) scale(0.75) rotate(-5deg);
+}
 }
 
 @keyframes chip-zig-zag-3 {
   0% {
-    transform: translate(0px, 0px);
+    transform: translate(0px, 0px) scale(1);
   }
-  33% {
-    transform: translate(8px, -10px);
+  30% {
+    transform: translate(30px, -18px) scale(1.05);
   }
-  66% {
-    transform: translate(-8px, -10px);
+  55% {
+    transform: translate(8px, -56px) scale(0.95);
+  }
+  80% {
+    transform: translate(-34px, -24px) scale(1.08);
   }
   100% {
-    transform: translate(0px, 0px);
+    transform: translate(0px, 0px) scale(1);
   }
 }
 
 @keyframes chip-transform-4 {
-  0% {
+0% {
+    opacity: 0;
+    top: 75%;
+    left: 20%;
+    transform: translate(-20%, -75%) scale(0);
+}
+100% {
+    opacity: 1;
     top: 65%;
-    left: 25%;
-    transform: translate(-25%, -65%);
-  }
-  100% {
-    top: 90%;
-    left: 10%;
-    transform: translate(-10%, -90%);
-  }
+    left: 20%;
+    transform: translate(-20%, -65%) scale(0.75);
+}
 }
 
 @keyframes chip-zig-zag-4 {
   0% {
-    transform: translateX(0px) translateY(0px);
+    transform: translate(0px, 0px) rotate(0deg);
   }
-  25% {
-    transform: translateX(10px) translateY(5px);
+  20% {
+    transform: translate(-14px, -26px) rotate(5deg);
   }
-  50% {
-    transform: translateX(0px) translateY(10px);
+  45% {
+    transform: translate(36px, -12px) rotate(-7deg);
   }
-  75% {
-    transform: translateX(-10px) translateY(5px);
+  70% {
+    transform: translate(-28px, 22px) rotate(10deg);
   }
   100% {
-    transform: translateX(0px) translateY(0px);
+    transform: translate(0px, 0px) rotate(0deg);
   }
 }
 
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes drop-in-fade {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-@keyframes skill-ellipse-pulse {
+@keyframes shadow-breathe {
   0%,
   100% {
-    transform: translate(-50%, -50%) scale(0.75);
+    filter:
+      drop-shadow(0 3px 0 var(--color-bg-subtle))
+      drop-shadow(0 14px 30px rgba(0, 0, 0, 0.42));
+
+    transform: scale(1);
   }
+
   50% {
-    transform: translate(-50%, -50%) scale(0.9);
+    filter:
+      drop-shadow(0 3px 0 var(--color-bg-subtle))
+      drop-shadow(0 18px 38px rgba(0, 0, 0, 0.55));
+
+    transform: scale(0.985);
   }
 }
 
-@media (width <= 575px) {
+@keyframes skill-ellipse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 200%) scale(0);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Media Queries */
+
+@media (width <= 991px) {
+
   @keyframes chip-transform-1 {
-0% {
-    top: 30%;
-    left: 0%;
-    transform: translate(-0%, -30%);
-}
-100% {
-    top: 15%;
-    left: 0%;
-    transform: translate(-0%, -15%);
-}
+    0% {
+      opacity: 0;
+      top: 15%;
+      left: 10%;
+      transform: translate(-10%, -15%) scale(0) rotate(-0deg);
+    }
+    100% {
+      opacity: 1;
+      top: 25%;
+      left: 10%;
+      transform: translate(-10%, -25%) scale(0.55) rotate(-15deg);
+    }
   }
 
   @keyframes chip-transform-2 {
-0% {
-    top: 35%;
-    left: 100%;
-    transform: translate(-100%, -35%);
-}
-100% {
-    top: 20%;
-    left: 100%;
-    transform: translate(-100%, -20%);
-}
-  }
+    0% {
+      opacity: 0;
+      top: 30%;
+      left: 80%;
+      transform: translate(-80%, -30%) scale(0) rotate(0deg);
+    }
+
+    100% {
+      opacity: 1;
+      top: 40%;
+      left: 80%;
+      transform: translate(-80%, -40%) scale(0.65) rotate(15deg);
+    }
+  }  
 
   @keyframes chip-transform-3 {
-0% {
-    top: 65%;
-    left: 0%;
-    transform: translate(-0%, -65%);
-}
-100% {
-    top: 80%;
-    left: 0%;
-    transform: translate(-0%, -80%);
-}
-  }
+    0% {
+      opacity: 0;
+      top: 90%;
+      left: 90%;
+      transform: translate(-90%, -90%) scale(0) rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      top: 80%;
+      left: 90%;
+      transform: translate(-90%, -80%) scale(0.55) rotate(-5deg);
+    }
+  }  
 
   @keyframes chip-transform-4 {
-0% {
-    top: 65%;
-    left: 100%;
-    transform: translate(-100%, -65%);
-}
-100% {
-    top: 85%;
-    left: 100%;
-    transform: translate(-100%, -85%);
-}
-  }
+    0% {
+      opacity: 0;
+      top: 75%;
+      left: 20%;
+      transform: translate(-20%, -75%) scale(0);
+    }
+    100% {
+      opacity: 1;
+      top: 65%;
+      left: 20%;
+      transform: translate(-20%, -65%) scale(0.55);
+    }
+  }  
+
 }
 
 /* ========================================================================== */
@@ -672,26 +683,6 @@ ul.overview__list p.stat__label {
       .h-track  — the wide row of cards that translates left
   ══════════════════════════════════════════ */
 
-:root {
-  /* Card colours */
-  --card-1: #1a1a1a;
-  --card-2: #1a2a1a;
-  --card-3: #2a1a1a;
-  --card-4: #1a1a2a;
-  --card-5: #2a2a1a;
-  --card-6: #1a2a2a;
-
-  --card-w: clamp(310px, 67.7vw, 520px); /* width of each card */
-  --card-h: 60svh; /* height of each card */
-  --card-gap: clamp(1.313rem, 3.125vw, 1.5rem); /* gap between cards */
-  --card-count: 6;
-
-  /* Total width the track needs to travel:
-        (card-w + gap) * card-count - 1 gap - 100vw
-        We'll drive this via translateX in the keyframe */
-  --pin-height: 400svh; /* scroll distance */
-}
-
 .section__work {
   padding-left: 0;
   padding-right: 0;
@@ -704,9 +695,6 @@ ul.overview__list p.stat__label {
 
 .work__stage {
   top: 0%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   overflow: clip;
 }
 
@@ -728,16 +716,10 @@ ul.overview__list p.stat__label {
 }
 
 .work__track {
-  display: flex;
   gap: var(--card-gap);
   padding-top: 0;
   padding-bottom: 0;
-  transform: translateX(
-    calc(
-      -1 * var(--p, 0) * (var(--card-w) + var(--card-gap)) *
-        (var(--card-count) - 1)
-    )
-  );
+  transform: translateX(calc(-1 * var(--p, 0) * (var(--card-w) + var(--card-gap)) * (var(--card-count) - 1)));
 }
 
 .work__card {
@@ -746,12 +728,11 @@ ul.overview__list p.stat__label {
   height: var(--card-h);
   border-radius: 20px;
   padding: 2.5rem 2.75rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 25px 0 rgba(16, 24, 32, 0.15), 0 0 0 1px rgba(16, 24, 32, 0.05);
+  box-shadow:
+    0 10px 25px 0 rgba(16, 24, 32, 0.15),
+    0 0 0 1px rgba(16, 24, 32, 0.05);
 }
 
 .work__card:nth-child(1) {
@@ -780,12 +761,6 @@ ul.overview__list p.stat__label {
   pointer-events: none;
   -webkit-user-select: none;
   user-select: none;
-}
-
-.work__card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .work__card-index {
@@ -825,7 +800,7 @@ ul.overview__list p.stat__label {
 /* Media Queries */
 
 @media only screen and (width <= 575px) and (orientation: portrait) {
-  .skills__intro-text {
+  .skills__content {
     justify-content: end;
   }
   .work__stage {

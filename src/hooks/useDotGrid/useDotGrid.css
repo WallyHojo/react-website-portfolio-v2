@@ -13,13 +13,14 @@
 
 .dot {
   aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 }
 
 .dot::before {
   content: '';
+  display: flex;
+  align-items: center;
+  justify-content: center;  
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -34,6 +35,38 @@
 .dot-grid--revealed .dot::before {
   opacity: 1;
   transform: scale(1);
+  animation: dotReveal 0.6s ease-out forwards;
+}
+
+@keyframes dotReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(3); /* Makes it bright at 50% */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1); /* Returns to normal brightness */
+  }
+}
+
+.dot-grid--revealed .magnetic:hover::before {
+  animation: dotRevealMagnetic ease-out forwards;
+  animation-delay: 0ms;
+}
+
+@keyframes dotRevealMagnetic {
+  0% {
+    filter: brightness(3); /* Makes it bright at 0% */
+  }
+  50% {
+    filter: brightness(1); /* Returns to normal brightness */
+  }
 }
 
 /* ── Color variants ── */
@@ -99,16 +132,16 @@
 .dot-grid--rows .dot:nth-child(n+169):nth-child(-n+192)::before { transition-delay: 560ms; }
 
 /* ══ C — Prime scatter ════════════════════ */
-.dot-grid--scatter .dot::before                { transition-delay:   0ms; }
-.dot-grid--scatter .dot:nth-child(2n)::before  { transition-delay:  70ms; }
-.dot-grid--scatter .dot:nth-child(3n)::before  { transition-delay: 140ms; }
-.dot-grid--scatter .dot:nth-child(5n)::before  { transition-delay: 210ms; }
-.dot-grid--scatter .dot:nth-child(7n)::before  { transition-delay: 280ms; }
-.dot-grid--scatter .dot:nth-child(11n)::before { transition-delay: 350ms; }
-.dot-grid--scatter .dot:nth-child(13n)::before { transition-delay: 140ms; }
-.dot-grid--scatter .dot:nth-child(17n)::before { transition-delay:  70ms; }
-.dot-grid--scatter .dot:nth-child(19n)::before { transition-delay: 420ms; }
-.dot-grid--scatter .dot:nth-child(23n)::before { transition-delay: 210ms; }
+.dot-grid--scatter .dot::before                { transition-delay:   0ms; animation-delay: 0ms; }
+.dot-grid--scatter .dot:nth-child(2n)::before  { transition-delay:  70ms; animation-delay: 70ms; }
+.dot-grid--scatter .dot:nth-child(3n)::before  { transition-delay: 140ms; animation-delay: 140ms; }
+.dot-grid--scatter .dot:nth-child(5n)::before  { transition-delay: 210ms; animation-delay: 210ms; }
+.dot-grid--scatter .dot:nth-child(7n)::before  { transition-delay: 280ms; animation-delay: 280ms; }
+.dot-grid--scatter .dot:nth-child(11n)::before { transition-delay: 350ms; animation-delay: 350ms; }
+.dot-grid--scatter .dot:nth-child(13n)::before { transition-delay: 140ms; animation-delay: 140ms; }
+.dot-grid--scatter .dot:nth-child(17n)::before { transition-delay:  70ms; animation-delay: 70ms; }
+.dot-grid--scatter .dot:nth-child(19n)::before { transition-delay: 420ms; animation-delay: 420ms; }
+.dot-grid--scatter .dot:nth-child(23n)::before { transition-delay: 210ms; animation-delay: 210ms; }
 
 /* ══ D — Diagonal sweep ═══════════════════ */
 .dot-grid--diagonal .dot:nth-child(1)::before { transition-delay: 0ms; }

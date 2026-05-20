@@ -37,8 +37,10 @@ const SELECTOR = '[sa]';
 const COUNTER_DURATION_MS = 1500;
 
 const MAIN_OBSERVER_OPTIONS = {
-  threshold: 0.1,
-  rootMargin: window.innerWidth < 768 ? '0px 0px 100px 0px' : '0px 0px -50px 0px',
+  // Two thresholds: 0.1 triggers entry animation, 0 triggers mirror exit only
+  // once the element is fully out of the viewport (prevents the reset-while-visible glitch)
+  threshold: [0, 0.1],
+  rootMargin: window.innerWidth < 768 ? '50px 0px 100px 0px' : '50px 0px -50px 0px',
 };
 
 const CLS = {
@@ -66,6 +68,7 @@ let scrollListenerBound = false;
 let saRefCount          = 0;
 
 const counterRAFs = new WeakMap();
+const elementStates = new WeakMap(); // Track animation state per element
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -104,23 +107,38 @@ const cancelCounter = el => {
 
 const resetCounter = el => {
   cancelCounter(el);
-  el.textContent = formatCounter(parseFloat(el.dataset.saFrom ?? '0'), el);
+  const from = el.dataset.saFrom ?? '0';
+  if (isNaN(from)) {
+    el.textContent = from;
+  } else {
+    el.textContent = formatCounter(parseFloat(from), el);
+  }
 };
 
 function startCounter(el) {
+  const to = el.dataset.saTo ?? '0';
+  const from = el.dataset.saFrom ?? '0';
+  
+  // Check if it's a character/string animation (not a number)
+  if (isNaN(to) || isNaN(from)) {
+    startCharacterAnimation(el);
+    return;
+  }
+  
+  // Existing number animation logic
   cancelCounter(el);
-  const from     = parseFloat(el.dataset.saFrom ?? '0');
-  const to       = parseFloat(el.dataset.saTo   ?? '0');
+  const fromNum  = parseFloat(from);
+  const toNum    = parseFloat(to);
   const duration = resolveCounterDuration(el);
   const start    = performance.now();
 
   const tick = now => {
     const p = Math.min((now - start) / duration, 1);
-    el.textContent = formatCounter(from + (to - from) * easeOutCubic(p), el);
+    el.textContent = formatCounter(fromNum + (toNum - fromNum) * easeOutCubic(p), el);
     if (p < 1) {
       counterRAFs.set(el, requestAnimationFrame(tick));
     } else {
-      el.textContent = formatCounter(to, el);
+      el.textContent = formatCounter(toNum, el);
       counterRAFs.delete(el);
     }
   };
@@ -128,6 +146,64 @@ function startCounter(el) {
   counterRAFs.set(el, requestAnimationFrame(tick));
 }
 
+function startCharacterAnimation(el) {
+  cancelCounter(el);
+  const from = el.dataset.saFrom ?? '';
+  const to = el.dataset.saTo ?? 'A';
+  const duration = resolveCounterDuration(el);
+  const start = performance.now();
+
+  const tick = now => {
+    const p = Math.min((now - start) / duration, 1);
+    const progress = easeOutCubic(p);
+    
+    if (to.length === 1) {
+      // Single character: animate from → to (preserves case, skip spaces)
+      if (to === ' ') {
+        el.textContent = ' ';
+      } else {
+        const fromChar = from[0] ?? (to === to.toUpperCase() ? 'A' : 'a');
+        const fromCode = fromChar.charCodeAt(0);
+        const toCode = to.charCodeAt(0);
+        const range = toCode - fromCode;
+        const currentCode = Math.round(fromCode + range * progress);
+        el.textContent = String.fromCharCode(currentCode);
+      }
+    } else {
+      // Multiple characters: animate only non-space characters, exclude spaces from count
+      let result = '';
+      let charIndex = 0; // Track position in non-space characters
+      for (let i = 0; i < to.length; i++) {
+        const toChar = to[i];
+        
+        // Preserve spaces without animating them
+        if (toChar === ' ') {
+          result += ' ';
+          continue;
+        }
+        
+        // Default each missing from character based on the target's case
+        const fromChar = from[charIndex] ?? (toChar === toChar.toUpperCase() ? 'A' : 'a');
+        const fromCode = fromChar.charCodeAt(0);
+        const toCode = toChar.charCodeAt(0);
+        const range = toCode - fromCode;
+        const currentCode = Math.round(fromCode + range * progress);
+        result += String.fromCharCode(currentCode);
+        charIndex++;
+      }
+      el.textContent = result;
+    }
+    
+    if (p < 1) {
+      counterRAFs.set(el, requestAnimationFrame(tick));
+    } else {
+      el.textContent = to;
+      counterRAFs.delete(el);
+    }
+  };
+
+  counterRAFs.set(el, requestAnimationFrame(tick));
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // § 5 · Observer factories
@@ -137,22 +213,59 @@ function getMainObserver() {
   if (mainObserver) return mainObserver;
 
   mainObserver = new IntersectionObserver((entries, observer) => {
-    for (const { target: el, isIntersecting } of entries) {
+    for (const { target: el, isIntersecting, boundingClientRect, intersectionRatio } of entries) {
+      const mods  = getMods(el);
+      const dir   = scrollDirection;
+      const state = elementStates.get(el) || { isVisible: false, lastToggle: 0 };
+      const now   = performance.now();
+
+      // Tighten hysteresis to 50ms and skip entirely for mirror/repeat
+      // so rapid scroll-back does not swallow the re-entry event
+      const isRepeating = mods.has('repeat') || mods.has('mirror');
+      if (!isRepeating && now - state.lastToggle < 50) continue;
+
       el.classList.remove(...DIRECTIONAL_CLASSES);
-      const mods = getMods(el);
-      const dir  = scrollDirection;
 
       if (isIntersecting) {
         if (mods.has('down-only') && dir !== 'down') continue;
         if (mods.has('up-only')   && dir !== 'up')   continue;
-        el.classList.add(CLS.prepare, CLS.visible, dir === 'down' ? CLS.enterDown : CLS.enterUp);
-        if (mods.has('count')) startCounter(el);
-        if (!mods.has('repeat') && !mods.has('mirror')) observer.unobserve(el);
+
+        // Always animate on re-entry for mirror/repeat regardless of isVisible —
+        // sa-visible is stripped on exit and needs to be re-applied cleanly
+        if (!state.isVisible || isRepeating) {
+          el.classList.add(CLS.prepare, CLS.visible, dir === 'down' ? CLS.enterDown : CLS.enterUp);
+          if (mods.has('count')) startCounter(el);
+          elementStates.set(el, { isVisible: true, lastToggle: now });
+        }
+
+        // Only unobserve one-shot elements; keep mirror/repeat observed
+        if (!isRepeating) observer.unobserve(el);
+
       } else {
-        el.classList.add(dir === 'down' ? CLS.exitDown : CLS.exitUp);
-        if (mods.has('repeat') || mods.has('mirror')) {
-          el.classList.remove(CLS.visible);
-          if (mods.has('count')) resetCounter(el);
+        if (state.isVisible || isRepeating) {
+          // For mirror, the threshold fires at both 10% (exit start) and 0% (fully gone).
+          // Skip the 10% event so the reset never runs while any part of the element is
+          // still on screen — that's what causes the glitch/seizure on mobile.
+          if (mods.has('mirror') && intersectionRatio > 0) continue;
+
+          // For mirror, derive exit direction from viewport position rather than
+          // relying on scrollDirection which can be stale after a fast fling
+          let exitCls;
+          if (mods.has('mirror')) {
+            exitCls = boundingClientRect.top < 0 ? CLS.exitUp : CLS.exitDown;
+          } else {
+            exitCls = dir === 'down' ? CLS.exitDown : CLS.exitUp;
+          }
+          el.classList.add(exitCls);
+
+          if (isRepeating) {
+            // Strip sa-visible so the enter animation replays on next entry;
+            // do NOT unobserve — the element must stay watched
+            el.classList.remove(CLS.visible);
+            if (mods.has('count')) resetCounter(el);
+          }
+
+          elementStates.set(el, { isVisible: false, lastToggle: now });
         }
       }
     }
@@ -195,6 +308,8 @@ function teardownMainObserver() {
   document.removeEventListener('transitionend', mainObserver._onTransitionEnd);
   mainObserver.disconnect();
   mainObserver = null;
+  // Clear all tracked element states
+  document.querySelectorAll(SELECTOR).forEach(el => elementStates.delete(el));
 }
 
 function reinitializeAnimations() {
@@ -202,6 +317,7 @@ function reinitializeAnimations() {
   document.querySelectorAll(SELECTOR).forEach(el => {
     el.classList.remove(...ALL_STATE_CLASSES);
     if (getMods(el).has('count')) resetCounter(el);
+    elementStates.delete(el); // Clear state tracking
     observer.unobserve(el);
     observer.observe(el);
   });

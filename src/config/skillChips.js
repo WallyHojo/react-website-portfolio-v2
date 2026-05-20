@@ -38,55 +38,61 @@ import { ReactComponent as JQUERYIcon } from "../assets/images/icons/jquery.svg"
 import { ReactComponent as PHPIcon } from "../assets/images/icons/php.svg";
 import { ReactComponent as PhotoshopIcon } from "../assets/images/icons/photoshop.svg";
 
+// SVG Skills
+import skillVisualDesign from "../assets/images/visual-design.svg";
+import skillDevelopment from "../assets/images/development.svg";
+import skillPrototyping from "../assets/images/prototyping.svg";
+import skillInteractionDesign from "../assets/images/interaction-design.svg";
+
 // Data for marquee skill chips
 export const MARQUEE_ROW1 = [
-  { label: "JSON", icon: <JsonIcon />, color: "var(--card-3)" },
-  { label: "Responsive Design", icon: <ResponsiveMobileIcon />, color: "var(--card-2)" },
-  { label: "Testing & Debugging", icon: <BugIcon />, color: "var(--card-1)" },
-  { label: "Reliability", icon: <ReliabilityIcon />, color: "var(--card-5)" },
-  { label: "Teamwork", icon: <TeamworkIcon />, color: "var(--card-5)" },
-  { label: "Creativity & Innovation", icon: <CreativityIcon />, color: "var(--card-5)" },
-  { label: "React.js", icon: <ReactIcon />, color: "var(--card-2)" },
-  { label: "Problem Solving", icon: <SolvingIcon />, color: "var(--card-5)" },
-  { label: "GitHub", icon: <GithubIcon />, color: "var(--card-4)" },
-  { label: "Web Development", icon: <WebDevelopmentIcon />, color: "var(--card-1)" },
-  { label: "Jira", icon: <JiraIcon />, color: "var(--card-4)" },
-  { label: "Communication", icon: <CommunicationIcon />, color: "var(--card-5)" },
-  { label: "Web Support", icon: <WebSupportIcon />, color: "var(--card-1)" },
-  { label: "Web Services", icon: <WebServicesIcon />, color: "var(--card-3)" },
-  { label: "Web Applications", icon: <ApplicationIcon />, color: "var(--card-1)" },
-  { label: "Organization Skills", icon: <OrganizationIcon />, color: "var(--card-5)" },
-  { label: "Customer Support", icon: <CustomerSupportIcon />, color: "var(--card-5)" },
-  { label: "JQUERY", icon: <JQUERYIcon />, color: "var(--card-4)" }
+  { id: "marquee-1-1", label: "JSON", icon: <JsonIcon />, shadow: "var(--card-3)" },
+  { id: "marquee-1-2", label: "Responsive Design", icon: <ResponsiveMobileIcon />, shadow: "var(--card-2)" },
+  { id: "marquee-1-3", label: "Testing & Debugging", icon: <BugIcon />, shadow: "var(--card-1)" },
+  { id: "marquee-1-4", label: "Reliability", icon: <ReliabilityIcon />, shadow: "var(--card-5)" },
+  { id: "marquee-1-5", label: "Teamwork", icon: <TeamworkIcon />, shadow: "var(--card-5)" },
+  { id: "marquee-1-6", label: "Creativity & Innovation", icon: <CreativityIcon />, shadow: "var(--card-5)" },
+  { id: "marquee-1-7", label: "React.js", icon: <ReactIcon />, shadow: "var(--card-2)" },
+  { id: "marquee-1-8", label: "Problem Solving", icon: <SolvingIcon />, shadow: "var(--card-5)" },
+  { id: "marquee-1-9", label: "GitHub", icon: <GithubIcon />, shadow: "var(--card-4)" },
+  { id: "marquee-1-10", label: "Web Development", icon: <WebDevelopmentIcon />, shadow: "var(--card-1)" },
+  { id: "marquee-1-11", label: "Jira", icon: <JiraIcon />, shadow: "var(--card-4)" },
+  { id: "marquee-1-12", label: "Communication", icon: <CommunicationIcon />, shadow: "var(--card-5)" },
+  { id: "marquee-1-13", label: "Web Support", icon: <WebSupportIcon />, shadow: "var(--card-1)" },
+  { id: "marquee-1-14", label: "Web Services", icon: <WebServicesIcon />, shadow: "var(--card-3)" },
+  { id: "marquee-1-15", label: "Web Applications", icon: <ApplicationIcon />, shadow: "var(--card-1)" },
+  { id: "marquee-1-16", label: "Organization Skills", icon: <OrganizationIcon />, shadow: "var(--card-5)" },
+  { id: "marquee-1-17", label: "Customer Support", icon: <CustomerSupportIcon />, shadow: "var(--card-5)" },
+  { id: "marquee-1-18", label: "JQUERY", icon: <JQUERYIcon />, shadow: "var(--card-4)" }
 ];
 
 // Second row of marquee skills
 export const MARQUEE_ROW2 = [
-  { label: "WordPress", icon: <WordpressIcon />, color: "var(--card-4)" },
-  { label: "User Interface Design", icon: <UserInterfaceDesignIcon />, color: "var(--card-6)" },
-  { label: "User Experience (UX)", icon: <UXIcon />, color: "var(--card-6)" },
-  { label: "XSLT", icon: <XSLTIcon />, color: "var(--card-3)" },
-  { label: "XML", icon: <XMLIcon />, color: "var(--card-3)" },
-  { label: "ZURB Foundation", icon: <ZurbIcon />, color: "var(--card-4)" },
-  { label: "SEO", icon: <SEOIcon />, color: "var(--card-1)" },
-  { label: "Web Design", icon: <DesignIcon />, color: "var(--card-6)" },
-  { label: "Responsive Web Design", icon: <ResponsiveDesignIcon />, color: "var(--card-2)" },
-  { label: "Mobile Web Design", icon: <MobileIcon />, color: "var(--card-2)" },
-  { label: "Web Interface Design", icon: <UIIcon />, color: "var(--card-6)" },
-  { label: "Adobe XD", icon: <XDIcon />, color: "var(--card-6)" },
-  { label: "Bootstrap", icon: <BootstrapIcon />, color: "var(--card-4)" },
-  { label: "Adobe Illustrator", icon: <IllustratorIcon />, color: "var(--card-6)" },
-  { label: "CSS3", icon: <CSSIcon />, color: "var(--card-2)" },
-  { label: "HTML5", icon: <HTMLIcon />, color: "var(--card-2)" },
-  { label: "Website Building", icon: <WebBuildingIcon />, color: "var(--card-1)" },
-  { label: "Programming", icon: <ProgrammingIcon />, color: "var(--card-1)" },
-  { label: "PHP", icon: <PHPIcon />, color: "var(--card-3)" },
-  { label: "Adobe Photoshop", icon: <PhotoshopIcon />, color: "var(--card-6)" }
+  { id: "marquee-2-1", label: "WordPress", icon: <WordpressIcon />, shadow: "var(--card-4)" },
+  { id: "marquee-2-2", label: "User Interface Design", icon: <UserInterfaceDesignIcon />, shadow: "var(--card-6)" },
+  { id: "marquee-2-3", label: "User Experience (UX)", icon: <UXIcon />, shadow: "var(--card-6)" },
+  { id: "marquee-2-4", label: "XSLT", icon: <XSLTIcon />, shadow: "var(--card-3)" },
+  { id: "marquee-2-5", label: "XML", icon: <XMLIcon />, shadow: "var(--card-3)" },
+  { id: "marquee-2-6", label: "ZURB Foundation", icon: <ZurbIcon />, shadow: "var(--card-4)" },
+  { id: "marquee-2-7", label: "SEO", icon: <SEOIcon />, shadow: "var(--card-1)" },
+  { id: "marquee-2-8", label: "Web Design", icon: <DesignIcon />, shadow: "var(--card-6)" },
+  { id: "marquee-2-9", label: "Responsive Web Design", icon: <ResponsiveDesignIcon />, shadow: "var(--card-2)" },
+  { id: "marquee-2-10", label: "Mobile Web Design", icon: <MobileIcon />, shadow: "var(--card-2)" },
+  { id: "marquee-2-11", label: "Web Interface Design", icon: <UIIcon />, shadow: "var(--card-6)" },
+  { id: "marquee-2-12", label: "Adobe XD", icon: <XDIcon />, shadow: "var(--card-6)" },
+  { id: "marquee-2-13", label: "Bootstrap", icon: <BootstrapIcon />, shadow: "var(--card-4)" },
+  { id: "marquee-2-14", label: "Adobe Illustrator", icon: <IllustratorIcon />, shadow: "var(--card-6)" },
+  { id: "marquee-2-15", label: "CSS3", icon: <CSSIcon />, shadow: "var(--card-2)" },
+  { id: "marquee-2-16", label: "HTML5", icon: <HTMLIcon />, shadow: "var(--card-2)" },
+  { id: "marquee-2-17", label: "Website Building", icon: <WebBuildingIcon />, shadow: "var(--card-1)" },
+  { id: "marquee-2-18", label: "Programming", icon: <ProgrammingIcon />, shadow: "var(--card-1)" },
+  { id: "marquee-2-19", label: "PHP", icon: <PHPIcon />, shadow: "var(--card-3)" },
+  { id: "marquee-2-20", label: "Adobe Photoshop", icon: <PhotoshopIcon />, shadow: "var(--card-6)" }
 ];
 
 export const WEB_EXPERIENCES = [
-  { label: "Visual Design", icon: <CreativityIcon />, color: "var(--card-6)" },    
-  { label: "Prototyping", icon: <UserInterfaceDesignIcon />, color: "var(--card-6)" },  
-  { label: "Wireframing", icon: <DesignIcon />, color: "var(--card-6)" },
-  { label: "Development", icon: <ProgrammingIcon />, color: "var(--card-6)" }
+  { id: "exp-1", image: skillVisualDesign, alt: "visual design skill" },    
+  { id: "exp-2", image: skillDevelopment, alt: "development skill" },  
+  { id: "exp-3", image: skillPrototyping, alt: "prototyping skill" },
+  { id: "exp-4", image: skillInteractionDesign, alt: "interaction design skill" },
 ];
