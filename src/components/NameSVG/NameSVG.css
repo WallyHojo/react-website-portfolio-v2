@@ -1,0 +1,59 @@
+/* ══════════════════════════════════════════
+   FOOTER NAME SVG
+   ══════════════════════════════════════════ */
+
+.footer-name-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.footer-name-svg .footer__char {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition:
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1s ease-out;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(1)  .footer__char {
+  transition-delay: 0ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(3)  .footer__char {
+  transition-delay: 60ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(5)  .footer__char {
+  transition-delay: 120ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(7)  .footer__char {
+  transition-delay: 180ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(9)  .footer__char {
+  transition-delay: 240ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(11) .footer__char {
+  transition-delay: 300ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(13) .footer__char {
+  transition-delay: 360ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(15) .footer__char {
+  transition-delay: 420ms;
+}
+
+.footer-name-svg.is-visible > g > g:nth-child(17) .footer__char {
+  transition-delay: 480ms;
+}
+
+.footer-name-svg.is-visible .footer__char {
+  transform: translateX(0);
+  opacity: 1;
+}

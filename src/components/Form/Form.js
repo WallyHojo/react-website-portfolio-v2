@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+
+// CSS
 import "./Form.css";
 
 const Form = () => {
@@ -89,16 +91,16 @@ const Form = () => {
 
   return (
     <>
-    <p>
+    <p sa="fade glacial mirror delay-400">
         <small>
         Fields marked with (<span className="text-danger">*</span>) are
         required.
         </small>
     </p>
-    <form ref={form} onSubmit={handleSubmit}>
+    <form ref={form} onSubmit={handleSubmit} sa="left-long glacial mirror">
         <div className="form__group flex-all flex-direction-row flex-wrap">
-        <div className="group__field">
-            <label htmlFor="firstName">
+        <div className="group__field relative">
+            <label className="absolute" htmlFor="firstName">
             First Name{" "}
             <small>
                 (<span className="text-danger">*</span>)
@@ -111,11 +113,12 @@ const Form = () => {
             name="firstName"
             id="firstName"
             placeholder="First Name *"
+            data-cursor="light"
             required
             />
         </div>
-        <div className="group__field">
-            <label htmlFor="lastName">
+        <div className="group__field relative">
+            <label className="absolute" htmlFor="lastName">
             Last Name{" "}
             <small>
                 (<span className="text-danger">*</span>)
@@ -128,39 +131,46 @@ const Form = () => {
             name="lastName"
             id="lastName"
             placeholder="Last Name *"
+            data-cursor="light"
             required
             />
         </div>
         </div>
 
         <div className="form__group">
-        <label htmlFor="email">
-            Email{" "}
-            <small>
-            (<span className="text-danger">*</span>)
-            </small>
-        </label>
-        <input
-            value={email}
-            onChange={handleChange}
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email *"
-            required
-        />
+          <div className="group__field relative">
+            <label className="absolute" htmlFor="email">
+                Email{" "}
+                <small>
+                (<span className="text-danger">*</span>)
+                </small>
+            </label>
+            <input
+                value={email}
+                onChange={handleChange}
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email *"
+                data-cursor="light"
+                required
+            />
+          </div>
         </div>
 
-        <div className="form__group">
-        <label htmlFor="message">Message</label>
-        <textarea
-            value={message}
-            onChange={handleChange}
-            name="message"
-            rows="5"
-            id="message"
-            placeholder="Your Message"
-        />
+        <div className="form__group relative">
+          <div className="group__field relative">
+            <label className="absolute" htmlFor="message">Message</label>
+            <textarea
+                value={message}
+                onChange={handleChange}
+                name="message"
+                rows="5"
+                id="message"
+                placeholder="Your Message"
+                data-cursor="light"
+            />
+          </div>
         </div>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
@@ -172,7 +182,7 @@ const Form = () => {
         className="btn btn-primary magnetic magnetic--subtle"
         data-cursor="light"
         >
-        <span className="btn__text">Send Message</span>
+        <span className="btn__text relative">Send Message</span>
         <span className="btn__arrow">
             <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
-import { Link } from "react-router-dom";
-import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
-import { useSA } from '../../hooks/useScrollAnimate/useScrollAnimate';
-import './About.css';
+import React from 'react';
+import { Link, useLocation } from "react-router-dom";
 
 // Hooks
-import { useMagneticSVG } from "../../hooks/useMagneticSVG";
+import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
+import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate";
+import { useIsMobile } from "../../hooks/useIsMobile.js";
+
+// Components
+import SlatsSVG, { PAGE_SLATS } from "../../components/SlatsSVG";
 
 // Assets
 import heroBg from "../../assets/images/hero-about_bg.webp";
@@ -13,118 +15,51 @@ import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
 
+// CSS
+import "./About.css";
+
 function About() {
   useDotGrid();  
   useSA();
 
-  // Refs for magnetic slats
-  const SLAT_COUNT = 5;
-  const magSlatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
-  const slatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
+  // Sync route changes with scroll animations
+  const location = useLocation();
+  useSARouteSync(location.pathname);    
 
-  useMagneticSVG(magSlatRefs.current, slatRefs.current, 10);  
+  const isMobile = useIsMobile();
 
   return (
-    <section className='section section__hero section__grain --grain-medium section-padding' aria-label='Contact Heading and Introduction'>
-      <div className='section__decor'>
-        <DotGrid color='surface' pattern='scatter' size='small' cols={30} count={500} className='backdrop-dots hidden-xs' />
+    <section className="section section__hero section__grain --grain-medium h-viewport-hero relative section-padding" aria-label="About Heading and Introduction">
+      <div className='section__decor absolute'>
+        {!isMobile && (<DotGrid color="surface" pattern="scatter" size="small" cols={40} count={600} className="backdrop-dots" magnetic />)}
         
-        <div className='decor__shape dots--1' sa='float float-y float-y-loop delay-1000'>
+        <div className='decor__shape dots--1 absolute' sa='float float-y float-y-loop delay-1000'>
           <img src={handleDots} width='52' height='33' alt='Handle dots' sa='up-long glacial delay-800' />
         </div>
-        <div className='decor__shape dots--2' sa='float float-y float-y-loop delay-1200'>
+        <div className='decor__shape dots--2 absolute' sa='float float-y float-y-loop delay-1200'>
           <img src={handleDots} width='52' height='33' alt='Handle dots' sa='down-long glacial delay-1000' />
         </div>
-        <div className='decor__shape arrow-down-svg arrow-down--1' sa='float float-x float-x-loop delay-1400'>
+        <div className='decor__shape arrow-down-svg arrow-down--1 absolute' sa='float float-x float-x-loop delay-1400'>
           <img src={arrowRight} width='54' height='16' alt='Arrow down drop' sa='right-long glacial delay-1200' />
         </div>
-        <div className='decor__shape arrow-down-svg arrow-down--2' sa='float float-y float-y-loop delay-1600'>
+        <div className='decor__shape arrow-down-svg arrow-down--2 absolute' sa='float float-y float-y-loop delay-1600'>
           <img src={arrowDown} width='16' height='54' alt='Arrow down drop' sa='down-long glacial delay-1400' />
         </div>
 
-        <svg className='decor__shape slats-svg' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
-          <defs>
-            <mask id='slats-mask' maskUnits='userSpaceOnUse' x='0' y='0' width='100%' height='100%'>
-              <g className='slat'>
-                <g transform='rotate(45, 770, 170)'>
-                  <g ref={(el) => (slatRefs.current[0].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
-                    <rect x='250' y='-60' width='140' height='80vh' rx='70' ry='70' fill='white' />
-                  </g>
-                </g>
-              </g>
-
-              <g className='slat'>
-                <g transform='rotate(45, 970, 205)'>
-                  <g ref={(el) => (slatRefs.current[1].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
-                    <rect x='455' y='-60' width='140' height='80vh' rx='70' ry='70' fill='white' />
-                  </g>
-                </g>
-              </g>
-
-              <g className='slat'>
-                <g transform='rotate(45, 1170, 210)'>
-                  <g ref={(el) => (slatRefs.current[2].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
-                    <rect x='680' y='60' width='140' height='110vh' rx='70' ry='70' fill='white' />
-                  </g>
-                </g>
-              </g>
-
-              <g className='slat'>
-                <g transform='rotate(45, 1370, 200)'>
-                  <g ref={(el) => (slatRefs.current[3].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
-                    <rect x='915' y='200' width='140' height='80vh' rx='70' ry='70' fill='white' />
-                  </g>
-                </g>
-              </g>
-
-              <g className='slat'>
-                <g transform='rotate(45, 1370, 200)'>
-                  <g ref={(el) => (slatRefs.current[4].current = el)} style={{ transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))" }}>
-                    <rect x='1085' y='60' width='140' height='80vh' rx='70' ry='70' fill='white' />
-                  </g>
-                </g>
-              </g>
-            </mask>
-          </defs>
-
-          {/* The masked image */}
-          <image href={heroBg} x='-50' y='0' width='145%' height='200%' preserveAspectRatio='xMidYMid slice' mask='url(#slats-mask)' />
-
-          {/*
-            Overlay rects — outside <defs> and <mask>, rendered on top of the image.
-            Identical transforms to the mask rects so hit zones align exactly.
-            fill='transparent' makes them invisible but still hit-testable.
-            pointer-events='all' is required on SVG elements — unlike HTML,
-            SVG ignores pointer events on transparent fills by default.
-          */}
-
-          <g transform='rotate(45, 770, 170)'>
-            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[0].current = el)} x='250' y='-60' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
-          </g>
-
-          <g transform='rotate(45, 970, 205)'>
-            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[1].current = el)} x='455' y='-60' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
-          </g>
-
-          <g transform='rotate(45, 1170, 210)'>
-            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[2].current = el)} x='680' y='60' width='140' height='110vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
-          </g>
-
-          <g transform='rotate(45, 1370, 200)'>
-            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[3].current = el)} x='915' y='200' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
-          </g>
-
-          <g transform='rotate(45, 1370, 200)'>
-            <rect className='magnetic magnetic--strong' ref={(el) => (magSlatRefs.current[4].current = el)} x='1085' y='60' width='140' height='80vh' rx='70' ry='70' fill='transparent' pointerEvents='all' />
-          </g>
-        </svg>     
+        <SlatsSVG
+          className="slats-bg--page absolute"
+          mediaType="image"
+          mediaSrc={heroBg}
+          slats={PAGE_SLATS}
+          mediaProps={{ x: "-50", y: "0", width: "145%", height: "200%" }}
+        />   
       </div>
       <div className='hero__content flex-all flex-vert-bottom h-full'>
-        <div className='content__left' sa='fade glacial'>
+        <div className='content__left flex-all flex-direction-column relative gap-row-1' sa='fade glacial'>
           <h1 className='heading'>Building Thoughtful Web Experiences</h1>
           <p className='text-muted'>I design and develop fast, scalable, and user-focused websites with an emphasis on clean code and performance.</p>
-          <Link to='/contact' className='btn btn-primary' data-cursor='light'>
-            <span className='btn__text'>Reach Out</span>
+          <Link to='/contact' className='btn btn-primary magnetic magnetic--subtle' data-cursor='light'>
+            <span className='btn__text relative'>Reach Out</span>
             <span className='btn__arrow'>
               <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
                 <g clipPath='url(#clip0_388_188)'>
@@ -144,6 +79,7 @@ function About() {
           </Link>          
         </div>
       </div>
+      <div className="section__mask absolute"></div>
     </section>
   );
 }

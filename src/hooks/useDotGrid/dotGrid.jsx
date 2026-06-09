@@ -8,9 +8,9 @@ import { useMemo } from 'react';
 * @param {number}   [cols=24]       - Number of columns.
 * @param {number}   [count]        - Total dots. Defaults to cols × 8.
 * @param {string}   [color='cream'] - 'cream' | 'red' | 'blue' | 'green' | 'amber' | 'violet' | 'dim'
-* @param {string}   [pattern='wave']- 'wave' | 'rows' | 'scatter' | 'diagonal' | 'snake' | 'ripple'
+* @param {string}   [pattern='wave'] - 'wave' | 'rows' | 'scatter' | 'diagonal' | 'snake' | 'ripple'
 * @param {string}   [size]         - 'small' | 'large' (omit for default)
-* @param {boolean}  [magnetic=false] - Apply magnetic styles to dots
+* @param {boolean}  [magnetic=false] - Apply magnetic styles to dots
 * @param {string}   [className]    - Extra classes for positioning / opacity.
 * @param {object}   [style]        - Extra inline styles.
 *

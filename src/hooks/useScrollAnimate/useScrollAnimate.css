@@ -117,12 +117,21 @@
 [sa~="clip-left"].sa-visible { clip-path: inset(0 0% 0 0); }
 
 /* ── Rise ── */
-[sa~="rise"]            { opacity: 0; transform: translateY(30px) scale(0.94); }
+[sa~="rise"]            { opacity: 0; transform: translateY(30px) scale(0.5); }
 [sa~="rise"].sa-visible { opacity: 1; transform: translateY(0) scale(1); }
 
+/* ── Rise Long ── */
+[sa~="rise-long"]            { opacity: 0; transform: translateY(var(--sa-distance, 120px)) scale(0.5); }
+[sa~="rise-long"].sa-visible { opacity: 1; transform: translateY(0) scale(1); }
+
 /* ── Sink ── */
-[sa~="sink"]            { opacity: 0; transform: translateY(-30px) scale(0.94); }
+[sa~="sink"]            { opacity: 0; transform: translateY(-30px) scale(0.5); }
 [sa~="sink"].sa-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+/* ── Sink Long ── */
+
+[sa~="sink-long"]            { opacity: 0; transform: translateY(calc(var(--sa-distance, 120px) * -1)) scale(0.5); }
+[sa~="sink-long"].sa-visible { opacity: 1; transform: translateY(0) scale(1); }
 
 /* ── Float Y ── */
 [sa~="float-y"]            { opacity: 0; transform: translateY(20px); filter: blur(4px); }
@@ -205,7 +214,8 @@
 [sa~="mirror"][sa~="zoom-in"].sa-exit-up     { opacity: 0; transform: scale(var(--sa-scale, 0.82)); }
 [sa~="mirror"][sa~="zoom-out"].sa-exit-up    { opacity: 0; transform: scale(var(--sa-scale-out, 1.18)); }
 [sa~="mirror"][sa~="blur"].sa-exit-up        { opacity: 0; filter: blur(var(--sa-blur, 14px)); }
-[sa~="mirror"][sa~="rise"].sa-exit-up        { opacity: 0; transform: translateY(30px) scale(0.94); }
+[sa~="mirror"][sa~="rise"].sa-exit-up        { opacity: 0; transform: translateY(30px) scale(0.5); }
+[sa~="mirror"][sa~="rise-long"].sa-exit-up   { opacity: 0; transform: translateY(var(--sa-distance, 120px)) scale(0.5); }
 [sa~="mirror"][sa~="float-y"].sa-exit-up       { opacity: 0; transform: translateY(20px); filter: blur(4px); }
 [sa~="mirror"][sa~="float-x"].sa-exit-up       { opacity: 0; transform: translateX(20px); filter: blur(4px); }
 [sa~="mirror"][sa~="clip"].sa-exit-up        { clip-path: inset(0 0 100% 0); }

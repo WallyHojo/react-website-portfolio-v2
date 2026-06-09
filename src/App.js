@@ -1,9 +1,13 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
+// Hooks
 import { useMagnetic } from './hooks/useMagneticEffect/useMagneticEffect';
 import { useSA, useSARouteSync } from './hooks/useScrollAnimate/useScrollAnimate';
 import useScrollToTop from "./hooks/useScrollToTop";
 import { useSmoothScroll } from './hooks/useSmoothScroll';
+
+// Pages
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';

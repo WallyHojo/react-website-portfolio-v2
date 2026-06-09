@@ -26,6 +26,8 @@
  */
 
 import { useEffect } from 'react';
+
+// CSS
 import './useScrollAnimate.css';
 
 
@@ -34,13 +36,13 @@ import './useScrollAnimate.css';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SELECTOR = '[sa]';
-const COUNTER_DURATION_MS = 1500;
+const COUNTER_DURATION_MS = 2500;
 
 const MAIN_OBSERVER_OPTIONS = {
   // Two thresholds: 0.1 triggers entry animation, 0 triggers mirror exit only
   // once the element is fully out of the viewport (prevents the reset-while-visible glitch)
   threshold: [0, 0.1],
-  rootMargin: window.innerWidth < 768 ? '50px 0px 100px 0px' : '50px 0px -50px 0px',
+  rootMargin: window.innerWidth < 768 ? '50px 0px 100px 0px' : '50px 0px 50px 0px',
 };
 
 const CLS = {
@@ -290,6 +292,7 @@ function getReplayObserver() {
         el.classList.remove(...ALL_STATE_CLASSES);
         if (getMods(el).has('count')) resetCounter(el);
         observer.unobserve(el);
+        elementStates.delete(el);
       });
       if (isIntersecting) requestAnimationFrame(() => children.forEach(el => observer.observe(el)));
     }
@@ -297,7 +300,6 @@ function getReplayObserver() {
 
   return replayObserver;
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // § 6 · Teardown + re-init

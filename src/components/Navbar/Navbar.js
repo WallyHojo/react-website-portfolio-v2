@@ -8,6 +8,7 @@ import { useActiveRoute } from "../../hooks/useActiveRoute";
 // Config
 import { NAV_LINKS } from "../../config/navLinks";
 
+// CSS
 import "./Navbar.css";
 
 function Navbar() {
@@ -108,11 +109,11 @@ function Navbar() {
   return (
     <>
       {/* Navigation */}
-      <nav className={`navbar ${isScrolled ? "navbar__scrolled" : ""} ${isHeaderVisible ? "header-visible" : "header-hidden"}`}>
-        <div className='navbar__container' sa='down slower' ref={refHeaderHeight}>
-          <div className='navbar__background'></div>
+      <nav className={`navbar ${isScrolled ? "navbar__scrolled" : ""} ${isHeaderVisible ? "header-visible" : "header-hidden"} fixed`}>
+        <div className='navbar__container relative' sa='down slower' ref={refHeaderHeight}>
+          <div className='navbar__background absolute'></div>
           <div className='navbar__logo magnetic magnetic--subtle'>
-            <Link to='/' aria-label='Walter Carlson - UI Engineer Home'>
+            <Link to='/' aria-label='Walter Carlson - UI Engineer Home' data-cursor="light">
               <svg xmlns='http://www.w3.org/2000/svg' width='54' height='35' viewBox='0 0 320 220'>
                 <defs>
                   <linearGradient id='draw-a-gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
@@ -167,9 +168,9 @@ function Navbar() {
               </svg>
             </Link>
           </div>
-          <div className='navbar__right flex-all flex-vert-center'>
+          <div className='navbar__right flex-all'>
             <Link to='/resume' className='btn'>
-              <span className='btn__text'>Resume</span>
+              <span className='btn__text relative'>Resume</span>
               <span className='btn__arrow'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
                   <path
@@ -189,7 +190,7 @@ function Navbar() {
       </nav>
 
       {/* Menu */}
-      <div className={`menu section-padding ${menuOpen === true ? "menu--open" : menuOpen === "closing" ? "menu--closing" : ""}`} onAnimationEnd={handleAnimationEnd} ref={replayRef}>
+      <div className={`menu section-padding ${menuOpen === true ? "menu--open" : menuOpen === "closing" ? "menu--closing" : ""} fixed`} onAnimationEnd={handleAnimationEnd} ref={replayRef}>
         <div className='menu__close'>
           <div className='menu__close-container flex-all flex-vert-center' onClick={handleClose} data-cursor='accent'>
             <svg className='menu__clip-close' xmlns='http://www.w3.org/2000/svg' width='148.493' height='34' viewBox='0 0 34 34' fill='none'>
@@ -214,17 +215,17 @@ function Navbar() {
             </svg>
           </div>
         </div>
-        <div className='menu__wrapper'>
-          <div className='menu__content' sa='left-long fade glacial'>
-            <div className='menu__eyebrow flex-all flex-vert-center' sa='left slow delay-200'>
-              <span className='menu__eyebrow-icon flex-all flex-vert-center'>
+        <div className='menu__wrapper relative'>
+          <div className='menu__content relative' sa='left-long fade glacial'>
+            <div className='content__eyebrow h3 flex-all flex-vert-center' sa='left slow delay-200'>
+              <span className='content__eyebrow-icon flex-all flex-vert-center'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
                   <path
                     d='M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z'
                     fill='#2979FF'></path>
                 </svg>
               </span>
-              <span className='menu__eyebrow-text'>Connect with me!</span>
+              <span className='content__eyebrow-text'>Connect with me!</span>
             </div>
             <div className='menu__content-heading' sa='left slow delay-400'>
               Explore My Work, Projects, and Experience
@@ -234,7 +235,7 @@ function Navbar() {
             </div>
             <div sa='left slow delay-600'>
               <Link to='/contact' className='btn btn-primary magnetic magnetic--subtle' data-cursor='light' onClick={handleClose}>
-                <span className='btn__text'>Get in Touch</span>
+                <span className='btn__text relative'>Get in Touch</span>
                 <span className='btn__arrow'>
                   <svg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 15 16' fill='none'>
                     <g clipPath='url(#clip0_388_188)'>
@@ -263,7 +264,7 @@ function Navbar() {
               {/* Navigation Links */}
               {NAV_LINKS.map(({ to, label, animationDelay, exact }) => (
                 <li className={`menu__nav-link ${isActive(to, { exact }) ? "--is-active" : ""}`.trim()} key={to} sa={`right slow ${animationDelay}`} data-cursor="dark">
-                  <span className='menu__nav-arrow'>
+                  <span className='menu__nav-arrow relative'>
                     <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
                       <path
                         d='M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z'
@@ -280,12 +281,12 @@ function Navbar() {
             <hr />
           </div>
         </div>
-        <div className='background__ellipse menu__ellipse-1 ellipse--light ellipse--large'></div>
-        <div className='background__ellipse menu__ellipse-2 ellipse--light ellipse--large'></div>
+        <div className='background__ellipse menu__ellipse-1 ellipse--light ellipse--large absolute'></div>
+        <div className='background__ellipse menu__ellipse-2 ellipse--light ellipse--large absolute'></div>
       </div>
 
       {/* Menu Clipping Paths */}
-      <svg className='menu__clip' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 86' width='148' height='86'>
+      <svg className='menu__clip absolute' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 86' width='148' height='86'>
         <defs>
           <clipPath id='menu-bg-clip-tab' clipPathUnits='userSpaceOnUse'>
             <path d='m 32.943424,59.954421 c 0,-9.20246 -0.184,-28.90798 -0.184,-28.90798 C 32.759424,31.046441 30.5785,0 64,0 h 56 c 2.2204,0.01171875 27.76581,0.07081255 28,27.807171 V 86 H 0 c 18.016698,0 32.802223,-3.309432 32.943424,-26.045552 z'></path>
@@ -293,7 +294,7 @@ function Navbar() {
         </defs>
         <rect width='148' height='86' fill='currentColor' clipPath='url(#menu-bg-clip-tab)'></rect>
       </svg>
-      <svg className='menu__clip' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1706 700' width='100%' height='100%'>
+      <svg className='menu__clip absolute' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1706 700' width='100%' height='100%'>
         <defs>
           <clipPath id='menu-bg-clip' clipPathUnits='objectBoundingBox' transform='scale(0.000586510, 0.001272265)'>
             <path d='m 1706,675 c 0,1.56442 -0.4459,25 -31,25 H 28.999986 C 26.17912,700 0,699.991 0,674 V 27 C 0,26.19325 -0.04988178,0 33,0 h 1673 z'></path>

@@ -6,7 +6,6 @@
 }
 
 .navbar {
-  position: fixed;
   width: 100%;
   top: 0;
   z-index: 99;
@@ -21,7 +20,6 @@
 }
 
 .navbar__container {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,7 +31,6 @@
 
 .navbar__background {
   background: linear-gradient(180deg, #ffffff2e 0%, #9191911f 35%, #45454517 60%, #9191911f 80%, #ffffff2e 100%) border-box;
-  position: absolute;
   left: 0;
   width: 100%;
   height: 100%;
@@ -114,7 +111,6 @@
 }
 
 .menu {
-  position: fixed;
   display: none;
   inset: 0;
   width: 100%;
@@ -125,7 +121,6 @@
 }
 
 .menu__wrapper {
-  position: relative;
   display: grid;
   grid-template-columns:
     [content-start] repeat(12, minmax(0, 10rem))
@@ -174,7 +169,6 @@
 }
 
 .menu__clip {
-  position: absolute;
   top: -999px;
   left: -999px;
   width: 0;
@@ -221,16 +215,7 @@ html.no-scroll nav.navbar {
   grid-column: content-start / span 6;
   align-content: start;
   gap: clamp(0.75rem, 3vw, 3vh);
-  position: relative;
   z-index: 2;
-}
-
-.menu__eyebrow {
-  gap: 0.8rem;
-}
-
-.menu__eyebrow-text {
-  color: var(--color-primary);
 }
 
 .menu__content-heading {
@@ -283,7 +268,6 @@ ul.menu__nav-links {
 }
 
 ul.menu__nav-links li span.menu__nav-arrow {
-  position: relative;
   left: -18px;
   margin-left: -1.125rem;
   vertical-align: top;

@@ -1,6 +1,11 @@
-.slats-bg--contact {
-  transform: scaleY(-1) scaleX(-1);
-  bottom: calc(730px / 2.25);
-  right: calc(900px / -2.25);
-  left: initial;
+ul.overview__list span.stat__value {
+    font-size: clamp(1.125rem, -0.5303rem + 2.6726vw, 1.875rem);
+}
+
+/* Media Queries */
+
+@media (width <= 768px) {
+    .section__hero {
+        height: 100svh;
+    }
 }

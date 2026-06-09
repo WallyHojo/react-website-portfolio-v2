@@ -1,4 +1,6 @@
 import { useMemo, memo } from 'react';
+
+// CSS
 import './useMarqueeScroll.css';
 
 /**

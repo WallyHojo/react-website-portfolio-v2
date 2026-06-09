@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+
+// CSS
 import './useDotGrid.css';
 
 /**
@@ -17,7 +19,7 @@ export function useDotGrid({ threshold = 0.05, replayHero = true } = {}) {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(({ target, isIntersecting }) => {
-        const isHero = replayHero && target.closest('.hero');
+        const isHero = replayHero && target.closest('.section');
 
         if (isIntersecting) {
           target.classList.add('dot-grid--revealed');

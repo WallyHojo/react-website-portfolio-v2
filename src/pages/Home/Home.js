@@ -1,18 +1,20 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import ContactForm from "../../components/Form/Form.js";
-import { MARQUEE_ROW1, MARQUEE_ROW2, WEB_EXPERIENCES } from "../../config/skillChips.js";
-import { WORK_LIST } from "../../config/workList.js";
-import "./Home.css";
-import "../../assets/styles/noise.css";
 
 // Hooks
-import { useMagneticSVG } from "../../hooks/useMagneticSVG";
 import { useMarqueeScroll, Marquee } from "../../hooks/useMarqueeScroll";
 import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
 /*import { useTypewriterHeading } from "../../hooks/useTypewriterHeading";*/
 import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 import { useIsMobile } from "../../hooks/useIsMobile.js";
+
+// Components
+import SlatsSVG, { HOME_SLATS } from "../../components/SlatsSVG";
+import ContactForm from "../../components/Form/Form.js";
+
+// Config
+import { MARQUEE_ROW1, MARQUEE_ROW2, WEB_EXPERIENCES } from "../../config/skillChips.js";
+import { WORK_LIST } from "../../config/workList.js";
 
 // Assets
 import heroVideo from "../../assets/images/grok-video-9bcac0f6-ad9a-4660-a249-34424dfab915.mp4";
@@ -20,6 +22,10 @@ import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
 import diagnalLines from "../../assets/images/diagnal-lines.svg";
+
+// CSS
+import "./Home.css";
+import "../../assets/styles/noise.css";
 
 // Component for individual skill chips in the marquee
 const SkillChip = React.memo(({ label, icon, shadow }) => {
@@ -46,7 +52,7 @@ const ExperienceSkillChip = React.memo(({ image, alt, number }) => {
   return (
     <>
       {!isMobile && (
-      <div className="skill" data-chip={number}>
+      <div className="skill absolute" data-chip={number}>
         <span className="skill-chip">
           <img src={image} alt={alt} />
         </span>
@@ -57,23 +63,42 @@ const ExperienceSkillChip = React.memo(({ image, alt, number }) => {
 });
 
 // Component for individual work cards in the Projects section
-const WorkCard = React.memo(({ title, description, tag, image, number, total, symbol, backgroundColor }) => {
+const WorkCard = React.memo(({ title, description, tag, image, number, total, symbol, link, linkLabel, backgroundColor }) => {
   const formattedIndex = `${String(number).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
   return (
     <>
-      <div className="work__card flex-all flex-direction-column flex-space-between relative magnetic magnetic--subtle" role="listitem" aria-label={`Project ${number}: ${title}`} style={{ "--card-background": backgroundColor }}>
-        <div className="work__card-img absolute"><img src={image} alt={title} /></div>
-        <div className="work__card-bg-num">{symbol || number}</div>
-        <div className="work__card-top">
-          <div className="work__card-data flex-all flex-space-between flex-vert-center">
-            <span className="work__card-index">{formattedIndex}</span>
-            <span className="work__card-tag">{tag}</span>
+      <div className="magnetic magnetic--subtle" role="listitem" aria-label={`Project ${number}: ${title}`} style={{ "--card-background": backgroundColor }}>
+        <Link to={link} className="work__card flex-all flex-direction-column flex-space-between relative overflow-hidden">
+          <div className="work__card-bg-num absolute">{symbol || number}</div>
+          <div className="work__card--top relative overflow-hidden" data-cursor="accent">          
+            <div className="work__card-img"><img src={image} alt={title} /></div>
           </div>
-        </div>
-        <div className="work__card-bottom">
-          <h2 className="work__card-title">{title}</h2>
-          <p className="work__card-body">{description}</p>
-        </div>
+          <div className="work__card--bottom flex-all flex-direction-column relative" data-cursor="light">          
+            <div className="work__card-data--top flex-all flex-space-between flex-vert-center absolute">
+              <span className="work__card-tag">{tag}</span>
+            </div>          
+            <h2 className="work__card-title">{title}</h2>
+            <p className="work__card-body">{description}</p>
+            <div className="work__card-data--bottom flex-all flex-space-between flex-vert-center mt-auto">
+              
+              <div className="work__card-link">
+                <button className='btn'>
+                  <span className='btn__text relative'>{linkLabel || "View case study"}</span>
+                  <span className='btn__arrow'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
+                      <path
+                        d='M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z'
+                        fill='var(--color-bg-inverse)'
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+
+              <span className="work__card-index">{formattedIndex}</span>
+            </div>
+          </div>
+        </Link>
       </div>
     </>
   );
@@ -82,13 +107,6 @@ const WorkCard = React.memo(({ title, description, tag, image, number, total, sy
 function Home() {
   useMarqueeScroll();
   useDotGrid();
-
-  // Refs for magnetic slats
-  const SLAT_COUNT = 5;
-  const magSlatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
-  const slatRefs = useRef(Array.from({ length: SLAT_COUNT }, () => ({ current: null })));
-
-  useMagneticSVG(magSlatRefs.current, slatRefs.current, 10);
 
   // Typewriter effect for hero heading
   /*
@@ -99,163 +117,20 @@ function Home() {
   const wrapRef = useRef(null);
   const stageRef = useRef(null);
 
-  useHorizontalScroll(wrapRef, stageRef);
+  useHorizontalScroll(wrapRef, stageRef, WORK_LIST.length);
 
   const isMobile = useIsMobile();
 
   return (
     <>
       {/* Hero Section */}
-      <section className="section section__hero section__grain --grain-medium section-padding h-viewport-small" aria-label="Introduction and Hero">
-        <div className="section__decor">
-          {!isMobile && (
-            <DotGrid color="surface" pattern="scatter" size="small" cols={30} count={500} className="backdrop-dots" magnetic />
-          )}
-
-          <div className="decor__shape dots--1" sa="float float-y float-y-loop delay-1000">
-            <img src={handleDots} width="52" height="33" alt="Handle dots" sa="up-long glacial delay-800" />
-          </div>
-          <div className="decor__shape dots--2" sa="float float-y float-y-loop delay-1200">
-            <img src={handleDots} width="52" height="33" alt="Handle dots" sa="down-long glacial delay-1000" />
-          </div>
-          <div className="decor__shape arrow-down-svg arrow-down--1" sa="float float-x float-x-loop delay-1400">
-            <img src={arrowRight} width="54" height="16" alt="Arrow down drop" sa="right-long glacial delay-1200" />
-          </div>
-          <div className="decor__shape arrow-down-svg arrow-down--2" sa="float float-y float-y-loop delay-1600">
-            <img src={arrowDown} width="16" height="54" alt="Arrow down drop" sa="down-long glacial delay-1400" />
-          </div>
-
-          <svg className="decor__shape slats-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <mask id="slats-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
-                <g className="slat">
-                  <g transform="rotate(45, 770, 170)">
-                    <g
-                      ref={(el) => (slatRefs.current[0].current = el)}
-                      style={{
-                        transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))",
-                      }}
-                    >
-                      <rect x="500" y="-60" width="140" height="100vh" rx="70" ry="70" fill="white" />
-                    </g>
-                  </g>
-                </g>
-
-                <g className="slat">
-                  <g transform="rotate(45, 970, 205)">
-                    <g
-                      ref={(el) => (slatRefs.current[1].current = el)}
-                      style={{
-                        transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))",
-                      }}
-                    >
-                      <rect x="705" y="-60" width="140" height="100vh" rx="70" ry="70" fill="white" />
-                    </g>
-                  </g>
-                </g>
-
-                <g className="slat">
-                  <g transform="rotate(45, 1170, 210)">
-                    <g
-                      ref={(el) => (slatRefs.current[2].current = el)}
-                      style={{
-                        transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))",
-                      }}
-                    >
-                      <rect x="930" y="60" width="140" height="130vh" rx="70" ry="70" fill="white" />
-                    </g>
-                  </g>
-                </g>
-
-                <g className="slat">
-                  <g transform="rotate(45, 1370, 200)">
-                    <g
-                      ref={(el) => (slatRefs.current[3].current = el)}
-                      style={{
-                        transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))",
-                      }}
-                    >
-                      <rect x="1165" y="200" width="140" height="100vh" rx="70" ry="70" fill="white" />
-                    </g>
-                  </g>
-                </g>
-
-                <g className="slat">
-                  <g transform="rotate(45, 1370, 200)">
-                    <g
-                      ref={(el) => (slatRefs.current[4].current = el)}
-                      style={{
-                        transform: "translate(var(--mag-x, 0px), var(--mag-y, 0px))",
-                      }}
-                    >
-                      <rect x="1335" y="60" width="140" height="100vh" rx="70" ry="70" fill="white" />
-                    </g>
-                  </g>
-                </g>
-              </mask>
-            </defs>
-
-            {/* The masked image 
-            <image href={heroBg} x="75" y="0" width="125%" height="150%" preserveAspectRatio="xMidYMid slice" mask="url(#slats-mask)" />*/}
-
-            <foreignObject
-              x="75"
-              y="0"
-              width="125%"
-              height="150%"
-              mask="url(#slats-mask)"
-            >
-              <video
-                xmlns="http://www.w3.org/1999/xhtml"
-                autoPlay
-                muted
-                playsInline
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              >
-                <source src={heroVideo} type="video/mp4" />
-              </video>
-            </foreignObject>        
-
-            {/*
-              Overlay rects — outside <defs> and <mask>, rendered on top of the image.
-              Identical transforms to the mask rects so hit zones align exactly.
-              fill='transparent' makes them invisible but still hit-testable.
-              pointer-events='all' is required on SVG elements — unlike HTML,
-              SVG ignores pointer events on transparent fills by default.
-            */}
-
-            <g transform="rotate(45, 770, 170)">
-              <rect className="magnetic magnetic--strong" ref={(el) => (magSlatRefs.current[0].current = el)} x="500" y="-60" width="140" height="100vh" rx="70" ry="70" fill="transparent" pointerEvents="all" />
-            </g>
-
-            <g transform="rotate(45, 970, 205)">
-              <rect className="magnetic magnetic--strong" ref={(el) => (magSlatRefs.current[1].current = el)} x="705" y="-60" width="140" height="100vh" rx="70" ry="70" fill="transparent" pointerEvents="all" />
-            </g>
-
-            <g transform="rotate(45, 1170, 210)">
-              <rect className="magnetic magnetic--strong" ref={(el) => (magSlatRefs.current[2].current = el)} x="930" y="60" width="140" height="130vh" rx="70" ry="70" fill="transparent" pointerEvents="all" />
-            </g>
-
-            <g transform="rotate(45, 1370, 200)">
-              <rect className="magnetic magnetic--strong" ref={(el) => (magSlatRefs.current[3].current = el)} x="1165" y="200" width="140" height="100vh" rx="70" ry="70" fill="transparent" pointerEvents="all" />
-            </g>
-
-            <g transform="rotate(45, 1370, 200)">
-              <rect className="magnetic magnetic--strong" ref={(el) => (magSlatRefs.current[4].current = el)} x="1335" y="60" width="140" height="100vh" rx="70" ry="70" fill="transparent" pointerEvents="all" />
-            </g>
-          </svg>
-        </div>
-
+      <section className="section section__hero relative section__grain --grain-medium h-viewport-small section-padding" aria-label="Introduction and Hero">
         <div className="section__content flex-all flex-vert-bottom h-full">
           <div className="content__left flex-all flex-direction-column gap-row-1" sa="fade glacial">
             <h1 className="heading nowrap" sa="count" data-sa-to="Walter Carlson" data-sa-duration="1000">{/*displayHeading*/}</h1>
 
             <h2 className="h3 sub-heading">
-              A <strong>UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
+              A <strong className="text-primary">UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
             </h2>
             <p className="text-muted">With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.</p>
             <Link to="/contact" className="btn btn-primary magnetic magnetic--subtle" data-cursor="light">
@@ -276,44 +151,69 @@ function Home() {
             </Link>
           </div>
         </div>
+        <div className="section__decor">
+          {!isMobile && (<DotGrid color="surface" pattern="scatter" size="small" cols={40} count={600} className="backdrop-dots" magnetic />)}
+
+          <div className="decor__shape dots--1 absolute" sa="float float-y float-y-loop delay-1000">
+            <img src={handleDots} width="52" height="33" alt="Handle dots" sa="up-long glacial delay-800" />
+          </div>
+          <div className="decor__shape dots--2 absolute" sa="float float-y float-y-loop delay-1200">
+            <img src={handleDots} width="52" height="33" alt="Handle dots" sa="down-long glacial delay-1000" />
+          </div>
+          <div className="decor__shape arrow-down-svg arrow-down--1 absolute" sa="float float-x float-x-loop delay-1400">
+            <img src={arrowRight} width="54" height="16" alt="Arrow down drop" sa="right-long glacial delay-1200" />
+          </div>
+          <div className="decor__shape arrow-down-svg arrow-down--2 absolute" sa="float float-y float-y-loop delay-1600">
+            <img src={arrowDown} width="16" height="54" alt="Arrow down drop" sa="down-long glacial delay-1400" />
+          </div>
+
+          <SlatsSVG
+            className="slats-bg--hero absolute"
+            mediaType="video"
+            mediaSrc={heroVideo}
+            slats={HOME_SLATS}
+            mediaProps={{ x: "75", y: "0", width: "125%", height: "150%" }}
+          />
+        </div>        
+        <div className="section__mask absolute"></div>
       </section>
 
       {/* Overview Section */}
-      <section className="section section__overview section-padding" aria-label="Professional Overview">
-        <div className="section__overview-inner">
+      <section className="section section__overview section-padding overflow-hidden" aria-label="Professional Overview">
+        <div className="section__overview-inner absolute">
           <ul className="overview__list">
             <li sa="diag-tr-bl slow delay-200">
               <div className="overview__list-stat flex-all flex-direction-column">
-                <div className="stat__number">
+                <div className="stat__number flex-all flex-vert-center">
                   <span className="stat__value" sa="count mirror delay-400" data-sa-to="18"></span>
-                  <span className="stat__suffix">+</span>
+                  <span className="stat__suffix flex-all flex-vert-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
                 </div>
                 <p className="stat__label">Years of Experience</p>
               </div>
             </li>
             <li sa="diag-tr-bl slow delay-400">
               <div className="overview__list-stat flex-all flex-direction-column">
-                <div className="stat__number">
+                <div className="stat__number flex-all flex-vert-center">
                   <span className="stat__value" sa="count mirror delay-400" data-sa-to="600"></span>
-                  <span className="stat__suffix">+</span>
+                  <span className="stat__suffix flex-all flex-vert-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
                 </div>
                 <p className="stat__label">Websites Delivered</p>
               </div>
             </li>
             <li sa="diag-tr-bl slow delay-600">
               <div className="overview__list-stat flex-all flex-direction-column">
-                <div className="stat__number">
+                <div className="stat__number flex-all flex-vert-center">
                   <span className="stat__value" sa="count mirror delay-400" data-sa-to="120"></span>
-                  <span className="stat__suffix">+</span>
+                  <span className="stat__suffix flex-all flex-vert-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
                 </div>
                 <p className="stat__label">Happy Clients</p>
               </div>
             </li>
             <li sa="diag-tr-bl slow delay-800">
               <div className="overview__list-stat flex-all flex-direction-column">
-                <div className="stat__number">
+                <div className="stat__number flex-all flex-vert-center">
                   <span className="stat__value" sa="count mirror delay-400" data-sa-to="6"></span>
-                  <span className="stat__suffix">+</span>
+                  <span className="stat__suffix flex-all flex-vert-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
                 </div>
                 <p className="stat__label">Automotive Verticals</p>
               </div>
@@ -323,15 +223,15 @@ function Home() {
       </section>
 
       {/* About Section */}
-      <section className="section section__about section-padding h-viewport flex-all flex-direction-column flex-vert-center flex-horz-center" aria-label="About Me and Skills">
+      <section className="section section__about relative h-viewport flex-all flex-direction-column flex-vert-center flex-horz-center section-padding" aria-label="About Me and Skills">
         <div className="about__intro-container relative">
-          <div className="section__decor flex-all flex-horz-center">
-            <div className="background__ellipse background__ellipse-1 about__ellipse ellipse--blue ellipse--medium hidden-mobile" sa="up-long slow mirror"></div>
-            <div className="background__ellipse background__ellipse-1 about__ellipse ellipse--blue ellipse--small hidden-tablet hidden-desktop" sa="up-long slow mirror"></div>
-          </div>
-          <div className="about__intro-text flex-all flex-direction-column flex-vert-center gap-row-2 text-center" sa="up-long glacial mirror">
-            <h2 sa="up slow mirror">Building Digital <strong>Experiences</strong> With Purpose</h2>
-            <h3 className="h4">From wireframes to front-end development, I craft intuitive interfaces that are visually refined, accessible, and <span className="text-muted">built for real users.</span></h3>
+          <div className="section__decor flex-all flex-horz-center absolute overflow-visible">
+            <div className="background__ellipse background__ellipse-1 about__ellipse ellipse--blue ellipse--medium absolute hidden-mobile" sa="rise-long glacial mirror"></div>
+            <div className="background__ellipse background__ellipse-1 about__ellipse ellipse--blue ellipse--small absolute hidden-tablet hidden-desktop" sa="rise-long glacial mirror"></div>
+          </div>          
+          <div className="about__intro-text flex-all flex-direction-column flex-vert-center gap-row-2 text-center" sa="up-long glacial mirror delay-200">
+            <h2 sa="up mirror">Building Digital <strong>Experiences</strong> With Purpose</h2>
+            <h3 className="h4">From wireframes to front-end development, I craft intuitive interfaces that are visually refined, accessible, and <strong className="text-primary">built for real users.</strong></h3>
             <Link to="/about" className="btn btn-primary magnetic magnetic--subtle" data-cursor="light">
               <span className="btn__text">About Me</span>
               <span className="btn__arrow">
@@ -348,20 +248,18 @@ function Home() {
                 </svg>
               </span>
             </Link>            
-          </div>
-        </div>
+          </div>          
+        </div>       
       </section>
 
       {/* Skills Section */}
-      <section className="section section__skills section-padding relative" aria-label="Skills and Expertise">
+      <section className="section section__skills section-padding" aria-label="Skills and Expertise">
 
         <div className="skills__intro-wrapper relative">
-          <div className="skills__intro-container flex-all flex-space-between flex-vert-center h-viewport-small gap-row-2 sticky">
-
-            {/*<div className="background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--small"></div>*/}
+          <div className="skills__intro-container flex-all flex-space-between flex-vert-center h-viewport-small sticky">
 
             <div className="section__content skills__content flex-all flex-direction-column">
-              <div className="section__label">
+              <div className="section__label flex-all flex-vert-bottom flex-wrap">
                 <h2 className="section__title" sa="up slower mirror delay-200">
                   Skills
                 </h2>
@@ -371,15 +269,15 @@ function Home() {
               </div>            
               <div className="skills__intro-text flex-all flex-direction-column gap-row-1" sa="up-long glacial mirror">
                 <h3 className="sub-heading" sa="up slow mirror">
-                  <strong>
-                    Built for <span className="text-primary">Modern Web Experiences</span>
-                  </strong>
+                  <span>
+                    Built for <strong className="text-primary">Modern Web Experiences</strong>
+                  </span>
                 </h3>
 
                 <p>With strengths in concept development, wireframing, prototyping, visual design, and front-end execution, I bring ideas to life through thoughtful problem-solving and user-centered design. Every stage is guided by usability, responsiveness, and precision.</p>
 
                 <Link to="/skills" className="btn btn-primary magnetic magnetic--subtle" data-cursor="light">
-                  <span className="btn__text">Explore the Stack</span>
+                  <span className="btn__text relative">Explore the Stack</span>
                   <span className="btn__arrow">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none">
                       <g clipPath="url(#clip0_388_188)">
@@ -398,6 +296,8 @@ function Home() {
             </div>
 
             <div className="skills__intro-decor flex-all flex-horz-center flex-vert-center h-full relative">
+
+              <div className="background__ellipse background__ellipse-1 skills__ellipse-1 ellipse--blue ellipse--small absolute"></div>
 
               <div className="skills__marquee-wrap">
                 <Marquee rtl faded>
@@ -424,17 +324,19 @@ function Home() {
 
       {/* Work Section */}
       <section className="section section__work" aria-label="Featured Projects">
+  
         <div className="work__wrap" ref={wrapRef} role="region" aria-roledescription="horizontal scroll">
           <div className="work__stage flex-all flex-direction-column flex-horz-center h-viewport-small sticky section-padding" ref={stageRef}>
-            <div className="section__label" role="presentation">
+            <div className="background__ellipse background__ellipse-1 work__ellipse-1 ellipse--blue ellipse--medium fixed"></div>
+            <div className="section__label flex-all flex-vert-bottom flex-wrap gap-row-2" role="presentation">
               <h2 className="section__title" sa="up slower mirror delay-200">
                 Projects
               </h2>
               <span className="section__count" sa="right glacial mirror delay-400">
                 02 works
               </span>
-              <div className="work__progress" aria-hidden="true">
-                <div className="work__progress-fill"></div>
+              <div className="work__progress relative ml-auto" aria-hidden="true">
+                <div className="work__progress-fill absolute"></div>
               </div>
             </div>
 
@@ -444,17 +346,13 @@ function Home() {
               ))}
             </div>
           </div>
-        </div>
+        </div>       
       </section>
 
       {/* Contact Section */}
-      <section className="section section__contact section__grain --grain-medium section-padding relative" aria-label="Contact Information">
-        <div className="section__decor">
-          <div className="decor__shape slats-bg slats-bg--contact">
-            <img src={diagnalLines} alt="diagonal lines" width="903" height="730" sa="diag-bl-tr glacial mirror delay-400" />
-          </div>
-        </div>
-        <div className="section__label">
+      <section className="section section__contact relative section-padding overflow-hidden" aria-label="Contact Information">
+      
+        <div className="section__label flex-all flex-vert-bottom flex-wrapsection__label">
           <h2 className="section__title" sa="up slower mirror delay-200">
             Contact
           </h2>
@@ -463,23 +361,23 @@ function Home() {
           </span>
         </div>
         <div className="contact__container flex-all flex-direction-row flex-space-between flex-wrap">
-          <div className="contact__content flex-all flex-direction-column" sa="up-long glacial mirror">
-            <div className="menu__eyebrow flex-all flex-vert-center" sa="up slow mirror">
-              <span className="menu__eyebrow-icon flex-all flex-vert-center">
+          <div className="contact__content h-full flex-all flex-direction-column" sa="up-long glacial mirror">
+            <div className="content__eyebrow h3 flex-all flex-vert-center" sa="up slow mirror">
+              <span className="content__eyebrow-icon flex-all flex-vert-center">
                 <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
                   <path
                     d='M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z'
                     fill='#2979FF'></path>
                 </svg>
               </span>
-              <span className="menu__eyebrow-text">Get in Touch</span>
+              <span className="content__eyebrow-text">Get in Touch</span>
             </div>
-            <p>Whether you're reaching out about a role, a team, or a potential fit, I'm always open to meaningful conversations around web development opportunities.</p>
+            <p>Direct line to Walter, whether you're reaching out about a role, a team, or a potential fit, I'm always open to meaningful conversations around web development. Expect a reply within 24 hours.</p>
           </div>
-          <div className="contact__form relative">
+          <div className="contact__form section__grain --grain-subtle section-padding" sa="left-long glacial mirror">
             <ContactForm />
           </div>
-        </div>
+        </div>           
       </section>
     </>
   );
