@@ -417,16 +417,12 @@ export function useMagnetic(sectionRef) {
     // Track which button is currently being hovered so the rAF loop can re-snap.
     // hoveredBtnRef is a hook-level ref so the rAF loop in the first useEffect
     // can read it without closing over the local variable.
-    let hoveredBtn = null;
-    const setHoveredBtn = (btn) => { hoveredBtn = btn; hoveredBtnRef.current = btn; };
+    const setHoveredBtn = (btn) => { hoveredBtnRef.current = btn; };
     let morphRafId     = null;   // active morph rAF handle
     let morphCleanup   = null;   // fn to cancel + restore after a morph
 
     // ── Easing ──────────────────────────────────────────────────────────────
     // ease-out cubic for enter, ease-in-out cubic for leave
-    const easeOutCubic    = (t) => 1 - Math.pow(1 - t, 3);
-    const easeInOutCubic  = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const easeOutQuart    = (t) => 1 - Math.pow(1 - t, 4);
     const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
 
     // ── Direction bias ───────────────────────────────────────────────────────

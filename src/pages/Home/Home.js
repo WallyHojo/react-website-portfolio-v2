@@ -21,7 +21,7 @@ import heroVideo from "../../assets/images/grok-video-9bcac0f6-ad9a-4660-a249-34
 import handleDots from "../../assets/images/handle-dots.svg";
 import arrowDown from "../../assets/images/arrow-down.svg";
 import arrowRight from "../../assets/images/arrow-right.svg";
-import diagnalLines from "../../assets/images/diagnal-lines.svg";
+/*import diagnalLines from "../../assets/images/diagnal-lines.svg";*/
 
 // CSS
 import "./Home.css";
