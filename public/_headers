@@ -1,0 +1,28 @@
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Resource-Policy: same-origin
+
+# HTML
+/*.html
+  Cache-Control: no-cache
+
+# JS & CSS bundles (CRA adds content hashes, safe to cache long-term)
+/static/js/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/static/css/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts
+/media/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: https://v2.waltercarlson.dev
+
+/media/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: https://v2.waltercarlson.dev
+
+# Images
+/*.png
+  Cache-Control: public, max-age=86400
