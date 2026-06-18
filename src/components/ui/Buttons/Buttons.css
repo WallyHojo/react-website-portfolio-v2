@@ -1,0 +1,104 @@
+:is(a, button).btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  max-width: fit-content;
+  /*height: fit-content;*/
+  font-size: clamp(0.875rem, 0.7917rem + 0.3704vw, 1.125rem);
+  color: var(--primary-text);
+  letter-spacing: 1.9px;
+  cursor: none;
+}
+
+.btn__text {
+  line-height: 1.1;
+}
+
+.btn:not(.btn-primary) .btn__text::after  {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-text-primary);
+  transform: scaleX(1);
+  transition: transform 0.5s var(--ease-interaction);
+}
+
+.btn:not(.btn-primary):hover .btn__text::after {
+  transform: scaleX(0.8);
+}
+
+.btn__arrow {
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+}
+
+.btn__arrow svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s var(--ease-interaction);
+}
+
+.btn:hover .btn__arrow svg {
+  transform: translate(2.2rem, -2.2rem);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  padding: 1.25rem 1.875rem;
+  text-transform: uppercase;
+  border-radius: 6rem;
+  border: solid 1px transparent;
+  box-shadow:
+    0 10px 25px 0 rgba(16, 24, 32, 0.15),
+    0 0 0 1px rgba(16, 24, 32, 0.05),
+    0 4px 20px transparent;
+  transition:
+  transform,
+  background-color,
+  box-shadow
+  0.6s var(--ease-interaction);
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  border: solid 1px var(--color-primary);
+  box-shadow:
+    0 10px 25px 0 rgba(16, 24, 32, 0.15),
+    0 0 0 1px rgba(16, 24, 32, 0.05),
+    0 4px 20px var(--color-primary-tint);
+}
+
+.btn-primary::before {
+  content: "";
+  background-color: transparent;
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  border-radius: 6rem;
+  transform: scaleX(0);
+  transform-origin: right;  
+  transition: transform 0.6s var(--ease-interaction);
+}
+
+.btn-primary:hover::before {
+  background-color: var(--color-primary-tint);
+  transform: scale(0.95);
+  transform: scaleX(1);
+  transform-origin: left;  
+}
+
+.btn.btn-primary .btn__arrow svg {
+  filter: drop-shadow(var(--color-bg-inverse) -2.2rem 2.2rem 0px);
+}
+
+.btn:not(.btn-primary) .btn__arrow svg {
+  filter: drop-shadow(var(--color-primary) -2.2rem 2.2rem 0px);
+}

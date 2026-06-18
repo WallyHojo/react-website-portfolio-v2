@@ -1,3 +1,340 @@
-.hero__content h1.heading {
-  white-space: normal;
+/* ========================================================================== */
+/*                                Overview Section                            */
+/* ========================================================================== */
+
+/* Media Queries */
+
+@media (width >=1280px) {
+  .section__overview-inner--about {
+    bottom: 25vh;
+  }
+}
+
+/* ========================================================================== */
+/*                                Story Section                               */
+/* ========================================================================== */
+
+.section__content {
+  gap: 3rem;
+}
+
+.logo-svg {
+  max-width: 75%;
+}
+
+.logo-path {
+  stroke-dasharray: var(--path-length);
+  stroke-dashoffset: var(--path-length);
+  animation: draw linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 50%;
+}
+
+.fill-mask-cover {
+  animation: mask-reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+  transform-origin: bottom center;
+}
+
+/* Media Queries */
+
+@media (width <=1199px) {
+  .section__content {
+    flex-direction: column;
+  }
+
+  .content__left {
+    max-width: initial;
+    order: 2;
+  }
+}
+
+@media (width >=1200px) {
+  .section__content>div {
+    flex: 0 1 50%;
+  }
+
+  .content__right {
+    margin: 0 auto;
+  }
+}
+
+/* ========================================================================== */
+/*                                Keyframes                                   */
+/* ========================================================================== */
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--path-length);
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mask-reveal {
+  from {
+    transform: scaleY(1);
+    /* fully covering */
+  }
+
+  to {
+    transform: scaleY(0);
+    /* fully revealed */
+  }
+}
+
+/* ========================================================================== */
+/*                                Skills Section                              */
+/* ========================================================================== */
+
+.section__skills {
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.section__skills .section__label {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.skills__marquee-wrap {
+  width: 100%;
+
+  animation-name: skills-fade-in-out;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+
+  animation-timeline: view();
+  animation-range: 0% cover 100%;
+}
+
+/* ========================================================================== */
+/*                                Keyframes                                   */
+/* ========================================================================== */
+
+@keyframes skills-fade-in-out {
+  0% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.25;
+  }
+}
+
+/* ========================================================================== */
+/*                                Stacked Cards                               */
+/* ========================================================================== */
+:root {
+  /* Stacking system
+         top = --stack-top-base + (card-index × --stack-top-step)
+         Card 1 → 80px, Card 2 → 110px, Card 3 → 140px … */
+  --stack-top-base: 1.875rem;
+  --stack-top-step: 0.9375rem;
+
+  /* Scale & brightness reduction per buried level.
+         Card buried under N cards:
+           scale      = 1 - (N × --stack-scale-step)
+           brightness = 1 - (N × --stack-bright-step)  */
+  --stack-scale-full: 1;
+  --stack-scale-step: 0.05;
+  --stack-bright-step: 0.055;
+  --stack-transform-start: 0;
+  --stack-transform-end: -0.9375rem;
+  --stack-opacity-start: 1;
+  --stack-opacity-end: 0;
+  --stack-blur-start: 0;
+  --stack-blur-end: 0.25rem;
+}
+
+.section__what {
+  row-gap: 1.875rem
+}
+
+/* ── Shared card base ── */
+.card--stacked {
+  position: sticky;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1000px;
+  padding: clamp(1.875rem, 5vw, 3.75rem);
+  min-height: 400px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(1.5rem, 6.25vw, 3rem);
+  align-items: center;
+  box-shadow: var(--card-shadow);
+  transform-origin: top center;
+}
+
+/* ── Per-card: position, colour, animation ──
+       top  = base + (n − 1) × step                */
+
+.card--stacked:nth-child(1) {
+  background: var(--color-bg-base);
+  top: calc(var(--stack-top-base) + 0 * var(--stack-top-step));
+  z-index: 1;
+  animation: scale-card-1 linear both;
+  animation-timeline: scroll();
+}
+
+.card--stacked:nth-child(2) {
+  background: var(--color-bg-subtle);
+  top: calc(var(--stack-top-base) + 1 * var(--stack-top-step));
+  z-index: 2;
+  animation: scale-card-2 linear both;
+  animation-timeline: scroll();
+}
+
+.card--stacked:nth-child(3) {
+  background: var(--color-bg-elevated);
+  top: calc(var(--stack-top-base) + 2 * var(--stack-top-step));
+  z-index: 3;
+  animation: scale-card-3 linear both;
+  animation-timeline: scroll();
+}
+
+.card--stacked:nth-child(4) {
+  background: var(--color-bg-surface);
+  top: calc(var(--stack-top-base) + 3 * var(--stack-top-step));
+  z-index: 4;
+  animation: scale-card-4 linear both;
+  animation-timeline: scroll();
+}
+
+.card--stacked:nth-child(5) {
+  background: var(--color-bg-overlay);
+  top: calc(var(--stack-top-base) + 4 * var(--stack-top-step));
+  z-index: 5;
+  animation: scale-card-5 linear both;
+  animation-timeline: scroll();
+}
+
+.stacked__label {
+  margin-bottom: 0.625rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--color-text-disabled);
+  text-transform: uppercase;
+}
+
+.stacked__icon {
+  width: clamp(60px, 20.86vw, 160px);
+  height: clamp(60px, 20.86vw, 160px);
+  border-radius: 0.75rem;
+  background: var(--color-primary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.stacked__icon svg {
+  width: clamp(40px, 13.03vw, 100px);
+  height: clamp(40px, 13.03vw, 100px);
+}
+
+/* Media Queries */
+
+@media (width <= 767px) {
+  .card--stacked {
+    grid-template-columns: 1fr;
+  }
+  
+  .stacked__text {
+    order: 2;
+  }
+}
+
+/* ========================================================================== */
+/*                                Keyframes                                   */
+/* ========================================================================== */
+
+@keyframes scale-card-1 {
+  0% {
+    transform: scale(var(--stack-scale-full));
+  }
+
+  20% {
+    transform: translateY(var(--stack-transform-start));
+  }
+
+  50% {
+    opacity: var(--stack-opacity-start);
+    filter: blur(var(--stack-blur-start))
+  }
+
+  100% {
+    transform: scale(calc(var(--stack-scale-full) - 4 * var(--stack-scale-step))) translateY(var(--stack-transform-end));
+    opacity: var(--stack-opacity-end);
+    filter: blur(var(--stack-blur-end))
+  }
+}
+
+@keyframes scale-card-2 {
+  0% {
+    transform: scale(var(--stack-scale-full));
+  }
+
+  40% {
+    transform: translateY(var(--stack-transform-start));
+  }
+
+  60% {
+    opacity: var(--stack-opacity-start);
+    filter: blur(var(--stack-blur-start))
+  }
+
+  100% {
+    transform: scale(calc(var(--stack-scale-full) - 3 * var(--stack-scale-step))) translateY(var(--stack-transform-end));
+    opacity: var(--stack-opacity-end);
+    filter: blur(var(--stack-blur-end))
+  }
+}
+
+@keyframes scale-card-3 {
+  0% {
+    transform: scale(var(--stack-scale-full));
+  }
+
+  60% {
+    transform: translateY(var(--stack-transform-start));
+  }
+
+  70% {
+    opacity: var(--stack-opacity-start);
+    filter: blur(var(--stack-blur-start))
+  }
+
+  100% {
+    transform: scale(calc(var(--stack-scale-full) - 2 * var(--stack-scale-step))) translateY(var(--stack-transform-end));
+    opacity: var(--stack-opacity-end);
+    filter: blur(var(--stack-blur-end))
+  }
+}
+
+@keyframes scale-card-4 {
+  0% {
+    transform: scale(var(--stack-scale-full));
+  }
+
+  80% {
+    transform: translateY(var(--stack-transform-start));
+    opacity: var(--stack-opacity-start);
+    filter: blur(var(--stack-blur-start))
+  }
+
+  100% {
+    transform: scale(calc(var(--stack-scale-full) - 1 * var(--stack-scale-step))) translateY(var(--stack-transform-end));
+    opacity: var(--stack-opacity-end);
+    filter: blur(var(--stack-blur-end))
+  }
 }

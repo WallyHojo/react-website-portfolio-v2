@@ -1,0 +1,60 @@
+.section__label {
+  margin-bottom: clamp(2rem, 1.1723rem + 1.3363vw, 2.375rem);
+  padding-top: 0;
+  padding-bottom: 0;
+  row-gap: 0.625rem;
+}
+
+/* Support for the classes actually emitted by the SectionLabel component */
+.label__count {
+  top: calc(120px / -1.4);
+  font-weight: 600;
+  font-size: 120px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-bg-elevated-tint);
+  text-transform: uppercase;
+}
+
+.label--blend .label__count {
+  mix-blend-mode: plus-lighter;
+}
+
+.label__system {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--color-bg-overlay);
+  text-transform: uppercase;
+}
+
+.label__title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* Hero variant (used inside HeroSection) — tighter spacing since the main title is the h1 below */
+.label__system--hero {
+  margin-bottom: 0.5rem; /* small gap before the big h1 */
+}
+
+/* Media Queries */
+
+@media (width >= 992px) and (width <= 1279px) {
+  .label__count {
+    left: -30px;
+  }
+}
+
+@media (width <= 991px) {
+  .label__count {
+    top: -50px;
+    right: 0;
+  }
+}
+
+@media (width >= 1280px) {
+  .label__count {
+    left: -55px;
+  }
+}

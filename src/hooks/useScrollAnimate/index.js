@@ -1,1 +1,1 @@
-export { useSA, useSAReplay } from './useScrollAnimate';
+export { useSA, useSAReplay, useSAMediaSync } from './useScrollAnimate';

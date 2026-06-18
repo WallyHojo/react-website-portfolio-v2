@@ -1,7 +1,7 @@
 /* ══════════════════════════════════════════
    MARQUEE SCROLL SYSTEM
 
-   Motion is driven entirely by useMarqueeScroll.js
+   Motion is driven entirely by useMarqueeScroll.jsx
    via RAF + translate3d. There is NO CSS animation
    on .marquee-track — the JS hook disables it on
    mount and owns the transform from that point on.

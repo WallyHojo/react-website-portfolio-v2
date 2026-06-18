@@ -1,0 +1,117 @@
+.section__hero {
+  background: radial-gradient(ellipse 125% 150% at 90% 10%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 80% 45%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 75% 75%, #494949, transparent 20%), radial-gradient(ellipse 125% 150% at 10% 85%, #101010, transparent 20%), linear-gradient(to right, #101010 0%, #333333 50%);
+  padding-top: clamp(6.5rem, 15.625vw, 10rem) !important;
+
+  view-timeline-name: --hero;
+  view-timeline-axis: block;  
+}
+
+.section__hero::before {
+  content: "";
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+}
+
+.section__label--hero {
+  margin-bottom: 0;
+}
+
+.decor__shape {
+  z-index: 0;
+}
+
+.dots--1 {
+  top: 15%;
+  right: min(40rem, 75vh);
+  opacity: 0.5;
+}
+
+.dots--2 {
+  bottom: 10%;
+  left: min(30rem, 55vh);
+  filter: contrast(0.9) !important;
+}
+
+.arrow-down--1 {
+  top: 40%;
+  left: min(50rem, 85vh);
+  transform: rotate(-90deg);
+  filter: contrast(0.9) !important;
+}
+
+.arrow-down--2 {
+  bottom: 15%;
+  right: 5%;
+}
+
+.section__mask {
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #1a1919 25%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transform-origin: bottom center;
+
+  animation-name: scroll-mask-reveal;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Reference the section's timeline */
+  animation-timeline: --hero;
+  animation-range: exit 25% exit 80%;
+  z-index: 1;
+}
+
+/* Media Queries */
+
+@media (width <= 1199px) {
+  .dots--1 {
+    top: 20%;
+    right: 60%;
+  }
+}
+
+@media (width <= 991) {
+  .section__mask {
+    animation-range: exit 50% exit 90%;
+  }
+}
+
+@media (width <= 767px) {
+  .section__hero {
+      height: 100svh;
+  }
+    
+  .hero__content h1.heading {
+    font-weight: 600;
+  }
+
+  .dots--2 {
+    left: 50%;
+  }
+
+  .arrow-down--1 {
+    left: 75%;
+  }
+}
+
+/* ========================================================================== */
+/*                                Keyframes                                   */
+/* ========================================================================== */
+
+@keyframes scroll-mask-reveal {
+  from { 
+    opacity: 0;
+    transform: scaleY(0); 
+  }
+  to   { 
+    opacity: 1;
+    transform: scaleY(1);  
+  }
+}

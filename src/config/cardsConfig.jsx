@@ -1,0 +1,308 @@
+import { ReactComponent as ReactIcon } from "../assets/images/icons/react.svg";
+import { ReactComponent as HTMLIcon } from "../assets/images/icons/html.svg";
+import { ReactComponent as CSSIcon } from "../assets/images/icons/css.svg";
+import { ReactComponent as GithubIcon } from "../assets/images/icons/github.svg";
+import { ReactComponent as WordpressIcon } from "../assets/images/icons/wordpress.svg";
+import { ReactComponent as DesignIcon } from "../assets/images/icons/design.svg";
+import { ReactComponent as ResponsiveDesignIcon } from "../assets/images/icons/responsive-design.svg";
+import { ReactComponent as UIIcon } from "../assets/images/icons/ui.svg";
+import { ReactComponent as ApplicationIcon } from "../assets/images/icons/application.svg";
+import { ReactComponent as ProgrammingIcon } from "../assets/images/icons/programming.svg";
+import { ReactComponent as BugIcon } from "../assets/images/icons/bug.svg";
+import { ReactComponent as CreativityIcon } from "../assets/images/icons/creativity.svg";
+import { ReactComponent as TeamworkIcon } from "../assets/images/icons/teamwork.svg";
+import { ReactComponent as UXIcon } from "../assets/images/icons/ux.svg";
+
+import '../assets/styles/cards.css';
+
+export const CORE_EXPERTISE = [
+  {
+    id: "frontend",
+    title: "Front-End Development",
+    summary: "Production-grade interfaces from prototype to deployment—structured, tested, and built to scale.",
+    focus: ["Component-driven UI", "State & data flow", "Cross-browser fidelity"],
+  },
+  {
+    id: "react",
+    title: "React",
+    summary: "Composable architectures with hooks, context, and performance-conscious rendering patterns.",
+    focus: ["Custom hooks", "Server & client boundaries", "Reusable primitives"],
+  },
+  {
+    id: "js-ts",
+    title: "JavaScript / TypeScript",
+    summary: "Strong typing where it matters, pragmatic JavaScript where it moves faster.",
+    focus: ["Type-safe APIs", "Async patterns", "Module architecture"],
+  },
+  {
+    id: "css",
+    title: "CSS Architecture",
+    summary: "Layered styling systems—custom properties, logical properties, and maintainable specificity.",
+    focus: ["Design tokens", "Layout primitives", "Scoped modules"],
+  },
+  {
+    id: "responsive",
+    title: "Responsive Design",
+    summary: "Fluid layouts that respect content, context, and every breakpoint in between.",
+    focus: ["Mobile-first", "Container queries", "Adaptive typography"],
+  },
+  {
+    id: "motion",
+    title: "Animation & Motion",
+    summary: "Scroll-driven and interaction-led motion that guides attention without stealing focus.",
+    focus: ["View timelines", "Micro-interactions", "Reduced-motion respect"],
+  },
+  {
+    id: "a11y",
+    title: "Accessibility",
+    summary: "Semantic structure, keyboard flows, and WCAG-minded patterns baked into every layer.",
+    focus: ["ARIA semantics", "Focus management", "Screen reader clarity"],
+  },
+  {
+    id: "perf",
+    title: "Performance Optimization",
+    summary: "Lean bundles, efficient rendering, and measurable improvements users actually feel.",
+    focus: ["Code splitting", "Lazy loading", "Core Web Vitals"],
+  },
+  {
+    id: "systems",
+    title: "Design Systems",
+    summary: "Token-driven component libraries that keep teams aligned and interfaces consistent.",
+    focus: ["Documentation", "Variant APIs", "Cross-product parity"],
+  },
+];
+
+export const CAPABILITY_CLUSTERS = [
+  {
+    id: "interface",
+    label: "Interface Layer",
+    tag: "UI",
+    description: "Where design intent becomes interactive, tactile surfaces—layout, typography, and component behavior working as one system.",
+    capabilities: ["Component composition", "Layout systems", "Visual hierarchy", "Interaction states"],
+    related: ["react", "css", "responsive"],
+  },
+  {
+    id: "architecture",
+    label: "Architecture",
+    tag: "SYS",
+    description: "The structural backbone—how code is organized, shared, and extended without creating fragility downstream.",
+    capabilities: ["Folder conventions", "Shared primitives", "Config-driven UI", "Composable hooks"],
+    related: ["react", "js-ts", "systems"],
+  },
+  {
+    id: "experience",
+    label: "Experience",
+    tag: "UX",
+    description: "Motion, feedback, and flow that make interfaces feel intentional—never decorative for decoration's sake.",
+    capabilities: ["Scroll choreography", "State transitions", "Loading patterns", "Error recovery"],
+    related: ["motion", "a11y", "perf"],
+  },
+  {
+    id: "delivery",
+    label: "Delivery",
+    tag: "SHIP",
+    description: "From Figma frames to production deploys—tight design-to-code loops with quality gates at every handoff.",
+    capabilities: ["Design handoff", "Build pipelines", "QA workflows", "Release readiness"],
+    related: ["frontend", "perf", "systems"],
+  },
+  {
+    id: "craft",
+    label: "Craft",
+    tag: "REFINE",
+    description: "The details that separate good from exceptional—spacing rhythm, contrast, polish, and accessibility as craft.",
+    capabilities: ["Pixel refinement", "Token alignment", "Edge-case handling", "Documentation"],
+    related: ["css", "a11y", "responsive"],
+  },
+];
+
+export const TECH_STACK = [
+  {
+    id: "frameworks",
+    label: "Frameworks & Libraries",
+    items: [
+      { id: "react", name: "React", icon: <ReactIcon /> },
+      { id: "astro", name: "Astro" },
+      { id: "wordpress", name: "WordPress", icon: <WordpressIcon /> },
+    ],
+  },
+  {
+    id: "languages",
+    label: "Languages & Markup",
+    items: [
+      { id: "typescript", name: "TypeScript" },
+      { id: "javascript", name: "JavaScript", icon: <ProgrammingIcon /> },
+      { id: "html", name: "HTML", icon: <HTMLIcon /> },
+      { id: "css", name: "CSS / SCSS", icon: <CSSIcon /> },
+      { id: "tailwind", name: "Tailwind" },
+    ],
+  },
+  {
+    id: "tooling",
+    label: "Build & Tooling",
+    items: [
+      { id: "vite", name: "Vite" },
+      { id: "git", name: "Git", icon: <GithubIcon /> },
+    ],
+  },
+  {
+    id: "design",
+    label: "Design & Workflow",
+    items: [
+      { id: "figma", name: "Figma", icon: <DesignIcon /> },
+      { id: "responsive", name: "Responsive Systems", icon: <ResponsiveDesignIcon /> },
+      { id: "ui", name: "UI Engineering", icon: <UIIcon /> },
+    ],
+  },
+  {
+    id: "ai",
+    label: "AI-Assisted Development",
+    items: [
+      { id: "claude", name: "Claude Code" },
+      { id: "ollama", name: "Ollama" },
+      { id: "ai-tools", name: "AI Dev Tools" },
+    ],
+  },
+];
+
+export const EXPERIENCE_HIGHLIGHTS = [
+  {
+    id: "production",
+    index: "01",
+    title: "Production Applications",
+    description: "Shipping responsive, high-traffic interfaces for automotive and enterprise clients—600+ sites modernized and maintained in production.",
+    icon: <ApplicationIcon />,
+  },
+  {
+    id: "design-code",
+    index: "02",
+    title: "Design-to-Code Workflows",
+    description: "Translating Figma systems into token-aligned component libraries with pixel fidelity and developer-friendly APIs.",
+    icon: <DesignIcon />,
+  },
+  {
+    id: "performance",
+    index: "03",
+    title: "Performance Optimization",
+    description: "Auditing render paths, bundle weight, and interaction latency—making measurable gains in load time and scroll smoothness.",
+    icon: <ResponsiveDesignIcon />,
+  },
+  {
+    id: "components",
+    index: "04",
+    title: "Component Architecture",
+    description: "Building composable, documented primitives that teams can extend without breaking visual or behavioral consistency.",
+    icon: <UIIcon />,
+  },
+  {
+    id: "ui-engineering",
+    index: "05",
+    title: "UI Engineering",
+    description: "Bridging design and engineering—owning the full surface from layout logic to interaction polish and accessibility.",
+    icon: <ProgrammingIcon />,
+  },
+  {
+    id: "interactive",
+    index: "06",
+    title: "Interactive Experiences",
+    description: "Scroll-driven narratives, magnetic interactions, and motion systems that reinforce content without overwhelming it.",
+    icon: <BugIcon />,
+  },
+];
+
+export const DEV_PHILOSOPHY = [
+  {
+    id: "intent",
+    title: "Intent before implementation",
+    body: "Every interface decision should trace back to a user need or business goal. Code is the medium—not the message.",
+  },
+  {
+    id: "systems",
+    title: "Systems over one-offs",
+    body: "Reusable patterns, shared tokens, and documented components compound over time. One-off solutions create long-term debt.",
+  },
+  {
+    id: "accessible",
+    title: "Accessible by default",
+    body: "Accessibility isn't a final pass—it's woven into structure, interaction, and motion from the first commit.",
+  },
+  {
+    id: "motion",
+    title: "Motion with purpose",
+    body: "Animation should clarify hierarchy and guide attention. If it doesn't serve the content, it doesn't belong.",
+  },
+  {
+    id: "craft",
+    title: "Craft in the details",
+    body: "Spacing rhythm, typographic nuance, and edge-case handling are what separate polished interfaces from merely functional ones.",
+  },
+  {
+    id: "iterate",
+    title: "Ship, measure, refine",
+    body: "Production feedback beats theoretical perfection. Iterate with data, user signals, and team input—not assumptions.",
+  },
+];
+
+export const ABOUT_PRINCIPLES = [
+  {
+    id: "clarity",
+    title: "Clarity before execution",
+    body: "I focus on understanding the problem deeply before jumping into solutions. Clear goals, expectations, and constraints prevent most downstream issues.",
+  },
+  {
+    id: "structure",
+    title: "Structure enables speed",
+    body: "Good systems, clean communication, and well-defined ownership create momentum. I believe speed comes from stability, not chaos.",
+  },
+  {
+    id: "people",
+    title: "People over process",
+    body: "I prioritize healthy collaboration and trust, while ensuring enough process exists to keep work predictable and scalable.",
+  },
+  {
+    id: "calm",
+    title: "Stay calm, solve early",
+    body: "I don’t react to pressure, I reduce it. I aim to spot friction early, de-escalate when needed, and keep teams focused on forward progress.",
+  },
+];
+
+export const ABOUT_WHAT = [
+  {
+    id: "impact",
+    title: "Value Delivered",
+    body: [
+      "Beyond design and development, I bring a strong understanding of how digital products are planned, delivered, and maintained. Throughout my career, I've worked closely with designers, developers, marketers, product owners, and stakeholders to align business goals with user needs.", 
+      "I enjoy bringing clarity to complex projects, whether that means establishing design standards, improving development workflows, mentoring team members, or helping teams make thoughtful technical decisions. My goal is always the same: build products that are easier to use, easier to maintain, and easier for teams to evolve over time."
+    ],
+    icon: <CreativityIcon />,
+  },
+  {
+    id: "intent",
+    title: "Designing With Purpose",
+    body: [
+      "Good interfaces are not just visually appealing; they help people accomplish tasks with confidence.",
+      "Every design decision should serve a purpose. Whether I'm creating a landing page, a product feature, or a complete website experience, I focus on usability, accessibility, performance, and long-term maintainability. I believe the best experiences often feel effortless because the complexity has been thoughtfully solved behind the scenes.",
+      "The details matter, but only when they support the larger experience."
+      ],
+      icon: <DesignIcon />,
+  },
+  {
+    id: "stewardship",
+    title: "Leadership & Mentorship",
+    body: [
+      "Over the years, my role has expanded beyond individual contributions into helping others succeed.",
+      "I've mentored designers and developers, guided project teams, reviewed work, and helped establish standards that improve consistency across products. I enjoy creating environments where people can do their best work by providing structure, support, and clear communication.",
+      "Leadership, to me, is not about directing every decision. It's about creating clarity, removing obstacles, and helping teams move forward together."
+      ],
+      icon: <UXIcon />,
+  },
+  {
+    id: "collaboration",
+    title: "Working Together",
+    body: [
+      "I value transparency, accountability, and collaboration.",
+      "The best projects happen when people communicate openly, challenge ideas respectfully, and stay focused on shared goals. I enjoy working with teams that care deeply about quality while remaining practical about timelines, priorities, and business needs.",
+      "Whether I'm contributing as a designer, developer, technical lead, or collaborator, I strive to be someone people can rely on when projects become complex or challenging."
+      ],
+      icon: <TeamworkIcon />,
+  },
+];

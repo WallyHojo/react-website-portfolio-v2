@@ -1,12 +1,36 @@
-.cursor {
+/* ========================================================================== */
+/*                              Configuration                                 */
+/* ========================================================================== */
+
+:root {
+  --cursor-idle-delay: 1200; /* ms before cursor enters idle state */
+}
+
+/* ========================================================================== */
+/*                                  Cursor                                    */
+/* ========================================================================== */
+
+/* Grouping container — state modifier classes are applied here by JS.
+   No position or z-index so fixed children stay in the root stacking context. */
+.cursor-custom {
+  pointer-events: none;
+}
+
+/* Shared base styles for both cursor elements */
+.cursor-custom > * {
   position: fixed;
   top: 0;
   left: 0;
+  pointer-events: none;
+  will-change: left, top, transform;
+  opacity: 0;
+}
+
+.custom-cursor--dot {
   width: 6px;
   height: 6px;
   background: var(--color-primary-active);
   border-radius: 50%;
-  pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%) scale(1);
   transition:
@@ -15,21 +39,21 @@
     background 0.3s ease,
     transform 0.15s ease,
     opacity 0.3s ease;
-  will-change: left, top, transform;
-  opacity: 0;
 }
 
-.cursor-ring {
+.custom-cursor--ring {
   --velocity-scale: 1;
+  --ring-size: 32px;               /* natural diameter of the ring */
+  --ring-lerp: 0.12;               /* follow smoothing — lower = softer/slower */
+  --velocity-sensitivity: 0.012;   /* how much cursor speed stretches the ring */
+  --velocity-max-scale: 0.45;      /* maximum extra scale from velocity */
+  --morph-enter-duration: 320;     /* ms — ring morphs into button on hover */
+  --morph-leave-duration: 460;     /* ms — ring returns to cursor on leave */
 
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
+  width: var(--ring-size);
+  height: var(--ring-size);
   border: 1.5px solid var(--color-primary-active);
   border-radius: 50%;
-  pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%) scale(var(--velocity-scale));
   transition:
@@ -38,24 +62,22 @@
     border-color 0.3s ease,
     opacity 0.3s ease,
     transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
-  will-change: left, top, transform;
-  opacity: 0;
 }
 
-.cursor.cursor--active {
+/* ── Active ──────────────────────────────────────────────────────────────── */
+
+.cursor-custom--active > * {
   opacity: 1;
 }
 
-.cursor-ring.cursor-ring--active {
-  opacity: 1;
-}
+/* ── Idle ────────────────────────────────────────────────────────────────── */
 
-.cursor.cursor--idle {
+.cursor-custom--idle > .custom-cursor--dot {
   background-color: var(--color-bg-inverse);
   opacity: 0.4;
 }
 
-.cursor-ring.cursor-ring--idle {
+.cursor-custom--idle > .custom-cursor--ring {
   width: 45px;
   height: 45px;
   opacity: 0.25;
@@ -74,18 +96,17 @@
   }
 }
 
-.cursor.cursor--hovering {
-  background: var(--color-primary-active);
-}
+/* ── Hovering ────────────────────────────────────────────────────────────── */
 
-.cursor-ring.cursor-ring--hovering {
+.cursor-custom--hovering > .custom-cursor--ring {
   width: 45px;
   height: 45px;
-  border-color: var(--color-primary-active);
   --velocity-scale: 1 !important; /* lock scale while hovering */
 }
 
-.cursor.cursor--clicking {
+/* ── Clicking ────────────────────────────────────────────────────────────── */
+
+.cursor-custom--clicking > .custom-cursor--dot {
   transform: translate(-50%, -50%) scale(0.65);
   transition:
     width 0.08s ease-out,
@@ -95,7 +116,7 @@
     opacity 0.1s ease;
 }
 
-.cursor-ring.cursor-ring--clicking {
+.cursor-custom--clicking > .custom-cursor--ring {
   width: 28px;
   height: 28px;
   border-width: 2px;
@@ -110,36 +131,38 @@
     transform 0.12s ease-out;
 }
 
-/* Contextual Color Varients */
+/* ── Contextual Color Variants ───────────────────────────────────────────── */
 
-.cursor[data-cursor="light"] {
+.custom-cursor--dot[data-cursor="light"] {
   background: var(--color-bg-inverse);
 }
-.cursor-ring[data-cursor="light"] {
+.custom-cursor--ring[data-cursor="light"] {
   border-color: var(--color-bg-inverse);
 }
 
-.cursor[data-cursor="dark"] {
+.custom-cursor--dot[data-cursor="dark"] {
   background: var(--color-text-inverse);
 }
-.cursor-ring[data-cursor="dark"] {
+.custom-cursor--ring[data-cursor="dark"] {
   border-color: var(--color-text-inverse);
 }
 
-.cursor[data-cursor="accent"] {
+.custom-cursor--dot[data-cursor="accent"] {
   background: var(--color-primary);
 }
-.cursor-ring[data-cursor="accent"] {
+.custom-cursor--ring[data-cursor="accent"] {
   border-color: var(--color-primary);
 }
 
-/* Cursor Ring Hover Effects */
+/* ── Ring Morph States ───────────────────────────────────────────────────── */
 
-.cursor-ring:is(.cursor-ring--btn-primary,.cursor-ring--btn-secondary) {
+.custom-cursor--ring:is(
+  .custom-cursor--ring--btn-primary,
+  .custom-cursor--ring--btn-secondary
+) {
   /* Transition is suspended by JS during morph;
      this rule is only a fallback / documentation. */
   border-radius: 0 !important;
-  border-color: var(--color-primary-active);
   will-change: left, top, width, height, border-radius, transform;
 }
 
@@ -148,6 +171,8 @@
 /* ========================================================================== */
 
 .cursor-target {
+  --offset: 5px; /* gap between corner brackets and button edges */
+
   /* Sits in document flow at (0,0); JS moves it
      with position:fixed + inset values */
   position: fixed;
@@ -181,8 +206,8 @@
 }
 
 .cursor-target--visible.cursor-target--btn-secondary .cursor-target__corner {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   opacity: 1;
   transform: translate(0);
 }
@@ -236,13 +261,15 @@
 }
 
 /* ========================================================================== */
-/*                          Cursor Target Variants                            */
+/*                                 Magnetic                                   */
 /* ========================================================================== */
 
 .magnetic {
   --mx: 0;
   --my: 0;
   --strength: 18px;
+  --spring-stiffness: 220; /* higher = faster oscillation on leave */
+  --spring-damping: 8;     /* lower = more bounces before settling */
   transform: translate(
     calc(var(--mx) * var(--strength)),
     calc(var(--my) * var(--strength))
