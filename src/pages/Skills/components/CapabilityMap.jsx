@@ -18,9 +18,6 @@ export default function CapabilityMap() {
   const [activeId, setActiveId] = useState(CAPABILITY_CLUSTERS[0].id);
   const mapId = useId();
 
-  const activeCluster =
-    CAPABILITY_CLUSTERS.find((cluster) => cluster.id === activeId) ?? CAPABILITY_CLUSTERS[0];
-
   const handleSelect = useCallback((id) => {
     setActiveId(id);
   }, []);
