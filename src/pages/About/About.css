@@ -26,13 +26,13 @@
   stroke-dasharray: var(--path-length);
   stroke-dashoffset: var(--path-length);
   animation: draw linear both;
-  animation-timeline: view();
+  animation-timeline: view() !important;
   animation-range: entry 0% cover 50%;
 }
 
 .fill-mask-cover {
   animation: mask-reveal linear both;
-  animation-timeline: view();
+  animation-timeline: view() !important;
   animation-range: entry 10% cover 40%;
   transform-origin: bottom center;
 }
