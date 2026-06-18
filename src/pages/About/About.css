@@ -184,7 +184,7 @@
   top: calc(var(--stack-top-base) + 0 * var(--stack-top-step));
   z-index: 1;
   animation: scale-card-1 linear both;
-  animation-timeline: scroll();
+  animation-timeline: scroll() !important;
 }
 
 .card--stacked:nth-child(2) {
@@ -192,7 +192,7 @@
   top: calc(var(--stack-top-base) + 1 * var(--stack-top-step));
   z-index: 2;
   animation: scale-card-2 linear both;
-  animation-timeline: scroll();
+  animation-timeline: scroll() !important;
 }
 
 .card--stacked:nth-child(3) {
@@ -200,7 +200,7 @@
   top: calc(var(--stack-top-base) + 2 * var(--stack-top-step));
   z-index: 3;
   animation: scale-card-3 linear both;
-  animation-timeline: scroll();
+  animation-timeline: scroll() !important;
 }
 
 .card--stacked:nth-child(4) {
@@ -208,7 +208,7 @@
   top: calc(var(--stack-top-base) + 3 * var(--stack-top-step));
   z-index: 4;
   animation: scale-card-4 linear both;
-  animation-timeline: scroll();
+  animation-timeline: scroll() !important;
 }
 
 .card--stacked:nth-child(5) {
@@ -216,7 +216,7 @@
   top: calc(var(--stack-top-base) + 4 * var(--stack-top-step));
   z-index: 5;
   animation: scale-card-5 linear both;
-  animation-timeline: scroll();
+  animation-timeline: scroll() !important;
 }
 
 .stacked__label {
