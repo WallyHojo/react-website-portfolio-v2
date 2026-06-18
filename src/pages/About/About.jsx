@@ -159,7 +159,7 @@ function About() {
       </section>
 
       {/* Skill Section */}
-      <section className="section section__skills section-padding" aria-label="Skills and Expertise">
+      <section className="section section__skills skills--about section-padding" aria-label="Skills and Expertise">
         <SectionLabel className="section-padding" labelSystem="section.skills"></SectionLabel>
         <div className="skills__marquee-wrap">
           <Marquee rtl faded>

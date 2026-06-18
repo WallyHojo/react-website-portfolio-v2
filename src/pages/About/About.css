@@ -90,18 +90,18 @@
 /*                                Skills Section                              */
 /* ========================================================================== */
 
-.section__skills {
+.skills--about {
   padding-top: 0;
   padding-right: 0;
   padding-left: 0;
 }
 
-.section__skills .section__label {
+.skills--about .section__label {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-.skills__marquee-wrap {
+.skills--about .skills__marquee-wrap {
   width: 100%;
 
   animation-name: skills-fade-in-out;
