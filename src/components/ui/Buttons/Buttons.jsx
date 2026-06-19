@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { forwardRef } from 'react';
 
+import { TransitionLink } from '../PageTransition/PageTransition';
 import "./Buttons.css";
 
 const ArrowPrimary = () => (
@@ -87,9 +87,9 @@ const Btn = forwardRef(({
 
   if (to) {
     return (
-      <Link to={to} ref={ref} {...commonProps}>
+      <TransitionLink to={to} ref={ref} {...commonProps}>
         {content}
-      </Link>
+      </TransitionLink>
     );
   }
 

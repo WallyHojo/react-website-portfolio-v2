@@ -1,10 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-import { useMagnetic } from './hooks/useMagneticEffect/useMagneticEffect';
 import { useSA, useSARouteSync } from './hooks/useScrollAnimate/useScrollAnimate';
+import { useMagnetic } from './hooks/useMagneticEffect/useMagneticEffect';
 import useScrollToTop from "./hooks/useScrollToTop";
 import { useSmoothScroll } from './hooks/useSmoothScroll';
+import { PageTransitionProvider } from './components/ui/PageTransition/PageTransition';
 import Navbar from './components/layout/Navbar/Navbar';
 import Footer from './components/layout/Footer/Footer';
 import Home from './pages/Home/Home';
@@ -26,22 +27,27 @@ function AppInner() {
   // Scroll to top on route change
   useScrollToTop();
 
+  // Custom cursor — must live inside Router for route-change resets
+  useMagnetic();
+
   return (
     <>
-      <Navbar />
-      <main>
-        <Suspense fallback={null}>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="skills" element={<Skills />} />
-            <Route path="work/*" element={<Work />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="resume" element={<Resume />} />
-          </Routes>
-        </Suspense>
-      </main>
-      <Footer />
+      <PageTransitionProvider>
+        <Navbar />
+        <main>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="skills" element={<Skills />} />
+              <Route path="work/*" element={<Work />} />
+              <Route path="about" element={<About />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="resume" element={<Resume />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </PageTransitionProvider>
     </>
   );
 }
@@ -52,9 +58,6 @@ function App() {
   
   // Deferred: smooth scroll (100ms delay to prioritize first paint)
   useSmoothScroll();
-  
-  // Non-critical: magnetic cursor effect
-  useMagnetic();
 
   return (
     <Router>

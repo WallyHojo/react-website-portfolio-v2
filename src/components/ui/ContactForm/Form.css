@@ -9,6 +9,10 @@
   box-shadow: var(--shadow);
 }
 
+.contact__content {
+  row-gap: 1.25rem;
+}
+
 .form__group {
   margin-bottom: 1.5rem;
   gap: 1.5rem;
@@ -105,7 +109,6 @@
 @media (width >= 992px) {
   .contact__content {
     flex-basis: 40%;
-    row-gap: 1.25rem;
   }
 
   .contact__form {

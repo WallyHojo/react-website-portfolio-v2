@@ -207,6 +207,12 @@
     height: 250vh;
   }
 
+  @supports (-moz-appearance: none) {
+    .skills__intro-wrapper {
+      height: initial;
+    }
+  }  
+
   .skills__content {
     flex-basis: 40%;
   }

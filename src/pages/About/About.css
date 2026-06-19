@@ -224,6 +224,12 @@
   animation-timeline: scroll() !important;
 }
 
+@supports (-moz-appearance: none) {
+  .card--stacked {
+    animation: none !important;
+  }
+}
+
 .stacked__label {
   margin-bottom: 0.625rem;
   font-size: 0.7rem;

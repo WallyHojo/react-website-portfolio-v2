@@ -14,6 +14,7 @@ import { WORK_LIST } from "../../config/workList.jsx";
 import { MAIN_OVERVIEW_STATS } from "../../config/overviewStats.jsx";
 import heroVideo from "../../assets/images/grok-video-9bcac0f6-ad9a-4660-a249-34424dfab915.mp4";
 import "./Home.css";
+import "../../assets/styles/noise.css";
 
 // Component for individual skill chips in the marquee
 const SkillChip = React.memo(({ label, icon, shadow }) => {

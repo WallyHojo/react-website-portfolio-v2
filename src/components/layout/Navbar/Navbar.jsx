@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 import { useSAReplay } from "../../../hooks/useScrollAnimate/useScrollAnimate";
 import { useActiveRoute } from "../../../hooks/useActiveRoute";
+import { useTransition } from "../../ui/PageTransition/PageTransition";
 import Btn from "../../ui/Buttons";
 import { NAV_LINKS } from "../../../config/navLinks";
 import "./Navbar.css";
@@ -150,7 +151,7 @@ function useScrollHeader() {
 }
 
 function useMenuState() {
-  const navigate = useNavigate();
+  const { triggerTransition } = useTransition();
   const [menuOpen, setMenuOpen] = useState(false); // false | true | "closing"
   const pendingNav = useRef(null);
   const menuRef = useRef(null);
@@ -170,10 +171,10 @@ function useMenuState() {
     if (e.target !== e.currentTarget || menuOpen !== "closing") return;
     setMenuOpen(false);
     if (pendingNav.current) {
-      navigate(pendingNav.current);
+      triggerTransition(pendingNav.current);
       pendingNav.current = null;
     }
-  }, [menuOpen, navigate]);
+  }, [menuOpen, triggerTransition]);
 
   // Keyboard escape
   useEffect(() => {

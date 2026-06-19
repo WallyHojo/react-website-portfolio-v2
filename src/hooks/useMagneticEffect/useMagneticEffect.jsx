@@ -19,8 +19,9 @@
  */
 
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
-// CSS
+import { CURSOR_RESET_EVENT } from "./cursorReset";
 import "./useMagneticEffect.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -60,10 +61,12 @@ const makeCursorCls = (cls, wrapperRef) => ({
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function useMagnetic(sectionRef) {
+  const location = useLocation();
   const dotRef     = useRef(null);
   const ringRef    = useRef(null);
   const wrapperRef = useRef(null);
   const hoveredBtnRef = useRef(null); // tracks hovered .btn-primary / .btn-secondary for rAF loop
+  const resetCursorRef = useRef(null);
 
   const mouse = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
@@ -97,6 +100,13 @@ export function useMagnetic(sectionRef) {
       ringRef.current    = ringEl;
       wrapperRef.current = wrapper;
       document.body.append(wrapper);
+
+      const { x: mx, y: my } = mouse.current;
+      ringPos.current = { x: mx, y: my };
+      dot.style.left = `${mx}px`;
+      dot.style.top = `${my}px`;
+      ringEl.style.left = `${mx}px`;
+      ringEl.style.top = `${my}px`;
 
       // ── Cursor-target singleton ──────────────────────────────────────────
       // Created once alongside the cursor elements so it is torn down with
@@ -433,6 +443,72 @@ export function useMagnetic(sectionRef) {
     // transform-origin so the morph visually originates from the entry edge.
 
     const getCursorTarget = () => document.querySelector("[data-cursor-target]");
+
+    const resetCursorVisualState = () => {
+      lastMagEvent = null;
+      magRafPending = false;
+
+      if (morphRafId) {
+        cancelAnimationFrame(morphRafId);
+        morphRafId = null;
+      }
+      if (morphCleanup) {
+        morphCleanup();
+        morphCleanup = null;
+      }
+
+      hoveredBtnRef.current = null;
+      s.hovering = false;
+      s.clicking = false;
+      clearTimeout(idleTimer.current);
+      clearIdle();
+      hoverCls.remove();
+      clickCls.remove();
+
+      if (isGlobal.current) {
+        s.inZone = true;
+        activeCls.add();
+      }
+
+      const ringEl = ringRef.current;
+      if (ringEl) {
+        ringEl.classList.remove("custom-cursor--ring--btn-primary");
+        ringEl.classList.remove("custom-cursor--ring--btn-secondary");
+        delete ringEl.dataset.cursor;
+        ringEl.style.width = "";
+        ringEl.style.height = "";
+        ringEl.style.borderRadius = "";
+        ringEl.style.transformOrigin = "";
+        ringEl.style.opacity = "";
+        ringEl.style.transform = "";
+        ringEl.style.left = `${mouse.current.x}px`;
+        ringEl.style.top = `${mouse.current.y}px`;
+        ringPos.current.x = mouse.current.x;
+        ringPos.current.y = mouse.current.y;
+      }
+
+      const dot = dotRef.current;
+      if (dot) {
+        delete dot.dataset.cursor;
+        dot.style.left = `${mouse.current.x}px`;
+        dot.style.top = `${mouse.current.y}px`;
+      }
+
+      const target = getCursorTarget();
+      if (target) {
+        target.classList.remove("cursor-target--visible");
+        target.classList.remove("cursor-target--btn-primary");
+        target.classList.remove("cursor-target--btn-secondary");
+        target.style.top = "0";
+        target.style.left = "0";
+        target.style.width = "0";
+        target.style.height = "0";
+      }
+
+      if (isGlobal.current) scheduleIdle();
+    };
+
+    resetCursorRef.current = resetCursorVisualState;
 
     // Track which button is currently being hovered so the rAF loop can re-snap.
     // hoveredBtnRef is a hook-level ref so the rAF loop in the first useEffect
@@ -841,7 +917,10 @@ export function useMagnetic(sectionRef) {
     // ── Global listeners ────────────────────────────────────────────────────
 
     // ✅ Fix: mousemove marked passive — browser can optimise scroll compositing
+    const onCursorReset = () => resetCursorVisualState();
+
     const attachListeners = () => {
+      window.addEventListener(CURSOR_RESET_EVENT, onCursorReset);
       document.addEventListener("mousemove", onMouseMove, { passive: true });
       document.addEventListener("mousedown", onMouseDown);
       document.addEventListener("mouseup", onMouseUp);
@@ -857,6 +936,7 @@ export function useMagnetic(sectionRef) {
     };
 
     const detachListeners = () => {
+      window.removeEventListener(CURSOR_RESET_EVENT, onCursorReset);
       clearTimeout(idleTimer.current);
       saObserver.disconnect();
       domObserver.disconnect();
@@ -889,24 +969,7 @@ export function useMagnetic(sectionRef) {
         el.removeEventListener("mouseenter", onBtnEnter);
         el.removeEventListener("mouseleave", onBtnLeave);
       });
-      // Cancel any in-flight morph and restore ring to default state
-      if (morphRafId) { cancelAnimationFrame(morphRafId); morphRafId = null; }
-      if (morphCleanup) { morphCleanup(); morphCleanup = null; }
-      hoveredBtnRef.current = null;
-      if (ringRef.current) {
-        ringRef.current.classList.remove("custom-cursor--ring--btn-primary");
-        ringRef.current.classList.remove("custom-cursor--ring--btn-secondary");
-        ringRef.current.style.width        = "";
-        ringRef.current.style.height       = "";
-        ringRef.current.style.borderRadius = "";
-        ringRef.current.style.transformOrigin = "";
-        ringRef.current.style.opacity      = "";
-      }
-      // Ensure target is hidden if it was left visible
-      const target = getCursorTarget();
-      target?.classList.remove("cursor-target--visible");
-      target?.classList.remove("cursor-target--btn-primary");
-      target?.classList.remove("cursor-target--btn-secondary");
+      resetCursorVisualState();
       deactivate();
     };
 
@@ -930,8 +993,13 @@ export function useMagnetic(sectionRef) {
     if (hasHoverPointer()) attachListeners();
 
     return () => {
+      resetCursorRef.current = null;
       hoverMQ.removeEventListener("change", onPointerChange);
       detachListeners();
     };
   }, [sectionRef]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    resetCursorRef.current?.();
+  }, [location.pathname]);
 }

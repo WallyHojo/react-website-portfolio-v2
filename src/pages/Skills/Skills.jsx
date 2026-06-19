@@ -98,7 +98,7 @@ function Skills() {
       {/* Core Expertise */}
       <section className="section section__expertise section-padding" aria-label="Core Expertise">
         <SectionLabel labelCount="01" labelSystem="section.expertise" labelTitle="Core Expertise" />
-        <div className="section__content expertise__intro" sa="up-long glacial mirror">
+        <div className="section__content expertise__intro" sa="up glacial mirror">
           <p>Nine disciplines that define how I approach interface work, not proficiency meters, but the domains where I operate daily and deliver production outcomes.</p>
         </div>
         <div className="expertise__grid gap-column-1 gap-row-1">
@@ -110,7 +110,7 @@ function Skills() {
 
       {/* Interactive Capability Map */}
       <section
-        className="section section__capability section-padding overflow-hidden"
+        className="section section__capability section-padding"
         aria-label="Interactive Skills Showcase"
       >
         <SectionLabel

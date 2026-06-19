@@ -301,6 +301,12 @@ img {
   z-index: -1;
 }
 
+@supports (-moz-appearance: none) {
+  .background__ellipse {
+    opacity: 0.5 !important;
+  }
+}
+
 .ellipse--large {
   --max-size: min(70rem, 80vh);
 }

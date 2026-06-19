@@ -69,18 +69,18 @@ function About() {
         <SectionLabel labelCount="02" labelSystem="section.intro" labelTitle="My Story"></SectionLabel>
         <div className="section__content flex-all flex-direction-row flex-vert-center">
           <div className="content__left flex-all flex-direction-column gap-row-1">
-            <h2 className="h3">
+            <h2 className="h3" sa="up slower mirror">
               A <strong className="text-primary">UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
             </h2>
-            <p className="small text-secondary">My interest in design started back in high school, creating forum banners and signatures for online communities. What began as a fun creative outlet quickly turned into an obsession with web design, spending countless hours experimenting with layouts in Photoshop 6.0 and teaching myself how websites were put together. My first website was built on Geocities for a Team Fortress Classic clan, a project that probably broke a few design rules, but it sparked something that has stayed with me ever since. Looking back, it's funny to think that what started with clan websites and late-night design experiments would eventually grow into a career built around creating things for the web.</p>
-            <p className="small text-secondary">My first professional role was with an automotive web provider called Motorwebs. What started as graphic design work quickly evolved into wearing many hats, creating promotions, designing websites, building them, and helping improve their search visibility. It was an exciting time in the industry, as mobile browsing was rapidly taking over and responsive design was still in its early days. Using Bootstrap and HTML5, I helped modernize more than 600 custom dealership websites, transitioning them from separate desktop and mobile experiences into fully responsive sites. Looking back, it was a fast-paced environment that taught me how to adapt, learn quickly, and embrace whatever challenge came next.</p>
-            <p className="small text-secondary">Ever since my early days in my career, I've never truly left the automotive industry. Over the past 16 years, I've stayed deeply involved, mentoring individuals, guiding teams, and leading projects both large and small as the industry evolved around me. My experience started hands-on, but it naturally expanded into broader ownership of delivery, quality, and team growth across web and product work in fast-moving environments.</p>
+            <p className="small text-secondary" sa="up slower mirror">My interest in design started back in high school, creating forum banners and signatures for online communities. What began as a fun creative outlet quickly turned into an obsession with web design, spending countless hours experimenting with layouts in Photoshop 6.0 and teaching myself how websites were put together. My first website was built on Geocities for a Team Fortress Classic clan, a project that probably broke a few design rules, but it sparked something that has stayed with me ever since. Looking back, it's funny to think that what started with clan websites and late-night design experiments would eventually grow into a career built around creating things for the web.</p>
+            <p className="small text-secondary" sa="up slower mirror">My first professional role was with an automotive web provider called Motorwebs. What started as graphic design work quickly evolved into wearing many hats, creating promotions, designing websites, building them, and helping improve their search visibility. It was an exciting time in the industry, as mobile browsing was rapidly taking over and responsive design was still in its early days. Using Bootstrap and HTML5, I helped modernize more than 600 custom dealership websites, transitioning them from separate desktop and mobile experiences into fully responsive sites. Looking back, it was a fast-paced environment that taught me how to adapt, learn quickly, and embrace whatever challenge came next.</p>
+            <p className="small text-secondary" sa="up slower mirror">Ever since my early days in my career, I've never truly left the automotive industry. Over the past 16 years, I've stayed deeply involved, mentoring individuals, guiding teams, and leading projects both large and small as the industry evolved around me. My experience started hands-on, but it naturally expanded into broader ownership of delivery, quality, and team growth across web and product work in fast-moving environments.</p>
           </div>
           <div className="content__right flex-all flex-vert-center flex-horz-center w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="logo-svg"
-              viewBox="-10 -10 341 233"
+              viewBox="-5 -10 335 233"
               preserveAspectRatio="xMidYMid meet"
               ref={svgRef}
             >
@@ -101,14 +101,14 @@ function About() {
 
                 <mask id="fill-mask">
                   <rect
-                    x="-10" y="-10"
-                    width="341" height="233"
+                    x="-5" y="-10"
+                    width="335" height="233"
                     fill="white"
                   />
                   <rect
                     className="fill-mask-cover"
-                    x="-10" y="-10"
-                    width="341" height="233"
+                    x="-5" y="-10"
+                    width="335" height="233"
                     fill="black"
                   />
                 </mask>                
@@ -117,8 +117,8 @@ function About() {
               {/* Gradient fill — clipped to path shape, reveals on scroll */}
               <rect
                 className="logo-fill"
-                x="-10" y="-10"
-                width="341" height="233"
+                x="-5" y="-10"
+                width="335" height="233"
                 fill="url(#logo-gradient)"
                 clipPath="url(#logo-clip)"
                 mask="url(#fill-mask)"
@@ -143,13 +143,13 @@ function About() {
       <section className="section section__what flex-all flex-direction-column section-padding">
         <SectionLabel labelCount="03" labelSystem="section.what" labelTitle="What I Bring"></SectionLabel>
         {ABOUT_WHAT.map((item, index) => (
-          <div key={item.id} className="card card--stacked section__grain --grain-medium">
-            <div className="stacked__text" sa="up glacial mirror delay-400">
+          <div key={item.id} className="card card--stacked">
+            <div className="stacked__text">
               <div className="stacked__label" sa="right slower mirror delay-200">{String(index + 1).padStart(2, "0")} — {item.id}</div>
               <h3 className="stacked__title" sa="right slower mirror delay-400">{item.title}</h3>
               <div className="stacked__body flex-all flex-direction-column gap-row-1">
                 {item.body.map((paragraph, i) => (
-                  <p key={i} className="small">{paragraph}</p>
+                  <p key={i} className="small" sa="up slower mirror">{paragraph}</p>
                 ))} 
               </div>
             </div>

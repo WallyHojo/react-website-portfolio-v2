@@ -12,13 +12,10 @@ import "./HeroSection.css";
 // Fallback video (page style). Specific heroes should pass their own via videoSrc.
 import defaultPageVideo from "../../../assets/images/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
 
-// Ensure grain/noise styles are present for all hero instances
-import "../../../assets/styles/noise.css";
-
 /**
  * HeroSection
  * Reusable hero with consistent decor (DotGrid, floating shapes, Slats video mask),
- * grain background, animated heading, and mask.
+ * animated heading, and mask.
  *
  * @param {string} title - Text for the main h1 (also used for the count animation target)
  * @param {string|React.ReactNode} [subtitle] - Optional h2 sub-heading (home style)
@@ -83,11 +80,10 @@ export default function HeroSection({
   const sectionClasses = [
     "section",
     "section__hero",
-    "section__grain",
-    "--grain-medium",
     resolvedHeightClass,
     "relative",
     "section-padding",
+    "overflow-hidden",
     className,
   ]
     .filter(Boolean)
@@ -99,14 +95,14 @@ export default function HeroSection({
   return (
     <section className={sectionClasses} aria-label={defaultAriaLabel}>
       <div className={`${contentWrapperClass} flex-all flex-vert-bottom h-full`}>
-        <div className="content__left flex-all flex-direction-column relative gap-row-1" sa="up glacial mirror">
+        <div className="content__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">
           <SectionLabel
             className="label__system--hero"
             labelSystem={sectionLabel}
             labelTitle={null}
             labelCount={null}
           />
-          <h1 className={`heading${titleClassName ? ` ${titleClassName}` : ""}`} data-sa-to={title} data-sa-duration="1000">
+          <h1 className={`heading${titleClassName ? ` ${titleClassName}` : ""}`} data-sa-to={title} sa="count" data-sa-duration="1000">
             {title}
           </h1>
           {subtitle}

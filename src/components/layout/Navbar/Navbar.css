@@ -143,6 +143,12 @@
   isolation: isolate;
 }
 
+@supports (-moz-appearance: none) {
+  .menu__wrapper {
+    backdrop-filter: initial;
+  }
+}
+
 .menu__close-container {
   width: 148px;
   height: 86px;
@@ -447,6 +453,12 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
 /*                                Media Queries                               */
 /* ========================================================================== */
 
+@media (width <= 991px) {
+  .menu {
+    padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  }
+}
+
 @media (width <= 767px) {
   .navbar__right :is(a, .navbar-right__divider) {
     display: none;
@@ -477,16 +489,14 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
 }
 
 @media (width >= 992px) {
-  ul.menu__nav-links {
-    justify-self: center;
-    min-width: min(20rem, 35vh);
-  }
-}
-
-@media (width >= 992px) {
   .navbar {
     padding: var(--navigation-padding-md);
   }
+
+  ul.menu__nav-links {
+    justify-self: center;
+    min-width: min(20rem, 35vh);
+  }  
 }
 
 @media (width >= 1280px) {

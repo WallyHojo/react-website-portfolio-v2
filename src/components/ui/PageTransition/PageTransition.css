@@ -1,0 +1,49 @@
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--color-bg-base);
+  pointer-events: none;
+
+  /* Sits off-screen below by default */
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.page-transition-overlay .logo-load {
+  width: 100%;
+  max-width: clamp(240px, 50.40vw, 500px);
+  opacity: 0.5;
+}
+
+.page-transition-overlay--in .fill-mask-load {
+  animation: mask-reveal 0.3s var(--ease-interaction) forwards;
+  transform-origin: top center;
+}
+
+/* OUT phase — overlay wipes UP covering the page */
+.page-transition-overlay--out {
+  animation: transition-cover 1s var(--ease-interaction) forwards;
+}
+
+/* IN phase — overlay wipes UP revealing the new page */
+.page-transition-overlay--in {
+  animation: transition-reveal 1s var(--ease-interaction) forwards;
+}
+
+@keyframes transition-cover {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0%);   }
+}
+
+@keyframes transition-reveal {
+  from { transform: translateY(0%);    }
+  to   { transform: translateY(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition-overlay--out,
+  .page-transition-overlay--in {
+    animation-duration: 1s;
+  }
+}

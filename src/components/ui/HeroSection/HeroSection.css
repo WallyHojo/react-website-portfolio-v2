@@ -8,7 +8,7 @@
 
 .section__hero::before {
   content: "";
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgb(24 24 24) 100%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--color-bg-base) 100%);
   position: absolute;
   left: 0;
   bottom: 0;
@@ -52,7 +52,7 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    #1a1919 25%,
+    #1f1f1f 25%,
     transparent 100%
   );
   pointer-events: none;
@@ -60,12 +60,18 @@
 
   animation-name: scroll-mask-reveal;
   animation-fill-mode: both;
-  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  animation-timing-function: var(--ease-interaction);
 
   /* Reference the section's timeline */
   animation-timeline: --hero;
-  animation-range: exit 25% exit 80%;
+  animation-range: exit 0% exit 100%;
   z-index: 1;
+}
+
+@supports (-moz-appearance: none) {
+  .section__mask {
+    display: none;
+  }
 }
 
 /* Media Queries */

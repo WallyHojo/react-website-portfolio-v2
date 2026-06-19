@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+
+import { TransitionLink } from "../../../components/ui/PageTransition/PageTransition";
 
 import { PROJECT_CATEGORIES, getProjectsByCategory } from "../../../config/projects.jsx";
 
@@ -38,7 +39,7 @@ export default function ProjectCollection({ projects }) {
       <ol className="project-collection__list">
         {filtered.map((project, index) => (
           <li key={project.slug} sa={`up slow mirror delay-${(index + 1) * 100}`}>
-            <Link
+            <TransitionLink
               to={`/work/${project.slug}`}
               className="project-collection__entry"
               data-cursor="accent"
@@ -62,7 +63,7 @@ export default function ProjectCollection({ projects }) {
                   />
                 </svg>
               </span>
-            </Link>
+            </TransitionLink>
           </li>
         ))}
       </ol>

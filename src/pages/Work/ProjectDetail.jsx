@@ -1,5 +1,7 @@
 import React from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+
+import { TransitionLink } from "../../components/ui/PageTransition/PageTransition";
 
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import SectionLabel from "../../components/ui/SectionLabel";
@@ -51,9 +53,9 @@ function ProjectNotFound() {
     <section className="section section-padding project-not-found" aria-label="Project not found">
       <h1 className="h2">Project not found</h1>
       <p className="text-muted">The case study you're looking for doesn't exist or has been moved.</p>
-      <Link to="/work" className="project-not-found__link">
+      <TransitionLink to="/work" className="project-not-found__link">
         Back to work
-      </Link>
+      </TransitionLink>
     </section>
   );
 }
@@ -87,9 +89,9 @@ function ProjectDetail() {
         <div className="background__ellipse background__ellipse-1 project-hero__ellipse ellipse--blue ellipse--small absolute" aria-hidden="true" />
 
         <div className="project-hero__inner">
-          <Link to="/work" className="project-hero__back" data-cursor="light">
+          <TransitionLink to="/work" className="project-hero__back" data-cursor="light">
             <span aria-hidden="true">←</span> All work
-          </Link>
+          </TransitionLink>
 
           <div className="project-hero__content" sa="up-long glacial mirror">
             <div className="project-hero__meta flex-all flex-vert-center gap-column-1">

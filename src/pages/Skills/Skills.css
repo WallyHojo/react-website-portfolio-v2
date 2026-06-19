@@ -88,15 +88,26 @@
 /* ========================================================================== */
 
 .capability-map {
-  display: grid;
-  gap: clamp(2rem, 1.5rem + 1vw, 3rem);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: visible;
 }
 
 .capability-map__stage {
+  --stage-size: min(52rem, 94vw);
+  position: relative;
+  width: var(--stage-size);
+  max-width: 100%;
   aspect-ratio: 1;
-  max-width: min(36rem, 90vw);
   margin-inline: auto;
-  width: 100%;
+  overflow: visible;
+}
+
+.capability-map__visual {
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .capability-map__ellipse {
@@ -104,15 +115,11 @@
   left: 50%;
   translate: -50% -50%;
   opacity: 0.35;
-  z-index: 0;
 }
 
 .capability-map__svg {
-  inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
-  pointer-events: none;
 }
 
 .capability-map__ring {
@@ -142,58 +149,41 @@
   opacity: 0.85;
 }
 
-.capability-map__hub {
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.capability-map__hub-tag {
-  font-size: clamp(0.5625rem, 0.5208rem + 0.1852vw, 0.6875rem);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-}
-
-.capability-map__hub-label {
-  font-family: var(--font-heading);
-  font-size: clamp(0.875rem, 0.75rem + 0.5556vw, 1.25rem);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--color-text-primary);
-  text-align: center;
-  max-width: 8rem;
-}
-
 .capability-map__orbit {
   position: absolute;
   inset: 0;
   z-index: 3;
+  overflow: visible;
+  pointer-events: none;
 }
 
 .capability-map__node {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: var(--node-x);
+  top: var(--node-y);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.125rem;
   padding: 0.625rem 0.875rem;
   min-width: 5.5rem;
+  max-width: 8.5rem;
   border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 70%, transparent);
   border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--color-bg-elevated) 75%, transparent);
+  background: color-mix(in srgb, var(--color-bg-elevated) 88%, transparent);
+  backdrop-filter: blur(6px);
   cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
   transition:
     border-color 0.35s var(--ease-interaction),
     background 0.35s var(--ease-interaction),
-    transform 0.35s var(--ease-interaction),
-    box-shadow 0.35s var(--ease-interaction);
-  transform: rotate(var(--node-angle)) translate(min(11rem, 38vw)) rotate(calc(-1 * var(--node-angle)));
+    box-shadow 0.35s var(--ease-interaction),
+    opacity 0.35s var(--ease-interaction);
+  z-index: 3;
 }
 
 .capability-map__node:hover,
@@ -205,8 +195,9 @@
 
 .capability-map__node.is-active {
   border-color: var(--color-primary);
-  background: color-mix(in srgb, var(--color-primary) 12%, var(--color-bg-elevated));
+  background: color-mix(in srgb, var(--color-primary) 14%, var(--color-bg-elevated));
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 25%, transparent);
+  z-index: 4;
 }
 
 .capability-map__node-tag {
@@ -222,27 +213,35 @@
   font-weight: 500;
   letter-spacing: 0.01em;
   color: var(--color-text-primary);
-  white-space: nowrap;
+  text-align: center;
+  line-height: 1.25;
 }
 
-.capability-map__detail {
-  position: relative;
-  min-height: clamp(14rem, 30vw, 18rem);
+.capability-map__center {
+  position: absolute;
+  inset: 22%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .capability-map__panel {
-  padding: clamp(1.5rem, 1.25rem + 0.75vw, 2rem);
+  width: 100%;
+  max-height: 100%;
+  padding: clamp(1.25rem, 1rem + 0.75vw, 1.75rem);
   border-radius: 0.75rem;
-  background: color-mix(in srgb, var(--color-bg-elevated) 55%, transparent);
-  transition: opacity 0.4s var(--ease-interaction), transform 0.4s var(--ease-interaction);
-}
-
-.capability-map__panel[hidden] {
-  display: none;
+  background: color-mix(in srgb, var(--color-bg-elevated) 72%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 55%, transparent);
+  overflow-y: auto;
+  pointer-events: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .capability-map__panel.is-visible {
-  animation: capability-panel-in 0.5s var(--ease-interaction) both;
+  animation: capability-panel-in 0.45s var(--ease-interaction) both;
 }
 
 .capability-map__panel-header {
@@ -477,59 +476,64 @@
 /*                              Media Queries                                 */
 /* ========================================================================== */
 
-@media (width >= 992px) {
-  .capability-map {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-    align-items: center;
-  }
-
+@media (width >= 768px) {
   .capability-map__stage {
-    margin-inline: 0;
+    --stage-size: min(56rem, 92vw);
   }
 
-  .capability-map__detail {
-    min-height: 20rem;
+  .capability-map__center {
+    inset: 20%;
   }
 }
 
 @media (width <= 767px) {
   .capability-map__stage {
-    aspect-ratio: auto;
-    min-height: auto;
-    padding-block: 1rem;
+    --stage-size: min(24rem, 94vw);
   }
 
-  .capability-map__svg,
-  .capability-map__hub,
-  .capability-map__ellipse {
-    display: none;
-  }
-
-  .capability-map__orbit {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  .capability-map__center {
+    inset: 28%;
   }
 
   .capability-map__node {
-    position: static;
-    left: auto;
-    top: auto;
-    min-width: 0;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    transform: none;
+    min-width: 4.25rem;
+    max-width: 5.75rem;
+    padding: 0.45rem 0.55rem;
+    gap: 0.0625rem;
+  }
+
+  .capability-map__node-tag {
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
   }
 
   .capability-map__node-label {
-    white-space: normal;
-    text-align: right;
+    font-size: 0.5625rem;
   }
 
-  .capability-map__detail {
-    min-height: 0;
+  .capability-map__panel {
+    padding: 1rem;
+  }
+
+  .capability-map__panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+  }
+
+  .capability-map__panel-desc {
+    margin-bottom: 0.875rem;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .capability-map__panel-list {
+    gap: 0.375rem;
+  }
+
+  .capability-map__panel-list li {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.625rem;
   }
 }
 
