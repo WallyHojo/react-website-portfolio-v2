@@ -119,32 +119,6 @@ function WorkIndex() {
           ))}
         </div>
       </section>
-
-      {/* Call to Action */}
-      <section
-        className="section section__work-cta relative section-padding overflow-hidden"
-        aria-label="Contact Call to Action"
-      >
-        <div className="background__ellipse background__ellipse-1 work-cta__ellipse ellipse--blue ellipse--small absolute hidden-mobile" aria-hidden="true" />
-        <SectionLabel
-          labelCount="04"
-          labelSystem="section.contact"
-          labelTitle="Let's Build"
-        />
-        <div className="work-cta__inner flex-all flex-direction-column flex-vert-center text-center gap-row-2" sa="up-long glacial mirror">
-          <h2 className="h3">
-            Have a project that needs{" "}
-            <strong className="text-primary">the same level of care?</strong>
-          </h2>
-          <p>
-            Whether it's a product interface, design system, or full front-end build, I'm
-            open to conversations about work that values craft, clarity, and execution.
-          </p>
-          <Btn to="/contact" primary className="magnetic magnetic--subtle" data-cursor="accent">
-            Get in Touch
-          </Btn>
-        </div>
-      </section>
     </>
   );
 }
