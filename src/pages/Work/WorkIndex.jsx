@@ -8,7 +8,7 @@ import Btn from "../../components/ui/Buttons";
 import FeaturedProjectRow from "./components/FeaturedProjectRow";
 import ProjectCollection from "./components/ProjectCollection";
 import { getFeaturedProjects, PROJECTS, WORK_HIGHLIGHTS } from "../../config/projects.jsx";
-import heroVideo from "../../assets/images/grok-video-1e71206d-e9f4-40b1-91a2-dc620ab60a66.mp4";
+import heroVideo from "../../assets/videos/grok-video-1e71206d-e9f4-40b1-91a2-dc620ab60a66.mp4";
 import "../../assets/styles/noise.css";
 import "./Work.css";
 
@@ -50,7 +50,7 @@ function WorkIndex() {
           labelSystem="section.featured"
           labelTitle="Featured Work"
         />
-        <div className="section__content work__intro" sa="up-long glacial mirror">
+        <div className="work__intro" sa="up-long glacial mirror">
           <p>
             Immersive case studies presented as editorial experiences, each project tells
             the story of challenge, process, and outcome rather than listing deliverables.
@@ -78,7 +78,7 @@ function WorkIndex() {
           labelSystem="section.collection"
           labelTitle="All Projects"
         />
-        <div className="section__content work__intro" sa="up-long glacial mirror">
+        <div className="work__intro" sa="up-long glacial mirror">
           <p>
             Browse the full collection by category. Every entry links to a detailed case
             study covering strategy, design, development, and results.
@@ -97,7 +97,7 @@ function WorkIndex() {
           labelSystem="section.highlights"
           labelTitle="Impact"
         />
-        <div className="section__content work__intro" sa="up-long glacial mirror">
+        <div className="work__intro" sa="up-long glacial mirror">
           <p>
             Outcomes and accomplishments across projects, not vanity metrics, but the
             results that shaped how I approach interface work.

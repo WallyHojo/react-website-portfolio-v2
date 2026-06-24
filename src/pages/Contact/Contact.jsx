@@ -8,7 +8,7 @@ import SectionLabel from "../../components/ui/SectionLabel";
 import { CONTACT_AVAILABILITY_STATS } from "../../config/overviewStats.jsx";
 import Btn from "../../components/ui/Buttons";
 import ContactForm from "../../components/ui/ContactForm/Form";
-import heroVideo from "../../assets/images/grok-video-6b5748d3-8abf-4a07-be83-3f7f7a34efea.mp4";
+import heroVideo from "../../assets/videos/grok-video-6b5748d3-8abf-4a07-be83-3f7f7a34efea.mp4";
 import "./Contact.css";
 
 function Contact() {

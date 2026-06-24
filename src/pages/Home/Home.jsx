@@ -12,7 +12,7 @@ import ContactForm from "../../components/ui/ContactForm/Form.jsx";
 import { MARQUEE_ROW1, MARQUEE_ROW2, WEB_EXPERIENCES } from "../../config/skillChips.jsx";
 import { WORK_LIST } from "../../config/workList.jsx";
 import { MAIN_OVERVIEW_STATS } from "../../config/overviewStats.jsx";
-import heroVideo from "../../assets/images/grok-video-9bcac0f6-ad9a-4660-a249-34424dfab915.mp4";
+import heroVideo from "../../assets/videos/grok-video-9bcac0f6-ad9a-4660-a249-34424dfab915.mp4";
 import "./Home.css";
 import "../../assets/styles/noise.css";
 
@@ -156,7 +156,7 @@ function Home() {
         <div className="skills__intro-wrapper relative">
           <div className="skills__intro-container flex-all flex-space-between flex-vert-center h-viewport-small sticky">
 
-            <div className="section__content skills__content flex-all flex-direction-column">
+            <div className="skills__content flex-all flex-direction-column">
               <SectionLabel className="label--blend" labelCount="02" labelSystem="section.skills" labelTitle="Skills"></SectionLabel>
               <div className="skills__intro-text flex-all flex-direction-column gap-row-1" sa="up-long glacial mirror">
                 <h3 className="sub-heading" sa="up slow mirror">

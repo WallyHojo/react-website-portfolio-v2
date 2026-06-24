@@ -9,7 +9,7 @@ import SectionLabel from "../../components/ui/SectionLabel";
 import { MAIN_OVERVIEW_STATS } from "../../config/overviewStats.jsx";
 import { MARQUEE_ROW1, MARQUEE_ROW2 } from "../../config/skillChips.jsx";
 import { ABOUT_PRINCIPLES, ABOUT_WHAT } from "../../config/cardsConfig.jsx";
-import heroVideo from "../../assets/images/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
+import heroVideo from "../../assets/videos/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
 import "./About.css";
 
 // Component for individual skill chips in the marquee
@@ -67,8 +67,8 @@ function About() {
       {/* Story Section */}
       <section className="section section__story section-padding" aria-label="My Story">
         <SectionLabel labelCount="02" labelSystem="section.intro" labelTitle="My Story"></SectionLabel>
-        <div className="section__content flex-all flex-direction-row flex-vert-center">
-          <div className="content__left flex-all flex-direction-column gap-row-1">
+        <div className="story__content flex-all flex-direction-row flex-vert-center">
+          <div className="story__main flex-all flex-direction-column gap-row-1">
             <h2 className="h3" sa="up slower mirror">
               A <strong className="text-primary">UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
             </h2>
@@ -76,7 +76,7 @@ function About() {
             <p className="small text-secondary" sa="up slower mirror">My first professional role was with an automotive web provider called Motorwebs. What started as graphic design work quickly evolved into wearing many hats, creating promotions, designing websites, building them, and helping improve their search visibility. It was an exciting time in the industry, as mobile browsing was rapidly taking over and responsive design was still in its early days. Using Bootstrap and HTML5, I helped modernize more than 600 custom dealership websites, transitioning them from separate desktop and mobile experiences into fully responsive sites. Looking back, it was a fast-paced environment that taught me how to adapt, learn quickly, and embrace whatever challenge came next.</p>
             <p className="small text-secondary" sa="up slower mirror">Ever since my early days in my career, I've never truly left the automotive industry. Over the past 16 years, I've stayed deeply involved, mentoring individuals, guiding teams, and leading projects both large and small as the industry evolved around me. My experience started hands-on, but it naturally expanded into broader ownership of delivery, quality, and team growth across web and product work in fast-moving environments.</p>
           </div>
-          <div className="content__right flex-all flex-vert-center flex-horz-center w-full">
+          <div className="story__aside flex-all flex-vert-center flex-horz-center w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="logo-svg"

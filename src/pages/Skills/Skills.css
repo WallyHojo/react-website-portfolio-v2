@@ -2,18 +2,18 @@
 /*                           Shared Section Intro                             */
 /* ========================================================================== */
 
-.section__content.expertise__intro,
-.section__content.capability__intro,
-.section__content.tech-stack__intro,
-.section__content.highlights__intro {
+.expertise__intro,
+.capability__intro,
+.tech-stack__intro,
+.highlights__intro {
   max-width: clamp(22.5rem, 55vw, 42rem);
   margin-bottom: clamp(2rem, 1.1723rem + 1.3363vw, 3rem);
 }
 
-.section__content.expertise__intro p,
-.section__content.capability__intro p,
-.section__content.tech-stack__intro p,
-.section__content.highlights__intro p {
+.expertise__intro p,
+.capability__intro p,
+.tech-stack__intro p,
+.highlights__intro p {
   margin-bottom: 0;
   font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
   line-height: 1.8;
@@ -33,7 +33,9 @@
   padding: clamp(1.25rem, 1rem + 0.5vw, 1.75rem);
   border-radius: 0.75rem;
   background: color-mix(in srgb, var(--color-bg-elevated) 55%, transparent);
-  transition: transform 0.45s var(--ease-interaction), box-shadow 0.45s var(--ease-interaction);
+  transition:
+    transform 0.45s var(--ease-interaction),
+    box-shadow 0.45s var(--ease-interaction);
 }
 
 .expertise__card:hover {
@@ -87,205 +89,340 @@
 /*                            Capability Map                                  */
 /* ========================================================================== */
 
-.capability-map {
+:root {
+  --base-1: #071c1a;
+  --base-2: #071a3d;
+  --base-3: #29143a;
+  --base-4: #2b160c;
+  --base-5: #221545;
+  --accent-1: #36e7c4;
+  --accent-2: #5a8cff;
+  --accent-3: #d46bff;
+  --accent-4: #ff9a3d;
+  --accent-5: #b783ff;
+
+  --device-w: 280px;
+  --device-h: 560px;
+  --device-radius: 36px;
+
+  --section-h: 500vh;
+}
+
+.capability__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: var(--section-h);
+  /* Hoist all named timelines so the sticky left column can subscribe to
+     timelines defined on elements in the right column */
+  timeline-scope: --cap-1, --cap-2, --cap-3, --cap-4, --cap-5;
+}
+
+.capability__col--category {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
   display: flex;
+  align-items: center;
   justify-content: center;
-  width: 100%;
-  overflow: visible;
+  border-right: 1px solid var(--color-border);
 }
 
-.capability-map__stage {
-  --stage-size: min(52rem, 94vw);
+.capability__category {
+  width: var(--device-w);
+  height: var(--device-h);
+  border-radius: var(--device-radius);
+  background: #1a1a1a;
+  border: 1.5px solid #2e2e2e;
   position: relative;
-  width: var(--stage-size);
-  max-width: 100%;
-  aspect-ratio: 1;
-  margin-inline: auto;
-  overflow: visible;
+  box-shadow:
+    0 0 0 1px #0a0a0a,
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
 }
 
-.capability-map__visual {
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+.capability__category::before {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 28%;
+  width: 3px;
+  height: 60px;
+  background: #222;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 70px 0 #222;
 }
 
-.capability-map__ellipse {
-  top: 50%;
+.capability__notch {
+  position: absolute;
+  top: 0;
   left: 50%;
-  translate: -50% -50%;
-  opacity: 0.35;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 18px 18px;
+  z-index: 10;
 }
 
-.capability-map__svg {
-  width: 100%;
-  height: 100%;
-}
-
-.capability-map__ring {
-  fill: none;
-  stroke: color-mix(in srgb, var(--color-bg-overlay) 80%, transparent);
-  stroke-width: 0.15;
-  stroke-dasharray: 2 1.5;
-  opacity: 0.5;
-
-  animation-name: capability-ring-draw;
-  animation-duration: 1.2s;
-  animation-timing-function: var(--ease-interaction);
-  animation-fill-mode: both;
-  animation-timeline: view();
-  animation-range: entry 0% cover 40%;
-}
-
-.capability-map__spoke {
-  stroke: color-mix(in srgb, var(--color-bg-overlay) 60%, transparent);
-  stroke-width: 0.12;
-  transition: stroke 0.4s var(--ease-interaction), stroke-width 0.4s var(--ease-interaction);
-}
-
-.capability-map__spoke.is-active {
-  stroke: var(--color-primary);
-  stroke-width: 0.2;
-  opacity: 0.85;
-}
-
-.capability-map__orbit {
+.capability__item {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  overflow: visible;
-  pointer-events: none;
+  border-radius: calc(var(--device-radius) - 2px);
+  overflow: hidden;
+  background: #000;
 }
 
-.capability-map__node {
+.capability__label {
   position: absolute;
-  left: var(--node-x);
-  top: var(--node-y);
+  inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.125rem;
-  padding: 0.625rem 0.875rem;
-  min-width: 5.5rem;
-  max-width: 8.5rem;
-  border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 70%, transparent);
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--color-bg-elevated) 88%, transparent);
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-  pointer-events: auto;
-  touch-action: manipulation;
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, -50%);
-  transition:
-    border-color 0.35s var(--ease-interaction),
-    background 0.35s var(--ease-interaction),
-    box-shadow 0.35s var(--ease-interaction),
-    opacity 0.35s var(--ease-interaction);
-  z-index: 3;
+  justify-content: flex-end;
+  padding: 28px 20px 32px;
+  opacity: 0;
 }
 
-.capability-map__node:hover,
-.capability-map__node:focus-visible {
-  border-color: var(--color-primary-tint);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  outline: none;
-}
-
-.capability-map__node.is-active {
-  border-color: var(--color-primary);
-  background: color-mix(in srgb, var(--color-primary) 14%, var(--color-bg-elevated));
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 25%, transparent);
-  z-index: 4;
-}
-
-.capability-map__node-tag {
-  font-size: 0.5625rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-}
-
-.capability-map__node-label {
-  font-size: clamp(0.625rem, 0.5833rem + 0.1852vw, 0.75rem);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--color-text-primary);
-  text-align: center;
-  line-height: 1.25;
-}
-
-.capability-map__center {
+.capability__label::after {
+  content: "";
+  background: var(--color-bg-inverse);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(0 0 0 / 75%) 100%);
   position: absolute;
-  inset: 22%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.capability-map__panel {
+  left: 0;
+  bottom: 0;
   width: 100%;
-  max-height: 100%;
-  padding: clamp(1.25rem, 1rem + 0.75vw, 1.75rem);
-  border-radius: 0.75rem;
-  background: color-mix(in srgb, var(--color-bg-elevated) 72%, transparent);
-  backdrop-filter: blur(8px);
-  border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 55%, transparent);
-  overflow-y: auto;
-  pointer-events: auto;
-  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  z-index: -1;
 }
 
-.capability-map__panel.is-visible {
-  animation: capability-panel-in 0.45s var(--ease-interaction) both;
+.label__node-status {
+  position: absolute;
+  top: 36px;
+  left: 20px;
+  right: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.3);
 }
 
-.capability-map__panel-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.875rem;
+.logo-svg {
+  max-width: 35px;
 }
 
-.capability-map__panel-tag {
-  padding: 0.2rem 0.5rem;
+.logo-path {
+  stroke-dasharray: var(--path-length);
+  stroke-dashoffset: var(--path-length);
+
+  animation-name: draw;
+  animation-fill-mode: both;
+  
+  animation-timeline: scroll(root);
+  animation-range: entry 0% cover 100%;
+}
+
+.fill-mask-cover {
+  animation-name: mask-reveal;
+  animation-fill-mode: both;
+
+  animation-timeline: scroll(root);
+  animation-range: entry 10% cover 100%;
+  transform-origin: bottom center;
+}
+
+/*
+  Both labels and descriptions now use view() on their paired card.
+  Each .capability__description has a named view-timeline that the
+  matching label subscribes to — so they are always in sync regardless
+  of total page height.
+
+  Labels: fade in at entry 10% (card just enters viewport),
+          fade out at entry 70% (next card is taking over).
+  Descriptions: fade in entry 10% → entry 50% (card well in view).
+
+  Named timelines are set on each .capability__description in JSX
+  via inline style: view-timeline-name: --cap-N
+*/
+
+.capability__label--1 {
+  background-image: url(../../assets/images/capability/interface-layer_img.webp);
+  animation: label-show-hide linear both;
+  animation-timeline: --cap-1;
+  animation-range: entry 10% exit 0%;
+}
+
+.capability__label--2 {
+  background-image: url(../../assets/images/capability/architecture_img.webp);
+  animation: label-show-hide linear both;
+  animation-timeline: --cap-2;
+  animation-range: entry 10% exit 0%;
+}
+
+.capability__label--3 {
+  background-image: url(../../assets/images/capability/experience_img.webp);
+  animation: label-show-hide linear both;
+  animation-timeline: --cap-3;
+  animation-range: entry 10% exit 0%;
+}
+
+.capability__label--4 {
+  background-image: url(../../assets/images/capability/delivery_img.webp);
+  animation: label-show-hide linear both;
+  animation-timeline: --cap-4;
+  animation-range: entry 10% exit 0%;
+}
+
+.capability__label--5 {
+  background-image: url(../../assets/images/capability/craft_img.webp);
+  animation: label-show-hide linear both;
+  animation-timeline: --cap-5;
+  animation-range: entry 10% exit 0%;
+}
+
+.capability__col--summary {
+  padding: 15vh 8vw 15vh 6vw;
+  gap: 30vh;
+}
+
+.capability__description {
+  animation:
+    card-in linear both,
+    card-up linear both;
+  animation-timeline: view(), view();
+  animation-range:
+    entry 10% entry 50%,
+    entry 10% entry 50%;
+}
+
+.description__panel-number {
+  margin-bottom: 0.625rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--color-text-disabled);
+  text-transform: uppercase;
+}
+
+.description__panel-number::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-bg-surface);
+  max-width: 48px;
+}
+
+.description__panel-accent {
+  width: 32px;
+  height: 3px;
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+}
+
+.description__panel-accent {
+  background: var(--accent-color);
+}
+
+.description__panel-tag,
+.label__node-tag {
+  background: var(--accent-color);
+  border-radius: 0.25rem;
+  color: var(--base-color);
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.12em;
+  padding: 0.2rem 0.5rem;
   text-transform: uppercase;
-  color: var(--color-primary);
-  background: var(--color-primary-tint);
-  border-radius: 0.25rem;
 }
 
-.capability-map__panel-desc {
-  margin-bottom: 1.25rem;
+.description__panel-desc {
+  color: var(--color-text-secondary);
   font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
   line-height: 1.75;
-  color: var(--color-text-secondary);
+  margin-bottom: 1.25rem;
 }
 
-.capability-map__panel-list {
-  display: flex;
-  flex-wrap: wrap;
+.description__panel-list {
   gap: 0.5rem;
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
-.capability-map__panel-list li {
-  padding: 0.375rem 0.75rem;
+.description__panel-list li {
+  background: color-mix(in srgb, var(--color-bg-surface) 50%, #0000);
+  border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 50%, #0000);
+  border-radius: 999px;
+  color: var(--color-text-primary);
   font-size: clamp(0.6875rem, 0.6458rem + 0.1852vw, 0.8125rem);
   font-weight: 500;
-  color: var(--color-text-primary);
-  background: color-mix(in srgb, var(--color-bg-surface) 50%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 50%, transparent);
-  border-radius: 999px;
+  padding: 0.375rem 0.75rem;
+}
+
+/* ========================================================================== */
+/*                           Keyframes                                        */
+/* ========================================================================== */
+
+@keyframes screen-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes label-show-hide {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes card-up {
+  from {
+    transform: translateY(40px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--path-length);
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mask-reveal {
+  from {
+    transform: scaleY(1);
+    /* fully covering */
+  }
+
+  to {
+    transform: scaleY(0);
+    /* fully revealed */
+  }
 }
 
 /* ========================================================================== */
@@ -331,7 +468,9 @@
   width: 100%;
   border-radius: 0.5rem;
   background: color-mix(in srgb, var(--color-bg-subtle) 70%, transparent);
-  transition: background 0.3s var(--ease-interaction), transform 0.3s var(--ease-interaction);
+  transition:
+    background 0.3s var(--ease-interaction),
+    transform 0.3s var(--ease-interaction);
 }
 
 .tech-stack__list li:hover .tech-stack__item {

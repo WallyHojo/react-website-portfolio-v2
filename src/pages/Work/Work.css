@@ -2,12 +2,12 @@
 /*                              Shared Intro                                  */
 /* ========================================================================== */
 
-.section__content.work__intro {
+.work__intro {
   max-width: clamp(22.5rem, 55vw, 42rem);
   margin-bottom: clamp(2rem, 1.1723rem + 1.3363vw, 3rem);
 }
 
-.section__content.work__intro p {
+.work__intro p {
   margin-bottom: 0;
   font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
   line-height: 1.8;

@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import HeroSection from "../../components/ui/HeroSection";
 import SectionLabel from "../../components/ui/SectionLabel";
-import heroVideo from "../../assets/images/grok-video-6b5748d3-8abf-4a07-be83-3f7f7a34efea.mp4";
+import heroVideo from "../../assets/videos/grok-video-6b5748d3-8abf-4a07-be83-3f7f7a34efea.mp4";
 import "./Resume.css";
 
 function Resume() {
@@ -22,9 +22,9 @@ function Resume() {
       />
 
       {/* Content sections to be developed */}
-      <section className="section section-padding" aria-label="Resume Content">
+      <section className="section section__resume section-padding" aria-label="Resume Content">
         <SectionLabel labelTitle="Experience" labelCount="01 career" />
-        <div className="section__content">
+        <div className="resume__intro">
           <p className="text-muted">Detailed resume content, timeline, and downloadable CV will be added here. The structure will mirror the refined layout used across the rest of the site.</p>
         </div>
       </section>

@@ -20,6 +20,15 @@
   margin-bottom: 0;
 }
 
+.hero__left {
+  max-width: clamp(30rem, 36vw, 48rem);
+  z-index: 1;
+}
+
+.hero__left h1.heading {
+  font-size: clamp(2.25rem, 1.8333rem + 1.8519vw, 3.5rem);
+}
+
 .decor__shape {
   z-index: 0;
 }

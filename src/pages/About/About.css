@@ -14,7 +14,7 @@
 /*                                Story Section                               */
 /* ========================================================================== */
 
-.section__content {
+.story__content {
   gap: 3rem;
 }
 
@@ -45,22 +45,22 @@
 /* Media Queries */
 
 @media (width <=1199px) {
-  .section__content {
+  .story__content {
     flex-direction: column;
   }
 
-  .content__left {
+  .story__main {
     max-width: initial;
     order: 2;
   }
 }
 
 @media (width >=1200px) {
-  .section__content>div {
+  .story__content>div {
     flex: 0 1 50%;
   }
 
-  .content__right {
+  .story__aside {
     margin: 0 auto;
   }
 }

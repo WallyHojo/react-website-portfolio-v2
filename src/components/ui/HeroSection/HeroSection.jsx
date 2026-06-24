@@ -10,7 +10,7 @@ import arrowRight from "../../../assets/images/arrow-right.svg";
 import "./HeroSection.css";
 
 // Fallback video (page style). Specific heroes should pass their own via videoSrc.
-import defaultPageVideo from "../../../assets/images/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
+import defaultPageVideo from "../../../assets/videos/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
 
 /**
  * HeroSection
@@ -51,7 +51,6 @@ export default function HeroSection({
 
   const isHome = variant === "home";
   const resolvedHeightClass = heightClass || (isHome ? "h-viewport-small" : "h-viewport-hero");
-  const contentWrapperClass = isHome ? "section__content" : "hero__content";
 
   // Resolve slats configuration
   let resolvedSlats = slats;
@@ -94,8 +93,8 @@ export default function HeroSection({
 
   return (
     <section className={sectionClasses} aria-label={defaultAriaLabel}>
-      <div className={`${contentWrapperClass} flex-all flex-vert-bottom h-full`}>
-        <div className="content__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">
+      <div className="hero__content flex-all flex-vert-bottom h-full">
+        <div className="hero__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">
           <SectionLabel
             className="label__system--hero"
             labelSystem={sectionLabel}
