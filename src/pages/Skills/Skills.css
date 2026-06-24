@@ -247,35 +247,35 @@
 .capability__label--1 {
   background-image: url(../../assets/images/capability/interface-layer_img.webp);
   animation: label-show-hide linear both;
-  animation-timeline: --cap-1;
+  animation-timeline: --cap-1 !important;
   animation-range: entry 10% exit 0%;
 }
 
 .capability__label--2 {
   background-image: url(../../assets/images/capability/architecture_img.webp);
   animation: label-show-hide linear both;
-  animation-timeline: --cap-2;
+  animation-timeline: --cap-2 !important;
   animation-range: entry 10% exit 0%;
 }
 
 .capability__label--3 {
   background-image: url(../../assets/images/capability/experience_img.webp);
   animation: label-show-hide linear both;
-  animation-timeline: --cap-3;
+  animation-timeline: --cap-3 !important;
   animation-range: entry 10% exit 0%;
 }
 
 .capability__label--4 {
   background-image: url(../../assets/images/capability/delivery_img.webp);
   animation: label-show-hide linear both;
-  animation-timeline: --cap-4;
+  animation-timeline: --cap-4 !important;
   animation-range: entry 10% exit 0%;
 }
 
 .capability__label--5 {
   background-image: url(../../assets/images/capability/craft_img.webp);
   animation: label-show-hide linear both;
-  animation-timeline: --cap-5;
+  animation-timeline: --cap-5 !important;
   animation-range: entry 10% exit 0%;
 }
 
