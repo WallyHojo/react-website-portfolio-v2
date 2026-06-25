@@ -119,25 +119,21 @@ function useScrollHeader() {
   const lastScrollTop = useRef(0);
   const rafRef = useRef(null);
 
-  const handleScroll = useCallback(() => {
-    const currentScrollTop = window.scrollY;
-    const headerHeight = headerRef.current?.offsetHeight ?? 0;
-
-    setIsScrolled(currentScrollTop > headerHeight);
-    setIsHeaderVisible(currentScrollTop <= lastScrollTop.current);
-    lastScrollTop.current = currentScrollTop;
-  }, []);
-
   useEffect(() => {
-    const loop = () => {
-      handleScroll();
-      rafRef.current = requestAnimationFrame(loop);
-    };
-
     const onScroll = () => {
-      if (!rafRef.current) {
-        rafRef.current = requestAnimationFrame(loop);
-      }
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        const currentScrollTop = window.scrollY;
+        const headerHeight = headerRef.current?.offsetHeight ?? 0;
+        const isUp = currentScrollTop < lastScrollTop.current;
+        const isAtTop = currentScrollTop <= headerHeight;
+
+        setIsScrolled(!isAtTop);
+        setIsHeaderVisible(isAtTop || isUp);
+
+        lastScrollTop.current = currentScrollTop;
+      });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -145,7 +141,7 @@ function useScrollHeader() {
       window.removeEventListener("scroll", onScroll);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [handleScroll]);
+  }, []);
 
   return { headerRef, isScrolled, isHeaderVisible };
 }
@@ -314,7 +310,7 @@ function Navbar() {
           <div className="menu__footer"><hr /></div>
         </div>
 
-        <div className="background__ellipse menu__ellipse-1 ellipse--light ellipse--large absolute" />
+        <div className="background__ellipse menu__ellipse-1 ellipse--blue ellipse--large absolute" />
         <div className="background__ellipse menu__ellipse-2 ellipse--light ellipse--large absolute" />
       </div>
 
