@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import HeroSection from "../../components/ui/HeroSection";
 import SectionLabel from "../../components/ui/SectionLabel";
+import Btn from "../../components/ui/Buttons";
 import { CORE_EXPERTISE, CAPABILITY_CALLOUT, TECH_STACK, EXPERIENCE_HIGHLIGHTS, DEV_PHILOSOPHY } from "../../config/cardsConfig.jsx";
 import heroVideo from "../../assets/videos/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
 import "../../assets/styles/noise.css";
@@ -194,7 +195,7 @@ function Skills() {
         <div className="capability__container">
           <div className="capability__col capability__col--category">
             <div className="capability__category">
-              <div className="capability__notch"></div>
+              <div className="capability__notch hidden-mobile"></div>
               <div className="capability__item flex-all flex-horz-center">
                 {CAPABILITY_CALLOUT.map((item, index) => (
                   <CapabilityCategory key={item.id} {...item} index={index} />
@@ -233,14 +234,16 @@ function Skills() {
                 <ul className="tech-stack__list">
                   {cluster.items.map((item) => (
                     <li key={item.id}>
-                      <span className="tech-stack__item">
-                        {item.icon && (
-                          <span className="tech-stack__icon" aria-hidden="true">
-                            {item.icon}
-                          </span>
-                        )}
-                        <span className="tech-stack__name">{item.name}</span>
-                      </span>
+                      <Btn href={item.url} plain target="_blank">
+                        <span className="tech-stack__item">
+                          {item.icon && (
+                            <span className="tech-stack__icon" aria-hidden="true">
+                              {item.icon}
+                            </span>
+                          )}
+                          <span className="tech-stack__name">{item.name}</span>
+                        </span>
+                      </Btn>
                     </li>
                   ))}
                 </ul>
@@ -270,11 +273,11 @@ function Skills() {
             <article
               key={item.id}
               className="highlights__card relative section__grain --grain-subtle"
-              sa={`diag-tr-bl slow mirror delay-${(index + 1) * 150}`}
+              sa={`diag-tr-bl slow mirror delay-${(index + 1) * 100}`}
             >
               <div className="highlights__card-top flex-all flex-space-between flex-vert-center">
-                <span className="highlights__index">{index}</span>
-                <span className="highlights__icon" aria-hidden="true">
+                <span className="highlights__index">{String(index + 1).padStart(2, "0")}</span>
+                <span className="highlights__icon" aria-hidden="true" sa="fade slow mirror delay-200">
                   {item.icon}
                 </span>
               </div>

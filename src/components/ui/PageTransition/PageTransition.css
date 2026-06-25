@@ -13,11 +13,10 @@
 .page-transition-overlay .logo-load {
   width: 100%;
   max-width: clamp(240px, 50.40vw, 500px);
-  opacity: 0.5;
 }
 
 .page-transition-overlay--in .fill-mask-load {
-  animation: mask-reveal 0.3s var(--ease-interaction) forwards;
+  animation: mask-reveal 0.5s var(--ease-interaction) forwards;
   transform-origin: top center;
 }
 

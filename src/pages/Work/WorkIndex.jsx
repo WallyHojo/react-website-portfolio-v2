@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import HeroSection from "../../components/ui/HeroSection";
 import SectionLabel from "../../components/ui/SectionLabel";
-import Btn from "../../components/ui/Buttons";
 import FeaturedProjectRow from "./components/FeaturedProjectRow";
 import ProjectCollection from "./components/ProjectCollection";
 import { getFeaturedProjects, PROJECTS, WORK_HIGHLIGHTS } from "../../config/projects.jsx";

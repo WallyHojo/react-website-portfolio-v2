@@ -21,7 +21,7 @@ import { ReactComponent as WordpressIcon } from "../assets/images/icons/wordpres
 import { ReactComponent as JSONIcon } from "../assets/images/icons/json.svg";
 import { ReactComponent as XMLIcon } from "../assets/images/icons/xml.svg";
 import { ReactComponent as XSLTIcon } from "../assets/images/icons/xslt.svg";
-import { ReactComponent as FitmaIcon } from "../assets/images/icons/figma.svg";
+import { ReactComponent as FigmaIcon } from "../assets/images/icons/figma.svg";
 import { ReactComponent as XDIcon } from "../assets/images/icons/xd.svg";
 import { ReactComponent as PhotoshopIcon } from "../assets/images/icons/photoshop.svg";
 import { ReactComponent as IllustratorIcon } from "../assets/images/icons/illustrator.svg";
@@ -161,70 +161,70 @@ export const TECH_STACK = [
     id: "frontend",
     label: "Languages",
     items: [
-      { id: "html", name: "HTML5", icon: <HTMLIcon /> },
-      { id: "css", name: "CSS / SCSS", icon: <CSSIcon /> },
-      { id: "js", name: "JavaScript", icon: <JavascriptIcon /> },
-      { id: "ts", name: "TypeScript", icon: <TypescriptIcon /> },
-      { id: "php", name: "PHP", icon: <PHPIcon /> },
-      { id: "json",  name: "JSON", icon: <JSONIcon /> },
-      { id: "xml",   name: "XML", icon: <XMLIcon /> },
-      { id: "xslt",  name: "XSLT", icon: <XSLTIcon /> },      
+      { id: "html", name: "HTML5", icon: <HTMLIcon />, url: "https://www.w3schools.com/html/default.asp" },
+      { id: "css", name: "CSS / SCSS", icon: <CSSIcon />, url: "https://www.w3schools.com/css/default.asp" },
+      { id: "js", name: "JavaScript", icon: <JavascriptIcon />, url: "https://www.w3schools.com/js/default.asp" },
+      { id: "ts", name: "TypeScript", icon: <TypescriptIcon />, url: "https://www.w3schools.com/typescript/index.php" },
+      { id: "php", name: "PHP", icon: <PHPIcon />, url: "https://www.w3schools.com/php/default.asp" },
+      { id: "json",  name: "JSON", icon: <JSONIcon />, url: "https://www.w3schools.com/js/js_json.asp" },
+      { id: "xml",   name: "XML", icon: <XMLIcon />, url: "https://www.w3schools.com/xml/default.asp" },
+      { id: "xslt",  name: "XSLT", icon: <XSLTIcon />, url: "https://www.w3schools.com/xml/xsl_intro.asp" },      
     ],
   },
   {
     id: "frameworks",
-    label: "Frameworks & Libraries",
+    label: "Libraries",
     items: [
-      { id: "react", name: "React", icon: <ReactIcon /> },
-      { id: "jq", name: "jQuery", icon: <JqueryIcon /> },
-      { id: "bootstrap", name: "Bootstrap", icon: <BootstrapIcon /> },
-      { id: "foundation", name: "Foundation", icon: <FoundationIcon /> },
+      { id: "react", name: "React", icon: <ReactIcon />, url: "https://react.dev/" },
+      { id: "jq", name: "jQuery", icon: <JqueryIcon />, url: "https://jquery.com/" },
+      { id: "bootstrap", name: "Bootstrap", icon: <BootstrapIcon />, url: "https://getbootstrap.com/" },
+      { id: "foundation", name: "Foundation", icon: <FoundationIcon />, url: "https://get.foundation/" },
     ],
   },
   {
     id: "platforms",
-    label: "Platforms & CMS",
+    label: "Platforms / CMS",
     items: [
-      { id: "wordpress", name: "WordPress", icon: <WordpressIcon /> },
-      { id: "elementor", name: "Elementor", icon: <ElementorIcon /> },
-      { id: "cpanel", name: "cPanel / WHM", icon: <CPANELIcon /> },
-      { id: "dealers", name: "Dealer.com", icon: <DealerdotcomIcon /> },
-      { id: "dealerdotcom", name: "DealerSocket", icon: <DealersocketIcon /> },
-      { id: "homenet", name: "Homenet", icon: <HomenetIcon /> },
-      { id: "vauto", name: "vAuto", icon: <VAUTOIcon /> },
+      { id: "wordpress", name: "WordPress", icon: <WordpressIcon />, url: "https://wordpress.com/" },
+      { id: "elementor", name: "Elementor", icon: <ElementorIcon />, url: "https://elementor.com/" },
+      { id: "cpanel", name: "cPanel / WHM", icon: <CPANELIcon />, url: "https://www.cpanel.net/" },
+      { id: "dealers", name: "Dealer.com", icon: <DealerdotcomIcon />, url: "https://www.dealer.com/new/" },
+      { id: "dealerdotcom", name: "DealerSocket", icon: <DealersocketIcon />, url: "https://dealersocket.com/" },
+      { id: "homenet", name: "Homenet", icon: <HomenetIcon />, url: "https://www.homenetauto.com/" },
+      { id: "vauto", name: "vAuto", icon: <VAUTOIcon />, url: "https://www.vauto.com/" },
     ],
   },
   {
     id: "creative",
     label: "Design Tools",
     items: [
-      { id: "figma", name: "Figma", icon: <FitmaIcon /> },
-      { id: "xd", name: "Adobe XD", icon: <XDIcon /> },
-      { id: "photoshop", name: "Photoshop", icon: <PhotoshopIcon /> },
-      { id: "illustrator", name: "Illustrator", icon: <IllustratorIcon /> },
-      { id: "inkscape", name: "Inkscape", icon: <InkscapeIcon /> },
+      { id: "figma", name: "Figma", icon: <FigmaIcon />, url: "https://www.figma.com/" },
+      { id: "xd", name: "Adobe XD", icon: <XDIcon />, url: "https://adobexdplatform.com/" },
+      { id: "photoshop", name: "Photoshop", icon: <PhotoshopIcon />, url: "https://www.adobe.com/products/photoshop.html" },
+      { id: "illustrator", name: "Illustrator", icon: <IllustratorIcon />, url: "https://www.adobe.com/products/illustrator.html" },
+      { id: "inkscape", name: "Inkscape", icon: <InkscapeIcon />, url: "https://inkscape.org/" },
     ],
   },
   {
     id: "delivery",
-    label: "Build & Workflow",
+    label: "Build / Workflow",
     items: [
-      { id: "vite", name: "Vite", icon: <ViteIcon /> },
-      { id: "git", name: "Git", icon: <GitIcon /> },
-      { id: "github", name: "GitHub", icon: <GithubIcon /> },
-      { id: "vs", name: "VS Code", icon: <VSIcon /> },
-      { id: "npm", name: "npm", icon: <NPMIcon /> },
+      { id: "vite", name: "Vite", icon: <ViteIcon />, url: "https://vite.dev/" },
+      { id: "git", name: "Git", icon: <GitIcon />, url: "https://git-scm.com/" },
+      { id: "github", name: "GitHub", icon: <GithubIcon />, url: "https://github.com/" },
+      { id: "vs", name: "VS Code", icon: <VSIcon />, url: "https://code.visualstudio.com/" },
+      { id: "npm", name: "npm", icon: <NPMIcon />, url: "https://www.npmjs.com/" },
     ],
   },
   {
     id: "ai",
     label: "AI Tools",
     items: [
-      { id: "claude", name: "Claude" },
-      { id: "gpt", name: "ChatGPT" },
-      { id: "ollama", name: "Ollama" },
-      { id: "grok", name: "Grok" },
-      { id: "codex", name: "Codex" },
+      { id: "claude", name: "Claude", url: "https://claude.ai/" },
+      { id: "gpt", name: "ChatGPT", url: "https://chatgpt.com/" },
+      { id: "ollama", name: "Ollama", url: "https://ollama.com/" },
+      { id: "grok", name: "Grok", url: "https://grok.com/" },
+      { id: "codex", name: "Codex", url: "https://openai.com/codex/" },
     ],
   },
 ];
@@ -234,7 +234,7 @@ export const EXPERIENCE_HIGHLIGHTS = [
     id: "production",
     index: "01",
     title: "Production Applications",
-    description: "Shipping responsive, high-traffic interfaces for automotive and enterprise clients—600+ sites modernized and maintained in production.",
+    description: "Shipping responsive, high-traffic interfaces for automotive and enterprise clients, 600+ sites modernized and maintained in production.",
     icon: <ApplicationIcon />,
   },
   {
@@ -248,7 +248,7 @@ export const EXPERIENCE_HIGHLIGHTS = [
     id: "performance",
     index: "03",
     title: "Performance Optimization",
-    description: "Auditing render paths, bundle weight, and interaction latency—making measurable gains in load time and scroll smoothness.",
+    description: "Auditing render paths, bundle weight, and interaction latency, making measurable gains in load time and scroll smoothness.",
     icon: <ResponsiveDesignIcon />,
   },
   {
@@ -262,7 +262,7 @@ export const EXPERIENCE_HIGHLIGHTS = [
     id: "ui-engineering",
     index: "05",
     title: "UI Engineering",
-    description: "Bridging design and engineering—owning the full surface from layout logic to interaction polish and accessibility.",
+    description: "Bridging design and engineering, owning the full surface from layout logic to interaction polish and accessibility.",
     icon: <ProgrammingIcon />,
   },
   {
@@ -278,7 +278,7 @@ export const DEV_PHILOSOPHY = [
   {
     id: "intent",
     title: "Intent before implementation",
-    body: "Every interface decision should trace back to a user need or business goal. Code is the medium—not the message.",
+    body: "Every interface decision should trace back to a user need or business goal. Code is the medium, not the message.",
   },
   {
     id: "systems",
@@ -288,7 +288,7 @@ export const DEV_PHILOSOPHY = [
   {
     id: "accessible",
     title: "Accessible by default",
-    body: "Accessibility isn't a final pass—it's woven into structure, interaction, and motion from the first commit.",
+    body: "Accessibility isn't a final pass, it's woven into structure, interaction, and motion from the first commit.",
   },
   {
     id: "motion",
@@ -303,7 +303,7 @@ export const DEV_PHILOSOPHY = [
   {
     id: "iterate",
     title: "Ship, measure, refine",
-    body: "Production feedback beats theoretical perfection. Iterate with data, user signals, and team input—not assumptions.",
+    body: "Production feedback beats theoretical perfection. Iterate with data, user signals, and team input, not assumptions.",
   },
 ];
 

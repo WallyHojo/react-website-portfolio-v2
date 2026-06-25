@@ -108,7 +108,7 @@ export function PageTransitionProvider({ children }) {
                 mask="url(#fill-mask)"
               />
 
-              {/* Stroke — animated draw on scroll */}
+              {/* Stroke — animated draw on scroll 
               <path
                 className="logo-path"
                 fill="none"
@@ -118,6 +118,7 @@ export function PageTransitionProvider({ children }) {
                 strokeLinejoin="round"
                 d="M299.976.5c-9.319.135-15.93 6.549-15.93 6.549l-66.424 63.83-40.51-57.805s-12.484-18.969-33.952 1.763c-18.31 17.68-9.61 31.246-5.829 36.646l40.61 57.998-35.953 34.729L48.962 11.404S42.053 1.594 30.643.778c-5.186-.37-11.307 1.12-18.123 6.238-21.907 16.49-7.222 37.328-7.222 37.328s103.528 147.884 112.083 160c7.501 10.858 24.08 13.137 35.085 2.49l55.882-53.93 33.683 48.106s14.652 19.633 36.896-1.848c17.533-16.931 6.748-31.044 6.748-31.044l-37.55-53.626 71.562-69.166s17.027-16.394-.85-35.56C312.13 2.596 305.566.419 299.976.5"
               />
+              */}
             </svg>
       </div>
     </TransitionContext.Provider>

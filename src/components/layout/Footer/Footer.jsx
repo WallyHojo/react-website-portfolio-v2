@@ -67,7 +67,7 @@ function Footer() {
       </div>
 
       <div className='footer__middle section-padding'>
-        <div className='footer__middle--name' aria-label='Walter Carlson'>
+        <div className='footer__middle--name flex-all flex-direction-column gap-row-2' aria-label='Walter Carlson'>
           <NameSVG />
         </div>
       </div>
@@ -79,7 +79,7 @@ function Footer() {
           <p className='footer__copyright'>© {new Date().getFullYear()} Walter Carlson. All rights reserved.</p>
         </div>
         <div className='footer__bottom--middle' sa='up glacial mirror delay-400'>
-          <ul className='footer__nav-socials' aria-label='Social links'>
+          <ul className='footer__nav-socials flex-all flex-horz-center flex-wrap gap-column-1' aria-label='Social links'>
             {SOCIAL_LINKS.map(({ href, label, icon }) => (
               <li key={label}>
                 <a href={href} target='_blank' rel='noopener noreferrer' aria-label={label} data-cursor='light'>

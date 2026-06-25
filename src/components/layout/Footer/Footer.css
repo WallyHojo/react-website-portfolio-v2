@@ -28,9 +28,6 @@ ul.footer__nav-links li a {
 }
 
 .footer__middle--name {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2rem;
   margin-top: clamp(2rem, 0.6667rem + 5.9259vw, 6rem);
   padding-top: 0;
   padding-right: 0;
@@ -57,9 +54,6 @@ ul.footer__nav-links li a {
 
 .footer__nav-socials {
   list-style-type: none;
-  display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;
   min-width: -webkit-fill-available;
   min-width: -moz-available;
   min-width: stretch;
