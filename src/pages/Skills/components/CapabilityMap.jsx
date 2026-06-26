@@ -37,7 +37,7 @@ export default function CapabilityMap() {
       <div className="capability-map__stage relative" sa="up-long glacial mirror">
         <div className="capability-map__visual absolute" aria-hidden="true">
           <div
-            className="background__ellipse background__ellipse-1 capability-map__ellipse ellipse--blue ellipse--small absolute"
+            className="background__ellipse background__ellipse-1 capability-map__ellipse ellipse--primary ellipse--small absolute"
           />
           <svg
             className="capability-map__svg"

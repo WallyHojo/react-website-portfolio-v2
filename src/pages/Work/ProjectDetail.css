@@ -46,7 +46,6 @@
 }
 
 .project-hero__meta {
-  flex-wrap: wrap;
   margin-bottom: 0.75rem;
 }
 
@@ -111,8 +110,6 @@
 }
 
 .project-hero__tech {
-  display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
   list-style: none;
   padding: 0;
@@ -171,8 +168,6 @@
 }
 
 .case-study__list {
-  display: flex;
-  flex-direction: column;
   gap: 0.5rem;
   list-style: none;
   padding: 0;
@@ -311,8 +306,6 @@
 }
 
 .case-study__stack-list {
-  display: flex;
-  flex-direction: column;
   gap: 0.5rem;
   list-style: none;
   padding: 0;
@@ -349,8 +342,6 @@
 }
 
 .project-nav__link {
-  display: flex;
-  flex-direction: column;
   gap: 0.25rem;
   padding: 1rem 0;
   text-decoration: none;
@@ -422,9 +413,6 @@
 
 .project-not-found {
   min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 1rem;
 }
 

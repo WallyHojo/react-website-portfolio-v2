@@ -3,6 +3,8 @@ import workCalibright from "../assets/images/work/cards/calibright_img.webp";
 import workEnhancedLeads from "../assets/images/work/cards/enhanced-automotive-leads_img.webp";
 import workUIExplorer from "../assets/images/work/cards/ui-explorer_img.webp";
 
+import "../assets/styles/cards.css";
+
 export const PROJECT_CATEGORIES = ["All", "Web", "Dashboard"];
 
 export const WORK_HIGHLIGHTS = [
@@ -11,7 +13,7 @@ export const WORK_HIGHLIGHTS = [
     index: "01",
     title: "600+ Sites Modernized",
     description:
-      "Led responsive transitions across hundreds of dealership websites—unifying desktop and mobile into cohesive, maintainable experiences.",
+      "Led responsive transitions across hundreds of dealership websites, unifying desktop and mobile into cohesive, maintainable experiences.",
   },
   {
     id: "conversion",
@@ -48,7 +50,7 @@ export const PROJECTS = [
     shortTitle: "Precision Shine",
     tag: "Web",
     category: "Web",
-    year: "2024",
+    year: "2025",
     featured: true,
     featuredOrder: 1,
     image: workECPrecisionShine,
@@ -58,11 +60,11 @@ export const PROJECTS = [
     role: "UI Engineer & Front-End Developer",
     timeline: "8 weeks",
     overview:
-      "A premium automotive detailing brand needed a digital presence that matched the craftsmanship of their ceramic coating and restoration work—refined, confident, and built to convert high-intent visitors.",
+      "A premium automotive detailing brand needed a digital presence that matched the craftsmanship of their ceramic coating and restoration work, refined, confident, and built to convert high-intent visitors.",
     technologies: ["React", "CSS Architecture", "Responsive Design", "Performance Optimization", "WordPress"],
     summary: {
       challenge:
-        "The existing site undersold the brand's premium positioning. Photography was strong, but the interface felt generic—weak hierarchy, slow load times, and no clear path from inspiration to booking.",
+        "The existing site undersold the brand's premium positioning. Photography was strong, but the interface felt generic, weak hierarchy, slow load times, and no clear path from inspiration to booking.",
       goals: [
         "Elevate brand perception through editorial layout and typography",
         "Create a mobile-first experience that showcases services clearly",
@@ -76,7 +78,7 @@ export const PROJECTS = [
     },
     discovery: {
       problem:
-        "High-end detailing clients research extensively before committing. The site needed to communicate expertise, build trust quickly, and guide visitors toward consultation—not overwhelm them with options.",
+        "High-end detailing clients research extensively before committing. The site needed to communicate expertise, build trust quickly, and guide visitors toward consultation, not overwhelm them with options.",
       research: [
         "Competitive audit of premium automotive service sites",
         "Content hierarchy mapping for service tiers and packages",
@@ -90,7 +92,7 @@ export const PROJECTS = [
     },
     design: {
       wireframes:
-        "Low-fidelity layouts focused on service hierarchy and CTA placement—testing whether editorial full-bleed imagery or contained galleries better supported conversion.",
+        "Low-fidelity layouts focused on service hierarchy and CTA placement, testing whether editorial full-bleed imagery or contained galleries better supported conversion.",
       exploration:
         "Explored dark, gallery-forward aesthetics with high-contrast typography to mirror the studio's premium atmosphere while keeping body copy readable across devices.",
       decisions: [
@@ -124,7 +126,7 @@ export const PROJECTS = [
       {
         title: "Editorial Service Showcase",
         description:
-          "Full-width imagery paired with concise service descriptions—designed to feel like a curated portfolio, not a price list.",
+          "Full-width imagery paired with concise service descriptions, designed to feel like a curated portfolio, not a price list.",
       },
       {
         title: "Guided Inquiry Flow",
@@ -163,9 +165,9 @@ export const PROJECTS = [
       { category: "Quality", items: ["Accessibility", "Performance Budgets", "Cross-browser QA"] },
     ],
     seo: {
-      title: "EC Precision Shine — Case Study | Walter Carlson",
+      title: "EC Precision Shine ,  Case Study | Walter Carlson",
       description:
-        "Premium automotive detailing website—editorial design, responsive architecture, and performance-focused front-end development.",
+        "Premium automotive detailing website, editorial design, responsive architecture, and performance-focused front-end development.",
     },
   },
   {
@@ -174,7 +176,7 @@ export const PROJECTS = [
     shortTitle: "ADAS Portal",
     tag: "Dashboard",
     category: "Dashboard",
-    year: "2024",
+    year: "2026",
     featured: true,
     featuredOrder: 2,
     image: workCalibright,
@@ -184,11 +186,11 @@ export const PROJECTS = [
     role: "UI Engineer & Product Interface Developer",
     timeline: "12 weeks",
     overview:
-      "An ADAS calibration portal built for technician workflows—diagnostics, scheduling, and service management unified in a dashboard designed for speed, clarity, and field usability.",
+      "An ADAS calibration portal built for technician workflows, diagnostics, scheduling, and service management unified in a dashboard designed for speed, clarity, and field usability.",
     technologies: ["React", "TypeScript", "Dashboard UI", "Component Architecture", "Accessibility"],
     summary: {
       challenge:
-        "Technicians needed a single interface to manage calibration workflows, but existing tools were fragmented—slow to navigate, visually inconsistent, and difficult to use under time pressure.",
+        "Technicians needed a single interface to manage calibration workflows, but existing tools were fragmented, slow to navigate, visually inconsistent, and difficult to use under time pressure.",
       goals: [
         "Consolidate critical workflow actions into a scannable dashboard",
         "Reduce cognitive load during high-stakes diagnostic sessions",
@@ -216,7 +218,7 @@ export const PROJECTS = [
     },
     design: {
       wireframes:
-        "Explored dense data table layouts vs. card-based status modules—testing which format supported faster scan times for active job queues.",
+        "Explored dense data table layouts vs. card-based status modules, testing which format supported faster scan times for active job queues.",
       exploration:
         "Warm neutral palette with high-contrast status indicators. Deliberately avoided generic SaaS blue to differentiate workflow states clearly.",
       decisions: [
@@ -225,7 +227,7 @@ export const PROJECTS = [
         "Consistent action placement across all module views",
       ],
       systems:
-        "Dashboard component primitives—status chips, data panels, action bars—documented with variant APIs for team extension.",
+        "Dashboard component primitives, status chips, data panels, action bars, documented with variant APIs for team extension.",
     },
     development: {
       architecture:
@@ -250,7 +252,7 @@ export const PROJECTS = [
       {
         title: "Unified Workflow Dashboard",
         description:
-          "Single-view access to active jobs, diagnostic status, and scheduling—reducing context switching during service sessions.",
+          "Single-view access to active jobs, diagnostic status, and scheduling, reducing context switching during service sessions.",
       },
       {
         title: "Diagnostic Context Panels",
@@ -275,7 +277,7 @@ export const PROJECTS = [
         "More consistent interaction patterns across modules",
       ],
       lessons: [
-        "Operational UIs require ruthless hierarchy—every pixel must earn its place",
+        "Operational UIs require ruthless hierarchy, every pixel must earn its place",
         "Design systems accelerate dashboard work when tokens precede components",
       ],
     },
@@ -289,9 +291,9 @@ export const PROJECTS = [
       { category: "Standards", items: ["Accessibility", "Design Tokens", "Performance"] },
     ],
     seo: {
-      title: "Calibright ADAS Portal — Case Study | Walter Carlson",
+      title: "Calibright ADAS Portal ,  Case Study | Walter Carlson",
       description:
-        "ADAS calibration portal for technician workflows—dashboard design, component architecture, and accessible interface engineering.",
+        "ADAS calibration portal for technician workflows, dashboard design, component architecture, and accessible interface engineering.",
     },
   },
   {
@@ -310,7 +312,7 @@ export const PROJECTS = [
     role: "Front-End Developer & UI Engineer",
     timeline: "10 weeks",
     overview:
-      "An automotive lead-generation platform combining trade-in valuations, payment estimators, and conversion tools—engineered to turn dealership traffic into qualified customer inquiries.",
+      "An automotive lead-generation platform combining trade-in valuations, payment estimators, and conversion tools, engineered to turn dealership traffic into qualified customer inquiries.",
     technologies: ["React", "JavaScript", "Form Architecture", "Responsive Design", "Performance"],
     summary: {
       challenge:
@@ -342,7 +344,7 @@ export const PROJECTS = [
     },
     design: {
       wireframes:
-        "Tested single-page vs. stepped form patterns—measuring completion rates and perceived effort on mobile devices.",
+        "Tested single-page vs. stepped form patterns, measuring completion rates and perceived effort on mobile devices.",
       exploration:
         "Clean, trust-forward UI with prominent result displays. Minimized decorative elements to keep focus on numbers and next actions.",
       decisions: [
@@ -415,9 +417,9 @@ export const PROJECTS = [
       { category: "Deployment", items: ["Embeddable Widgets", "Theme Tokens", "Performance"] },
     ],
     seo: {
-      title: "Enhanced Auto Leads — Case Study | Walter Carlson",
+      title: "Enhanced Auto Leads ,  Case Study | Walter Carlson",
       description:
-        "Automotive lead-generation platform with trade-in valuations and payment estimators—conversion-focused front-end engineering.",
+        "Automotive lead-generation platform with trade-in valuations and payment estimators, conversion-focused front-end engineering.",
     },
   },
   {
@@ -426,7 +428,7 @@ export const PROJECTS = [
     shortTitle: "UI Explorer",
     tag: "Web",
     category: "Web",
-    year: "2024",
+    year: "2026",
     featured: true,
     featuredOrder: 4,
     image: workUIExplorer,
@@ -436,7 +438,7 @@ export const PROJECTS = [
     role: "UI Engineer & Creative Developer",
     timeline: "6 weeks",
     overview:
-      "A living component explorer for interactive UI patterns—responsive layouts, animation systems, theme switching, and real-time behavior previews in a single curated environment.",
+      "A living component explorer for interactive UI patterns, responsive layouts, animation systems, theme switching, and real-time behavior previews in a single curated environment.",
     technologies: ["React", "CSS Architecture", "Animation", "Design Systems", "Accessibility"],
     summary: {
       challenge:
@@ -468,7 +470,7 @@ export const PROJECTS = [
     },
     design: {
       wireframes:
-        "Sidebar navigation with live preview canvas—testing split-pane vs. overlay navigation for mobile demo browsing.",
+        "Sidebar navigation with live preview canvas, testing split-pane vs. overlay navigation for mobile demo browsing.",
       exploration:
         "Dark interface with accent-driven focus states. Preview canvas treated as a stage with minimal chrome to spotlight component behavior.",
       decisions: [
@@ -477,7 +479,7 @@ export const PROJECTS = [
         "Code-adjacent layout pairing preview with usage context",
       ],
       systems:
-        "Documented token layers and component APIs alongside each preview—bridging design system specs and implementation.",
+        "Documented token layers and component APIs alongside each preview, bridging design system specs and implementation.",
     },
     development: {
       architecture:
@@ -502,7 +504,7 @@ export const PROJECTS = [
       {
         title: "Live Component Previews",
         description:
-          "Interactive demos with real states, hover behaviors, and transitions—not static thumbnails.",
+          "Interactive demos with real states, hover behaviors, and transitions, not static thumbnails.",
       },
       {
         title: "Theme & Token Switching",
@@ -541,9 +543,9 @@ export const PROJECTS = [
       { category: "Documentation", items: ["Live Previews", "Accessibility", "Motion Guidelines"] },
     ],
     seo: {
-      title: "Interactive Component Explorer — Case Study | Walter Carlson",
+      title: "Interactive Component Explorer ,  Case Study | Walter Carlson",
       description:
-        "Live UI component explorer with responsive layouts, animation systems, and theme switching—design system engineering in practice.",
+        "Live UI component explorer with responsive layouts, animation systems, and theme switching, design system engineering in practice.",
     },
   },
 ];
@@ -573,7 +575,7 @@ export function getAdjacentProjects(slug) {
   };
 }
 
-/** Home page horizontal scroll — includes explore CTA card */
+/** Home page horizontal scroll ,  includes explore CTA card */
 export function toWorkListEntries() {
   const entries = PROJECTS.map((project) => ({
     label: project.title,

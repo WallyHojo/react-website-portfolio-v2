@@ -71,7 +71,7 @@ export const DotGrid = memo(function DotGrid({
   // Memoize dot array — only recreates if dotCount or magnetic changes
   const dots = useMemo(() => {
     if (!shouldRender) return null;
-    const dotClass = magnetic ? 'dot magnetic magnetic--subtle' : 'dot';
+    const dotClass = magnetic ? 'dot flex-all flex-horz-center flex-vert-center magnetic magnetic--subtle' : 'dot';
     return Array.from({ length: dotCount }, (_, i) => (
       <span key={i} className={dotClass} />
     ));

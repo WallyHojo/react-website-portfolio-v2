@@ -10,7 +10,7 @@ function NavLink({ direction, project }) {
   return (
     <TransitionLink
       to={`/work/${project.slug}`}
-      className={`project-nav__link project-nav__link--${direction}`}
+      className={`project-nav__link project-nav__link--${direction} flex-all flex-direction-column`}
       data-cursor="accent"
     >
       <span className="project-nav__direction">{label}</span>

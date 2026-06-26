@@ -223,7 +223,7 @@ function Navbar() {
   return (
     <>
       <nav className={navClassName}>
-        <div className="navbar__container relative" sa="down slower" ref={headerRef}>
+        <div className="navbar__container flex-all flex-space-between flex-vert-center relative" sa="down slower" ref={headerRef}>
           <div className="navbar__background absolute" />
           <div className="navbar__logo magnetic magnetic--subtle">
             <Btn to="/" plain aria-label="Walter Carlson - UI Engineer Home" data-cursor="light">
@@ -254,7 +254,7 @@ function Navbar() {
         </div>
 
         <div className="menu__wrapper relative">
-          <div className="menu__content relative" sa="left-long fade glacial" ref={menuRef}>
+          <div className="menu__content flex-all flex-direction-column relative" sa="left-long fade glacial" ref={menuRef}>
             {/* Eyebrow + CTA */}
             <div className="content__eyebrow h3 flex-all flex-vert-center" sa="left slow delay-200">
               <span className="content__eyebrow-icon flex-all flex-vert-center">
@@ -310,8 +310,8 @@ function Navbar() {
           <div className="menu__footer"><hr /></div>
         </div>
 
-        <div className="background__ellipse menu__ellipse-1 ellipse--blue ellipse--large absolute" />
-        <div className="background__ellipse menu__ellipse-2 ellipse--light ellipse--large absolute" />
+        <div className="background__ellipse menu__ellipse-1 ellipse--active ellipse--large absolute" />
+        <div className="background__ellipse menu__ellipse-2 ellipse--primary ellipse--large absolute" />
       </div>
 
       <MenuClipPaths />

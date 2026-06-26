@@ -18,14 +18,11 @@
    will-change is set by the hook at runtime.
    ─────────────────────────────────────────── */
 .marquee-track {
-  display: flex;
   width: max-content;
 }
 
 /* ─── CONTENT COPY ─── */
 .marquee-content {
-  display: flex;
-  align-items: center;
   gap: var(--gap, 3rem);
   padding-right: var(--gap, 3rem);
   flex-shrink: 0;

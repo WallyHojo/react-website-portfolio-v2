@@ -82,10 +82,10 @@ export const Marquee = memo(function Marquee({
         getAnimations(). Keep this class name stable — renaming it here
         without updating the hook will silently break scroll reactivity.
       */}
-      <div className="marquee-track">
-        <div className="marquee-content">{children}</div>
+      <div className="marquee-track flex-all">
+        <div className="marquee-content flex-all flex-vert-center">{children}</div>
         {/* aria-hidden prevents screen readers traversing duplicated content */}
-        <div className="marquee-content" aria-hidden="true">{children}</div>
+        <div className="marquee-content flex-all flex-vert-center" aria-hidden="true">{children}</div>
       </div>
     </div>
   );

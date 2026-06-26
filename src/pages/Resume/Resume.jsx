@@ -15,11 +15,7 @@ function Resume() {
 
   return (
     <>
-      <HeroSection
-        title="Resume"
-        description="A comprehensive view of my professional experience, leadership across design and engineering teams, and a track record of delivering production-ready interfaces and design systems over 16+ years."
-        videoSrc={heroVideo}
-      />
+      <HeroSection title="Resume" description="A comprehensive view of my professional experience, leadership across design and engineering teams, and a track record of delivering production-ready interfaces and design systems over 16+ years." videoSrc={heroVideo} />
 
       {/* Content sections to be developed */}
       <section className="section section__resume section-padding" aria-label="Resume Content">

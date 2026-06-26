@@ -31,21 +31,7 @@ import defaultPageVideo from "../../../assets/videos/grok-video-a8077b85-082f-45
  * @param {string} [slatsClassName] - Class applied to the SlatsSVG (e.g. "slats-bg--hero")
  */
 
-export default function HeroSection({
-  title,
-  subtitle,
-  description,
-  children,
-  variant = "page",
-  heightClass,
-  className = "",
-  slats,
-  videoSrc,
-  mediaProps,
-  ariaLabel,
-  slatsClassName,
-  titleClassName,
-}) {
+export default function HeroSection({ title, subtitle, description, children, variant = "page", heightClass, className = "", slats, videoSrc, mediaProps, ariaLabel, slatsClassName, titleClassName }) {
   useDotGrid();
   const isMobile = useIsMobile();
 
@@ -76,17 +62,7 @@ export default function HeroSection({
 
   const resolvedSlatsCls = slatsClassName || (isHome ? "slats-bg--hero" : "slats-bg--page");
 
-  const sectionClasses = [
-    "section",
-    "section__hero",
-    resolvedHeightClass,
-    "relative",
-    "section-padding",
-    "overflow-hidden",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const sectionClasses = ["section", "section__hero", resolvedHeightClass, "relative", "section-padding", "overflow-hidden", className].filter(Boolean).join(" ");
 
   const defaultAriaLabel = ariaLabel || (isHome ? "Introduction and Hero" : `${title} Heading and Introduction`);
   const sectionLabel = isHome ? "portfolio.init" : `page.${title}`;
@@ -95,12 +71,7 @@ export default function HeroSection({
     <section className={sectionClasses} aria-label={defaultAriaLabel}>
       <div className="hero__content flex-all flex-vert-bottom h-full">
         <div className="hero__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">
-          <SectionLabel
-            className="label__system--hero"
-            labelSystem={sectionLabel}
-            labelTitle={null}
-            labelCount={null}
-          />
+          <SectionLabel className="label__system--hero" labelSystem={sectionLabel} labelTitle={null} labelCount={null} />
           <h1 className={`heading${titleClassName ? ` ${titleClassName}` : ""}`} data-sa-to={title} sa="count" data-sa-duration="1000">
             {title}
           </h1>
@@ -111,16 +82,7 @@ export default function HeroSection({
       </div>
 
       <div className="section__decor absolute">
-        {!isMobile && (
-          <DotGrid
-            color="surface"
-            pattern="scatter"
-            size="small"
-            cols={40}
-            count={600}
-            className="backdrop-dots"
-          />
-        )}
+        {!isMobile && <DotGrid color="surface" pattern="scatter" size="small" cols={40} count={600} className="backdrop-dots" />}
 
         <div className="decor__shape dots--1 absolute" sa="float float-y float-y-loop delay-1000">
           <img src={handleDots} width="52" height="33" alt="Handle dots" sa="up-long glacial delay-800" />
@@ -135,15 +97,7 @@ export default function HeroSection({
           <img src={arrowDown} width="16" height="54" alt="Arrow down drop" sa="down-long glacial delay-1400" />
         </div>
 
-        {resolvedVideo && resolvedSlats && (
-          <SlatsSVG
-            className={`${resolvedSlatsCls} absolute`}
-            mediaType="video"
-            mediaSrc={resolvedVideo}
-            slats={resolvedSlats}
-            mediaProps={resolvedMediaProps || { x: "75", y: "0", width: "125%", height: "150%" }}
-          />
-        )}
+        {resolvedVideo && resolvedSlats && <SlatsSVG className={`${resolvedSlatsCls} absolute`} mediaType="video" mediaSrc={resolvedVideo} slats={resolvedSlats} mediaProps={resolvedMediaProps || { x: "75", y: "0", width: "125%", height: "150%" }} />}
       </div>
 
       <div className="section__mask absolute"></div>

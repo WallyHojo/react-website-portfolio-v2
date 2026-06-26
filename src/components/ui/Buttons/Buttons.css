@@ -7,7 +7,6 @@
   max-width: fit-content;
   /*height: fit-content;*/
   font-size: clamp(0.875rem, 0.7917rem + 0.3704vw, 1.125rem);
-  color: var(--primary-text);
   letter-spacing: 1.9px;
   cursor: none;
 }

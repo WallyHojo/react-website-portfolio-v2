@@ -28,7 +28,7 @@ function CaseStudyBlock({ label, title, children, count, saDelay = 200 }) {
 
 function BulletList({ items }) {
   return (
-    <ul className="case-study__list">
+    <ul className="case-study__list flex-all flex-direction-column">
       {items.map((item) => (
         <li key={item}>{item}</li>
       ))}
@@ -50,7 +50,7 @@ function FeatureCard({ title, description, index }) {
 
 function ProjectNotFound() {
   return (
-    <section className="section section-padding project-not-found" aria-label="Project not found">
+    <section className="section section-padding project-not-found flex-all flex-direction-column flex-horz-center" aria-label="Project not found">
       <h1 className="h2">Project not found</h1>
       <p className="text-muted">The case study you're looking for doesn't exist or has been moved.</p>
       <TransitionLink to="/work" className="project-not-found__link">
@@ -86,7 +86,7 @@ function ProjectDetail() {
         style={{ "--project-accent": project.backgroundColor }}
         aria-label={`${project.title} overview`}
       >
-        <div className="background__ellipse background__ellipse-1 project-hero__ellipse ellipse--blue ellipse--small absolute" aria-hidden="true" />
+        <div className="background__ellipse background__ellipse-1 project-hero__ellipse ellipse--primary ellipse--small absolute" aria-hidden="true" />
 
         <div className="project-hero__inner">
           <TransitionLink to="/work" className="project-hero__back" data-cursor="light">
@@ -94,7 +94,7 @@ function ProjectDetail() {
           </TransitionLink>
 
           <div className="project-hero__content" sa="up-long glacial mirror">
-            <div className="project-hero__meta flex-all flex-vert-center gap-column-1">
+            <div className="project-hero__meta flex-all flex-vert-center flex-wrap gap-column-1">
               <span className="project-hero__tag">{project.tag}</span>
               <span className="project-hero__year">{project.year}</span>
             </div>
@@ -113,7 +113,7 @@ function ProjectDetail() {
               <div className="project-hero__detail project-hero__detail--wide">
                 <dt>Technologies</dt>
                 <dd>
-                  <ul className="project-hero__tech">
+                  <ul className="project-hero__tech flex-all flex-wrap">
                     {project.technologies.map((tech) => (
                       <li key={tech}>{tech}</li>
                     ))}
@@ -241,7 +241,7 @@ function ProjectDetail() {
               sa={`up slow mirror delay-${(index + 1) * 100}`}
             >
               <h3 className="case-study__stack-label">{group.category}</h3>
-              <ul className="case-study__stack-list">
+              <ul className="case-study__stack-list flex-all flex-direction-column">
                 {group.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

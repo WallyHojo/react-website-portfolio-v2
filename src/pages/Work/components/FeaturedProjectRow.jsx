@@ -17,14 +17,14 @@ export default function FeaturedProjectRow({
 
   return (
     <article
-      className={`featured-project${reversed ? " featured-project--reversed" : ""}`}
+      className={`featured-project${reversed ? " featured-project--reversed" : ""} flex-vert-center`}
       aria-label={`Featured project: ${title}`}
     >
-      <div className="featured-project__content flex-all flex-direction-column flex-vert-center" sa="up-long glacial mirror">
-        <span className="featured-project__index" aria-hidden="true">
+      <div className="featured-project__content flex-all flex-direction-column flex-vert-top relative" sa="up-long glacial mirror">
+        <span className="featured-project__index absolute" aria-hidden="true">
           {formattedIndex}
         </span>
-        <div className="featured-project__meta flex-all flex-vert-center gap-column-1">
+        <div className="featured-project__meta flex-all flex-vert-center flex-wrap gap-column-1">
           <span className="featured-project__tag">{tag}</span>
           <span className="featured-project__year">{year}</span>
         </div>

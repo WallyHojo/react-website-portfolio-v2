@@ -21,9 +21,6 @@
 }
 
 .navbar__container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: clamp(0.625rem, 1.3vw, 0.938rem) 1.563rem;
   border-radius: 1.875rem;
   -webkit-backdrop-filter: blur(10px);
@@ -218,8 +215,6 @@ html.no-scroll nav.navbar {
 }
 
 .menu__content {
-  display: flex;
-  flex-direction: column;
   grid-column: content-start / span 6;
   align-content: start;
   gap: clamp(0.75rem, 3vw, 3vh);

@@ -16,7 +16,7 @@ function Contact() {
 
   // Sync route changes with scroll animations
   const location = useLocation();
-  useSARouteSync(location.pathname);  
+  useSARouteSync(location.pathname);
 
   const formSection = useRef(null);
   const navigate = useNavigate();
@@ -39,19 +39,15 @@ function Contact() {
   return (
     <>
       {/* Hero Section */}
-      <HeroSection
-        title="Contact"
-        description={
-        <p className="text-muted">Great opportunities often begin with a simple conversation. I'm currently seeking a position where I can contribute my experience, collaborate with a talented team, and continue growing both professionally and personally.</p>
-        }
-        videoSrc={heroVideo}
-      >
-        <Btn onClick={scrollToForm} primary className="magnetic magnetic--subtle" data-cursor="light">Reach Out</Btn>
+      <HeroSection title="Contact" description={<p className="text-muted">Great opportunities often begin with a simple conversation. I'm currently seeking a position where I can contribute my experience, collaborate with a talented team, and continue growing both professionally and personally.</p>} videoSrc={heroVideo}>
+        <Btn onClick={scrollToForm} primary className="magnetic magnetic--subtle" data-cursor="light">
+          Reach Out
+        </Btn>
       </HeroSection>
 
       {/* Form Section */}
       <section className="section section__contact section-padding overflow-hidden" aria-label="Contact Information">
-        <SectionLabel labelCount="02" labelSystem="section.form" labelTitle="Message Me"></SectionLabel>
+        <SectionLabel labelCount="02" labelSystem="section.form" labelTitle="Message Me" />
         <div className="contact__container flex-all flex-direction-row flex-space-between flex-wrap">
           <div className="contact__content h-full flex-all flex-direction-column" sa="up-long glacial mirror">
             <div className="content__eyebrow h3 flex-all flex-vert-center" sa="up slow mirror">
@@ -72,7 +68,7 @@ function Contact() {
 
       {/* Availability Section */}
       <section className="section section__availability section-padding overflow-hidden" aria-label="Contact Availability">
-        <SectionLabel labelCount="03" labelSystem="section.availability" labelTitle="Readiness"></SectionLabel>
+        <SectionLabel labelCount="03" labelSystem="section.availability" labelTitle="Readiness" />
         <div className="section__container">
           <OverviewList items={CONTACT_AVAILABILITY_STATS} />
         </div>
