@@ -153,19 +153,19 @@
   font-size: clamp(0.75rem, 0.7083rem + 0.1852vw, 0.875rem) !important;
   font-weight: 500;
   letter-spacing: 0.04em !important;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-tertiary) !important;
   background: color-mix(in srgb, var(--color-bg-elevated) 40%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 40%, transparent);
   border-radius: 999px;
   transition:
     color 0.3s var(--ease-interaction),
     border-color 0.3s var(--ease-interaction),
-    background 0.3s var(--ease-interaction);
+    background 0.3s var(--ease-interaction) !important;
 }
 
 .project-collection__filter:hover,
 .project-collection__filter:focus-visible {
-  color: var(--color-text-primary);
+  color: var(--color-text-primary) !important;
   border-color: var(--color-primary-tint);
   outline: none;
 }
