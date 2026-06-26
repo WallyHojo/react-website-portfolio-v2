@@ -9,6 +9,7 @@
   font-size: clamp(0.875rem, 0.7917rem + 0.3704vw, 1.125rem);
   letter-spacing: 1.9px;
   cursor: none;
+  color: inherit;
 }
 
 .btn__text {
