@@ -13,7 +13,7 @@ import "./ProjectDetail.css";
 
 function CaseStudyBlock({ label, title, children, count, saDelay = 200 }) {
   return (
-    <section className="case-study__block section-padding" aria-labelledby={`${label}-heading`}>
+    <section className="section-padding" aria-labelledby={`${label}-heading`}>
       <SectionLabel
         labelCount={count}
         labelSystem={label}
@@ -79,14 +79,13 @@ function ProjectDetail() {
   const { prev, next } = getAdjacentProjects(slug);
 
   return (
-    <article className="project-detail" itemScope itemType="https://schema.org/CreativeWork">
+    <article itemScope itemType="https://schema.org/CreativeWork">
       {/* Project Hero */}
       <header
-        className="project-hero section section__grain --grain-medium relative section-padding overflow-hidden"
+        className="section section__hero project-hero relative section-padding overflow-hidden"
         style={{ "--project-accent": project.backgroundColor }}
         aria-label={`${project.title} overview`}
       >
-        <div className="background__ellipse background__ellipse-1 project-hero__ellipse ellipse--primary ellipse--small absolute" aria-hidden="true" />
 
         <div className="project-hero__inner">
           <TransitionLink to="/work" className="project-hero__back" data-cursor="light">
@@ -124,9 +123,10 @@ function ProjectDetail() {
           </div>
 
           <div className="project-hero__visual relative overflow-hidden" sa="left-long glacial mirror delay-200">
-            <img src={project.heroImage} alt={`${project.title} hero visual`} itemProp="image" />
+            <img src={project.image} alt={`${project.title} hero visual`} itemProp="image" />
           </div>
         </div>
+        <div class="section__mask absolute"></div>
       </header>
 
       {/* Summary */}

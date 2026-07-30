@@ -2,19 +2,8 @@
 /*                              Project Hero                                  */
 /* ========================================================================== */
 
-.project-hero {
-  padding-top: clamp(6.5rem, 15.625vw, 10rem) !important;
-  background:
-    radial-gradient(ellipse 80% 60% at 90% 10%, color-mix(in srgb, var(--project-accent) 25%, transparent), transparent 50%),
-    radial-gradient(ellipse 60% 50% at 10% 80%, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 50%),
-    var(--color-bg-base);
-}
-
-.project-hero__ellipse {
-  top: 30%;
-  right: 10%;
-  opacity: 0.25;
-  z-index: 0;
+.project-hero::before {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #1c1c1c 100%);
 }
 
 .project-hero__inner {
@@ -141,10 +130,6 @@
 /* ========================================================================== */
 /*                           Case Study Blocks                                */
 /* ========================================================================== */
-
-.case-study__block {
-  border-top: 1px solid color-mix(in srgb, var(--color-bg-overlay) 35%, transparent);
-}
 
 .case-study__content {
   max-width: clamp(22.5rem, 90vw, 72rem);

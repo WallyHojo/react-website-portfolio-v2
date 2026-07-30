@@ -181,7 +181,7 @@ function Skills() {
               <ul className="tech-stack__list flex-all flex-direction-column">
                 {cluster.items.map((item) => (
                   <li key={item.id}>
-                    <Btn href={item.url} plain target="_blank">
+                    <Btn to={item.url} plain target="_blank" data-cursor="light">
                       <span className="tech-stack__item">
                         {item.icon && (
                           <span className="tech-stack__icon flex-all flex-horz-center flex-vert-center" aria-hidden="true">

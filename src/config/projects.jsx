@@ -1,7 +1,16 @@
+import workECPrecisionShinePrev from "../assets/images/work/cards/ec-precision-shine-preview_img.webp";
 import workECPrecisionShine from "../assets/images/work/cards/ec-precision-shine_img.webp";
+
+import workCalibrightPrev from "../assets/images/work/cards/calibright-preview_img.webp";
 import workCalibright from "../assets/images/work/cards/calibright_img.webp";
+
+import workEnhancedLeadsPrev from "../assets/images/work/cards/enhanced-automotive-leads-preview_img.webp";
 import workEnhancedLeads from "../assets/images/work/cards/enhanced-automotive-leads_img.webp";
+
+import workUIExplorerPrev from "../assets/images/work/cards/ui-explorer-preview_img.webp";
 import workUIExplorer from "../assets/images/work/cards/ui-explorer_img.webp";
+
+import workExploreWorkPrev from "../assets/images/work/cards/explore-work-preview_img.webp";
 
 import "../assets/styles/cards.css";
 
@@ -54,7 +63,8 @@ export const PROJECTS = [
     featured: true,
     featuredOrder: 1,
     image: workECPrecisionShine,
-    heroImage: workECPrecisionShine,
+    imagePrev: workECPrecisionShinePrev,
+    //heroimage: workECPrecisionShineHero,
     backgroundColor: "#191919",
     accentColor: "#2979ff",
     role: "UI Engineer & Front-End Developer",
@@ -156,8 +166,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workECPrecisionShine, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
-      { src: workECPrecisionShine, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
+      { src: workECPrecisionShinePrev, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
+      { src: workECPrecisionShinePrev, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Responsive Layouts"] },
@@ -179,8 +189,9 @@ export const PROJECTS = [
     year: "2026",
     featured: true,
     featuredOrder: 2,
+    imagePrev: workCalibrightPrev,
     image: workCalibright,
-    heroImage: workCalibright,
+    //heroimage: workCalibrightHero,
     backgroundColor: "#84431d",
     accentColor: "#e8a87c",
     role: "UI Engineer & Product Interface Developer",
@@ -282,8 +293,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workCalibright, alt: "Calibright ADAS Portal dashboard", caption: "Primary dashboard with status rail and job queue" },
-      { src: workCalibright, alt: "Calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
+      { src: workCalibrightPrev, alt: "Calibright ADAS Portal dashboard", caption: "Primary dashboard with status rail and job queue" },
+      { src: workCalibrightPrev, alt: "Calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
     ],
     stack: [
       { category: "Application", items: ["React", "TypeScript", "Component Architecture"] },
@@ -305,8 +316,9 @@ export const PROJECTS = [
     year: "2023",
     featured: true,
     featuredOrder: 3,
+    imagePrev: workEnhancedLeadsPrev,
     image: workEnhancedLeads,
-    heroImage: workEnhancedLeads,
+    //heroimage: workEnhancedLeadsHero,
     backgroundColor: "#2d5476",
     accentColor: "#4c94ff",
     role: "Front-End Developer & UI Engineer",
@@ -408,8 +420,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workEnhancedLeads, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
-      { src: workEnhancedLeads, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
+      { src: workEnhancedLeadsPrev, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
+      { src: workEnhancedLeadsPrev, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
     ],
     stack: [
       { category: "Interface", items: [...sharedStack.frontend] },
@@ -431,8 +443,9 @@ export const PROJECTS = [
     year: "2026",
     featured: true,
     featuredOrder: 4,
+    imagePrev: workUIExplorerPrev,
     image: workUIExplorer,
-    heroImage: workUIExplorer,
+    //heroimage: workUIExplorerHero,
     backgroundColor: "#1a1a2a",
     accentColor: "#7b8cff",
     role: "UI Engineer & Creative Developer",
@@ -534,8 +547,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workUIExplorer, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
-      { src: workUIExplorer, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
+      { src: workUIExplorerPrev, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
+      { src: workUIExplorerPrev, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Animation Systems"] },
@@ -581,7 +594,7 @@ export function toWorkListEntries() {
     label: project.title,
     title: project.shortTitle,
     tag: project.tag,
-    image: project.image,
+    imagePrev: project.imagePrev,
     description: project.overview,
     link: `/work/${project.slug}`,
     backgroundColor: project.backgroundColor,
@@ -591,6 +604,7 @@ export function toWorkListEntries() {
     label: "Explore Work",
     title: "Explore Work",
     tag: "Legacy",
+    imagePrev: workExploreWorkPrev,
     description:
       "View all projects and discover the process behind the work, from strategy and design to final implementation.",
     symbol: ">",

@@ -51,7 +51,7 @@ const ExperienceSkillChip = React.memo(({ image, alt, number }) => {
 });
 
 // Component for individual work cards in the Projects section
-const WorkCard = React.memo(({ title, description, tag, image, number, total, symbol, link, linkLabel, backgroundColor }) => {
+const WorkCard = React.memo(({ title, description, tag, imagePrev, number, total, symbol, link, linkLabel, backgroundColor }) => {
   const formattedIndex = `${String(number).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
   return (
     <>
@@ -60,7 +60,7 @@ const WorkCard = React.memo(({ title, description, tag, image, number, total, sy
           <div className="work__card-bg-num absolute">{symbol || number}</div>
           <div className="work__card--top relative overflow-hidden" data-cursor="accent">
             <div className="work__card-img">
-              <img src={image} alt={title} />
+              <img src={imagePrev} alt={title} />
             </div>
           </div>
           <div className="work__card--bottom flex-all flex-direction-column relative" data-cursor="light">
