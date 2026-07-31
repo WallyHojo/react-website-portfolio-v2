@@ -8,7 +8,7 @@ import OverviewList from "../../components/ui/OverviewList";
 import SectionLabel from "../../components/ui/SectionLabel";
 import { MAIN_OVERVIEW_STATS } from "../../config/overviewStats.jsx";
 import { MARQUEE_ROW1, MARQUEE_ROW2 } from "../../config/skillChips.jsx";
-import { ABOUT_PRINCIPLES, ABOUT_WHAT } from "../../config/cardsConfig.jsx";
+import { ABOUT_PRINCIPLES, ABOUT_WHAT } from "../../config/aboutData.jsx";
 import heroVideo from "../../assets/videos/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
 import "./About.css";
 

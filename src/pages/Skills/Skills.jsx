@@ -5,7 +5,7 @@ import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAni
 import HeroSection from "../../components/ui/HeroSection";
 import SectionLabel from "../../components/ui/SectionLabel";
 import Btn from "../../components/ui/Buttons";
-import { CORE_EXPERTISE, CAPABILITY_CALLOUT, TECH_STACK, EXPERIENCE_HIGHLIGHTS, DEV_PHILOSOPHY } from "../../config/cardsConfig.jsx";
+import { CORE_EXPERTISE, CAPABILITY_CALLOUT, TECH_STACK, EXPERIENCE_HIGHLIGHTS, DEV_PHILOSOPHY } from "../../config/skillsData.jsx";
 import heroVideo from "../../assets/videos/grok-video-a8077b85-082f-45ae-ad4e-0da84ed1eac2.mp4";
 import "../../assets/styles/noise.css";
 import "./Skills.css";

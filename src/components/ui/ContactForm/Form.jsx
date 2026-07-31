@@ -65,8 +65,7 @@ const Form = forwardRef((props, ref) => {
 
     emailjs
       .send(serviceID, templateID, templateParams, publicKey)
-      .then((response) => {
-        console.log("Email sent successfully!", response.status, response.text);
+      .then(() => {
         setSuccess("Email sent successfully!");
         // Clear the form
         setFirstName("");
@@ -74,8 +73,7 @@ const Form = forwardRef((props, ref) => {
         setEmail("");
         setMessage("");
       })
-      .catch((err) => {
-        console.error("Failed to send email:", err);
+      .catch(() => {
         setError("Failed to send email. Please try again later.");
       });
   };

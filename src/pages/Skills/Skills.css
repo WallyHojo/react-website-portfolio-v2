@@ -125,15 +125,6 @@
   animation-range: entry 0% cover 100%;
 }
 
-.fill-mask-cover {
-  animation-name: mask-reveal;
-  animation-fill-mode: both;
-
-  animation-timeline: scroll(root);
-  animation-range: entry 10% cover 100%;
-  transform-origin: bottom center;
-}
-
 /*
   Both labels and descriptions now use view() on their paired card.
   Each .capability__description has a named view-timeline that the
@@ -357,18 +348,6 @@
 
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-@keyframes mask-reveal {
-  from {
-    transform: scaleY(1);
-    /* fully covering */
-  }
-
-  to {
-    transform: scaleY(0);
-    /* fully revealed */
   }
 }
 

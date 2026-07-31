@@ -1,13 +1,17 @@
 import workECPrecisionShinePrev from "../assets/images/work/cards/ec-precision-shine-preview_img.webp";
+import workECPrecisionShineHero from "../assets/images/work/cards/ec-precision-shine-hero_img.webp";
 import workECPrecisionShine from "../assets/images/work/cards/ec-precision-shine_img.webp";
 
 import workCalibrightPrev from "../assets/images/work/cards/calibright-preview_img.webp";
+import workCalibrightHero from "../assets/images/work/cards/calibright-hero_img.webp";
 import workCalibright from "../assets/images/work/cards/calibright_img.webp";
 
 import workEnhancedLeadsPrev from "../assets/images/work/cards/enhanced-automotive-leads-preview_img.webp";
+import workEnhancedLeadsHero from "../assets/images/work/cards/enhanced-automotive-leads-hero_img.webp";
 import workEnhancedLeads from "../assets/images/work/cards/enhanced-automotive-leads_img.webp";
 
 import workUIExplorerPrev from "../assets/images/work/cards/ui-explorer-preview_img.webp";
+import workUIExplorerHero from "../assets/images/work/cards/ui-explorer-hero_img.webp";
 import workUIExplorer from "../assets/images/work/cards/ui-explorer_img.webp";
 
 import workExploreWorkPrev from "../assets/images/work/cards/explore-work-preview_img.webp";
@@ -62,16 +66,16 @@ export const PROJECTS = [
     year: "2025",
     featured: true,
     featuredOrder: 1,
-    image: workECPrecisionShine,
     imagePrev: workECPrecisionShinePrev,
-    //heroimage: workECPrecisionShineHero,
+    image: workECPrecisionShine,    
+    heroimage: workECPrecisionShineHero,
     backgroundColor: "#191919",
     accentColor: "#2979ff",
     role: "UI Engineer & Front-End Developer",
     timeline: "8 weeks",
     overview:
       "A premium automotive detailing brand needed a digital presence that matched the craftsmanship of their ceramic coating and restoration work, refined, confident, and built to convert high-intent visitors.",
-    technologies: ["React", "CSS Architecture", "Responsive Design", "Performance Optimization", "WordPress"],
+    technologies: ["React", "Wordpress", "Elementor", "Custom Service Plug-in"],
     summary: {
       challenge:
         "The existing site undersold the brand's premium positioning. Photography was strong, but the interface felt generic, weak hierarchy, slow load times, and no clear path from inspiration to booking.",
@@ -190,8 +194,8 @@ export const PROJECTS = [
     featured: true,
     featuredOrder: 2,
     imagePrev: workCalibrightPrev,
-    image: workCalibright,
-    //heroimage: workCalibrightHero,
+    image: workCalibright,    
+    heroimage: workCalibrightHero,
     backgroundColor: "#84431d",
     accentColor: "#e8a87c",
     role: "UI Engineer & Product Interface Developer",
@@ -318,7 +322,7 @@ export const PROJECTS = [
     featuredOrder: 3,
     imagePrev: workEnhancedLeadsPrev,
     image: workEnhancedLeads,
-    //heroimage: workEnhancedLeadsHero,
+    heroimage: workEnhancedLeadsHero,
     backgroundColor: "#2d5476",
     accentColor: "#4c94ff",
     role: "Front-End Developer & UI Engineer",
@@ -445,7 +449,7 @@ export const PROJECTS = [
     featuredOrder: 4,
     imagePrev: workUIExplorerPrev,
     image: workUIExplorer,
-    //heroimage: workUIExplorerHero,
+    heroimage: workUIExplorerHero,
     backgroundColor: "#1a1a2a",
     accentColor: "#7b8cff",
     role: "UI Engineer & Creative Developer",

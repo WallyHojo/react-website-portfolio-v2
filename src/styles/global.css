@@ -85,7 +85,7 @@ h2,
 .h3,
 h3 {
   font-family: var(--font-heading);
-  color: var(--primary-text);
+  color: var(--color-text-primary);
   line-height: 1.35;
 }
 
@@ -478,5 +478,32 @@ img {
 @media (width >= 1280px) and (width <= 1535px) {
   .hidden-xl-only {
     display: none !important;
+  }
+}
+
+/* ========================================================================== */
+/* Shared scroll-driven animations                                            */
+/* Used by page-level mask-reveal effects (About, Skills). Pages may override */
+/* animation-timeline / animation-range locally for their own scroll context. */
+/* ========================================================================== */
+
+.fill-mask-cover {
+  animation-name: mask-reveal;
+  animation-fill-mode: both;
+
+  animation-timeline: scroll(root);
+  animation-range: entry 10% cover 100%;
+  transform-origin: bottom center;
+}
+
+@keyframes mask-reveal {
+  from {
+    transform: scaleY(1);
+    /* fully covering */
+  }
+
+  to {
+    transform: scaleY(0);
+    /* fully revealed */
   }
 }

@@ -33,13 +33,10 @@
   animation-range: entry 0% cover 60%;
 }
 
+/* Overrides the shared .fill-mask-cover default from global.css for this page's scroll context */
 .fill-mask-cover {
-  animation-name: mask-reveal;
-  animation-fill-mode: both;
-
   animation-timeline: scroll();
   animation-range: entry 0% cover 30%;
-  transform-origin: bottom center;
 }
 
 /* Media Queries */
@@ -76,18 +73,6 @@
 
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-@keyframes mask-reveal {
-  from {
-    transform: scaleY(1);
-    /* fully covering */
-  }
-
-  to {
-    transform: scaleY(0);
-    /* fully revealed */
   }
 }
 

@@ -4,11 +4,19 @@ import { useLocation, useParams } from "react-router-dom";
 import { TransitionLink } from "../../components/ui/PageTransition/PageTransition";
 
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
+import { useIsMobile } from "../../hooks/useIsMobile.jsx";
+import Btn from "../../components/ui/Buttons";
+import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
 import SectionLabel from "../../components/ui/SectionLabel";
 import ProjectNav from "./components/ProjectNav";
+import ProjectGallery from "./components/ProjectGallery";
 import useProjectSEO from "./hooks/useProjectSEO";
 import { getAdjacentProjects, getProjectBySlug } from "../../config/projects.jsx";
+import handleDots from "../../assets/images/handle-dots.svg";
+import arrowDown from "../../assets/images/arrow-down.svg";
+import arrowRight from "../../assets/images/arrow-right.svg";
 import "../../assets/styles/noise.css";
+import "../../components/ui/HeroSection/HeroSection.css";
 import "./ProjectDetail.css";
 
 function CaseStudyBlock({ label, title, children, count, saDelay = 200 }) {
@@ -62,6 +70,8 @@ function ProjectNotFound() {
 
 function ProjectDetail() {
   useSA();
+  useDotGrid();
+  const isMobile = useIsMobile();
 
   const { slug } = useParams();
   const location = useLocation();
@@ -77,22 +87,26 @@ function ProjectDetail() {
   if (!project) return <ProjectNotFound />;
 
   const { prev, next } = getAdjacentProjects(slug);
+  const heroImage = project.heroimage;
+  const image = project.image;
 
   return (
     <article itemScope itemType="https://schema.org/CreativeWork">
-      {/* Project Hero */}
+      {/* Project Hero — mirrors HeroSection features with project hero image */}
       <header
-        className="section section__hero project-hero relative section-padding overflow-hidden"
+        className="section section__hero project-hero h-viewport relative section-padding overflow-hidden"
         style={{ "--project-accent": project.backgroundColor }}
         aria-label={`${project.title} overview`}
       >
+        {heroImage && (
+          <div className="project-hero__bg absolute" aria-hidden="true">
+            <img src={heroImage} alt="" className="project-hero__bg-image" />
+          </div>
+        )}
 
-        <div className="project-hero__inner">
-          <TransitionLink to="/work" className="project-hero__back" data-cursor="light">
-            <span aria-hidden="true">←</span> All work
-          </TransitionLink>
+        <div className="hero__content flex-all flex-vert-bottom h-full">
+          <div className="hero__left project-hero__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">          
 
-          <div className="project-hero__content" sa="up-long glacial mirror">
             <div className="project-hero__meta flex-all flex-vert-center flex-wrap gap-column-1">
               <span className="project-hero__tag">{project.tag}</span>
               <span className="project-hero__year">{project.year}</span>
@@ -120,13 +134,33 @@ function ProjectDetail() {
                 </dd>
               </div>
             </dl>
-          </div>
-
-          <div className="project-hero__visual relative overflow-hidden" sa="left-long glacial mirror delay-200">
-            <img src={project.image} alt={`${project.title} hero visual`} itemProp="image" />
+            <Btn to="/work" primary className="magnetic magnetic--subtle" data-cursor="accent">
+              All work
+            </Btn>            
           </div>
         </div>
-        <div class="section__mask absolute"></div>
+
+        <div className="section__decor absolute">
+          {!isMobile && <DotGrid color="surface" pattern="scatter" size="small" cols={40} count={600} className="backdrop-dots" />}
+
+          <div className="decor__shape dots--1 absolute" sa="float float-y float-y-loop delay-1000">
+            <img src={handleDots} width="52" height="33" alt="" sa="up-long glacial delay-800" />
+          </div>
+          <div className="decor__shape dots--2 absolute" sa="float float-y float-y-loop delay-1200">
+            <img src={handleDots} width="52" height="33" alt="" sa="down-long glacial delay-1000" />
+          </div>
+          <div className="decor__shape arrow-down-svg arrow-down--1 absolute" sa="float float-x float-x-loop delay-1400">
+            <img src={arrowRight} width="54" height="16" alt="" sa="right-long glacial delay-1200" />
+          </div>
+          <div className="decor__shape arrow-down-svg arrow-down--2 absolute" sa="float float-y float-y-loop delay-1600">
+            <img src={arrowDown} width="16" height="54" alt="" sa="down-long glacial delay-1400" />
+          </div>
+        </div>
+
+        {/* Schema image (decorative slats media is aria-hidden) */}
+        <meta itemProp="image" content={image} />
+
+        <div className="section__mask absolute"></div>
       </header>
 
       {/* Summary */}
@@ -214,21 +248,9 @@ function ProjectDetail() {
         </div>
       </CaseStudyBlock>
 
-      {/* Gallery */}
+      {/* Gallery — horizontal drag scroll + click-to-expand */}
       <CaseStudyBlock label="project.gallery" title="Project Gallery" count="07" saDelay={800}>
-        <div className="case-study__gallery" role="list">
-          {project.gallery.map((item, index) => (
-            <figure
-              key={`${item.caption}-${index}`}
-              className="case-study__gallery-item relative overflow-hidden"
-              role="listitem"
-              sa={`up slow mirror delay-${(index + 1) * 150}`}
-            >
-              <img src={item.src} alt={item.alt} loading="lazy" />
-              <figcaption>{item.caption}</figcaption>
-            </figure>
-          ))}
-        </div>
+        <ProjectGallery items={project.gallery} />
       </CaseStudyBlock>
 
       {/* Technology Stack */}
