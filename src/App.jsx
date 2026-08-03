@@ -5,6 +5,7 @@ import { useSA, useSARouteSync } from './hooks/useScrollAnimate/useScrollAnimate
 import { useMagnetic } from './hooks/useMagneticEffect/useMagneticEffect';
 import useScrollToTop from "./hooks/useScrollToTop";
 import { useSmoothScroll } from './hooks/useSmoothScroll';
+import { useScrollDirection } from './hooks/useScrollDirection';
 import { PageTransitionProvider } from './components/ui/PageTransition/PageTransition';
 import Navbar from './components/layout/Navbar/Navbar';
 import Footer from './components/layout/Footer/Footer';
@@ -58,6 +59,10 @@ function App() {
   
   // Deferred: smooth scroll (100ms delay to prioritize first paint)
   useSmoothScroll();
+
+  // Global scroll-direction state — sets html.scrolling-up / html.scrolling-down
+  // for any component in the app to react to via CSS (see Navbar.css)
+  useScrollDirection();
 
   return (
     <Router>

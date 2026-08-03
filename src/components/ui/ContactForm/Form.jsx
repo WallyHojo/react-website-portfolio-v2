@@ -2,6 +2,7 @@ import React, { useState, forwardRef } from "react";
 import emailjs from "@emailjs/browser";
 
 import Btn from "../Buttons";
+
 import "./Form.css";
 
 const Form = forwardRef((props, ref) => {
@@ -80,28 +81,20 @@ const Form = forwardRef((props, ref) => {
 
   return (
     <>
-      <p sa="fade glacial mirror delay-400">
-        <small>
-          Fields marked with (<span className="text-danger">*</span>) are required.
-        </small>
-      </p>
+      <p className="text-sm" sa="fade glacial mirror delay-400">Fields marked with (<span className="text-danger">*</span>) are required.</p>
       <form ref={ref} onSubmit={handleSubmit} sa="left-long glacial mirror">
         <div className="form__group flex-all flex-direction-row flex-wrap">
           <div className="group__field relative">
-            <label className="absolute" htmlFor="firstName">
+            <label className="absolute text-sm" htmlFor="firstName">
               First Name{" "}
-              <small>
-                (<span className="text-danger">*</span>)
-              </small>
+              (<span className="text-danger">*</span>)
             </label>
             <input value={firstName} onChange={handleChange} type="text" name="firstName" id="firstName" placeholder="First Name *" data-cursor="light" required />
           </div>
           <div className="group__field relative">
-            <label className="absolute" htmlFor="lastName">
+            <label className="absolute text-sm" htmlFor="lastName">
               Last Name{" "}
-              <small>
-                (<span className="text-danger">*</span>)
-              </small>
+              (<span className="text-danger">*</span>)
             </label>
             <input value={lastName} onChange={handleChange} type="text" name="lastName" id="lastName" placeholder="Last Name *" data-cursor="light" required />
           </div>
@@ -109,11 +102,9 @@ const Form = forwardRef((props, ref) => {
 
         <div className="form__group">
           <div className="group__field relative">
-            <label className="absolute" htmlFor="email">
+            <label className="absolute text-sm" htmlFor="email">
               Email{" "}
-              <small>
-                (<span className="text-danger">*</span>)
-              </small>
+              (<span className="text-danger">*</span>)
             </label>
             <input value={email} onChange={handleChange} type="email" name="email" id="email" placeholder="Email *" data-cursor="light" required />
           </div>
@@ -121,10 +112,10 @@ const Form = forwardRef((props, ref) => {
 
         <div className="form__group relative">
           <div className="group__field relative">
-            <label className="absolute" htmlFor="message">
+            <label className="absolute text-sm" htmlFor="message">
               Message
             </label>
-            <textarea value={message} onChange={handleChange} name="message" rows="5" id="message" placeholder="Your Message" data-cursor="light" />
+            <textarea value={message} onChange={handleChange} name="message" rows="4" id="message" placeholder="Your Message" data-cursor="light" />
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import { TransitionLink } from "../../components/ui/PageTransition/PageTransition";
@@ -8,6 +8,7 @@ import { useIsMobile } from "../../hooks/useIsMobile.jsx";
 import Btn from "../../components/ui/Buttons";
 import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
 import SectionLabel from "../../components/ui/SectionLabel";
+import SideAnchorNavigation from "../../components/ui/SideAnchorNavigation";
 import ProjectNav from "./components/ProjectNav";
 import ProjectGallery from "./components/ProjectGallery";
 import useProjectSEO from "./hooks/useProjectSEO";
@@ -19,13 +20,24 @@ import "../../assets/styles/noise.css";
 import "../../components/ui/HeroSection/HeroSection.css";
 import "./ProjectDetail.css";
 
-function CaseStudyBlock({ label, title, children, count, saDelay = 200 }) {
+/* -------------------------------------------------------------------------- */
+/* Case study section helpers                                                 */
+/* -------------------------------------------------------------------------- */
+
+function CaseStudyBlock({ id, label, title, children, count, saDelay = 200 }) {
+  const headingId = id ? `${id}-heading` : undefined;
+
   return (
-    <section className="section-padding" aria-labelledby={`${label}-heading`}>
+    <section
+      id={id}
+      className="section-padding project-detail__section"
+      aria-labelledby={headingId}
+    >
       <SectionLabel
         labelCount={count}
         labelSystem={label}
         labelTitle={title}
+        titleId={headingId}
       />
       <div className="case-study__content" sa={`up-long glacial mirror delay-${saDelay}`}>
         {children}
@@ -35,6 +47,8 @@ function CaseStudyBlock({ label, title, children, count, saDelay = 200 }) {
 }
 
 function BulletList({ items }) {
+  if (!items?.length) return null;
+
   return (
     <ul className="case-study__list flex-all flex-direction-column">
       {items.map((item) => (
@@ -68,6 +82,248 @@ function ProjectNotFound() {
   );
 }
 
+/* -------------------------------------------------------------------------- */
+/* Section registry — data-driven, skips missing content                      */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Build ordered case-study sections from project data.
+ * Each entry exposes nav metadata + a render function.
+ * Missing / empty fields are omitted automatically.
+ */
+function buildCaseStudySections(project) {
+  if (!project) return [];
+
+  const defs = [
+    {
+      id: "overview",
+      label: "Overview",
+      title: "Overview",
+      system: "project.summary",
+      count: "02",
+      saDelay: 200,
+      available: () => Boolean(project.summary),
+      render: () => (
+        <div className="case-study__summary-grid gap-column-1 gap-row-1">
+          {project.summary.challenge && (
+            <div className="case-study__summary-card relative section__grain --grain-medium">
+              <h3 className="h5">Challenge</h3>
+              <p>{project.summary.challenge}</p>
+            </div>
+          )}
+          {project.summary.goals?.length > 0 && (
+            <div className="case-study__summary-card relative section__grain --grain-medium">
+              <h3 className="h5">Goals</h3>
+              <BulletList items={project.summary.goals} />
+            </div>
+          )}
+          {project.summary.objectives?.length > 0 && (
+            <div className="case-study__summary-card relative section__grain --grain-medium">
+              <h3 className="h5">Objectives</h3>
+              <BulletList items={project.summary.objectives} />
+            </div>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: "discovery",
+      label: "Discovery",
+      title: "Discovery & Strategy",
+      system: "project.discovery",
+      count: "03",
+      saDelay: 300,
+      available: () => Boolean(project.discovery),
+      render: () => (
+        <div className="case-study__prose">
+          {project.discovery.problem && (
+            <>
+              <h3 className="h5">Problem Space</h3>
+              <p>{project.discovery.problem}</p>
+            </>
+          )}
+          {project.discovery.research?.length > 0 && (
+            <>
+              <h3 className="h5">Research</h3>
+              <BulletList items={project.discovery.research} />
+            </>
+          )}
+          {project.discovery.planning?.length > 0 && (
+            <>
+              <h3 className="h5">Planning</h3>
+              <BulletList items={project.discovery.planning} />
+            </>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: "design",
+      label: "Design",
+      title: "Design Process",
+      system: "project.design",
+      count: "04",
+      saDelay: 400,
+      available: () => Boolean(project.design),
+      render: () => (
+        <div className="case-study__prose">
+          {project.design.wireframes && (
+            <>
+              <h3 className="h5">Wireframes</h3>
+              <p>{project.design.wireframes}</p>
+            </>
+          )}
+          {project.design.exploration && (
+            <>
+              <h3 className="h5">Exploration</h3>
+              <p>{project.design.exploration}</p>
+            </>
+          )}
+          {project.design.decisions?.length > 0 && (
+            <>
+              <h3 className="h5">UI Decisions</h3>
+              <BulletList items={project.design.decisions} />
+            </>
+          )}
+          {project.design.systems && (
+            <>
+              <h3 className="h5">Design System</h3>
+              <p>{project.design.systems}</p>
+            </>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: "development",
+      label: "Development",
+      title: "Development Process",
+      system: "project.development",
+      count: "05",
+      saDelay: 500,
+      available: () => Boolean(project.development),
+      render: () => (
+        <div className="case-study__prose">
+          {project.development.architecture && (
+            <>
+              <h3 className="h5">Architecture</h3>
+              <p>{project.development.architecture}</p>
+            </>
+          )}
+          {project.development.decisions?.length > 0 && (
+            <>
+              <h3 className="h5">Technical Decisions</h3>
+              <BulletList items={project.development.decisions} />
+            </>
+          )}
+          {project.development.performance?.length > 0 && (
+            <>
+              <h3 className="h5">Performance</h3>
+              <BulletList items={project.development.performance} />
+            </>
+          )}
+          {project.development.challenges?.length > 0 && (
+            <>
+              <h3 className="h5">Challenges Solved</h3>
+              <BulletList items={project.development.challenges} />
+            </>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: "features",
+      label: "Features",
+      title: "Key Features",
+      system: "project.features",
+      count: "06",
+      saDelay: 600,
+      available: () => project.features?.length > 0,
+      render: () => (
+        <div className="case-study__features gap-column-1 gap-row-1">
+          {project.features.map((feature, index) => (
+            <FeatureCard key={feature.title} {...feature} index={index} />
+          ))}
+        </div>
+      ),
+    },
+    {
+      id: "results",
+      label: "Results",
+      title: "Results & Outcomes",
+      system: "project.results",
+      count: "07",
+      saDelay: 700,
+      available: () => Boolean(project.results),
+      render: () => (
+        <div className="case-study__results-grid gap-column-1 gap-row-1">
+          {project.results.achievements?.length > 0 && (
+            <div className="case-study__result-card relative section__grain --grain-medium">
+              <h3 className="h5">Achievements</h3>
+              <BulletList items={project.results.achievements} />
+            </div>
+          )}
+          {project.results.improvements?.length > 0 && (
+            <div className="case-study__result-card relative section__grain --grain-medium">
+              <h3 className="h5">Improvements</h3>
+              <BulletList items={project.results.improvements} />
+            </div>
+          )}
+          {project.results.lessons?.length > 0 && (
+            <div className="case-study__result-card relative section__grain --grain-medium">
+              <h3 className="h5">Lessons Learned</h3>
+              <BulletList items={project.results.lessons} />
+            </div>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: "gallery",
+      label: "Gallery",
+      title: "Project Gallery",
+      system: "project.gallery",
+      count: "08",
+      saDelay: 800,
+      available: () => project.gallery?.length > 0,
+      render: () => <ProjectGallery items={project.gallery} />,
+    },
+    {
+      id: "technologies",
+      label: "Technologies",
+      title: "Technology Stack",
+      system: "project.stack",
+      count: "09",
+      saDelay: 900,
+      available: () => project.stack?.length > 0,
+      render: () => (
+        <div className="case-study__stack gap-column-1 gap-row-1">
+          {project.stack.map((group, index) => (
+            <div
+              key={group.category}
+              className="case-study__stack-group"
+              sa={`up slow mirror delay-${(index + 1) * 100}`}
+            >
+              <h3 className="case-study__stack-label">{group.category}</h3>
+              <ul className="case-study__stack-list flex-all flex-direction-column">
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+  ];
+
+  return defs.filter((def) => def.available());
+}
+
+/* -------------------------------------------------------------------------- */
+/* Page                                                                       */
+/* -------------------------------------------------------------------------- */
+
 function ProjectDetail() {
   useSA();
   useDotGrid();
@@ -83,6 +339,18 @@ function ProjectDetail() {
     title: project?.seo?.title ?? "Work | Walter Carlson",
     description: project?.seo?.description,
   });
+
+  const sections = useMemo(() => buildCaseStudySections(project), [project]);
+
+  const navItems = useMemo(
+    () =>
+      sections.map(({ id, label, title }) => ({
+        id,
+        label,
+        title,
+      })),
+    [sections]
+  );
 
   if (!project) return <ProjectNotFound />;
 
@@ -105,7 +373,7 @@ function ProjectDetail() {
         )}
 
         <div className="hero__content flex-all flex-vert-bottom h-full">
-          <div className="hero__left project-hero__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">          
+          <div className="hero__left project-hero__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">
 
             <div className="project-hero__meta flex-all flex-vert-center flex-wrap gap-column-1">
               <span className="project-hero__tag">{project.tag}</span>
@@ -136,7 +404,7 @@ function ProjectDetail() {
             </dl>
             <Btn to="/work" primary className="magnetic magnetic--subtle" data-cursor="accent">
               All work
-            </Btn>            
+            </Btn>
           </div>
         </div>
 
@@ -163,115 +431,34 @@ function ProjectDetail() {
         <div className="section__mask absolute"></div>
       </header>
 
-      {/* Summary */}
-      <CaseStudyBlock label="project.summary" title="Overview" count="01">
-        <div className="case-study__summary-grid gap-column-1 gap-row-1">
-          <div className="case-study__summary-card relative section__grain --grain-medium">
-            <h3 className="h5">Challenge</h3>
-            <p>{project.summary.challenge}</p>
-          </div>
-          <div className="case-study__summary-card relative section__grain --grain-medium">
-            <h3 className="h5">Goals</h3>
-            <BulletList items={project.summary.goals} />
-          </div>
-          <div className="case-study__summary-card relative section__grain --grain-medium">
-            <h3 className="h5">Objectives</h3>
-            <BulletList items={project.summary.objectives} />
-          </div>
-        </div>
-      </CaseStudyBlock>
-
-      {/* Discovery */}
-      <CaseStudyBlock label="project.discovery" title="Discovery & Strategy" count="02" saDelay={300}>
-        <div className="case-study__prose">
-          <h3 className="h5">Problem Space</h3>
-          <p>{project.discovery.problem}</p>
-          <h3 className="h5">Research</h3>
-          <BulletList items={project.discovery.research} />
-          <h3 className="h5">Planning</h3>
-          <BulletList items={project.discovery.planning} />
-        </div>
-      </CaseStudyBlock>
-
-      {/* Design */}
-      <CaseStudyBlock label="project.design" title="Design Process" count="03" saDelay={400}>
-        <div className="case-study__prose">
-          <h3 className="h5">Wireframes</h3>
-          <p>{project.design.wireframes}</p>
-          <h3 className="h5">Exploration</h3>
-          <p>{project.design.exploration}</p>
-          <h3 className="h5">UI Decisions</h3>
-          <BulletList items={project.design.decisions} />
-          <h3 className="h5">Design System</h3>
-          <p>{project.design.systems}</p>
-        </div>
-      </CaseStudyBlock>
-
-      {/* Development */}
-      <CaseStudyBlock label="project.development" title="Development Process" count="04" saDelay={500}>
-        <div className="case-study__prose">
-          <h3 className="h5">Architecture</h3>
-          <p>{project.development.architecture}</p>
-          <h3 className="h5">Technical Decisions</h3>
-          <BulletList items={project.development.decisions} />
-          <h3 className="h5">Performance</h3>
-          <BulletList items={project.development.performance} />
-          <h3 className="h5">Challenges Solved</h3>
-          <BulletList items={project.development.challenges} />
-        </div>
-      </CaseStudyBlock>
-
-      {/* Key Features */}
-      <CaseStudyBlock label="project.features" title="Key Features" count="05" saDelay={600}>
-        <div className="case-study__features gap-column-1 gap-row-1">
-          {project.features.map((feature, index) => (
-            <FeatureCard key={feature.title} {...feature} index={index} />
-          ))}
-        </div>
-      </CaseStudyBlock>
-
-      {/* Results */}
-      <CaseStudyBlock label="project.results" title="Results & Outcomes" count="06" saDelay={700}>
-        <div className="case-study__results-grid gap-column-1 gap-row-1">
-          <div className="case-study__result-card relative section__grain --grain-medium">
-            <h3 className="h5">Achievements</h3>
-            <BulletList items={project.results.achievements} />
-          </div>
-          <div className="case-study__result-card relative section__grain --grain-medium">
-            <h3 className="h5">Improvements</h3>
-            <BulletList items={project.results.improvements} />
-          </div>
-          <div className="case-study__result-card relative section__grain --grain-medium">
-            <h3 className="h5">Lessons Learned</h3>
-            <BulletList items={project.results.lessons} />
-          </div>
-        </div>
-      </CaseStudyBlock>
-
-      {/* Gallery — horizontal drag scroll + click-to-expand */}
-      <CaseStudyBlock label="project.gallery" title="Project Gallery" count="07" saDelay={800}>
-        <ProjectGallery items={project.gallery} />
-      </CaseStudyBlock>
-
-      {/* Technology Stack */}
-      <CaseStudyBlock label="project.stack" title="Technology Stack" count="08" saDelay={900}>
-        <div className="case-study__stack gap-column-1 gap-row-1">
-          {project.stack.map((group, index) => (
-            <div
-              key={group.category}
-              className="case-study__stack-group"
-              sa={`up slow mirror delay-${(index + 1) * 100}`}
-            >
-              <h3 className="case-study__stack-label">{group.category}</h3>
-              <ul className="case-study__stack-list flex-all flex-direction-column">
-                {group.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+      {/* Case study body: sticky side nav (desktop) / pills (mobile) + sections */}
+      {sections.length > 0 && (
+        <div className="section-padding project-detail__body">
+          <aside className="project-detail__aside" aria-label="Case study navigation">
+            <div className="project-detail__aside-inner">
+              <SideAnchorNavigation
+                sections={navItems}
+                ariaLabel={`${project.title} sections`}
+              />
             </div>
-          ))}
+          </aside>
+
+          <div className="project-detail__content">
+            {sections.map((section) => (
+              <CaseStudyBlock
+                key={section.id}
+                id={section.id}
+                label={section.system}
+                title={section.title}
+                count={section.count}
+                saDelay={section.saDelay}
+              >
+                {section.render()}
+              </CaseStudyBlock>
+            ))}
+          </div>
         </div>
-      </CaseStudyBlock>
+      )}
 
       {/* Next Project */}
       <div className="project-detail__nav section-padding">

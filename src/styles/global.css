@@ -25,6 +25,7 @@
   --color-text-tertiary: #a8a8a8; /* less emphasis */
   --color-text-disabled: #9a9a9a; /* disabled */
   --color-text-inverse: #121212; /* text on light bg */
+  --color-text-danger: #ff4d4d; /* danger text */
 
   --color-primary: #2979ff;
   --color-primary-hover: #4c94ff;
@@ -274,8 +275,16 @@ img {
   color: var(--color-text-secondary);
 }
 
+.text-danger {
+  color: var(--color-text-danger);
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-sm {
+  font-size: 0.875rem;
 }
 
 .gap-row-1 {

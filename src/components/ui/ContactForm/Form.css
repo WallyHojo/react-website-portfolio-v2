@@ -1,3 +1,7 @@
+.contact__content {
+  row-gap: 1.25rem;
+}
+
 .contact__form {
   margin-right: clamp(-1.5rem, 3vw, -2rem);
   padding-top: clamp(1.5rem, -3.466rem + 8.0178vw, 3.75rem);
@@ -9,8 +13,8 @@
   box-shadow: var(--shadow);
 }
 
-.contact__content {
-  row-gap: 1.25rem;
+.contact__form form {
+  margin-top: 1rem;
 }
 
 .form__group {
@@ -84,6 +88,10 @@
   transition: background-color 5000s ease-in-out 0s;
   outline: none;
   color: var(--color-text-primary);
+}
+
+button#submit {
+  margin-top: 1rem;
 }
 
 /* Media Queries */

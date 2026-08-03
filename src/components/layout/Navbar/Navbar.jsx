@@ -112,11 +112,18 @@ const MenuClipPaths = React.memo(() => (
 ));
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
-function useScrollHeader() {
+// Note: show/hide-on-scroll-direction is no longer owned by the navbar — it's
+// handled globally by useScrollDirection (see src/hooks/useScrollDirection.jsx
+// and App.jsx), which toggles html.scrolling-up / html.scrolling-down. Navbar.css
+// reacts to those classes directly (see the html.scrolling-up/html.scrolling-down
+// nav.navbar rules).
+//
+// This hook keeps the one thing that IS genuinely navbar-specific: the
+// "scrolled past my own height" blur/background toggle, which depends on the
+// navbar's own measured height and is unrelated to scroll direction.
+function useHeaderScrolled() {
   const headerRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const lastScrollTop = useRef(0);
   const rafRef = useRef(null);
 
   useEffect(() => {
@@ -124,18 +131,12 @@ function useScrollHeader() {
       if (rafRef.current) return;
       rafRef.current = requestAnimationFrame(() => {
         rafRef.current = null;
-        const currentScrollTop = window.scrollY;
         const headerHeight = headerRef.current?.offsetHeight ?? 0;
-        const isUp = currentScrollTop < lastScrollTop.current;
-        const isAtTop = currentScrollTop <= headerHeight;
-
-        setIsScrolled(!isAtTop);
-        setIsHeaderVisible(isAtTop || isUp);
-
-        lastScrollTop.current = currentScrollTop;
+        setIsScrolled(window.scrollY > headerHeight);
       });
     };
 
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -143,7 +144,7 @@ function useScrollHeader() {
     };
   }, []);
 
-  return { headerRef, isScrolled, isHeaderVisible };
+  return { headerRef, isScrolled };
 }
 
 function useMenuState() {
@@ -200,18 +201,19 @@ function useMenuState() {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 function Navbar() {
-  const { headerRef, isScrolled, isHeaderVisible } = useScrollHeader();
+  const { headerRef, isScrolled } = useHeaderScrolled();
   const { menuOpen, openMenu, closeMenu, handleAnimationEnd, menuRef } = useMenuState();
   const isActive = useActiveRoute();
   const replayRef = useRef(null);
   useSAReplay(replayRef);
 
+  // Show/hide-on-scroll-direction is driven purely by CSS now, via the
+  // global html.scrolling-up / html.scrolling-down classes — see Navbar.css.
   const navClassName = useMemo(() => cx(
     "navbar",
     isScrolled && "navbar__scrolled",
-    isHeaderVisible ? "header-visible" : "header-hidden",
     "fixed"
-  ), [isScrolled, isHeaderVisible]);
+  ), [isScrolled]);
 
   const menuClassName = useMemo(() => cx(
     "menu section-padding",

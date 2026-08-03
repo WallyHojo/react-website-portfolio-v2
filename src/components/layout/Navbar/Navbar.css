@@ -13,10 +13,13 @@
   transition: transform 0.5s ease-in;
 }
 
-.header-visible {
+/* Driven by the global scroll-direction state on <html>, set by
+   useScrollDirection (src/hooks/useScrollDirection.jsx). Any element in the
+   app can hook into html.scrolling-up / html.scrolling-down the same way. */
+html.scrolling-up nav.navbar {
   transform: translateY(0); /* Show the header */
 }
-.header-hidden {
+html.scrolling-down nav.navbar {
   transform: translateY(-100%); /* Hide the header by moving it up */
 }
 
