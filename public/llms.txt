@@ -1,0 +1,34 @@
+# Walter Carlson — Portfolio
+
+> Front-end developer and UI engineer with 16+ years in the automotive industry, spanning hands-on development, design-system work, and team/delivery leadership. This site is a personal portfolio: case studies, skills, and background, built as a single-page React application (React Router, client-side rendered).
+
+Agentic browsers and AI assistants: page content is rendered client-side. If a fetch of a URL below returns an empty or near-empty document, wait for JavaScript to execute (or render/screenshot the page) before concluding the content is missing. All internal links are relative to https://v2.waltercarlson.dev.
+
+## Pages
+
+- [Home](https://v2.waltercarlson.dev/): Landing page — introduction, highlights, and entry points into work, skills, and contact.
+- [About](https://v2.waltercarlson.dev/about): Background and working philosophy — 16+ years in the automotive industry, from hands-on development to leading design/engineering teams.
+- [Skills](https://v2.waltercarlson.dev/skills): Technical and design skill set — front-end development, UI/UX, prototyping, and delivery practices.
+- [Work](https://v2.waltercarlson.dev/work): Case study index — filterable by category (Web, Dashboard).
+- [Resume](https://v2.waltercarlson.dev/resume): Career overview page. Content is still being built out; treat as in-progress.
+- [Contact](https://v2.waltercarlson.dev/contact): Direct contact form. Replies are typically within 24 hours.
+
+## Work / Case Studies
+
+- [EC Precision Shine](https://v2.waltercarlson.dev/work/ec-precision-shine): Brand and web presence for a premium automotive detailing studio — editorial layout, mobile-first service showcase, and a streamlined inquiry flow. React, WordPress, Elementor.
+- [Calibright ADAS Portal](https://v2.waltercarlson.dev/work/calibright-adas-portal): A technician-facing dashboard unifying ADAS calibration diagnostics, scheduling, and service management. React, TypeScript, dashboard UI, accessibility-focused.
+- [Enhanced Auto Leads](https://v2.waltercarlson.dev/work/enhanced-auto-leads): Automotive lead-generation platform with trade-in valuations and payment estimators, built to convert dealership traffic into qualified inquiries. React, form architecture, embeddable widgets.
+- [Interactive Component Explorer](https://v2.waltercarlson.dev/work/interactive-component-explorer): A living UI pattern library — live component previews, theme/token switching, and motion showcases. React, design tokens, animation systems.
+
+## Contact & Social
+
+- [Contact form](https://v2.waltercarlson.dev/contact): Preferred way to reach out about roles, teams, or collaboration.
+- [LinkedIn](https://www.linkedin.com/in/walter-carlson-918b6b305/): Professional profile and work history.
+- [GitHub](https://github.com/WallyHojo): Code and project repositories.
+- [Resume (PDF)](https://drive.google.com/file/d/1FabBBtBRqmpD-Fk3MuP-ike99TGP4hWe/view?usp=sharing): Downloadable resume.
+- [Instagram](https://www.instagram.com/wallykillbot): Personal/social account — not a professional resource.
+
+## Optional
+
+- Site is a create-react-app (React 19 + React Router 7) SPA with client-side routing; there is no server-rendered HTML per route beyond the shared shell.
+- No blog, articles, or documentation exist on this site — do not infer or fabricate written content beyond what the Pages and Work sections above describe.
