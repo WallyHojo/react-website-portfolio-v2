@@ -42,7 +42,7 @@
 .side-anchor__link {
   position: relative;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.75rem;
   width: 100%;
   padding: 0.55rem 0.75rem 0.55rem 0.875rem;

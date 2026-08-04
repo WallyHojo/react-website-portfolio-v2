@@ -50,7 +50,7 @@ function BulletList({ items }) {
   if (!items?.length) return null;
 
   return (
-    <ul className="case-study__list flex-all flex-direction-column">
+    <ul className="card__list flex-all flex-direction-column">
       {items.map((item) => (
         <li key={item}>{item}</li>
       ))}
@@ -61,7 +61,7 @@ function BulletList({ items }) {
 function FeatureCard({ title, description, index }) {
   return (
     <article
-      className="case-study__feature relative section__grain --grain-subtle"
+      className="card relative section__grain --grain-subtle"
       sa={`up slow mirror delay-${(index + 1) * 100}`}
     >
       <h3 className="h5">{title}</h3>
@@ -104,21 +104,21 @@ function buildCaseStudySections(project) {
       saDelay: 200,
       available: () => Boolean(project.summary),
       render: () => (
-        <div className="case-study__summary-grid gap-column-1 gap-row-1">
+        <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
           {project.summary.challenge && (
-            <div className="case-study__summary-card relative section__grain --grain-medium">
+            <div className="card relative section__grain --grain-medium">
               <h3 className="h5">Challenge</h3>
               <p>{project.summary.challenge}</p>
             </div>
           )}
           {project.summary.goals?.length > 0 && (
-            <div className="case-study__summary-card relative section__grain --grain-medium">
+            <div className="card relative section__grain --grain-medium">
               <h3 className="h5">Goals</h3>
               <BulletList items={project.summary.goals} />
             </div>
           )}
           {project.summary.objectives?.length > 0 && (
-            <div className="case-study__summary-card relative section__grain --grain-medium">
+            <div className="card relative section__grain --grain-medium">
               <h3 className="h5">Objectives</h3>
               <BulletList items={project.summary.objectives} />
             </div>
@@ -240,7 +240,7 @@ function buildCaseStudySections(project) {
       saDelay: 600,
       available: () => project.features?.length > 0,
       render: () => (
-        <div className="case-study__features gap-column-1 gap-row-1">
+        <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
           {project.features.map((feature, index) => (
             <FeatureCard key={feature.title} {...feature} index={index} />
           ))}
@@ -256,21 +256,21 @@ function buildCaseStudySections(project) {
       saDelay: 700,
       available: () => Boolean(project.results),
       render: () => (
-        <div className="case-study__results-grid gap-column-1 gap-row-1">
+        <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
           {project.results.achievements?.length > 0 && (
-            <div className="case-study__result-card relative section__grain --grain-medium">
+            <div className="card relative section__grain --grain-medium">
               <h3 className="h5">Achievements</h3>
               <BulletList items={project.results.achievements} />
             </div>
           )}
           {project.results.improvements?.length > 0 && (
-            <div className="case-study__result-card relative section__grain --grain-medium">
+            <div className="card relative section__grain --grain-medium">
               <h3 className="h5">Improvements</h3>
               <BulletList items={project.results.improvements} />
             </div>
           )}
           {project.results.lessons?.length > 0 && (
-            <div className="case-study__result-card relative section__grain --grain-medium">
+            <div className="card relative section__grain --grain-medium">
               <h3 className="h5">Lessons Learned</h3>
               <BulletList items={project.results.lessons} />
             </div>
@@ -297,11 +297,11 @@ function buildCaseStudySections(project) {
       saDelay: 900,
       available: () => project.stack?.length > 0,
       render: () => (
-        <div className="case-study__stack gap-column-1 gap-row-1">
+        <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
           {project.stack.map((group, index) => (
             <div
               key={group.category}
-              className="case-study__stack-group"
+              className="card"
               sa={`up slow mirror delay-${(index + 1) * 100}`}
             >
               <h3 className="case-study__stack-label">{group.category}</h3>
@@ -362,39 +362,39 @@ function ProjectDetail() {
     <article itemScope itemType="https://schema.org/CreativeWork">
       {/* Project Hero — mirrors HeroSection features with project hero image */}
       <header
-        className="section section__hero project-hero h-viewport relative section-padding overflow-hidden"
+        className="section section__hero h-viewport-small relative section-padding overflow-hidden"
         style={{ "--project-accent": project.backgroundColor }}
         aria-label={`${project.title} overview`}
       >
         {heroImage && (
-          <div className="project-hero__bg absolute" aria-hidden="true">
-            <img src={heroImage} alt="" className="project-hero__bg-image" />
+          <div className="section__hero-bg absolute" aria-hidden="true">
+            <img src={heroImage} alt="" />
           </div>
         )}
 
         <div className="hero__content flex-all flex-vert-bottom h-full">
-          <div className="hero__left project-hero__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">
+          <div className="hero__left flex-all flex-direction-column relative gap-row-1 mt-auto" sa="up glacial mirror">
 
-            <div className="project-hero__meta flex-all flex-vert-center flex-wrap gap-column-1">
-              <span className="project-hero__tag">{project.tag}</span>
-              <span className="project-hero__year">{project.year}</span>
+            <div className="hero__content-meta flex-all flex-vert-center flex-wrap gap-column-1">
+              <span className="meta__tag">{project.tag}</span>
+              <span className="meta__year">{project.year}</span>
             </div>
-            <h1 className="project-hero__title" itemProp="name">{project.title}</h1>
-            <p className="project-hero__overview" itemProp="description">{project.overview}</p>
+            <h1 className="heading" itemProp="name">{project.title}</h1>
+            <p className="text-muted" itemProp="description">{project.overview}</p>
 
-            <dl className="project-hero__details">
-              <div className="project-hero__detail">
+            <dl className="hero__content-details">
+              <div className="details__detail">
                 <dt>Role</dt>
                 <dd>{project.role}</dd>
               </div>
-              <div className="project-hero__detail">
+              <div className="details__detail">
                 <dt>Timeline</dt>
                 <dd>{project.timeline}</dd>
               </div>
-              <div className="project-hero__detail project-hero__detail--wide">
+              <div className="details__detail details__detail--wide">
                 <dt>Technologies</dt>
                 <dd>
-                  <ul className="project-hero__tech flex-all flex-wrap">
+                  <ul className="detail__tech flex-all flex-wrap">
                     {project.technologies.map((tech) => (
                       <li key={tech}>{tech}</li>
                     ))}

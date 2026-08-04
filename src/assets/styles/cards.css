@@ -52,3 +52,29 @@
   line-height: 1.7;
   color: var(--color-text-secondary);
 }
+
+.card__list {
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.card__list li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.card__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
