@@ -354,6 +354,8 @@
   padding: clamp(1rem, 3vw, 2.5rem);
   animation: gallery-lightbox-in 0.28s var(--ease-interaction) both;
   pointer-events: auto;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);  
 }
 
 .gallery-lightbox--closing {
@@ -373,8 +375,6 @@
   padding: 0;
   border: 0;
   background: url(../../assets/images/lines.png), color-mix(in srgb, #0a0a0a 78%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   cursor: none;
 }
 
