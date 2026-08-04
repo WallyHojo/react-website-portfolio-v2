@@ -78,6 +78,8 @@
   border-radius: 999px;
 }
 
+/* Media Queries */
+
 @media (width <= 1600px) {
   .section__hero-bg img {
     opacity: 0.5;
@@ -96,7 +98,7 @@
   }
 
   .section__hero-bg img {
-    opacity: 0.025;
+    opacity: 0.05;
   }   
 }
 
@@ -370,7 +372,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: color-mix(in srgb, #0a0a0a 78%, transparent);
+  background: url(../../assets/images/lines.png), color-mix(in srgb, #0a0a0a 78%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   cursor: none;
@@ -382,8 +384,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, 72rem);
-  max-height: min(92vh, 56rem);
+  /* width: min(100%, 72rem); */
+  /* max-height: min(92vh, 56rem); */
   pointer-events: auto;
 }
 
@@ -405,7 +407,7 @@
   height: auto;
   object-fit: contain;
   border-radius: 0.5rem;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow);
   animation: gallery-lightbox-image-in 0.32s var(--ease-interaction) both;
 }
 
@@ -438,29 +440,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid color-mix(in srgb, var(--color-bg-overlay) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--color-bg-elevated) 72%, transparent);
+  background: color-mix(in srgb, var(--color-primary-active) 72%, transparent);
   color: var(--color-text-primary);
-  transition:
-    color 0.25s var(--ease-interaction),
-    border-color 0.25s var(--ease-interaction),
-    background 0.25s var(--ease-interaction);
+  transition: color 0.25s var(--ease-interaction), border-color 0.25s var(--ease-interaction), background 0.25s var(--ease-interaction);
 }
 
 .gallery-lightbox__close:hover,
 .gallery-lightbox__close:focus-visible,
 .gallery-lightbox__nav:hover,
 .gallery-lightbox__nav:focus-visible {
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
   border-color: var(--color-primary-tint);
-  background: color-mix(in srgb, var(--color-bg-surface) 80%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 80%, transparent);
   outline: none;
 }
 
 .gallery-lightbox__close {
-  top: 0;
-  right: 0;
+  top: 0.625rem;
+  right: 0.625rem;
   width: 2.75rem;
   height: 2.75rem;
   font-size: 1.5rem;
@@ -477,11 +476,11 @@
 }
 
 .gallery-lightbox__nav--prev {
-  left: 0;
+  left: 0.625rem;
 }
 
 .gallery-lightbox__nav--next {
-  right: 0;
+  right: 0.625rem;
 }
 
 @keyframes gallery-lightbox-in {
@@ -572,7 +571,8 @@
 /* ========================================================================== */
 
 .project-detail__nav {
-  border-top: 1px solid color-mix(in srgb, var(--color-bg-overlay) 35%, transparent);
+  background-color: var(--color-bg-elevated-tint);
+  /* border-top: 1px solid color-mix(in srgb, var(--color-bg-overlay) 35%, transparent); */
 }
 
 .project-nav {

@@ -287,6 +287,14 @@ img {
   font-size: 0.875rem;
 }
 
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
 .gap-row-1 {
   row-gap: 1rem;
 }

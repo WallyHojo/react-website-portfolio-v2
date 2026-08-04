@@ -402,7 +402,7 @@ function ProjectDetail() {
                 </dd>
               </div>
             </dl>
-            <div className="hero__content-actions flex-all flex-wrap gap-column-2">
+            <div className="hero__content-actions flex-all flex-wrap gap-2">
               {project.url && (
                 <Btn to={project.url} target="_blank" primary className="btn btn-primary magnetic magnetic--subtle" data-cursor="accent">
                   Visit Website

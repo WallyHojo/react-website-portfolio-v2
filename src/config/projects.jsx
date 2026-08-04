@@ -4,9 +4,9 @@ import ecPrecisionShineHero from "../assets/images/work/heros/ec-precision-shine
 
 // Gallery images (EC Precision Shine)
 // Small
-
+import ecPrecisionShineSM01 from "../assets/images/work/gallery/sm/ec-precision-shine-01_img.webp";
 // Large
-import ecPrecisionShineLG01 from "../assets/images/work/gallery/lg/ec-precision-shine_img.webp";
+import ecPrecisionShineLG01 from "../assets/images/work/gallery/lg/ec-precision-shine-01_img.webp";
 
 // Calibright ADAS Portal
 import calibrightPrev from "../assets/images/work/cards/calibright-preview_img.webp";
@@ -14,9 +14,9 @@ import calibrightHero from "../assets/images/work/heros/calibright-hero_img.webp
 
 // Gallery images (Calibright ADAS Portal)
 // Small
-
+import calibrightSM01 from "../assets/images/work/gallery/sm/calibright-01_img.webp";
 // Large
-import calibrightLG01 from "../assets/images/work/gallery/lg/calibright_img.webp";
+import calibrightLG01 from "../assets/images/work/gallery/lg/calibright-01_img.webp";
 
 
 // Enhanced Auto Leads
@@ -25,9 +25,9 @@ import enhancedLeadsHero from "../assets/images/work/heros/enhanced-automotive-l
 
 // Gallery images (Enhanced Auto Leads)
 // Small
-
+import enhancedLeadsSM01 from "../assets/images/work/gallery/sm/enhanced-automotive-leads-01_img.webp";
 // Large
-import enhancedLeadsLG01 from "../assets/images/work/gallery/lg/enhanced-automotive-leads_img.webp";
+import enhancedLeadsLG01 from "../assets/images/work/gallery/lg/enhanced-automotive-leads-01_img.webp";
 
 // Interactive Component Explorer
 import uiExplorerPrev from "../assets/images/work/cards/ui-explorer-preview_img.webp";
@@ -35,9 +35,9 @@ import uiExplorerHero from "../assets/images/work/heros/ui-explorer-hero_img.web
 
 // Gallery images (UI Explorer)
 // Small
-
+import uiExplorerSM01 from "../assets/images/work/gallery/sm/ui-explorer-01_img.webp";
 // Large
-import uiExplorerLG01 from "../assets/images/work/gallery/lg/ui-explorer_img.webp";
+import uiExplorerLG01 from "../assets/images/work/gallery/lg/ui-explorer-01_img.webp";
 
 import workExploreWorkPrev from "../assets/images/work/cards/explore-work-preview_img.webp";
 
@@ -195,8 +195,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { sm: ecPrecisionShinePrev, lg: ecPrecisionShineLG01, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
-      { sm: ecPrecisionShinePrev, lg: ecPrecisionShineLG01, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
+      { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
+      { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Responsive Layouts"] },
@@ -321,8 +321,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { sm: calibrightPrev, lg: calibrightLG01, alt: "Calibright ADAS Portal dashboard", caption: "Primary dashboard with status rail and job queue" },
-      { sm: calibrightPrev, lg: calibrightLG01, alt: "Calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
+      { sm: calibrightSM01, lg: calibrightLG01, alt: "Calibright ADAS Portal dashboard", caption: "Primary dashboard with status rail and job queue" },
+      { sm: calibrightSM01, lg: calibrightLG01, alt: "Calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
     ],
     stack: [
       { category: "Application", items: ["React", "TypeScript", "Component Architecture"] },
@@ -447,8 +447,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { sm: enhancedLeadsPrev, lg: enhancedLeadsLG01, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
-      { sm: enhancedLeadsPrev, lg: enhancedLeadsLG01, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
+      { sm: enhancedLeadsSM01, lg: enhancedLeadsLG01, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
+      { sm: enhancedLeadsSM01, lg: enhancedLeadsLG01, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
     ],
     stack: [
       { category: "Interface", items: [...sharedStack.frontend] },
@@ -573,8 +573,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { sm: uiExplorerPrev, lg: uiExplorerLG01, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
-      { sm: uiExplorerPrev, lg: uiExplorerLG01, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
+      { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
+      { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Animation Systems"] },
