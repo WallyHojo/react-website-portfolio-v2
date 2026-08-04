@@ -8,7 +8,7 @@ export default function FeaturedProjectRow({
   tag,
   year,
   overview,
-  image,
+  imagePrev,
   slug,
   backgroundColor,
   reversed = false,
@@ -47,7 +47,7 @@ export default function FeaturedProjectRow({
           aria-hidden="true"
         />
         <div className="featured-project__image-wrap relative overflow-hidden">
-          <img src={image} alt={`${title} preview`} loading="lazy" />
+          <img src={imagePrev} alt={`${title} preview`} loading="lazy" />
         </div>
       </div>
     </article>

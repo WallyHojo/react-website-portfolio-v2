@@ -233,7 +233,7 @@ function Navbar() {
             </Btn>
           </div>
           <div className="navbar__right flex-all">
-            <Btn to="/resume" secondary className="btn--no-target">
+            <Btn to="/resume" secondary className="magnetic magnetic--subtle btn--no-target">
               Resume
             </Btn>
             <div className="navbar-right__divider" />

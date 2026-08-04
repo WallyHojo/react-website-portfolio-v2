@@ -1,18 +1,43 @@
-import workECPrecisionShinePrev from "../assets/images/work/cards/ec-precision-shine-preview_img.webp";
-import workECPrecisionShineHero from "../assets/images/work/cards/ec-precision-shine-hero_img.webp";
-import workECPrecisionShine from "../assets/images/work/cards/ec-precision-shine_img.webp";
+// EC Precision Shine
+import ecPrecisionShinePrev from "../assets/images/work/cards/ec-precision-shine-preview_img.webp";
+import ecPrecisionShineHero from "../assets/images/work/heros/ec-precision-shine-hero_img.webp";
 
-import workCalibrightPrev from "../assets/images/work/cards/calibright-preview_img.webp";
-import workCalibrightHero from "../assets/images/work/cards/calibright-hero_img.webp";
-import workCalibright from "../assets/images/work/cards/calibright_img.webp";
+// Gallery images (EC Precision Shine)
+// Small
 
-import workEnhancedLeadsPrev from "../assets/images/work/cards/enhanced-automotive-leads-preview_img.webp";
-import workEnhancedLeadsHero from "../assets/images/work/cards/enhanced-automotive-leads-hero_img.webp";
-import workEnhancedLeads from "../assets/images/work/cards/enhanced-automotive-leads_img.webp";
+// Large
+import ecPrecisionShineLG01 from "../assets/images/work/gallery/lg/ec-precision-shine_img.webp";
 
-import workUIExplorerPrev from "../assets/images/work/cards/ui-explorer-preview_img.webp";
-import workUIExplorerHero from "../assets/images/work/cards/ui-explorer-hero_img.webp";
-import workUIExplorer from "../assets/images/work/cards/ui-explorer_img.webp";
+// Calibright ADAS Portal
+import calibrightPrev from "../assets/images/work/cards/calibright-preview_img.webp";
+import calibrightHero from "../assets/images/work/heros/calibright-hero_img.webp";
+
+// Gallery images (Calibright ADAS Portal)
+// Small
+
+// Large
+import calibrightLG01 from "../assets/images/work/gallery/lg/calibright_img.webp";
+
+
+// Enhanced Auto Leads
+import enhancedLeadsPrev from "../assets/images/work/cards/enhanced-automotive-leads-preview_img.webp";
+import enhancedLeadsHero from "../assets/images/work/heros/enhanced-automotive-leads-hero_img.webp";
+
+// Gallery images (Enhanced Auto Leads)
+// Small
+
+// Large
+import enhancedLeadsLG01 from "../assets/images/work/gallery/lg/enhanced-automotive-leads_img.webp";
+
+// Interactive Component Explorer
+import uiExplorerPrev from "../assets/images/work/cards/ui-explorer-preview_img.webp";
+import uiExplorerHero from "../assets/images/work/heros/ui-explorer-hero_img.webp";
+
+// Gallery images (UI Explorer)
+// Small
+
+// Large
+import uiExplorerLG01 from "../assets/images/work/gallery/lg/ui-explorer_img.webp";
 
 import workExploreWorkPrev from "../assets/images/work/cards/explore-work-preview_img.webp";
 
@@ -61,14 +86,14 @@ export const PROJECTS = [
     slug: "ec-precision-shine",
     title: "EC Precision Shine",
     shortTitle: "Precision Shine",
+    url: "https://ecprecisionshine.com",
     tag: "Web",
     category: "Web",
     year: "2025",
     featured: true,
     featuredOrder: 1,
-    imagePrev: workECPrecisionShinePrev,
-    image: workECPrecisionShine,    
-    heroimage: workECPrecisionShineHero,
+    imagePrev: ecPrecisionShinePrev,
+    heroimage: ecPrecisionShineHero,
     backgroundColor: "#191919",
     accentColor: "#2979ff",
     role: "UI Engineer & Front-End Developer",
@@ -170,8 +195,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workECPrecisionShinePrev, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
-      { src: workECPrecisionShinePrev, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
+      { sm: ecPrecisionShinePrev, lg: ecPrecisionShineLG01, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
+      { sm: ecPrecisionShinePrev, lg: ecPrecisionShineLG01, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Responsive Layouts"] },
@@ -193,9 +218,8 @@ export const PROJECTS = [
     year: "2026",
     featured: true,
     featuredOrder: 2,
-    imagePrev: workCalibrightPrev,
-    image: workCalibright,    
-    heroimage: workCalibrightHero,
+    imagePrev: calibrightPrev,   
+    heroimage: calibrightHero,
     backgroundColor: "#84431d",
     accentColor: "#e8a87c",
     role: "UI Engineer & Product Interface Developer",
@@ -297,8 +321,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workCalibrightPrev, alt: "Calibright ADAS Portal dashboard", caption: "Primary dashboard with status rail and job queue" },
-      { src: workCalibrightPrev, alt: "Calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
+      { sm: calibrightPrev, lg: calibrightLG01, alt: "Calibright ADAS Portal dashboard", caption: "Primary dashboard with status rail and job queue" },
+      { sm: calibrightPrev, lg: calibrightLG01, alt: "Calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
     ],
     stack: [
       { category: "Application", items: ["React", "TypeScript", "Component Architecture"] },
@@ -320,9 +344,8 @@ export const PROJECTS = [
     year: "2023",
     featured: true,
     featuredOrder: 3,
-    imagePrev: workEnhancedLeadsPrev,
-    image: workEnhancedLeads,
-    heroimage: workEnhancedLeadsHero,
+    imagePrev: enhancedLeadsPrev,
+    heroimage: enhancedLeadsHero,
     backgroundColor: "#2d5476",
     accentColor: "#4c94ff",
     role: "Front-End Developer & UI Engineer",
@@ -424,8 +447,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workEnhancedLeadsPrev, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
-      { src: workEnhancedLeadsPrev, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
+      { sm: enhancedLeadsPrev, lg: enhancedLeadsLG01, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
+      { sm: enhancedLeadsPrev, lg: enhancedLeadsLG01, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
     ],
     stack: [
       { category: "Interface", items: [...sharedStack.frontend] },
@@ -447,9 +470,8 @@ export const PROJECTS = [
     year: "2026",
     featured: true,
     featuredOrder: 4,
-    imagePrev: workUIExplorerPrev,
-    image: workUIExplorer,
-    heroimage: workUIExplorerHero,
+    imagePrev: uiExplorerPrev,
+    heroimage: uiExplorerHero,
     backgroundColor: "#1a1a2a",
     accentColor: "#7b8cff",
     role: "UI Engineer & Creative Developer",
@@ -551,8 +573,8 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { src: workUIExplorerPrev, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
-      { src: workUIExplorerPrev, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
+      { sm: uiExplorerPrev, lg: uiExplorerLG01, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
+      { sm: uiExplorerPrev, lg: uiExplorerLG01, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Animation Systems"] },

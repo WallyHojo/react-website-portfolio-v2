@@ -402,9 +402,16 @@ function ProjectDetail() {
                 </dd>
               </div>
             </dl>
-            <Btn to="/work" primary className="magnetic magnetic--subtle" data-cursor="accent">
-              All work
-            </Btn>
+            <div className="hero__content-actions flex-all flex-wrap gap-column-2">
+              {project.url && (
+                <Btn to={project.url} target="_blank" primary className="btn btn-primary magnetic magnetic--subtle" data-cursor="accent">
+                  Visit Website
+                </Btn>      
+              )}          
+              <Btn to="/work" secondary className="btn btn-secondary magnetic magnetic--subtle btn--no-target">
+                All work
+              </Btn>            
+            </div>
           </div>
         </div>
 

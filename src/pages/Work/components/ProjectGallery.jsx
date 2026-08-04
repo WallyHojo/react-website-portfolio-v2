@@ -216,7 +216,7 @@ export default function ProjectGallery({ items = [] }) {
                 aria-haspopup="dialog"
                 aria-label={`View larger: ${item.alt || item.caption || `Image ${index + 1}`}`}
               >
-                <img src={item.src} alt={item.alt || ""} loading="lazy" draggable={false} />
+                <img src={item.sm} alt={item.alt || ""} loading="lazy" draggable={false} />
               </button>
               {item.caption ? <figcaption>{item.caption}</figcaption> : null}
             </figure>
@@ -281,7 +281,7 @@ export default function ProjectGallery({ items = [] }) {
 
                 <figure className="gallery-lightbox__figure">
                   <img
-                    src={activeItem.src}
+                    src={activeItem.lg}
                     alt={activeItem.alt || ""}
                     className="gallery-lightbox__image"
                   />
