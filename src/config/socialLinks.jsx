@@ -15,5 +15,5 @@ export const SOCIAL_LINKS = [
   { href: "https://www.instagram.com/wallykillbot", label: "Instagram", icon: <InstagramIcon /> },
   { href: "https://www.linkedin.com/in/walter-carlson-918b6b305/", label: "LinkedIn", icon: <LinkedInIcon /> },
   { href: "https://github.com/WallyHojo", label: "GitHub", icon: <GithubIcon /> },
-  { href: "https://drive.google.com/file/d/1FabBBtBRqmpD-Fk3MuP-ike99TGP4hWe/view?usp=sharing", label: "Resume (PDF)", icon: <PDFIcon /> }
+  { href: "https://drive.google.com/file/d/1Cmxrbzao3a0DLa7opCwLBvyPLhs7-xvh/view?usp=sharing", label: "Resume (PDF)", icon: <PDFIcon /> }
 ];

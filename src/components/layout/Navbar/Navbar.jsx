@@ -233,7 +233,7 @@ function Navbar() {
             </Btn>
           </div>
           <div className="navbar__right flex-all">
-            <Btn to="/resume" secondary className="magnetic magnetic--subtle btn--no-target">
+            <Btn href="https://drive.google.com/file/d/1Cmxrbzao3a0DLa7opCwLBvyPLhs7-xvh/view?usp=sharing" target="_blank" secondary className="magnetic magnetic--subtle btn--no-target">
               Resume
             </Btn>
             <div className="navbar-right__divider" />
