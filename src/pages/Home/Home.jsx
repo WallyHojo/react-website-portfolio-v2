@@ -230,7 +230,7 @@ function Home() {
             </div>
             <p>Direct line to Walter, whether you're reaching out about a role, a team, or a potential fit, I'm always open to meaningful conversations around web development. Expect a reply within 24 hours.</p>
           </div>
-          <div className="contact__form section__grain --grain-subtle section-padding" sa="left-long glacial mirror">
+          <div className="contact__form section__grain --grain-medium section-padding" sa="left-long glacial mirror">
             <ContactForm />
           </div>
         </div>

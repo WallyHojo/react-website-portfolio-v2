@@ -10,7 +10,8 @@ import { useDotGrid, DotGrid } from "../../hooks/useDotGrid";
 import SectionLabel from "../../components/ui/SectionLabel";
 import SideAnchorNavigation from "../../components/ui/SideAnchorNavigation";
 import ProjectNav from "./components/ProjectNav";
-import ProjectGallery from "./components/ProjectGallery";
+import ProjectMedia from "./components/ProjectMedia";
+import { CaseStudyLightboxProvider } from "./components/CaseStudyLightboxContext";
 import useProjectSEO from "./hooks/useProjectSEO";
 import { getAdjacentProjects, getProjectBySlug } from "../../config/projects.jsx";
 import handleDots from "../../assets/images/handle-dots.svg";
@@ -166,32 +167,34 @@ function buildCaseStudySections(project) {
       saDelay: 400,
       available: () => Boolean(project.design),
       render: () => (
-        <div className="case-study__prose">
-          {project.design.wireframes && (
-            <>
-              <h3 className="h5">Wireframes</h3>
-              <p>{project.design.wireframes}</p>
-            </>
-          )}
-          {project.design.exploration && (
-            <>
-              <h3 className="h5">Exploration</h3>
-              <p>{project.design.exploration}</p>
-            </>
-          )}
-          {project.design.decisions?.length > 0 && (
-            <>
-              <h3 className="h5">UI Decisions</h3>
-              <BulletList items={project.design.decisions} />
-            </>
-          )}
-          {project.design.systems && (
-            <>
-              <h3 className="h5">Design System</h3>
-              <p>{project.design.systems}</p>
-            </>
-          )}
-        </div>
+        <ProjectMedia type="image" section="design" index={0} layout="row">
+          <div className="case-study__prose">
+            {project.design.wireframes && (
+              <>
+                <h3 className="h5">Wireframes</h3>
+                <p>{project.design.wireframes}</p>
+              </>
+            )}
+            {project.design.exploration && (
+              <>
+                <h3 className="h5">Exploration</h3>
+                <p>{project.design.exploration}</p>
+              </>
+            )}
+            {project.design.decisions?.length > 0 && (
+              <>
+                <h3 className="h5">UI Decisions</h3>
+                <BulletList items={project.design.decisions} />
+              </>
+            )}
+            {project.design.systems && (
+              <>
+                <h3 className="h5">Design System</h3>
+                <p>{project.design.systems}</p>
+              </>
+            )}
+          </div>
+        </ProjectMedia>
       ),
     },
     {
@@ -238,12 +241,15 @@ function buildCaseStudySections(project) {
       system: "project.features",
       count: "06",
       saDelay: 600,
-      available: () => project.features?.length > 0,
+      available: () => project.gallery?.length > 0 && project.features?.length > 0,
       render: () => (
-        <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
-          {project.features.map((feature, index) => (
-            <FeatureCard key={feature.title} {...feature} index={index} />
-          ))}
+        <div className="flex-all flex-direction-column gap-row-2">
+          <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
+            {project.features.map((feature, index) => (
+              <FeatureCard key={feature.title} {...feature} index={index} />
+            ))}
+          </div>
+          <ProjectMedia type="gallery" section="features" />
         </div>
       ),
     },
@@ -286,7 +292,7 @@ function buildCaseStudySections(project) {
       count: "08",
       saDelay: 800,
       available: () => project.gallery?.length > 0,
-      render: () => <ProjectGallery items={project.gallery} />,
+      render: () => <ProjectMedia type="gallery" items={project.gallery} />,
     },
     {
       id: "technologies",
@@ -438,39 +444,41 @@ function ProjectDetail() {
         <div className="section__mask absolute"></div>
       </header>
 
-      {/* Case study body: sticky side nav (desktop) / pills (mobile) + sections */}
-      {sections.length > 0 && (
-        <div className="section-padding project-detail__body">
-          <aside className="project-detail__aside" aria-label="Case study navigation">
-            <div className="project-detail__aside-inner">
-              <SideAnchorNavigation
-                sections={navItems}
-                ariaLabel={`${project.title} sections`}
-              />
+      <CaseStudyLightboxProvider project={project}>
+        {/* Case study body: sticky side nav (desktop) / pills (mobile) + sections */}
+        {sections.length > 0 && (
+          <div className="section-padding project-detail__body">
+            <aside className="project-detail__aside" aria-label="Case study navigation">
+              <div className="project-detail__aside-inner">
+                <SideAnchorNavigation
+                  sections={navItems}
+                  ariaLabel={`${project.title} sections`}
+                />
+              </div>
+            </aside>
+
+            <div className="project-detail__content">
+              {sections.map((section) => (
+                <CaseStudyBlock
+                  key={section.id}
+                  id={section.id}
+                  label={section.system}
+                  title={section.title}
+                  count={section.count}
+                  saDelay={section.saDelay}
+                >
+                  {section.render()}
+                </CaseStudyBlock>
+              ))}
             </div>
-          </aside>
-
-          <div className="project-detail__content">
-            {sections.map((section) => (
-              <CaseStudyBlock
-                key={section.id}
-                id={section.id}
-                label={section.system}
-                title={section.title}
-                count={section.count}
-                saDelay={section.saDelay}
-              >
-                {section.render()}
-              </CaseStudyBlock>
-            ))}
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Next Project */}
-      <div className="project-detail__nav section-padding">
-        <ProjectNav prev={prev} next={next} />
-      </div>
+        {/* Next Project */}
+        <div className="project-detail__nav section-padding">
+          <ProjectNav prev={prev} next={next} />
+        </div>
+      </CaseStudyLightboxProvider>
     </article>
   );
 }

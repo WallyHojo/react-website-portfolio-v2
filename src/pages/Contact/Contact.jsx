@@ -60,7 +60,7 @@ function Contact() {
             </div>
             <p>If you have a position, team, or career opportunity that aligns with my experience and skills, I'd love to hear from you. Submit the details, and I'll review your message carefully. Expect a reply within 24 hours.</p>
           </div>
-          <div className="contact__form section__grain --grain-subtle section-padding" sa="left-long glacial mirror">
+          <div className="contact__form section__grain --grain-medium section-padding" sa="left-long glacial mirror">
             <ContactForm ref={formSection} />
           </div>
         </div>

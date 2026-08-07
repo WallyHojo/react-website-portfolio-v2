@@ -1,45 +1,70 @@
-// EC Precision Shine
-import ecPrecisionShinePrev from "../assets/images/work/cards/ec-precision-shine-preview_img.webp";
-import ecPrecisionShineHero from "../assets/images/work/heros/ec-precision-shine-hero_img.webp";
+/* ================================
+   Generic Work Preview
+   ================================ */
+
+import workExploreWorkPrev from "../assets/images/work/preview_img.webp";
+
+/* ================================
+   EC Precision Shine
+   ================================ */
+
+import ecPrecisionShineHero from "../assets/images/work/ec-precision-shine/hero_img.webp";   
+import ecPrecisionShinePrev from "../assets/images/work/ec-precision-shine/preview_img.webp";
+
 
 // Gallery images (EC Precision Shine)
 // Small
-import ecPrecisionShineSM01 from "../assets/images/work/gallery/sm/ec-precision-shine-01_img.webp";
+import ecPrecisionShineSM01 from "../assets/images/work/ec-precision-shine/gallery/sm/ec-precision-shine-01_img.webp";
 // Large
-import ecPrecisionShineLG01 from "../assets/images/work/gallery/lg/ec-precision-shine-01_img.webp";
+import ecPrecisionShineLG01 from "../assets/images/work/ec-precision-shine/gallery/lg/ec-precision-shine-01_img.webp";
 
-// Calibright ADAS Portal
-import calibrightPrev from "../assets/images/work/cards/calibright-preview_img.webp";
-import calibrightHero from "../assets/images/work/heros/calibright-hero_img.webp";
+/* ================================
+   Calibright ADAS Portal
+   ================================ */
+
+import calibrightPrev from "../assets/images/work/calibright/preview_img.webp";
+import calibrightHero from "../assets/images/work/calibright/hero_img.webp";
 
 // Gallery images (Calibright ADAS Portal)
 // Small
-import calibrightSM01 from "../assets/images/work/gallery/sm/calibright-01_img.webp";
+import calibrightSM01 from "../assets/images/work/calibright/gallery/sm/calibright-01_img.webp";
 // Large
-import calibrightLG01 from "../assets/images/work/gallery/lg/calibright-01_img.webp";
+import calibrightLG01 from "../assets/images/work/calibright/gallery/lg/calibright-01_img.webp";
 
+/* ================================
+   Enhanced Auto Leads
+   ================================ */
 
-// Enhanced Auto Leads
-import enhancedLeadsPrev from "../assets/images/work/cards/enhanced-automotive-leads-preview_img.webp";
-import enhancedLeadsHero from "../assets/images/work/heros/enhanced-automotive-leads-hero_img.webp";
+import enhancedLeadsPrev from "../assets/images/work/enhanced-automotive-leads/preview_img.webp";
+import enhancedLeadsHero from "../assets/images/work/enhanced-automotive-leads/hero_img.webp";
 
 // Gallery images (Enhanced Auto Leads)
 // Small
-import enhancedLeadsSM01 from "../assets/images/work/gallery/sm/enhanced-automotive-leads-01_img.webp";
+import enhancedLeadsSM01 from "../assets/images/work/enhanced-automotive-leads/gallery/sm/enhanced-automotive-leads-01_img.webp";
 // Large
-import enhancedLeadsLG01 from "../assets/images/work/gallery/lg/enhanced-automotive-leads-01_img.webp";
+import enhancedLeadsLG01 from "../assets/images/work/enhanced-automotive-leads/gallery/lg/enhanced-automotive-leads-01_img.webp";
 
-// Interactive Component Explorer
-import uiExplorerPrev from "../assets/images/work/cards/ui-explorer-preview_img.webp";
-import uiExplorerHero from "../assets/images/work/heros/ui-explorer-hero_img.webp";
+/* ================================
+   Interactive Component Explorer
+   ================================ */
+
+import uiExplorerPrev from "../assets/images/work/ui-component-explorer/preview_img.webp";
+import uiExplorerHero from "../assets/images/work/ui-component-explorer/hero_img.webp";
+import uiExplorerSketch from "../assets/images/work/ui-component-explorer/sketch_img.webp";
+import uiExplorerFeatures01 from "../assets/images/work/ui-component-explorer/video/live-component-previews.mp4";
+import uiExplorerFeatures02 from "../assets/images/work/ui-component-explorer/video/theme-token-switching.mp4";
 
 // Gallery images (UI Explorer)
 // Small
-import uiExplorerSM01 from "../assets/images/work/gallery/sm/ui-explorer-01_img.webp";
+import uiExplorerSM01 from "../assets/images/work/ui-component-explorer/gallery/sm/ui-component-explorer-01_img.webp";
+import uiExplorerSM02 from "../assets/images/work/ui-component-explorer/gallery/sm/ui-component-explorer-02_img.webp";
+import uiExplorerSM03 from "../assets/images/work/ui-component-explorer/gallery/sm/ui-component-explorer-03_img.webp";
+import uiExplorerSM04 from "../assets/images/work/ui-component-explorer/gallery/sm/ui-component-explorer-04_img.webp";
 // Large
-import uiExplorerLG01 from "../assets/images/work/gallery/lg/ui-explorer-01_img.webp";
-
-import workExploreWorkPrev from "../assets/images/work/cards/explore-work-preview_img.webp";
+import uiExplorerLG01 from "../assets/images/work/ui-component-explorer/gallery/lg/ui-component-explorer-01_img.webp";
+import uiExplorerLG02 from "../assets/images/work/ui-component-explorer/gallery/lg/ui-component-explorer-02_img.webp";
+import uiExplorerLG03 from "../assets/images/work/ui-component-explorer/gallery/lg/ui-component-explorer-03_img.webp";
+import uiExplorerLG04 from "../assets/images/work/ui-component-explorer/gallery/lg/ui-component-explorer-04_img.webp";
 
 import "../assets/styles/cards.css";
 
@@ -194,6 +219,18 @@ export const PROJECTS = [
         "Performance and aesthetics are not opposing goals when planned early",
       ],
     },
+    // Inline content images by section (not gallery)
+    contentMedia: {
+      design: [
+        {
+          sm: ecPrecisionShineSM01,
+          lg: ecPrecisionShineLG01,
+          alt: "EC Precision Shine design process layout",
+          caption: "Design process — editorial hierarchy and service positioning",
+        },
+      ],
+    },
+    // Gallery section images only
     gallery: [
       { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
       { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
@@ -318,6 +355,16 @@ export const PROJECTS = [
       lessons: [
         "Operational UIs require ruthless hierarchy, every pixel must earn its place",
         "Design systems accelerate dashboard work when tokens precede components",
+      ],
+    },
+    contentMedia: {
+      design: [
+        {
+          sm: calibrightSM01,
+          lg: calibrightLG01,
+          alt: "Calibright ADAS Portal design exploration",
+          caption: "Design process — dashboard hierarchy and status language",
+        },
       ],
     },
     gallery: [
@@ -446,6 +493,13 @@ export const PROJECTS = [
         "Embeddable architecture demands strict style isolation from day one",
       ],
     },
+    contentMedia: {
+      design: [
+        {
+          sm: enhancedLeadsSM01, lg: enhancedLeadsSM01, alt: "enhanced auto leads rough sketch", caption: "Design process — hero sketch and layout exploration",
+        },
+      ],
+    },
     gallery: [
       { sm: enhancedLeadsSM01, lg: enhancedLeadsLG01, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
       { sm: enhancedLeadsSM01, lg: enhancedLeadsLG01, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
@@ -572,9 +626,38 @@ export const PROJECTS = [
         "The best component galleries are curated, not exhaustive",
       ],
     },
+    contentMedia: {
+      design: [
+        // Flat item object — do not wrap in Image: { ... }
+        {
+          type: "image",
+          sm: uiExplorerSketch,
+          lg: uiExplorerSketch,
+          alt: "UI Explorer design process canvas",
+          caption: (
+            <>
+              <strong>Wireframes</strong> sketching and layout exploration for
+              component catalog
+            </>
+          ),
+        },
+      ],
+      features: [
+        {
+          type: "video",
+          src: uiExplorerFeatures01,
+        },
+        {
+          type: "video",
+          src: uiExplorerFeatures02,
+        },
+      ],
+    },
     gallery: [
       { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
-      { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
+      { sm: uiExplorerSM02, lg: uiExplorerLG02, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
+      { sm: uiExplorerSM03, lg: uiExplorerLG03, alt: "UI Explorer motion showcase", caption: "Motion showcase aligned with portfolio motion principles" },
+      { sm: uiExplorerSM04, lg: uiExplorerLG04, alt: "UI Explorer responsive design", caption: "Responsive design behavior in real-time previews" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Animation Systems"] },
@@ -640,4 +723,134 @@ export function toWorkListEntries() {
   });
 
   return entries;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Case-study media helpers (contentMedia + gallery live on each project)     */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Preferred order when composing the unified lightbox from contentMedia
+ * sections. Unknown section keys are appended alphabetically after these.
+ * Gallery is always last (separate project.gallery array).
+ */
+export const CONTENT_MEDIA_SECTION_ORDER = [
+  "overview",
+  "discovery",
+  "design",
+  "development",
+  "features",
+  "results",
+];
+
+/**
+ * Source array kinds (where the item lives on the project).
+ * Distinct from item.type ("image" | "video").
+ */
+export const MEDIA_TYPE = {
+  CONTENT: "content",
+  GALLERY: "gallery",
+};
+
+/**
+ * Media item shape (contentMedia[section][] and gallery[]):
+ * Each entry is a flat object — do not nest under Image / Video keys.
+ *
+ * Image (default when type omitted):
+ *   { type?: "image", sm, lg, alt?, caption? }
+ *
+ * Video:
+ *   { type: "video", src, poster?, alt?, caption? }
+ *   poster / sm optional still for thumbnails; src is the video URL.
+ *
+ * Wrong: { Image: { type: "image", sm, lg } }
+ * Right: { type: "image", sm, lg }
+ */
+export function isVideoMedia(item) {
+  return item?.type === "video" && Boolean(item.src);
+}
+
+/** Poster / thumbnail still for list + gallery previews. */
+export function getMediaPoster(item) {
+  if (!item) return "";
+  return item.poster || item.sm || item.lg || "";
+}
+
+/** Inline content media for one section of a project. */
+export function getProjectContentMedia(project, section) {
+  if (!project || !section) return [];
+  return project.contentMedia?.[section] ?? [];
+}
+
+/** Whether a project has any content media for a section. */
+export function hasProjectContentMedia(project, section) {
+  return getProjectContentMedia(project, section).length > 0;
+}
+
+/**
+ * Compose a single lightbox sequence from one project:
+ * contentMedia (section order) → gallery.
+ *
+ * Source data stays separate on the project; only the navigation list is merged.
+ * Each entry is tagged with mediaType so openers can resolve local indices.
+ */
+export function composeCaseStudyLightboxItems(project) {
+  if (!project) return [];
+
+  const items = [];
+  const content = project.contentMedia ?? {};
+
+  CONTENT_MEDIA_SECTION_ORDER.forEach((section) => {
+    const list = content[section];
+    if (!list?.length) return;
+
+    list.forEach((image, localIndex) => {
+      items.push({
+        ...image,
+        mediaType: MEDIA_TYPE.CONTENT,
+        section,
+        localIndex,
+      });
+    });
+  });
+
+  Object.keys(content)
+    .filter((key) => !CONTENT_MEDIA_SECTION_ORDER.includes(key))
+    .sort()
+    .forEach((section) => {
+      content[section].forEach((image, localIndex) => {
+        items.push({
+          ...image,
+          mediaType: MEDIA_TYPE.CONTENT,
+          section,
+          localIndex,
+        });
+      });
+    });
+
+  (project.gallery ?? []).forEach((image, localIndex) => {
+    items.push({
+      ...image,
+      mediaType: MEDIA_TYPE.GALLERY,
+      section: "gallery",
+      localIndex,
+    });
+  });
+
+  return items;
+}
+
+/**
+ * Map a local open request to a global lightbox index.
+ * @param {Array} unifiedItems
+ * @param {{ mediaType: 'content'|'gallery', section?: string, localIndex: number }} ref
+ */
+export function resolveLightboxIndex(unifiedItems, { mediaType, section, localIndex }) {
+  if (!unifiedItems?.length || typeof localIndex !== "number") return -1;
+
+  return unifiedItems.findIndex((item) => {
+    if (item.mediaType !== mediaType || item.localIndex !== localIndex) return false;
+    if (mediaType === MEDIA_TYPE.CONTENT) return item.section === section;
+    return true;
+  });
 }
