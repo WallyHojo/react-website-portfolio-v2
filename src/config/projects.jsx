@@ -37,12 +37,21 @@ import calibrightLG01 from "../assets/images/work/calibright/gallery/lg/calibrig
 
 import enhancedLeadsPrev from "../assets/images/work/enhanced-automotive-leads/preview_img.webp";
 import enhancedLeadsHero from "../assets/images/work/enhanced-automotive-leads/hero_img.webp";
+import enhancedLeadsSketch from "../assets/images/work/enhanced-automotive-leads/sketch_img.webp";
+import enhancedLeadsFeaturesTradeInSM01 from "../assets/images/work/enhanced-automotive-leads/gallery/sm/calculate-trade-in-value_img.webp";
+import enhancedLeadsFeaturesTradeInLG01 from "../assets/images/work/enhanced-automotive-leads/gallery/lg/calculate-trade-in-value_img.webp";
+import enhancedLeadsFeaturesPaymentsSM01 from "../assets/images/work/enhanced-automotive-leads/gallery/sm/calculate-your-payments_img.webp";
+import enhancedLeadsFeaturesPaymentsLG01 from "../assets/images/work/enhanced-automotive-leads/gallery/lg/calculate-your-payments_img.webp";
 
 // Gallery images (Enhanced Auto Leads)
 // Small
 import enhancedLeadsSM01 from "../assets/images/work/enhanced-automotive-leads/gallery/sm/enhanced-automotive-leads-01_img.webp";
+import enhancedLeadsSM02 from "../assets/images/work/enhanced-automotive-leads/gallery/sm/enhanced-automotive-leads-02_img.webp";
+import enhancedLeadsSM03 from "../assets/images/work/enhanced-automotive-leads/gallery/sm/enhanced-automotive-leads-03_img.webp";
 // Large
 import enhancedLeadsLG01 from "../assets/images/work/enhanced-automotive-leads/gallery/lg/enhanced-automotive-leads-01_img.webp";
+import enhancedLeadsLG02 from "../assets/images/work/enhanced-automotive-leads/gallery/lg/enhanced-automotive-leads-02_img.webp";
+import enhancedLeadsLG03 from "../assets/images/work/enhanced-automotive-leads/gallery/lg/enhanced-automotive-leads-03_img.webp";
 
 /* ================================
    Interactive Component Explorer
@@ -225,15 +234,15 @@ export const PROJECTS = [
         {
           sm: ecPrecisionShineSM01,
           lg: ecPrecisionShineLG01,
-          alt: "EC Precision Shine design process layout",
+          alt: "ec precision shine design process layout",
           caption: "Design process — editorial hierarchy and service positioning",
         },
       ],
     },
     // Gallery section images only
     gallery: [
-      { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "EC Precision Shine homepage hero", caption: "Homepage hero with editorial service positioning" },
-      { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "EC Precision Shine service layout", caption: "Service showcase with high-contrast typography" },
+      { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "ec precision shine homepage hero", caption: "Homepage hero with editorial service positioning" },
+      { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "ec precision shine service layout", caption: "Service showcase with high-contrast typography" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Responsive Layouts"] },
@@ -362,14 +371,14 @@ export const PROJECTS = [
         {
           sm: calibrightSM01,
           lg: calibrightLG01,
-          alt: "Calibright ADAS Portal design exploration",
+          alt: "calibright adas portal design exploration",
           caption: "Design process — dashboard hierarchy and status language",
         },
       ],
     },
     gallery: [
-      { sm: calibrightSM01, lg: calibrightLG01, alt: "Calibright ADAS Portal dashboard", caption: "Primary dashboard with status rail and job queue" },
-      { sm: calibrightSM01, lg: calibrightLG01, alt: "Calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
+      { sm: calibrightSM01, lg: calibrightLG01, alt: "calibright adas portal dashboard", caption: "Primary dashboard with status rail and job queue" },
+      { sm: calibrightSM01, lg: calibrightLG01, alt: "calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
     ],
     stack: [
       { category: "Application", items: ["React", "TypeScript", "Component Architecture"] },
@@ -495,14 +504,48 @@ export const PROJECTS = [
     },
     contentMedia: {
       design: [
+        // Flat item object — do not wrap in Image: { ... }
         {
-          sm: enhancedLeadsSM01, lg: enhancedLeadsSM01, alt: "enhanced auto leads rough sketch", caption: "Design process — hero sketch and layout exploration",
+          type: "image",
+          sm: enhancedLeadsSketch,
+          lg: enhancedLeadsSketch,
+          alt: "enhanced leads initial sketch",
+          caption: (
+            <>
+              <strong>Wireframes</strong> sketching and layout exploration for stepped form patterns
+            </>
+          ),
         },
+      ],
+      features: [
+        {
+          type: "image",
+          sm: enhancedLeadsFeaturesTradeInSM01,
+          lg: enhancedLeadsFeaturesTradeInLG01,
+          alt: "enhanced leads calculate trade-in value",
+          caption: (
+            <>
+              <strong>Trade-In Value</strong> guided valuation flow with instant, dealership-branded feedback
+            </>
+          ),
+        },
+        {
+          type: "image",
+          sm: enhancedLeadsFeaturesPaymentsSM01,
+          lg: enhancedLeadsFeaturesPaymentsLG01,
+          alt: "enhanced leads calculate your payments",
+          caption: (
+            <>
+              <strong>Payment Estimator</strong> real-time payment estimates with clear, confidence-building breakdowns
+            </>
+          ),
+        },        
       ],
     },
     gallery: [
-      { sm: enhancedLeadsSM01, lg: enhancedLeadsLG01, alt: "Enhanced Auto Leads platform", caption: "Lead-generation platform with estimator tools" },
-      { sm: enhancedLeadsSM01, lg: enhancedLeadsLG01, alt: "Payment estimator interface", caption: "Payment estimator with stepped form flow" },
+      { sm: enhancedLeadsSM01, lg: enhancedLeadsLG01, alt: "enhanced auto leads platform", caption: "Lead-generation platform with estimator tools" },
+      { sm: enhancedLeadsSM02, lg: enhancedLeadsLG02, alt: "trade-in value interface", caption: "Trade-in value estimator with instant feedback" },
+      { sm: enhancedLeadsSM03, lg: enhancedLeadsLG03, alt: "payment estimator interface", caption: "Payment estimator with stepped form flow" },
     ],
     stack: [
       { category: "Interface", items: [...sharedStack.frontend] },
@@ -633,7 +676,7 @@ export const PROJECTS = [
           type: "image",
           sm: uiExplorerSketch,
           lg: uiExplorerSketch,
-          alt: "UI Explorer design process canvas",
+          alt: "ui explorer design process canvas",
           caption: (
             <>
               <strong>Wireframes</strong> sketching and layout exploration for
@@ -654,10 +697,10 @@ export const PROJECTS = [
       ],
     },
     gallery: [
-      { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "UI Explorer component catalog", caption: "Component explorer with live preview canvas" },
-      { sm: uiExplorerSM02, lg: uiExplorerLG02, alt: "UI Explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
-      { sm: uiExplorerSM03, lg: uiExplorerLG03, alt: "UI Explorer motion showcase", caption: "Motion showcase aligned with portfolio motion principles" },
-      { sm: uiExplorerSM04, lg: uiExplorerLG04, alt: "UI Explorer responsive design", caption: "Responsive design behavior in real-time previews" },
+      { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "ui explorer component catalog", caption: "Component explorer with live preview canvas" },
+      { sm: uiExplorerSM02, lg: uiExplorerLG02, alt: "ui explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
+      { sm: uiExplorerSM03, lg: uiExplorerLG03, alt: "ui explorer motion showcase", caption: "Motion showcase aligned with portfolio motion principles" },
+      { sm: uiExplorerSM04, lg: uiExplorerLG04, alt: "ui explorer responsive design", caption: "Responsive design behavior in real-time previews" },
     ],
     stack: [
       { category: "Interface", items: ["React", "CSS Architecture", "Animation Systems"] },
