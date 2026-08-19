@@ -25,12 +25,20 @@ import ecPrecisionShineLG01 from "../assets/images/work/ec-precision-shine/galle
 import calibrightPrev from "../assets/images/work/calibright/preview_img.webp";
 import calibrightHero from "../assets/images/work/calibright/hero_img.webp";
 import calibrightSketch from "../assets/images/work/calibright/sketch_img.webp";
+import calibrightFeatures01 from "../assets/images/work/calibright/video/calibright-customer-portal.mp4";
+import calibrightFeatures02 from "../assets/images/work/calibright/video/calibration-document-access.mp4";
 
 // Gallery images (Calibright ADAS Portal)
 // Small
 import calibrightSM01 from "../assets/images/work/calibright/gallery/sm/calibright-01_img.webp";
+import calibrightSM02 from "../assets/images/work/calibright/gallery/sm/calibright-02_img.webp";
+import calibrightSM03 from "../assets/images/work/calibright/gallery/sm/calibright-03_img.webp";
+import calibrightSM04 from "../assets/images/work/calibright/gallery/sm/calibright-04_img.webp";
 // Large
 import calibrightLG01 from "../assets/images/work/calibright/gallery/lg/calibright-01_img.webp";
+import calibrightLG02 from "../assets/images/work/calibright/gallery/lg/calibright-02_img.webp";
+import calibrightLG03 from "../assets/images/work/calibright/gallery/lg/calibright-03_img.webp";
+import calibrightLG04 from "../assets/images/work/calibright/gallery/lg/calibright-04_img.webp";
 
 /* ================================
    Enhanced Auto Leads
@@ -111,12 +119,335 @@ export const WORK_HIGHLIGHTS = [
   },
 ];
 
-const sharedStack = {
-  frontend: ["React", "JavaScript", "HTML", "CSS / SCSS"],
-  tooling: ["Vite", "Git", "Figma"],
-};
-
 export const PROJECTS = [
+  {
+    slug: "calibright-adas-portal",
+    title: "Calibright ADAS Portal",
+    shortTitle: "ADAS Portal",
+    url: "https://calibration-portal.vercel.app",
+    tag: "Dashboard",
+    category: "Dashboard",
+    year: "2026",
+    featured: true,
+    featuredOrder: 1,
+    imagePrev: calibrightPrev,
+    heroimage: calibrightHero,
+    backgroundColor: "#84431d",
+    accentColor: "#e8a87c",
+    role: "UI Engineer & Product Interface Developer",
+    timeline: "8 weeks",
+    overview:
+      "A client portal and internal workspace for an ADAS calibration provider, giving body shop staff self-service access to calibration documentation through a branded, purpose-built dashboard.",
+    technologies: ["Figma", "React", "TypeScript", "Vercel", "SharePoint", "Azure"],
+    summary: {
+      challenge:
+        "Calibright handed off calibration documentation as printed paperwork that body shops routinely misplaced, leaving staff to request re-sends and leaving the company's value invisible to the clients paying for it. Any replacement had to stay simple for occasional, non-technical users, scale from roughly 40 accounts to more than 1,000, and read as a Calibright product rather than a generic document repository.",
+      goals: [
+        "Give body shop staff a self-service way to retrieve completed calibration documentation",
+        "Support growth from roughly 40 client accounts to more than 1,000 without added manual overhead",
+        "Present a branded Calibright experience instead of a generic document-storage interface",
+      ],
+      objectives: [
+        "Reduce document retrieval to logging in and downloading, with no training required",
+        "Serve body shop clients and Calibright technicians from one interface with role-appropriate views",
+        "Structure job and document data so reporting could be layered on without redesigning the dashboard",
+      ],
+    },
+    discovery: {
+      problem:
+        "Body shop employees receive printed calibration documents they later need to forward to insurers, and those documents are frequently lost. Recovering them meant contacting Calibright and waiting on a manual re-send, a process that scaled poorly and gave clients no ongoing visibility into the work performed for them.",
+      research: [
+        "Requirements analysis with the client covering access, security, and scaling from 40 to 1,000+ accounts",
+        "Review of the existing handoff process, from calibration completion through printed document delivery",
+        "Technical feasibility assessment of SharePoint document storage and automated invoice data extraction",
+      ],
+      planning: [
+        "Separated client-facing document retrieval from the internal technician workspace",
+        "Defined dashboard zones: job status, documentation, and reporting",
+        "Planned an information architecture that stays flat as the account count grows",
+      ],
+    },
+    design: {
+      wireframes:
+        "Explored dense job-table layouts against card-based status modules to determine which format let shop staff locate a specific calibration record fastest, and where reporting views could sit without competing with the primary retrieval task.",
+      exploration:
+        "Warm neutral palette with high-contrast status indicators, drawn from Calibright's branding and chosen to read as automotive service technology rather than generic enterprise software, a direct response to the requirement that the portal not feel like SharePoint.",
+      decisions: [
+        "Persistent status rail so job state is legible without opening a record",
+        "Progressive disclosure for secondary job and vehicle detail",
+        "Consistent action placement so downloading documentation stays the obvious primary task",
+      ],
+      systems:
+        "Dashboard component primitives, status chips, data panels, action bars, documented with variant APIs so later modules, reporting in particular, could be added without inventing new patterns.",
+    },
+    development: {
+      architecture:
+        "Modular React architecture with typed props, shared layout shells, and lazy-loaded feature modules to keep the initial bundle lean. SharePoint was selected as the document store behind the custom interface, with a proposed processing pipeline routing uploaded PDFs through Azure Document Intelligence against a trained invoice template to extract job ID, list price, and cost price, storing the resulting margin with the job record for reporting.",
+      decisions: [
+        "Container/presentational split for testable UI logic",
+        "Centralized token system for spacing, color, and elevation",
+        "Custom front end over SharePoint storage, keeping the branded experience independent of where documents live",
+      ],
+      performance: [
+        "Virtualized lists for large job histories",
+        "Memoized selectors for dashboard aggregate views",
+        "Route-based code splitting per workflow module",
+      ],
+      challenges: [
+        "Keeping the interface simple for occasional, non-technical users while leaving room for reporting",
+        "Designing for growth from dozens of accounts to over a thousand without heavier navigation",
+        "Automated extraction depends on programmatically generated, machine-readable PDFs rather than scans",
+      ],
+    },
+    features: [
+      {
+        title: "Unified Job Dashboard",
+        description:
+          "Single-view access to active and completed calibrations with status, vehicle, and job context, so staff can find a record without navigating a folder structure.",
+      },
+      {
+        title: "Calibration Document Access",
+        description:
+          "Self-service login and download for completed calibration PDFs, including the invoice pair, scans, and vehicle photos shops forward to insurers, replacing printed paperwork that was easily lost.",
+      },
+      {
+        title: "Reporting & Value Visibility",
+        description:
+          "Proposed reporting views surfacing per-job and per-shop figures from the extracted invoice data, filterable by date range, ADAS system type, and vehicle make, with monthly, quarterly, and yearly totals.",
+      },
+    ],
+    results: {
+      achievements: [
+        "Designed a branded client portal to replace printed document handoffs and manual re-sends",
+        "Established an interface layer that keeps document storage infrastructure invisible to end users",
+        "Created a dashboard foundation that supports adding reporting and automation without a redesign",
+      ],
+      improvements: [
+        "Document retrieval becomes a login and a download rather than a request to Calibright",
+        "Job status and vehicle context readable without opening individual records",
+        "Consistent interaction patterns across client-facing and internal views",
+      ],
+      lessons: [
+        "Enterprise infrastructure should be invisible, the product value here came from making document storage feel purpose-built",
+        "Scaling assumptions belong in the information architecture early, a layout that works for 40 accounts can quietly fail at 1,000",
+      ],
+    },
+    contentMedia: {
+      design: [
+        // Flat item object — do not wrap in Image: { ... }
+        {
+          type: "image",
+          sm: calibrightSketch,
+          lg: calibrightSketch,
+          alt: "calibright adas portal design exploration",
+          caption: (
+            <>
+              <strong>Wireframes</strong> sketching and layout exploration for the dashboard and document retrieval modules
+            </>
+          ),
+        },
+      ],
+      features: [
+        {
+          type: "video",
+          src: calibrightFeatures01,
+        },
+        {
+          type: "video",
+          src: calibrightFeatures02,
+        },        
+      ],
+    },
+    gallery: [
+      { sm: calibrightSM01, lg: calibrightLG01, alt: "calibright adas portal dashboard", caption: "Primary dashboard with status rail and job queue" },
+      { sm: calibrightSM02, lg: calibrightLG02, alt: "full desktop dashboard with global nav, metric cards, and activity feed", caption: "A high-density dashboard integrating real-time data and operational KPIs." },
+      { sm: calibrightSM03, lg: calibrightLG03, alt: "customers directory with filtered grid view and shop profile cards", caption: "A scalable grid system for monitoring shop performance and key metrics." },
+      { sm: calibrightSM04, lg: calibrightLG04, alt: "mobile view of reports page featuring profit cards and a trend bar chart", caption: "A mobile-optimized reporting suite for tracking financial KPIs on the go." },            
+    ],
+    stack: [
+      {
+        category: "Design",
+        items: ["Figma", "Responsive Design", "Accessibility"]
+      },
+      {
+        category: "Development",
+        items: ["Visual Studio", "React", "TypeScript", "Tailwind", "Vite"]
+      },
+      {
+        category: "Platform",
+        items: ["SharePoint", "Azure", "Vercel"]
+      },
+    ],
+    seo: {
+      title: "Calibright ADAS Portal,  Case Study | Walter Carlson",
+      description:
+        "UX/UI case study for the Calibright ADAS calibration portal, a branded client dashboard for calibration document access, built with React, TypeScript, and SharePoint document storage.",
+    },
+  },
+  {
+    slug: "interactive-component-explorer",
+    title: "Interactive Component Explorer",
+    shortTitle: "UI Explorer",
+    tag: "Web",
+    category: "Web",
+    year: "2026",
+    featured: true,
+    featuredOrder: 2,
+    imagePrev: uiExplorerPrev,
+    heroimage: uiExplorerHero,
+    backgroundColor: "#1a1a2a",
+    accentColor: "#7b8cff",
+    role: "UI Engineer & Creative Developer",
+    timeline: "6 weeks",
+    overview:
+      "A living component explorer for interactive UI patterns, responsive layouts, animation systems, theme switching, and real-time behavior previews in a single curated environment.",
+    technologies: ["React", "Typescript", "Tailwind", "Motion"],
+    summary: {
+      challenge:
+        "Documenting interactive components in static screenshots failed to communicate behavior. The team needed a live environment to preview, test, and share UI patterns with accurate motion and state.",
+      goals: [
+        "Create an interactive catalog of production-ready components",
+        "Demonstrate responsive and motion behavior in real time",
+        "Provide a reference tool for design-to-code alignment",
+      ],
+      objectives: [
+        "Support theme switching without full page reload",
+        "Ensure keyboard navigability across all demo interactions",
+        "Keep demo pages performant despite animation-heavy previews",
+      ],
+    },
+    discovery: {
+      problem:
+        "Scattered component examples across repos and Storybook instances created inconsistency. A unified explorer would centralize patterns and raise the bar for interaction quality.",
+      research: [
+        "Inventory of existing components and undocumented variants",
+        "Developer and designer interviews on documentation gaps",
+        "Benchmarking of live component gallery experiences",
+      ],
+      planning: [
+        "Categorized components by interaction type and complexity",
+        "Defined demo templates: isolated, composed, and scroll-driven",
+        "Established motion guidelines for consistent preview behavior",
+      ],
+    },
+    design: {
+      wireframes:
+        "Sidebar navigation with live preview canvas, testing split-pane vs. overlay navigation for mobile demo browsing.",
+      exploration:
+        "Dark interface with accent-driven focus states. Preview canvas treated as a stage with minimal chrome to spotlight component behavior.",
+      decisions: [
+        "Persistent nav with filterable component categories",
+        "Live theme toggle demonstrating token-driven styling",
+        "Code-adjacent layout pairing preview with usage context",
+      ],
+      systems:
+        "Documented token layers and component APIs alongside each preview, bridging design system specs and implementation.",
+    },
+    development: {
+      architecture:
+        "Route-per-component demos with shared preview shell. Centralized theme provider and motion configuration injected into all examples.",
+      decisions: [
+        "CSS custom properties for runtime theme switching",
+        "Shared scroll-animation attributes matching portfolio motion language",
+        "Isolated demo state to prevent cross-component interference",
+      ],
+      performance: [
+        "Lazy-loaded demo modules per navigation entry",
+        "Reduced-motion media query respected across all animations",
+        "GPU-friendly transforms for preview interactions",
+      ],
+      challenges: [
+        "Keeping demo complexity representative without bloating bundles",
+        "Synchronizing theme changes across disparate component styles",
+        "Documenting behavior that only emerges during interaction",
+      ],
+    },
+    features: [
+      {
+        title: "Live Component Previews",
+        description:
+          "Interactive demos with real states, hover behaviors, and transitions, not static thumbnails.",
+      },
+      {
+        title: "Theme & Token Switching",
+        description:
+          "Runtime theme controls demonstrating how design tokens propagate through component variants.",
+      },
+      {
+        title: "Motion Showcase",
+        description:
+          "Scroll-driven and interaction-led animation examples aligned with portfolio motion principles.",
+      },
+    ],
+    results: {
+      achievements: [
+        "Centralized component reference used across design and development handoffs",
+        "Reduced ambiguity in motion and state behavior expectations",
+        "Created a reusable template for documenting future components",
+      ],
+      improvements: [
+        "Faster onboarding for new UI patterns",
+        "More consistent animation language across projects",
+        "Clearer design-to-code alignment on variant APIs",
+      ],
+      lessons: [
+        "Live behavior documentation prevents costly misinterpretation during handoff",
+        "The best component galleries are curated, not exhaustive",
+      ],
+    },
+    contentMedia: {
+      design: [
+        // Flat item object — do not wrap in Image: { ... }
+        {
+          type: "image",
+          sm: uiExplorerSketch,
+          lg: uiExplorerSketch,
+          alt: "ui explorer design process canvas",
+          caption: (
+            <>
+              <strong>Wireframes</strong> sketching and layout exploration for
+              component catalog
+            </>
+          ),
+        },
+      ],
+      features: [
+        {
+          type: "video",
+          src: uiExplorerFeatures01,
+        },
+        {
+          type: "video",
+          src: uiExplorerFeatures02,
+        },
+      ],
+    },
+    gallery: [
+      { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "ui explorer component catalog", caption: "Component explorer with live preview canvas" },
+      { sm: uiExplorerSM02, lg: uiExplorerLG02, alt: "ui explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
+      { sm: uiExplorerSM03, lg: uiExplorerLG03, alt: "ui explorer motion showcase", caption: "Motion showcase aligned with portfolio motion principles" },
+      { sm: uiExplorerSM04, lg: uiExplorerLG04, alt: "ui explorer responsive design", caption: "Responsive design behavior in real-time previews" },
+    ],
+    stack: [
+      {
+        category: "Design",
+        items: ["Design Tokens", "Accessibility"]
+      },
+      {
+        category: "Development",
+        items: ["Visual Studio", "React", "Typescript", "Tailwind", "Motion"]
+      },
+      {
+        category: "Platform",
+        items: ["Component APIs", "Theme Provider", "Live Previews"]
+      },
+    ],    
+    seo: {
+      title: "Interactive Component Explorer ,  Case Study | Walter Carlson",
+      description:
+        "Live UI component explorer with responsive layouts, animation systems, and theme switching, design system engineering in practice.",
+    },
+  },  
   {
     slug: "ec-precision-shine",
     title: "EC Precision Shine",
@@ -126,7 +457,7 @@ export const PROJECTS = [
     category: "Web",
     year: "2025",
     featured: true,
-    featuredOrder: 1,
+    featuredOrder: 3,
     imagePrev: ecPrecisionShinePrev,
     heroimage: ecPrecisionShineHero,
     backgroundColor: "#191919",
@@ -135,7 +466,7 @@ export const PROJECTS = [
     timeline: "3 weeks",
     overview:
       "A premium automotive detailing brand needed a digital presence that matched the craftsmanship of their ceramic coating and restoration work, refined, confident, and built to convert high-intent visitors.",
-    technologies: ["React", "Wordpress", "Elementor", "Custom Service Plug-in"],
+    technologies: ["Figma", "Local", "Wordpress", "Elementor"],
     summary: {
       challenge:
         "The existing site undersold the brand's premium positioning. Photography was strong, but the interface felt generic, weak hierarchy, slow load times, and no clear path from inspiration to booking.",
@@ -246,181 +577,23 @@ export const PROJECTS = [
       { sm: ecPrecisionShineSM01, lg: ecPrecisionShineLG01, alt: "ec precision shine service layout", caption: "Service showcase with high-contrast typography" },
     ],
     stack: [
-      { category: "Interface", items: ["React", "CSS Architecture", "Responsive Layouts"] },
-      { category: "Content", items: ["WordPress", "Optimized Media", "Semantic HTML"] },
-      { category: "Quality", items: ["Accessibility", "Performance Budgets", "Cross-browser QA"] },
-    ],
+      {
+        category: "Design",
+        items: ["Figma", "Responsive Design", "Accessibility"]
+      },
+      {
+        category: "Development",
+        items: ["Visual Studio", "JavaScript", "Semantic HTML"]
+      },
+      {
+        category: "Platform",
+        items: ["WordPress", "Elementor", "Local"]
+      },
+    ],   
     seo: {
       title: "EC Precision Shine ,  Case Study | Walter Carlson",
       description:
         "Premium automotive detailing website, editorial design, responsive architecture, and performance-focused front-end development.",
-    },
-  },
-  {
-    slug: "calibright-adas-portal",
-    title: "Calibright ADAS Portal",
-    shortTitle: "ADAS Portal",
-    url: "https://calibration-portal.vercel.app",
-    tag: "Dashboard",
-    category: "Dashboard",
-    year: "2026",
-    featured: true,
-    featuredOrder: 2,
-    imagePrev: calibrightPrev,   
-    heroimage: calibrightHero,
-    backgroundColor: "#84431d",
-    accentColor: "#e8a87c",
-    role: "UI Engineer & Product Interface Developer",
-    timeline: "8 weeks",
-    overview:
-      "An ADAS calibration portal built for technician workflows, diagnostics, upload, and service management unified in a dashboard designed for speed, clarity, and field usability.",
-    technologies: ["React", "TypeScript", "Dashboard UI", "Component Architecture", "Accessibility"],
-    summary: {
-      challenge:
-        "Technicians needed a single interface to manage calibration workflows, but existing tools were fragmented, slow to navigate, visually inconsistent, and difficult to use under time pressure.",
-      goals: [
-        "Consolidate critical workflow actions into a scannable dashboard",
-        "Reduce cognitive load during high-stakes diagnostic sessions",
-        "Build a scalable component system for future module expansion",
-      ],
-      objectives: [
-        "Achieve sub-second interaction feedback on primary actions",
-        "Support keyboard and screen reader navigation for all core flows",
-        "Design data-dense views that remain legible on mid-size screens",
-      ],
-    },
-    discovery: {
-      problem:
-        "Field technicians operate in interrupt-driven environments. The portal had to surface status, next actions, and diagnostic context without requiring deep navigation.",
-      research: [
-        "Workflow shadowing with calibration technicians",
-        "Task analysis for diagnostics and reporting paths",
-        "Audit of existing tool pain points and error recovery patterns",
-      ],
-      planning: [
-        "Prioritized information hierarchy by frequency and urgency",
-        "Defined dashboard zones: status, actions, detail, history",
-        "Mapped role-based views for technicians vs. service managers",
-      ],
-    },
-    design: {
-      wireframes:
-        "Explored dense data table layouts vs. card-based status modules, testing which format supported faster scan times for active job queues.",
-      exploration:
-        "Warm neutral palette with high-contrast status indicators. Deliberately avoided generic SaaS blue to differentiate workflow states clearly.",
-      decisions: [
-        "Persistent status rail for at-a-glance job health",
-        "Progressive disclosure for secondary diagnostic details",
-        "Consistent action placement across all module views",
-      ],
-      systems:
-        "Dashboard component primitives, status chips, data panels, action bars, documented with variant APIs for team extension.",
-    },
-    development: {
-      architecture:
-        "Modular React architecture with typed props, shared layout shells, and lazy-loaded feature modules to keep initial bundle lean.",
-      decisions: [
-        "Container/presentational split for testable UI logic",
-        "Optimistic UI patterns for diagnostic actions",
-        "Centralized token system for spacing, color, and elevation",
-      ],
-      performance: [
-        "Virtualized lists for large job histories",
-        "Memoized selectors for dashboard aggregate views",
-        "Route-based code splitting per workflow module",
-      ],
-      challenges: [
-        "Presenting dense diagnostic data without overwhelming technicians",
-        "Maintaining state consistency across concurrent workflow updates",
-        "Designing touch-friendly targets for workshop tablet usage",
-      ],
-    },
-    features: [
-      {
-        title: "Unified Workflow Dashboard",
-        description:
-          "Single-view access to active jobs, and diagnostic status, reducing context switching during service sessions.",
-      },
-      {
-        title: "Diagnostic Context Panels",
-        description:
-          "Expandable detail regions that surface technical data on demand without cluttering the primary workspace.",
-      },
-      {
-        title: "Document & Asset Upload",
-        description:
-          "Drag-and-drop file ingestion with instant validation, smart tagging, and direct linkage to jobs, equipment records, and service history.",
-      },
-    ],
-    results: {
-      achievements: [
-        "Delivered a cohesive portal replacing fragmented workflow tools",
-        "Reduced navigation depth for core technician tasks",
-        "Established a dashboard design system for future modules",
-      ],
-      improvements: [
-        "Faster scan times for active job status",
-        "Clearer error states and recovery paths",
-        "More consistent interaction patterns across modules",
-      ],
-      lessons: [
-        "Operational UIs require ruthless hierarchy, every pixel must earn its place",
-        "Design systems accelerate dashboard work when tokens precede components",
-      ],
-    },
-    contentMedia: {
-      design: [
-        // Flat item object — do not wrap in Image: { ... }
-        {
-          type: "image",
-          sm: calibrightSketch,
-          lg: calibrightSketch,
-          alt: "calibright adas portal design exploration",
-          caption: (
-            <>
-              <strong>Wireframes</strong> sketching and layout exploration for dashboard and workflow modules
-            </>
-          ),
-        },
-      ],
-      /*features: [
-        {
-          type: "image",
-          sm: enhancedLeadsFeaturesTradeInSM01,
-          lg: enhancedLeadsFeaturesTradeInLG01,
-          alt: "enhanced leads calculate trade-in value",
-          caption: (
-            <>
-              <strong>Trade-In Value</strong> guided valuation flow with instant, dealership-branded feedback
-            </>
-          ),
-        },
-        {
-          type: "image",
-          sm: enhancedLeadsFeaturesPaymentsSM01,
-          lg: enhancedLeadsFeaturesPaymentsLG01,
-          alt: "enhanced leads calculate your payments",
-          caption: (
-            <>
-              <strong>Payment Estimator</strong> real-time payment estimates with clear, confidence-building breakdowns
-            </>
-          ),
-        },        
-      ],*/
-    },
-    gallery: [
-      { sm: calibrightSM01, lg: calibrightLG01, alt: "calibright adas portal dashboard", caption: "Primary dashboard with status rail and job queue" },
-      { sm: calibrightSM01, lg: calibrightLG01, alt: "calibright diagnostic workflow", caption: "Diagnostic context panel with progressive disclosure" },
-    ],
-    stack: [
-      { category: "Application", items: ["React", "TypeScript", "Component Architecture"] },
-      { category: "Experience", items: ["Dashboard UI", "Data Visualization", "Responsive Layouts"] },
-      { category: "Standards", items: ["Accessibility", "Design Tokens", "Performance"] },
-    ],
-    seo: {
-      title: "Calibright ADAS Portal ,  Case Study | Walter Carlson",
-      description:
-        "ADAS calibration portal for technician workflows, dashboard design, component architecture, and accessible interface engineering.",
     },
   },
   {
@@ -431,7 +604,7 @@ export const PROJECTS = [
     category: "Web",
     year: "2023",
     featured: true,
-    featuredOrder: 3,
+    featuredOrder: 4,
     imagePrev: enhancedLeadsPrev,
     heroimage: enhancedLeadsHero,
     backgroundColor: "#2d5476",
@@ -440,7 +613,7 @@ export const PROJECTS = [
     timeline: "1 week",
     overview:
       "An automotive lead-generation platform combining trade-in valuations, payment estimators, and conversion tools, engineered to turn dealership traffic into qualified customer inquiries.",
-    technologies: ["React", "JavaScript", "Form Architecture", "Responsive Design", "Performance"],
+    technologies: ["React", "Typescript", "JavaScript", "Responsive Design"],
     summary: {
       challenge:
         "Dealership sites needed embedded tools that felt native to the brand while reliably capturing leads. Existing widgets were either visually disjointed or too friction-heavy to complete on mobile.",
@@ -580,169 +753,23 @@ export const PROJECTS = [
       { sm: enhancedLeadsSM03, lg: enhancedLeadsLG03, alt: "payment estimator interface", caption: "Payment estimator with stepped form flow" },
     ],
     stack: [
-      { category: "Interface", items: [...sharedStack.frontend] },
-      { category: "Conversion", items: ["Form Architecture", "Input Validation", "Multi-step Flows"] },
-      { category: "Deployment", items: ["Embeddable Widgets", "Theme Tokens", "Performance"] },
+      {
+        category: "Design",
+        items: ["Responsive Design", "Accessibility", "Theme Tokens"]
+      },
+      {
+        category: "Development",
+        items: ["Visual Studio", "React", "Typescript", "JavaScript", "Tailwind", "Motion"]
+      },
+      {
+        category: "Platform",
+        items: ["Embeddable Widgets", "Form Architecture", "Input Validation"]
+      },
     ],
     seo: {
       title: "Enhanced Auto Leads ,  Case Study | Walter Carlson",
       description:
         "Automotive lead-generation platform with trade-in valuations and payment estimators, conversion-focused front-end engineering.",
-    },
-  },
-  {
-    slug: "interactive-component-explorer",
-    title: "Interactive Component Explorer",
-    shortTitle: "UI Explorer",
-    tag: "Web",
-    category: "Web",
-    year: "2026",
-    featured: true,
-    featuredOrder: 4,
-    imagePrev: uiExplorerPrev,
-    heroimage: uiExplorerHero,
-    backgroundColor: "#1a1a2a",
-    accentColor: "#7b8cff",
-    role: "UI Engineer & Creative Developer",
-    timeline: "6 weeks",
-    overview:
-      "A living component explorer for interactive UI patterns, responsive layouts, animation systems, theme switching, and real-time behavior previews in a single curated environment.",
-    technologies: ["React", "CSS Architecture", "Animation", "Design Systems", "Accessibility"],
-    summary: {
-      challenge:
-        "Documenting interactive components in static screenshots failed to communicate behavior. The team needed a live environment to preview, test, and share UI patterns with accurate motion and state.",
-      goals: [
-        "Create an interactive catalog of production-ready components",
-        "Demonstrate responsive and motion behavior in real time",
-        "Provide a reference tool for design-to-code alignment",
-      ],
-      objectives: [
-        "Support theme switching without full page reload",
-        "Ensure keyboard navigability across all demo interactions",
-        "Keep demo pages performant despite animation-heavy previews",
-      ],
-    },
-    discovery: {
-      problem:
-        "Scattered component examples across repos and Storybook instances created inconsistency. A unified explorer would centralize patterns and raise the bar for interaction quality.",
-      research: [
-        "Inventory of existing components and undocumented variants",
-        "Developer and designer interviews on documentation gaps",
-        "Benchmarking of live component gallery experiences",
-      ],
-      planning: [
-        "Categorized components by interaction type and complexity",
-        "Defined demo templates: isolated, composed, and scroll-driven",
-        "Established motion guidelines for consistent preview behavior",
-      ],
-    },
-    design: {
-      wireframes:
-        "Sidebar navigation with live preview canvas, testing split-pane vs. overlay navigation for mobile demo browsing.",
-      exploration:
-        "Dark interface with accent-driven focus states. Preview canvas treated as a stage with minimal chrome to spotlight component behavior.",
-      decisions: [
-        "Persistent nav with filterable component categories",
-        "Live theme toggle demonstrating token-driven styling",
-        "Code-adjacent layout pairing preview with usage context",
-      ],
-      systems:
-        "Documented token layers and component APIs alongside each preview, bridging design system specs and implementation.",
-    },
-    development: {
-      architecture:
-        "Route-per-component demos with shared preview shell. Centralized theme provider and motion configuration injected into all examples.",
-      decisions: [
-        "CSS custom properties for runtime theme switching",
-        "Shared scroll-animation attributes matching portfolio motion language",
-        "Isolated demo state to prevent cross-component interference",
-      ],
-      performance: [
-        "Lazy-loaded demo modules per navigation entry",
-        "Reduced-motion media query respected across all animations",
-        "GPU-friendly transforms for preview interactions",
-      ],
-      challenges: [
-        "Keeping demo complexity representative without bloating bundles",
-        "Synchronizing theme changes across disparate component styles",
-        "Documenting behavior that only emerges during interaction",
-      ],
-    },
-    features: [
-      {
-        title: "Live Component Previews",
-        description:
-          "Interactive demos with real states, hover behaviors, and transitions, not static thumbnails.",
-      },
-      {
-        title: "Theme & Token Switching",
-        description:
-          "Runtime theme controls demonstrating how design tokens propagate through component variants.",
-      },
-      {
-        title: "Motion Showcase",
-        description:
-          "Scroll-driven and interaction-led animation examples aligned with portfolio motion principles.",
-      },
-    ],
-    results: {
-      achievements: [
-        "Centralized component reference used across design and development handoffs",
-        "Reduced ambiguity in motion and state behavior expectations",
-        "Created a reusable template for documenting future components",
-      ],
-      improvements: [
-        "Faster onboarding for new UI patterns",
-        "More consistent animation language across projects",
-        "Clearer design-to-code alignment on variant APIs",
-      ],
-      lessons: [
-        "Live behavior documentation prevents costly misinterpretation during handoff",
-        "The best component galleries are curated, not exhaustive",
-      ],
-    },
-    contentMedia: {
-      design: [
-        // Flat item object — do not wrap in Image: { ... }
-        {
-          type: "image",
-          sm: uiExplorerSketch,
-          lg: uiExplorerSketch,
-          alt: "ui explorer design process canvas",
-          caption: (
-            <>
-              <strong>Wireframes</strong> sketching and layout exploration for
-              component catalog
-            </>
-          ),
-        },
-      ],
-      features: [
-        {
-          type: "video",
-          src: uiExplorerFeatures01,
-        },
-        {
-          type: "video",
-          src: uiExplorerFeatures02,
-        },
-      ],
-    },
-    gallery: [
-      { sm: uiExplorerSM01, lg: uiExplorerLG01, alt: "ui explorer component catalog", caption: "Component explorer with live preview canvas" },
-      { sm: uiExplorerSM02, lg: uiExplorerLG02, alt: "ui explorer theme switching", caption: "Theme switching demonstrating design token propagation" },
-      { sm: uiExplorerSM03, lg: uiExplorerLG03, alt: "ui explorer motion showcase", caption: "Motion showcase aligned with portfolio motion principles" },
-      { sm: uiExplorerSM04, lg: uiExplorerLG04, alt: "ui explorer responsive design", caption: "Responsive design behavior in real-time previews" },
-    ],
-    stack: [
-      { category: "Interface", items: ["React", "CSS Architecture", "Animation Systems"] },
-      { category: "Systems", items: ["Design Tokens", "Component APIs", "Theme Provider"] },
-      { category: "Documentation", items: ["Live Previews", "Accessibility", "Motion Guidelines"] },
-    ],
-    seo: {
-      title: "Interactive Component Explorer ,  Case Study | Walter Carlson",
-      description:
-        "Live UI component explorer with responsive layouts, animation systems, and theme switching, design system engineering in practice.",
     },
   },
 ];
