@@ -24,6 +24,7 @@ import ecPrecisionShineLG01 from "../assets/images/work/ec-precision-shine/galle
 
 import calibrightPrev from "../assets/images/work/calibright/preview_img.webp";
 import calibrightHero from "../assets/images/work/calibright/hero_img.webp";
+import calibrightSketch from "../assets/images/work/calibright/sketch_img.webp";
 
 // Gallery images (Calibright ADAS Portal)
 // Small
@@ -99,7 +100,7 @@ export const WORK_HIGHLIGHTS = [
     index: "03",
     title: "Technician Workflow Portals",
     description:
-      "Delivered ADAS calibration dashboards that streamline diagnostics, scheduling, and service management for field teams.",
+      "Delivered ADAS calibration dashboards that streamline diagnostics and service management for field teams.",
   },
   {
     id: "craft",
@@ -259,6 +260,7 @@ export const PROJECTS = [
     slug: "calibright-adas-portal",
     title: "Calibright ADAS Portal",
     shortTitle: "ADAS Portal",
+    url: "https://calibration-portal.vercel.app",
     tag: "Dashboard",
     category: "Dashboard",
     year: "2026",
@@ -271,7 +273,7 @@ export const PROJECTS = [
     role: "UI Engineer & Product Interface Developer",
     timeline: "12 weeks",
     overview:
-      "An ADAS calibration portal built for technician workflows, diagnostics, scheduling, and service management unified in a dashboard designed for speed, clarity, and field usability.",
+      "An ADAS calibration portal built for technician workflows, diagnostics, upload, and service management unified in a dashboard designed for speed, clarity, and field usability.",
     technologies: ["React", "TypeScript", "Dashboard UI", "Component Architecture", "Accessibility"],
     summary: {
       challenge:
@@ -292,7 +294,7 @@ export const PROJECTS = [
         "Field technicians operate in interrupt-driven environments. The portal had to surface status, next actions, and diagnostic context without requiring deep navigation.",
       research: [
         "Workflow shadowing with calibration technicians",
-        "Task analysis for scheduling, diagnostics, and reporting paths",
+        "Task analysis for diagnostics and reporting paths",
         "Audit of existing tool pain points and error recovery patterns",
       ],
       planning: [
@@ -319,7 +321,7 @@ export const PROJECTS = [
         "Modular React architecture with typed props, shared layout shells, and lazy-loaded feature modules to keep initial bundle lean.",
       decisions: [
         "Container/presentational split for testable UI logic",
-        "Optimistic UI patterns for scheduling actions",
+        "Optimistic UI patterns for diagnostic actions",
         "Centralized token system for spacing, color, and elevation",
       ],
       performance: [
@@ -337,7 +339,7 @@ export const PROJECTS = [
       {
         title: "Unified Workflow Dashboard",
         description:
-          "Single-view access to active jobs, diagnostic status, and scheduling, reducing context switching during service sessions.",
+          "Single-view access to active jobs, and diagnostic status, reducing context switching during service sessions.",
       },
       {
         title: "Diagnostic Context Panels",
@@ -345,9 +347,9 @@ export const PROJECTS = [
           "Expandable detail regions that surface technical data on demand without cluttering the primary workspace.",
       },
       {
-        title: "Scheduling & Service Management",
+        title: "Document & Asset Upload",
         description:
-          "Integrated calendar and job queue views with clear status semantics and actionable next-step prompts.",
+          "Drag-and-drop file ingestion with instant validation, smart tagging, and direct linkage to jobs, equipment records, and service history.",
       },
     ],
     results: {
@@ -368,13 +370,43 @@ export const PROJECTS = [
     },
     contentMedia: {
       design: [
+        // Flat item object — do not wrap in Image: { ... }
         {
-          sm: calibrightSM01,
-          lg: calibrightLG01,
+          type: "image",
+          sm: calibrightSketch,
+          lg: calibrightSketch,
           alt: "calibright adas portal design exploration",
-          caption: "Design process — dashboard hierarchy and status language",
+          caption: (
+            <>
+              <strong>Wireframes</strong> sketching and layout exploration for dashboard and workflow modules
+            </>
+          ),
         },
       ],
+      /*features: [
+        {
+          type: "image",
+          sm: enhancedLeadsFeaturesTradeInSM01,
+          lg: enhancedLeadsFeaturesTradeInLG01,
+          alt: "enhanced leads calculate trade-in value",
+          caption: (
+            <>
+              <strong>Trade-In Value</strong> guided valuation flow with instant, dealership-branded feedback
+            </>
+          ),
+        },
+        {
+          type: "image",
+          sm: enhancedLeadsFeaturesPaymentsSM01,
+          lg: enhancedLeadsFeaturesPaymentsLG01,
+          alt: "enhanced leads calculate your payments",
+          caption: (
+            <>
+              <strong>Payment Estimator</strong> real-time payment estimates with clear, confidence-building breakdowns
+            </>
+          ),
+        },        
+      ],*/
     },
     gallery: [
       { sm: calibrightSM01, lg: calibrightLG01, alt: "calibright adas portal dashboard", caption: "Primary dashboard with status rail and job queue" },
