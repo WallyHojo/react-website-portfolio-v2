@@ -132,7 +132,7 @@ export const PROJECTS = [
     backgroundColor: "#191919",
     accentColor: "#2979ff",
     role: "UI Engineer & Front-End Developer",
-    timeline: "8 weeks",
+    timeline: "3 weeks",
     overview:
       "A premium automotive detailing brand needed a digital presence that matched the craftsmanship of their ceramic coating and restoration work, refined, confident, and built to convert high-intent visitors.",
     technologies: ["React", "Wordpress", "Elementor", "Custom Service Plug-in"],
@@ -271,7 +271,7 @@ export const PROJECTS = [
     backgroundColor: "#84431d",
     accentColor: "#e8a87c",
     role: "UI Engineer & Product Interface Developer",
-    timeline: "12 weeks",
+    timeline: "8 weeks",
     overview:
       "An ADAS calibration portal built for technician workflows, diagnostics, upload, and service management unified in a dashboard designed for speed, clarity, and field usability.",
     technologies: ["React", "TypeScript", "Dashboard UI", "Component Architecture", "Accessibility"],
@@ -437,7 +437,7 @@ export const PROJECTS = [
     backgroundColor: "#2d5476",
     accentColor: "#4c94ff",
     role: "Front-End Developer & UI Engineer",
-    timeline: "10 weeks",
+    timeline: "1 week",
     overview:
       "An automotive lead-generation platform combining trade-in valuations, payment estimators, and conversion tools, engineered to turn dealership traffic into qualified customer inquiries.",
     technologies: ["React", "JavaScript", "Form Architecture", "Responsive Design", "Performance"],
