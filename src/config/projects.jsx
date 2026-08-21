@@ -10,7 +10,7 @@ import workExploreWorkPrev from "../assets/images/work/preview_img.webp";
 
 import ecPrecisionShineHero from "../assets/images/work/ec-precision-shine/hero_img.webp";   
 import ecPrecisionShinePrev from "../assets/images/work/ec-precision-shine/preview_img.webp";
-
+import ecPrecisionShineSketch from "../assets/images/work/ec-precision-shine/sketch_img.webp";
 
 // Gallery images (EC Precision Shine)
 // Small
@@ -242,7 +242,7 @@ export const PROJECTS = [
           alt: "calibright adas portal design exploration",
           caption: (
             <>
-              <strong>Wireframes</strong> sketching and layout exploration for the dashboard and document retrieval modules
+              <strong>Wireframes</strong> &mdash; sketching and layout exploration for the dashboard and document retrieval modules
             </>
           ),
         },
@@ -405,7 +405,7 @@ export const PROJECTS = [
           alt: "ui explorer design process canvas",
           caption: (
             <>
-              <strong>Wireframes</strong> sketching and layout exploration for
+              <strong>Wireframes</strong> &mdash; sketching and layout exploration for
               component catalog
             </>
           ),
@@ -563,11 +563,17 @@ export const PROJECTS = [
     // Inline content images by section (not gallery)
     contentMedia: {
       design: [
+        // Flat item object — do not wrap in Image: { ... }
         {
-          sm: ecPrecisionShineSM01,
-          lg: ecPrecisionShineLG01,
-          alt: "ec precision shine design process layout",
-          caption: "Design process — editorial hierarchy and service positioning",
+          type: "image",
+          sm: ecPrecisionShineSketch,
+          lg: ecPrecisionShineSketch,
+          alt: "ec precision shine initial sketch",
+          caption: (
+            <>
+              <strong>Wireframes</strong> &mdash; sketching and layout exploration for service showcase
+            </>
+          ),
         },
       ],
     },
@@ -717,7 +723,7 @@ export const PROJECTS = [
           alt: "enhanced leads initial sketch",
           caption: (
             <>
-              <strong>Wireframes</strong> sketching and layout exploration for stepped form patterns
+              <strong>Wireframes</strong> &mdash; sketching and layout exploration for stepped form patterns
             </>
           ),
         },
@@ -730,7 +736,7 @@ export const PROJECTS = [
           alt: "enhanced leads calculate trade-in value",
           caption: (
             <>
-              <strong>Trade-In Value</strong> guided valuation flow with instant, dealership-branded feedback
+              <strong>Trade-In Value</strong> &mdash; guided valuation flow with instant, dealership-branded feedback
             </>
           ),
         },
@@ -741,7 +747,7 @@ export const PROJECTS = [
           alt: "enhanced leads calculate your payments",
           caption: (
             <>
-              <strong>Payment Estimator</strong> real-time payment estimates with clear, confidence-building breakdowns
+              <strong>Payment Estimator</strong> &mdash; real-time payment estimates with clear, confidence-building breakdowns
             </>
           ),
         },        
