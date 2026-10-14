@@ -231,8 +231,8 @@ function Navbar() {
             </Btn>
           </div>
           <div className="navbar__right flex-all">
-            <Btn href="https://drive.google.com/file/d/1Cmxrbzao3a0DLa7opCwLBvyPLhs7-xvh/view?usp=sharing" target="_blank" secondary className="magnetic magnetic--subtle btn--no-target">
-              Resume<span className="sr-only"> (opens in a new tab)</span>
+            <Btn to="/resume" secondary className="magnetic magnetic--subtle btn--no-target">
+              Resume
             </Btn>
             <div className="navbar-right__divider" aria-hidden="true" />
             <MenuToggle isOpen={menuOpen === true} onClick={openMenu} />

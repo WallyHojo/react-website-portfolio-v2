@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import { useMarqueeScroll, Marquee } from "../../hooks/useMarqueeScroll";
 import HeroSection from "../../components/ui/HeroSection";
+import { PAGE_SEO } from "../../config/seo";
 import OverviewList from "../../components/ui/OverviewList";
 import SectionLabel from "../../components/ui/SectionLabel";
 import { MAIN_OVERVIEW_STATS } from "../../config/overviewStats.jsx";
@@ -49,7 +50,7 @@ function About() {
   return (
     <>
       {/* Hero Section */}
-      <HeroSection title="About" metaDescription="Walter Carlson's path from graphic designer to UI engineer, creating responsive custom websites and intuitive, meaningful digital experiences." description={<p className="text-muted">From a seasoned graphic designer to a developer creating fully responsive, custom websites, my career has always been driven by a passion for creativity and problem-solving. I enjoy turning ideas into intuitive, meaningful digital experiences that people genuinely enjoy using.</p>} videoSrc={heroVideo} />
+      <HeroSection title="About" metaDescription={PAGE_SEO.about.description} description={<p className="text-muted">From a seasoned graphic designer to a developer creating fully responsive, custom websites, my career has always been driven by a passion for creativity and problem-solving. I enjoy turning ideas into intuitive, meaningful digital experiences that people genuinely enjoy using.</p>} videoSrc={heroVideo} />
 
       {/* Overview Section */}
       <section className="section section__overview section-padding overflow-hidden" aria-label="Professional Overview">

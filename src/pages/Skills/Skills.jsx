@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import HeroSection from "../../components/ui/HeroSection";
+import { PAGE_SEO } from "../../config/seo";
 import SectionLabel from "../../components/ui/SectionLabel";
 import Btn from "../../components/ui/Buttons";
 import { CORE_EXPERTISE, CAPABILITY_CALLOUT, TECH_STACK, EXPERIENCE_HIGHLIGHTS, DEV_PHILOSOPHY } from "../../config/skillsData.jsx";
@@ -110,7 +111,7 @@ function Skills() {
     <>
       <HeroSection
         title="Skills"
-        metaDescription="Walter Carlson's skills across the modern web stack: design systems, component architecture, performant front-end engineering, tooling and collaboration."
+        metaDescription={PAGE_SEO.skills.description}
         subtitle={
           <h2 className="h3 sub-heading">
             Engineering interfaces where <strong className="text-primary">craft meets precision</strong>

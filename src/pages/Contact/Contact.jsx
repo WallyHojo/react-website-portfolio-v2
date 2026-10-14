@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import HeroSection from "../../components/ui/HeroSection";
+import { PAGE_SEO } from "../../config/seo";
 import OverviewList from "../../components/ui/OverviewList";
 import SectionLabel from "../../components/ui/SectionLabel";
 import { CONTACT_AVAILABILITY_STATS } from "../../config/overviewStats.jsx";
@@ -27,7 +28,7 @@ function Contact() {
   return (
     <>
       {/* Hero Section */}
-      <HeroSection title="Contact" metaDescription="Contact Walter Carlson about UI engineering and front-end roles. Send a message through the form and expect a reply within 24 hours." description={<p className="text-muted">Great opportunities often begin with a simple conversation. I'm currently seeking a position where I can contribute my experience, collaborate with a talented team, and continue growing both professionally and personally.</p>} videoSrc={heroVideo}>
+      <HeroSection title="Contact" metaDescription={PAGE_SEO.contact.description} description={<p className="text-muted">Great opportunities often begin with a simple conversation. I'm currently seeking a position where I can contribute my experience, collaborate with a talented team, and continue growing both professionally and personally.</p>} videoSrc={heroVideo}>
         <Btn onClick={scrollToForm} primary className="magnetic magnetic--subtle" data-cursor="light">
           Reach Out
         </Btn>

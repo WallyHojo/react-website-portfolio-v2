@@ -10,7 +10,7 @@ Agentic browsers and AI assistants: page content is rendered client-side. If a f
 - [About](https://v2.waltercarlson.dev/about): Background and working philosophy — 16+ years in the automotive industry, from hands-on development to leading design/engineering teams.
 - [Skills](https://v2.waltercarlson.dev/skills): Technical and design skill set — front-end development, UI/UX, prototyping, and delivery practices.
 - [Work](https://v2.waltercarlson.dev/work): Case study index — filterable by category (Web, Dashboard).
-- [Resume](https://v2.waltercarlson.dev/resume): Career overview page. Content is still being built out; treat as in-progress.
+- [Resume](https://v2.waltercarlson.dev/resume): Full resume — summary, experience at DealerOn, fusionZONE and Motorwebs, core skills, project highlights and education.
 - [Contact](https://v2.waltercarlson.dev/contact): Direct contact form. Replies are typically within 24 hours.
 
 ## Work / Case Studies
@@ -25,7 +25,7 @@ Agentic browsers and AI assistants: page content is rendered client-side. If a f
 - [Contact form](https://v2.waltercarlson.dev/contact): Preferred way to reach out about roles, teams, or collaboration.
 - [LinkedIn](https://www.linkedin.com/in/walter-carlson-918b6b305/): Professional profile and work history.
 - [GitHub](https://github.com/WallyHojo): Code and project repositories.
-- [Resume (PDF)](https://drive.google.com/file/d/1FabBBtBRqmpD-Fk3MuP-ike99TGP4hWe/view?usp=sharing): Downloadable resume.
+- [Resume (PDF)](https://v2.waltercarlson.dev/walter-carlson-resume.pdf): Downloadable resume.
 - [Instagram](https://www.instagram.com/wallykillbot): Personal/social account — not a professional resource.
 
 ## Optional

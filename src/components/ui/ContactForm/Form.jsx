@@ -41,6 +41,13 @@ const Form = forwardRef((props, ref) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Honeypot: real visitors never see or fill the "website" field; bots that
+    // auto-fill every input do. Pretend success so they don't retry.
+    if (e.currentTarget.elements.website?.value) {
+      setSuccess("Email sent successfully!");
+      return;
+    }
+
     // Letters (any language), plus spaces, hyphens and apostrophes: O'Brien, Anne-Marie, José
     const namePattern = /^\p{L}[\p{L}\p{M}'’ .-]*\p{L}\.?$/u;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
@@ -112,6 +119,12 @@ const Form = forwardRef((props, ref) => {
             </label>
             <input value={email} onChange={handleChange} type="email" name="email" id="email" placeholder="Email *" data-cursor="light" required />
           </div>
+        </div>
+
+        {/* Spam trap — hidden from people and assistive tech, see handleSubmit */}
+        <div className="form__trap" aria-hidden="true">
+          <label htmlFor="website">Website</label>
+          <input type="text" name="website" id="website" tabIndex={-1} autoComplete="off" />
         </div>
 
         <div className="form__group relative">

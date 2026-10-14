@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { useSA, useSARouteSync } from "../../hooks/useScrollAnimate/useScrollAnimate.jsx";
 import HeroSection from "../../components/ui/HeroSection";
+import { PAGE_SEO } from "../../config/seo";
 import SectionLabel from "../../components/ui/SectionLabel";
 import FeaturedProjectRow from "./components/FeaturedProjectRow";
 import ProjectCollection from "./components/ProjectCollection";
@@ -23,7 +24,7 @@ function WorkIndex() {
     <>
       <HeroSection
         title="Work"
-        metaDescription="Case studies by Walter Carlson, from automotive platforms and dashboards to interactive design systems, covering research, design and front-end execution."
+        metaDescription={PAGE_SEO.work.description}
         subtitle={
           <h2 className="h3 sub-heading">
             Curated projects where <strong className="text-primary">design intent meets engineering craft</strong>
