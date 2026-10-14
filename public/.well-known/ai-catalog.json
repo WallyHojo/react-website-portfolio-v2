@@ -1,0 +1,22 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Walter Carlson — Portfolio",
+    "identifier": "v2.waltercarlson.dev"
+  },
+  "entries": [
+    {
+      "identifier": "urn:ai:v2.waltercarlson.dev:knowledge:llms-txt",
+      "displayName": "Walter Carlson portfolio (llms.txt)",
+      "description": "Plain-text guide for AI assistants: pages, case studies, skills and contact details for Walter Carlson, a front-end developer and UI engineer.",
+      "type": "text/plain",
+      "mediaType": "text/plain",
+      "url": "https://v2.waltercarlson.dev/llms.txt",
+      "representativeQueries": [
+        "What front-end and UI engineering work has Walter Carlson done?",
+        "List Walter Carlson's portfolio case studies",
+        "How do I contact Walter Carlson about a role?"
+      ]
+    }
+  ]
+}
