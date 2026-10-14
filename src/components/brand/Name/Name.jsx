@@ -44,6 +44,7 @@ export default function NameSVG({ className = "" }) {
       viewBox="22 60 480 83"
       xmlns="http://www.w3.org/2000/svg"
       className={`footer-name-svg${className ? ` ${className}` : ""}`}
+      role="img"
       aria-label="Walter Carlson"
       ref={svgRef}
     >

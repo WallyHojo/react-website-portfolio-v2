@@ -1,10 +1,9 @@
 import React, { useRef } from "react";
 
 import { useMarqueeScroll, Marquee } from "../../hooks/useMarqueeScroll";
-/*import { useTypewriterHeading } from "../../hooks/useTypewriterHeading";*/
 import { useHorizontalScroll } from "../../hooks/useHorizontalScroll.jsx";
 import { useIsMobile } from "../../hooks/useIsMobile.jsx";
-import Btn from "../../components/ui/Buttons";
+import Btn, { ArrowUpRight } from "../../components/ui/Buttons";
 import HeroSection from "../../components/ui/HeroSection";
 import SectionLabel from "../../components/ui/SectionLabel";
 import OverviewList from "../../components/ui/OverviewList";
@@ -27,9 +26,6 @@ const SkillChip = React.memo(({ label, icon, shadow }) => {
         </span>
       </span>
 
-      {/*<span className="divider" aria-hidden="true">
-        &bull;
-      </span>*/}
     </>
   );
 });
@@ -55,12 +51,12 @@ const WorkCard = React.memo(({ title, description, tag, imagePrev, number, total
   const formattedIndex = `${String(number).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
   return (
     <>
-      <div className="magnetic magnetic--subtle" role="listitem" aria-label={`Project ${number}: ${title}`} style={{ "--card-background": backgroundColor }}>
+      <div className="magnetic magnetic--subtle" role="listitem" style={{ "--card-background": backgroundColor }}>
         <Btn to={link} plain className="work__card flex-all flex-direction-column flex-space-between relative overflow-hidden">
-          <div className="work__card-bg-num absolute">{symbol || number}</div>
+          <div className="work__card-bg-num absolute" aria-hidden="true">{symbol || number}</div>
           <div className="work__card--top relative overflow-hidden" data-cursor="accent">
             <div className="work__card-img">
-              <img src={imagePrev} alt={title} />
+              <img src={imagePrev} alt="" loading="lazy" decoding="async" />
             </div>
           </div>
           <div className="work__card--bottom flex-all flex-direction-column relative" data-cursor="light">
@@ -71,14 +67,12 @@ const WorkCard = React.memo(({ title, description, tag, imagePrev, number, total
             <p className="work__card-body">{description}</p>
             <div className="work__card-data--bottom flex-all flex-space-between flex-vert-center mt-auto">
               <div className="work__card-link">
-                <button className="btn">
+                <span className="btn">
                   <span className="btn__text relative">{linkLabel || "View case study"}</span>
-                  <span className="btn__arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="var(--color-bg-inverse)" />
-                    </svg>
+                  <span className="btn__arrow" aria-hidden="true">
+                    <ArrowUpRight fill="var(--color-bg-inverse)" />
                   </span>
-                </button>
+                </span>
               </div>
 
               <span className="work__card-index">{formattedIndex}</span>
@@ -92,11 +86,6 @@ const WorkCard = React.memo(({ title, description, tag, imagePrev, number, total
 
 function Home() {
   useMarqueeScroll();
-
-  // Typewriter effect for hero heading
-  /*
-  const displayHeading = useTypewriterHeading(["Design Systems", "Accessible Interfaces", "Performance-Focused UI", "Frontend Architecture"]);
-  */
 
   // Refs for hero scroll effect
   const wrapRef = useRef(null);
@@ -113,7 +102,7 @@ function Home() {
         titleClassName="nowrap"
         subtitle={
           <h2 className="h3 sub-heading">
-            A <strong className="text-primary">UI Engineer {/*displayHeading*/}</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
+            A <strong className="text-primary">UI Engineer</strong> focused on building accessible and scalable user interfaces that bridge design and engineering.
           </h2>
         }
         description={<p className="text-muted">With a strong focus on performance, usability, and maintainable code, I transform design concepts into polished, production-ready interfaces that deliver consistent experiences across devices.</p>}
@@ -200,7 +189,7 @@ function Home() {
 
       {/* Work Section */}
       <section className="section section__work" aria-label="Featured Projects">
-        <div className="work__wrap" ref={wrapRef} role="region" aria-roledescription="horizontal scroll">
+        <div className="work__wrap" ref={wrapRef}>
           <div className="work__stage flex-all flex-direction-column flex-horz-center h-viewport-small sticky section-padding" ref={stageRef}>
             <div className="background__ellipse background__ellipse-1 work__ellipse-1 ellipse--primary ellipse--medium fixed hidden-mobile"></div>
             <div className="background__ellipse background__ellipse-1 work__ellipse-1 ellipse--primary ellipse--small fixed hidden-tablet hidden-desktop"></div>
@@ -222,9 +211,7 @@ function Home() {
           <div className="contact__content h-full flex-all flex-direction-column" sa="up-long glacial mirror">
             <div className="content__eyebrow h3 flex-all flex-vert-center" sa="up slow mirror">
               <span className="content__eyebrow-icon flex-all flex-vert-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF"></path>
-                </svg>
+                <ArrowUpRight />
               </span>
               <span className="content__eyebrow-text">Get in Touch</span>
             </div>

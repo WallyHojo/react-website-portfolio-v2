@@ -42,6 +42,24 @@
   width: 100%;
 }
 
+/* Keyboard/pointer focus: underline turns primary so the active field is unmistakable */
+.group__field:focus-within::after {
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+.form__status {
+  margin-top: 1rem;
+}
+
+.form__status--error {
+  color: var(--color-text-danger);
+}
+
+.form__status--success {
+  color: var(--color-text-success);
+}
+
 .group__field label {
   position: absolute;
   width: 0;

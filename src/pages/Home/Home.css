@@ -651,10 +651,8 @@
   border-radius: 999px;
 }
 
-.work__card-link button {
-  background-color: transparent;
+.work__card-link .btn {
   font-size: 0.8rem;
-  border: 0;    
 }
 
 .work__card:hover .btn:not(.btn-primary) .btn__text::after {
@@ -678,6 +676,9 @@
 .work__ellipse-1 {
   top: 50%;
   left: 50%;
+  /* Base position for browsers without scroll-driven animations; the keyframes
+     override it where supported. Without it the glow overflows the viewport. */
+  transform: translate(-50%, -50%);
   animation-name: work-ellipse, work-ellipse-exit;
   animation-duration: 1s, 1s;
   animation-timing-function: linear, linear;

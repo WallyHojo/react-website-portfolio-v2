@@ -4,6 +4,7 @@ export default function SectionLabel({
   labelSystem,    
   labelTitle,
   labelCount,
+  titleId,
   progressBar,
   className = "",
 }) {
@@ -18,18 +19,18 @@ export default function SectionLabel({
     const hasProgress = !!progressBar;
 
     return (
-    <div className={rootClass} role="presentation">
+    <div className={rootClass}>
         {/* When there's a system label (typical for section intros), system + count come first */}
         {hasSystem && (
-          <span className="label__system" sa="right slower mirror delay-200">
+          <span className="label__system" aria-hidden="true" sa="right slower mirror delay-200">
             {forwardSlash} {labelSystem}
           </span>
         )}
-        {hasSystem && labelCount && <span className="label__count absolute" sa="up-long slower mirror">{labelCount}</span>}
+        {hasSystem && labelCount && <span className="label__count absolute" aria-hidden="true" sa="up-long slower mirror">{labelCount}</span>}
 
         {/* Title (h2) */}
         {hasTitle && (
-          <h2 className="label__title" sa="right slower mirror delay-400">
+          <h2 className="label__title" id={titleId} sa="right slower mirror delay-400">
             {labelTitle}
           </h2>
         )}

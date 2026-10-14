@@ -1,1 +1,1 @@
-export { default } from "./Buttons";
+export { default, ArrowUpRight } from "./Buttons";

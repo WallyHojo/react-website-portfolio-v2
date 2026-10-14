@@ -15,11 +15,11 @@ function Resume() {
 
   return (
     <>
-      <HeroSection title="Resume" description="A comprehensive view of my professional experience, leadership across design and engineering teams, and a track record of delivering production-ready interfaces and design systems over 16+ years." videoSrc={heroVideo} />
+      <HeroSection title="Resume" metaDescription="Walter Carlson's professional experience: 16+ years leading design and engineering teams and delivering production-ready interfaces and design systems." description="A comprehensive view of my professional experience, leadership across design and engineering teams, and a track record of delivering production-ready interfaces and design systems over 16+ years." videoSrc={heroVideo} />
 
       {/* Content sections to be developed */}
       <section className="section section__resume section-padding" aria-label="Resume Content">
-        <SectionLabel labelTitle="Experience" labelCount="01 career" />
+        <SectionLabel labelTitle="Experience" labelCount="01" />
         <div className="resume__intro">
           <p className="text-muted">Detailed resume content, timeline, and downloadable CV will be added here. The structure will mirror the refined layout used across the rest of the site.</p>
         </div>

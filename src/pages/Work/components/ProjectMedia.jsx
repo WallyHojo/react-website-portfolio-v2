@@ -177,22 +177,26 @@ function MediaPreview({ item }) {
   const video = isVideoMedia(item);
   const poster = getMediaPoster(item);
 
-  // Browsers require muted + playsInline for autoplay; retry play if policy delays it
+  // Silent looping preview: only plays (and so only downloads) while near the
+  // viewport, and stays on its first frame / poster for reduced-motion users.
   useEffect(() => {
     if (!video) return undefined;
     const el = videoRef.current;
     if (!el) return undefined;
 
     el.muted = true;
-    const play = () => {
-      const result = el.play();
-      if (result?.catch) result.catch(() => {});
-    };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
-    play();
-    el.addEventListener("loadeddata", play);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play()?.catch?.(() => {});
+        else el.pause();
+      },
+      { rootMargin: "200px 0px" }
+    );
+    observer.observe(el);
     return () => {
-      el.removeEventListener("loadeddata", play);
+      observer.disconnect();
       el.pause();
     };
   }, [video, item.src]);
@@ -205,11 +209,10 @@ function MediaPreview({ item }) {
           className="project-media__video-preview"
           src={item.src}
           poster={poster || undefined}
-          autoPlay
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           tabIndex={-1}
           aria-hidden="true"
         />

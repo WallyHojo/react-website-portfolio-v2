@@ -167,7 +167,6 @@
 .project-collection__filter:focus-visible {
   color: var(--color-text-primary) !important;
   border-color: var(--color-primary-tint);
-  outline: none;
 }
 
 .project-collection__filter.is-active {
@@ -198,7 +197,6 @@
 .project-collection__entry:hover,
 .project-collection__entry:focus-visible {
   padding-left: 0.75rem;
-  outline: none;
 }
 
 .project-collection__entry-index {

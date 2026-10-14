@@ -9,6 +9,7 @@ import { useScrollDirection } from './hooks/useScrollDirection';
 import { PageTransitionProvider } from './components/ui/PageTransition/PageTransition';
 import Navbar from './components/layout/Navbar/Navbar';
 import Footer from './components/layout/Footer/Footer';
+import Btn from './components/ui/Buttons';
 import Home from './pages/Home/Home';
 
 // Lazy load other pages for code splitting (Home loads immediately for animations)
@@ -17,6 +18,17 @@ const Work = lazy(() => import('./pages/Work/Work'));
 const About = lazy(() => import('./pages/About/About'));
 const Contact = lazy(() => import('./pages/Contact/Contact'));
 const Resume = lazy(() => import('./pages/Resume/Resume'));
+
+// Catch-all for unknown URLs (previously rendered an empty <main>)
+function NotFound() {
+  return (
+    <section className="section section-padding h-viewport-small flex-all flex-direction-column flex-horz-center gap-1" aria-labelledby="not-found-title">
+      <h1 id="not-found-title" className="h2">Page not found</h1>
+      <p className="text-muted">The page you're looking for doesn't exist or has moved.</p>
+      <Btn to="/" secondary className="btn--no-target">Back to home</Btn>
+    </section>
+  );
+}
 
 // Must be a child of <Router> so useLocation() works
 function AppInner() {
@@ -34,8 +46,9 @@ function AppInner() {
   return (
     <>
       <PageTransitionProvider>
+        <a className="skip-link" href="#main">Skip to content</a>
         <Navbar />
-        <main>
+        <main id="main" tabIndex={-1}>
           <Suspense fallback={null}>
             <Routes>
               <Route index element={<Home />} />
@@ -44,6 +57,7 @@ function AppInner() {
               <Route path="about" element={<About />} />
               <Route path="contact" element={<Contact />} />
               <Route path="resume" element={<Resume />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>

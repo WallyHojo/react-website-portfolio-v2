@@ -26,6 +26,7 @@
   --color-text-disabled: #9a9a9a; /* disabled */
   --color-text-inverse: #121212; /* text on light bg */
   --color-text-danger: #ff4d4d; /* danger text */
+  --color-text-success: #4ade80; /* success text (7.9:1 on bg-base) */
 
   --color-primary: #2979ff;
   --color-primary-hover: #4c94ff;
@@ -35,6 +36,16 @@
   --ease-interaction: cubic-bezier(0.625, 0.05, 0, 1);
 
   --shadow: 0 10px 25px 0 rgba(16, 24, 32, 0.15), 0 0 0 1px rgba(16, 24, 32, 0.05);
+
+  /* Focus */
+  --focus-ring: 2px solid var(--color-primary);
+  --focus-offset: 3px;
+
+  /* Layers — top-level stacking contexts only (custom cursor keeps its own, above all) */
+  --z-header: 99;
+  --z-menu: 100;
+  --z-lightbox: 9000;
+  --z-page-transition: 9999;
 }
 
 *,
@@ -56,8 +67,15 @@
   color: #ffffff;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Overlay scroll lock — toggled by lockScroll() in hooks/lenisController.js */
+html.no-scroll {
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -75,8 +93,48 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  cursor: none;
+/* Custom cursor replaces the native one only where a precise pointer exists */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none;
+  }
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: var(--z-page-transition);
+  padding: 0.75rem 1.25rem;
+  border-radius: 6rem;
+  background: var(--color-primary);
+  color: #ffffff;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* Skip-link target: receives focus programmatically, no ring around the whole page */
+#main:focus {
+  outline: none;
 }
 
 .h1,
@@ -414,7 +472,7 @@ img {
   }
 }
 
-@media (min-width >= 1536px) {
+@media (width >= 1536px) {
   .section-padding {
     padding: var(--section-padding-xl);
   }

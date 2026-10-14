@@ -1,4 +1,4 @@
-:is(a, button).btn {
+:is(a, button, span).btn {
   position: relative;
   display: flex;
   align-items: center;
@@ -60,10 +60,9 @@
     0 0 0 1px rgba(16, 24, 32, 0.05),
     0 4px 20px transparent;
   transition:
-  transform,
-  background-color,
-  box-shadow
-  0.6s var(--ease-interaction);
+    transform 0.6s var(--ease-interaction),
+    background-color 0.6s var(--ease-interaction),
+    box-shadow 0.6s var(--ease-interaction);
   overflow: hidden;
 }
 
@@ -90,7 +89,6 @@
 
 .btn-primary:hover::before {
   background-color: var(--color-primary-tint);
-  transform: scale(0.95);
   transform: scaleX(1);
   transform-origin: left;  
 }

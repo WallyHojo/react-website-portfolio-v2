@@ -4,8 +4,10 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from "react"
 import { useSAReplay } from "../../../hooks/useScrollAnimate/useScrollAnimate";
 import { useActiveRoute } from "../../../hooks/useActiveRoute";
 import { useTransition } from "../../ui/PageTransition/PageTransition";
-import Btn from "../../ui/Buttons";
+import Btn, { ArrowUpRight } from "../../ui/Buttons";
 import { NAV_LINKS } from "../../../config/navLinks";
+import { lockScroll } from "../../../hooks/lenisController";
+import { useDialogFocus } from "../../../hooks/useDialogFocus";
 import "./Navbar.css";
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
@@ -183,18 +185,14 @@ function useMenuState() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [menuOpen, closeMenu]);
 
-  // Body scroll lock
+  // Scroll lock (also pauses Lenis) + modal focus handling
+  const isOpen = menuOpen === true;
   useEffect(() => {
-    document.documentElement.classList.toggle("no-scroll", menuOpen === true);
-  }, [menuOpen]);
-
-  // Focus management
-  useEffect(() => {
-    if (menuOpen === true && menuRef.current) {
-      const firstFocusable = menuRef.current.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-      firstFocusable?.focus();
-    }
-  }, [menuOpen]);
+    if (!isOpen) return undefined;
+    lockScroll(true);
+    return () => lockScroll(false);
+  }, [isOpen]);
+  useDialogFocus(menuRef, isOpen);
 
   return { menuOpen, openMenu, closeMenu, handleAnimationEnd, menuRef };
 }
@@ -224,7 +222,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className={navClassName}>
+      <nav className={navClassName} aria-label="Primary">
         <div className="navbar__container flex-all flex-space-between flex-vert-center relative" sa="down slower" ref={headerRef}>
           <div className="navbar__background absolute" />
           <div className="navbar__logo magnetic magnetic--subtle">
@@ -234,9 +232,9 @@ function Navbar() {
           </div>
           <div className="navbar__right flex-all">
             <Btn href="https://drive.google.com/file/d/1Cmxrbzao3a0DLa7opCwLBvyPLhs7-xvh/view?usp=sharing" target="_blank" secondary className="magnetic magnetic--subtle btn--no-target">
-              Resume
+              Resume<span className="sr-only"> (opens in a new tab)</span>
             </Btn>
-            <div className="navbar-right__divider" />
+            <div className="navbar-right__divider" aria-hidden="true" />
             <MenuToggle isOpen={menuOpen === true} onClick={openMenu} />
           </div>
         </div>
@@ -246,7 +244,7 @@ function Navbar() {
       <div
         className={menuClassName}
         onAnimationEnd={handleAnimationEnd}
-        ref={replayRef}
+        ref={(node) => { replayRef.current = node; menuRef.current = node; }}
         role="dialog"
         aria-modal="true"
         aria-label="Main navigation menu"
@@ -256,19 +254,17 @@ function Navbar() {
         </div>
 
         <div className="menu__wrapper relative">
-          <div className="menu__content flex-all flex-direction-column relative" sa="left-long fade glacial" ref={menuRef}>
+          <div className="menu__content flex-all flex-direction-column relative" sa="left-long fade glacial">
             {/* Eyebrow + CTA */}
             <div className="content__eyebrow h3 flex-all flex-vert-center" sa="left slow delay-200">
               <span className="content__eyebrow-icon flex-all flex-vert-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                  <path d="M16.6808 0C17.0307 0 17.3662 0.138986 17.6136 0.386383C17.861 0.633779 18 0.969321 18 1.31919V11.8727C18 12.2226 17.861 12.5581 17.6136 12.8055C17.3662 13.0529 17.0307 13.1919 16.6808 13.1919C16.3309 13.1919 15.9954 13.0529 15.748 12.8055C15.5006 12.5581 15.3616 12.2226 15.3616 11.8727V4.50372L2.23565 17.6297C1.98685 17.87 1.65362 18.003 1.30773 17.9999C0.961841 17.9969 0.630971 17.8582 0.386382 17.6136C0.141793 17.369 0.00305554 17.0382 4.9869e-05 16.6923C-0.0029558 16.3464 0.130011 16.0132 0.370313 15.7643L13.4963 2.63838H6.12727C5.7774 2.63838 5.44186 2.4994 5.19446 2.252C4.94706 2.00461 4.80808 1.66906 4.80808 1.31919C4.80808 0.969321 4.94706 0.633779 5.19446 0.386383C5.44186 0.138986 5.7774 0 6.12727 0H16.6808Z" fill="#2979FF" />
-                </svg>
+                <ArrowUpRight />
               </span>
               <span className="content__eyebrow-text">Connect with me!</span>
             </div>
-            <div className="menu__content-heading" sa="left slow delay-400">
+            <p className="menu__content-heading" sa="left slow delay-400">
               Explore My Work, Projects, and Experience
-            </div>
+            </p>
             <div className="menu__divider"><hr /></div>
             <div sa="left slow delay-600">
               <Btn
@@ -285,10 +281,10 @@ function Navbar() {
 
           <div className="menu__nav" sa="right-long fade glacial">
             <ul className="menu__nav-links flex-all flex-direction-column">
-              <div className="menu__nav-heading" sa="right slow delay-100">
+              <li className="menu__nav-heading" role="presentation" sa="right slow delay-100">
                 <h4>Navigation</h4>
                 <hr />
-              </div>
+              </li>
               {NAV_LINKS.map(({ to, label, animationDelay, exact }, index) => (
                 <li
                   key={to}

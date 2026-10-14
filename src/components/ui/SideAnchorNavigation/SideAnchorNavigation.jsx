@@ -8,18 +8,18 @@ import "./SideAnchorNavigation.css";
 const DEFAULT_HEADER_OFFSET_PX = 96;
 
 /**
- * Extra offset applied only to the anchor-nav scroll *destination* — on top
+ * Extra clearance applied only to the anchor-nav scroll *destination* — on top
  * of the shared header clearance, not instead of it. This does NOT affect
  * useActiveSection's highlight line or the CSS scroll-margin-top; it only
  * changes where a click (or hash deep-link) actually lands.
  *
- * Sign convention matches Lenis's `offset` (same as CSS scroll-padding-top):
- * positive = extra clearance above the target (stop earlier / higher up),
- * negative = scroll further down, past the section's top edge.
+ * Positive = stop higher (more space above the section), negative = lower.
+ * (Previously -225 compensating for header clearance being passed to Lenis
+ * with the wrong sign; the net landing spot is unchanged within a few px.)
  *
  * Tune this number directly — that's the intended way to adjust it.
  */
-const NAV_CLICK_SCROLL_OFFSET_PX = -225;
+const NAV_CLICK_SCROLL_OFFSET_PX = 0;
 
 /**
  * Resolves --side-anchor-header-offset (set in SideAnchorNavigation.css) to
@@ -75,8 +75,9 @@ function scrollToSection(id, { offset, extraOffset = 0 } = {}) {
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Lenis ADDS `offset` to the target, so clearance above the section is negative
   lenisScrollTo(el, {
-    offset: (offset ?? getHeaderOffsetPx()) + extraOffset,
+    offset: -((offset ?? getHeaderOffsetPx()) + extraOffset),
     immediate: reduceMotion,
   });
 

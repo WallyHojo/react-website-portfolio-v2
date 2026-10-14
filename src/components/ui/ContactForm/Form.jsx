@@ -17,6 +17,7 @@ const Form = forwardRef((props, ref) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [sending, setSending] = useState(false);
 
   // Validate that the environment variables are set
   if (!serviceID || !templateID || !publicKey) {
@@ -40,15 +41,16 @@ const Form = forwardRef((props, ref) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const namePattern = /^[a-zA-Z]{2,}$/; // Letters only, at least 2 characters
+    // Letters (any language), plus spaces, hyphens and apostrophes: O'Brien, Anne-Marie, José
+    const namePattern = /^\p{L}[\p{L}\p{M}'’ .-]*\p{L}\.?$/u;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
 
-    if (!namePattern.test(firstName)) {
-      setError("First name must be at least 2 letters long and contain only letters.");
+    if (!namePattern.test(firstName.trim())) {
+      setError("Please enter your first name (at least 2 letters).");
       return;
     }
-    if (!namePattern.test(lastName)) {
-      setError("Last name must be at least 2 letters long and contain only letters.");
+    if (!namePattern.test(lastName.trim())) {
+      setError("Please enter your last name (at least 2 letters).");
       return;
     }
     if (!emailPattern.test(email)) {
@@ -64,6 +66,7 @@ const Form = forwardRef((props, ref) => {
       message,
     };
 
+    setSending(true);
     emailjs
       .send(serviceID, templateID, templateParams, publicKey)
       .then(() => {
@@ -76,7 +79,8 @@ const Form = forwardRef((props, ref) => {
       })
       .catch(() => {
         setError("Failed to send email. Please try again later.");
-      });
+      })
+      .finally(() => setSending(false));
   };
 
   return (
@@ -119,10 +123,15 @@ const Form = forwardRef((props, ref) => {
           </div>
         </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {success && <p style={{ color: "green" }}>{success}</p>}
+        {/* Always mounted so screen readers announce changes */}
+        <div aria-live="polite">
+          {error && <p className="form__status form__status--error" role="alert">{error}</p>}
+          {success && <p className="form__status form__status--success">{success}</p>}
+        </div>
 
-        <Btn type="submit" id="submit" primary className="magnetic magnetic--subtle" data-cursor="accent">Send Message</Btn>
+        <Btn type="submit" id="submit" primary className="magnetic magnetic--subtle" data-cursor="accent" disabled={sending}>
+          {sending ? "Sending…" : "Send Message"}
+        </Btn>
       </form>
     </>
   );

@@ -164,6 +164,15 @@ const resetCounter = el => {
 function startCounter(el) {
   const to = el.dataset.saTo ?? '0';
   const from = el.dataset.saFrom ?? '0';
+
+  // Reduced motion: show the final value, no counting / scrambling
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cancelCounter(el);
+    counterParts.delete(el);
+    if (isNaN(to)) el.textContent = to;
+    else setCounterValue(el, parseFloat(to));
+    return;
+  }
   
   // Check if it's a character/string animation (not a number)
   if (isNaN(to) || isNaN(from)) {

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { lockScroll } from "../../../hooks/lenisController";
 
 /** Keep in sync with CSS close animation duration (ms) */
 export const LIGHTBOX_CLOSE_MS = 320;
@@ -59,9 +60,6 @@ export default function useLightbox(items = []) {
   useEffect(() => {
     if (!isLightboxMounted) return undefined;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -77,10 +75,16 @@ export default function useLightbox(items = []) {
 
     window.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [isLightboxMounted, closeLightbox, showPrev, showNext]);
+
+  // Scroll lock (also pauses Lenis) for as long as the lightbox is mounted
+  useEffect(() => {
+    if (!isLightboxMounted) return undefined;
+    lockScroll(true);
+    return () => lockScroll(false);
+  }, [isLightboxMounted]);
 
   return {
     lightboxIndex,

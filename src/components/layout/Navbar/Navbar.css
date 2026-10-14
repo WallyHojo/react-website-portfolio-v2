@@ -8,7 +8,7 @@
 .navbar {
   width: 100%;
   top: 0;
-  z-index: 99;
+  z-index: var(--z-header);
   padding: var(--navigation-padding-sm);
   transition: transform 0.5s ease-in;
 }
@@ -21,6 +21,11 @@ html.scrolling-up nav.navbar {
 }
 html.scrolling-down nav.navbar {
   transform: translateY(-100%); /* Hide the header by moving it up */
+}
+
+/* Never hide the header while it holds keyboard focus */
+html.scrolling-down nav.navbar:focus-within {
+  transform: translateY(0);
 }
 
 .navbar__container {
@@ -50,6 +55,10 @@ html.scrolling-down nav.navbar {
   height: 35px;
   line-height: initial;
   filter: brightness(1.25);
+}
+
+.navbar__logo a {
+  display: block; /* hit area = full 54x35 mark, not the 16px text line */
 }
 
 .path-a,
@@ -122,7 +131,7 @@ html.scrolling-down nav.navbar {
   width: 100%;
   height: 100dvh;
   padding-top: clamp(0.625rem, 2.01vw, 1.25rem);
-  z-index: 100;
+  z-index: var(--z-menu);
   pointer-events: none;
 }
 
@@ -180,6 +189,17 @@ html.scrolling-down nav.navbar {
   opacity: 0.75;
 }
 
+/* The tab shape is clip-pathed, which would clip a ring on the button itself */
+.menu__close-container:focus-visible {
+  outline: none;
+}
+
+.menu__close-container:focus-visible .menu__clip-close {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .menu__clip {
   top: -999px;
   left: -999px;
@@ -187,10 +207,6 @@ html.scrolling-down nav.navbar {
   height: 0;
   z-index: -1;
   pointer-events: none;
-}
-
-html.no-scroll {
-  overflow: hidden;
 }
 
 html.no-scroll nav.navbar {
@@ -505,6 +521,6 @@ ul.menu__nav-links li:is(:hover, .--is-active) a {
 
 @media (width >= 1536px) {
   .navbar {
-    padding: var(--navigation-padding-lg);
+    padding: var(--navigation-padding-xl);
   }
 }

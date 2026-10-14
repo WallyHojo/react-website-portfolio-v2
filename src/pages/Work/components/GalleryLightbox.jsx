@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { isVideoMedia } from "../../../config/projects.jsx";
+import { useDialogFocus } from "../../../hooks/useDialogFocus";
 
 /**
  * Full-screen media lightbox (portal) — images and videos.
@@ -17,7 +18,10 @@ export default function GalleryLightbox({
   label = "Expanded media",
 }) {
   const videoRef = useRef(null);
+  const dialogRef = useRef(null);
   const isVideo = isVideoMedia(activeItem);
+
+  useDialogFocus(dialogRef, !isClosing);
 
   // Pause video when navigating away, closing, or unmounting
   useEffect(() => {
@@ -39,6 +43,7 @@ export default function GalleryLightbox({
 
   return createPortal(
     <div
+      ref={dialogRef}
       className={`gallery-lightbox${isClosing ? " gallery-lightbox--closing" : ""}`}
       role="dialog"
       aria-modal="true"
@@ -82,6 +87,7 @@ export default function GalleryLightbox({
         type="button"
         className="gallery-lightbox__backdrop"
         aria-label="Close expanded media"
+        tabIndex={-1}
         onClick={onClose}
         disabled={isClosing}
         data-cursor="light"

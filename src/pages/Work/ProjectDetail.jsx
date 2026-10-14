@@ -25,7 +25,7 @@ import "./ProjectDetail.css";
 /* Case study section helpers                                                 */
 /* -------------------------------------------------------------------------- */
 
-function CaseStudyBlock({ id, label, title, children, count, saDelay = 200 }) {
+function CaseStudyBlock({ id, label, title, children, count }) {
   const headingId = id ? `${id}-heading` : undefined;
 
   return (
@@ -40,7 +40,7 @@ function CaseStudyBlock({ id, label, title, children, count, saDelay = 200 }) {
         labelTitle={title}
         titleId={headingId}
       />
-      <div className="case-study__content" sa={`up-long glacial mirror delay-${saDelay}`}>
+      <div className="case-study__content" sa="up-long glacial mirror delay-200">
         {children}
       </div>
     </section>
@@ -101,8 +101,6 @@ function buildCaseStudySections(project) {
       label: "Overview",
       title: "Overview",
       system: "project.summary",
-      count: "02",
-      saDelay: 200,
       available: () => Boolean(project.summary),
       render: () => (
         <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
@@ -132,8 +130,6 @@ function buildCaseStudySections(project) {
       label: "Discovery",
       title: "Discovery & Strategy",
       system: "project.discovery",
-      count: "03",
-      saDelay: 300,
       available: () => Boolean(project.discovery),
       render: () => (
         <div className="case-study__prose">
@@ -163,8 +159,6 @@ function buildCaseStudySections(project) {
       label: "Design",
       title: "Design Process",
       system: "project.design",
-      count: "04",
-      saDelay: 400,
       available: () => Boolean(project.design),
       render: () => (
         <ProjectMedia type="image" section="design" index={0} layout="row">
@@ -202,8 +196,6 @@ function buildCaseStudySections(project) {
       label: "Development",
       title: "Development Process",
       system: "project.development",
-      count: "05",
-      saDelay: 500,
       available: () => Boolean(project.development),
       render: () => (
         <div className="case-study__prose">
@@ -239,8 +231,6 @@ function buildCaseStudySections(project) {
       label: "Features",
       title: "Key Features",
       system: "project.features",
-      count: "06",
-      saDelay: 600,
       available: () => project.gallery?.length > 0 && project.features?.length > 0,
       render: () => (
         <div className="flex-all flex-direction-column gap-row-2">
@@ -258,8 +248,6 @@ function buildCaseStudySections(project) {
       label: "Results",
       title: "Results & Outcomes",
       system: "project.results",
-      count: "07",
-      saDelay: 700,
       available: () => Boolean(project.results),
       render: () => (
         <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
@@ -289,8 +277,6 @@ function buildCaseStudySections(project) {
       label: "Gallery",
       title: "Project Gallery",
       system: "project.gallery",
-      count: "08",
-      saDelay: 800,
       available: () => project.gallery?.length > 0,
       render: () => <ProjectMedia type="gallery" items={project.gallery} />,
     },
@@ -299,8 +285,6 @@ function buildCaseStudySections(project) {
       label: "Technologies",
       title: "Technology Stack",
       system: "project.stack",
-      count: "09",
-      saDelay: 900,
       available: () => project.stack?.length > 0,
       render: () => (
         <div className="cards__wrapper cards__wrapper--compact gap-column-1 gap-row-1">
@@ -368,7 +352,7 @@ function ProjectDetail() {
     <article itemScope itemType="https://schema.org/CreativeWork">
       {/* Project Hero — mirrors HeroSection features with project hero image */}
       <header
-        className="section section__hero h-viewport-small relative section-padding overflow-hidden"
+        className="section section__hero project-hero relative section-padding overflow-hidden"
         style={{ "--project-accent": project.backgroundColor }}
         aria-label={`${project.title} overview`}
       >
@@ -410,13 +394,13 @@ function ProjectDetail() {
             </dl>
             <div className="hero__content-actions flex-all flex-wrap gap-2">
               {project.url && (
-                <Btn href={project.url} target="_blank" primary className="btn btn-primary magnetic magnetic--subtle" data-cursor="accent">
-                  Visit Website
-                </Btn>      
-              )}          
-              <Btn to="/work" secondary className="btn btn-secondary magnetic magnetic--subtle btn--no-target">
+                <Btn href={project.url} target="_blank" primary className="magnetic magnetic--subtle" data-cursor="accent">
+                  Visit Website<span className="sr-only"> (opens in a new tab)</span>
+                </Btn>
+              )}
+              <Btn to="/work" secondary className="magnetic magnetic--subtle btn--no-target">
                 All work
-              </Btn>            
+              </Btn>
             </div>
           </div>
         </div>
@@ -458,14 +442,13 @@ function ProjectDetail() {
             </aside>
 
             <div className="project-detail__content">
-              {sections.map((section) => (
+              {sections.map((section, index) => (
                 <CaseStudyBlock
                   key={section.id}
                   id={section.id}
                   label={section.system}
                   title={section.title}
-                  count={section.count}
-                  saDelay={section.saDelay}
+                  count={String(index + 2).padStart(2, "0")}
                 >
                   {section.render()}
                 </CaseStudyBlock>

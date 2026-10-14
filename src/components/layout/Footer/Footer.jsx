@@ -7,6 +7,7 @@ import { useActiveRoute } from "../../../hooks/useActiveRoute";
 import { NAV_LINKS } from "../../../config/navLinks";
 import { SOCIAL_LINKS } from "../../../config/socialLinks";
 import { useSAMediaSync } from "../../../hooks/useScrollAnimate/useScrollAnimate";
+import { scrollTo } from "../../../hooks/lenisController";
 import "./Footer.css";
 
 function Footer() {
@@ -21,17 +22,13 @@ function Footer() {
       setShowScrollTop(window.scrollY > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll to top with smooth behavior
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+  // Via Lenis so it doesn't fight the smooth-scroll loop
+  const scrollToTop = () => scrollTo(0);
 
   const isMobile = useIsMobile();
   useSAMediaSync("(min-width: 768px)");
@@ -67,7 +64,7 @@ function Footer() {
       </div>
 
       <div className='footer__middle section-padding'>
-        <div className='footer__middle--name flex-all flex-direction-column gap-row-2' aria-label='Walter Carlson'>
+        <div className='footer__middle--name flex-all flex-direction-column gap-row-2'>
           <NameSVG />
         </div>
       </div>
@@ -82,7 +79,7 @@ function Footer() {
           <ul className='footer__nav-socials flex-all flex-horz-center flex-wrap gap-column-1' aria-label='Social links'>
             {SOCIAL_LINKS.map(({ href, label, icon }) => (
               <li key={label}>
-                <a href={href} target='_blank' rel='noopener noreferrer' aria-label={label} data-cursor='light'>
+                <a href={href} target='_blank' rel='noopener noreferrer' aria-label={`${label} (opens in a new tab)`} data-cursor='light'>
                   {icon}
                 </a>
               </li>

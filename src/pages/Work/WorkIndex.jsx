@@ -23,6 +23,7 @@ function WorkIndex() {
     <>
       <HeroSection
         title="Work"
+        metaDescription="Case studies by Walter Carlson, from automotive platforms and dashboards to interactive design systems, covering research, design and front-end execution."
         subtitle={
           <h2 className="h3 sub-heading">
             Curated projects where <strong className="text-primary">design intent meets engineering craft</strong>

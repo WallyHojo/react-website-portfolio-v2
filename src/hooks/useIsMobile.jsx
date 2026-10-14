@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
 export function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
+  // Read the real value on first render so mobile never mounts desktop-only
+  // UI (e.g. the 600-dot DotGrid) just to tear it down a frame later.
+  const [isMobile, setIsMobile] = useState(
+    () => window.matchMedia(`(max-width: ${breakpoint}px)`).matches
+  );
 
   useEffect(() => {
     const media = window.matchMedia(`(max-width: ${breakpoint}px)`);

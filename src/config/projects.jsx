@@ -279,7 +279,7 @@ export const PROJECTS = [
       },
     ],
     seo: {
-      title: "Calibright ADAS Portal,  Case Study | Walter Carlson",
+      title: "Calibright ADAS Portal, Case Study | Walter Carlson",
       description:
         "UX/UI case study for the Calibright ADAS calibration portal, a branded client dashboard for calibration document access, built with React, TypeScript, and SharePoint document storage.",
     },
@@ -443,7 +443,7 @@ export const PROJECTS = [
       },
     ],    
     seo: {
-      title: "Interactive Component Explorer ,  Case Study | Walter Carlson",
+      title: "Interactive Component Explorer, Case Study | Walter Carlson",
       description:
         "Live UI component explorer with responsive layouts, animation systems, and theme switching, design system engineering in practice.",
     },
@@ -597,7 +597,7 @@ export const PROJECTS = [
       },
     ],   
     seo: {
-      title: "EC Precision Shine ,  Case Study | Walter Carlson",
+      title: "EC Precision Shine, Case Study | Walter Carlson",
       description:
         "Premium automotive detailing website, editorial design, responsive architecture, and performance-focused front-end development.",
     },
@@ -773,7 +773,7 @@ export const PROJECTS = [
       },
     ],
     seo: {
-      title: "Enhanced Auto Leads ,  Case Study | Walter Carlson",
+      title: "Enhanced Auto Leads, Case Study | Walter Carlson",
       description:
         "Automotive lead-generation platform with trade-in valuations and payment estimators, conversion-focused front-end engineering.",
     },

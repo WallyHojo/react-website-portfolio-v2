@@ -26,12 +26,14 @@ export function getLenisInstance() {
 
 /**
  * Scroll to a target, via Lenis when it's available. Falls back to the
- * native scroll APIs if Lenis hasn't initialized yet (e.g. a click during
- * useSmoothScroll's brief deferred-init window) — safe to do, since Lenis's
- * animation loop isn't running yet either, so there's nothing to fight.
+ * native scroll APIs when Lenis isn't running (deferred init window, or
+ * prefers-reduced-motion, where useSmoothScroll never starts it).
+ *
+ * `offset` follows Lenis semantics: it is ADDED to the target position, so a
+ * negative value stops above the element (header clearance), positive below.
  *
  * @param {string | HTMLElement | number} target - selector, element, or px value
- * @param {{ offset?: number, immediate?: boolean, duration?: number, easing?: (t:number)=>number }} [options]
+ * @param {{ offset?: number, immediate?: boolean, force?: boolean }} [options]
  * @returns {boolean} true if Lenis handled it, false if the native fallback was used
  */
 export function scrollTo(target, options = {}) {
@@ -42,18 +44,38 @@ export function scrollTo(target, options = {}) {
 
   const el =
     typeof target === "string" ? document.querySelector(target) : target;
+  const top =
+    el instanceof Element
+      ? el.getBoundingClientRect().top + window.scrollY
+      : typeof target === "number"
+        ? target
+        : null;
 
-  if (el instanceof Element) {
-    el.scrollIntoView({
-      behavior: options.immediate ? "auto" : "smooth",
-      block: "start",
-    });
-  } else if (typeof target === "number") {
+  if (top !== null) {
     window.scrollTo({
-      top: target,
-      behavior: options.immediate ? "auto" : "smooth",
+      top: top + (options.offset ?? 0),
+      behavior:
+        options.immediate || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
     });
   }
 
   return false;
+}
+
+/**
+ * Freeze / release page scrolling for overlays (menu, lightbox).
+ * `overflow: hidden` alone is not enough while Lenis runs: it intercepts the
+ * wheel and keeps scrolling the page behind the overlay, so stop it too.
+ * Ref-counted so stacked overlays don't release each other's lock.
+ */
+let lockCount = 0;
+
+export function lockScroll(locked) {
+  lockCount = Math.max(0, lockCount + (locked ? 1 : -1));
+  const isLocked = lockCount > 0;
+  document.documentElement.classList.toggle("no-scroll", isLocked);
+  if (isLocked) lenisInstance?.stop();
+  else lenisInstance?.start();
 }

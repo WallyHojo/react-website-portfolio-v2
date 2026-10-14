@@ -5,6 +5,9 @@ import { setLenisInstance } from './lenisController';
 
 export function useSmoothScroll() {
   useEffect(() => {
+    // Respect reduced motion: keep native scrolling (lenisController falls back to it)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+
     let lenis;
     let rafId;
 

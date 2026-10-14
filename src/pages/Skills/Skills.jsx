@@ -110,6 +110,7 @@ function Skills() {
     <>
       <HeroSection
         title="Skills"
+        metaDescription="Walter Carlson's skills across the modern web stack: design systems, component architecture, performant front-end engineering, tooling and collaboration."
         subtitle={
           <h2 className="h3 sub-heading">
             Engineering interfaces where <strong className="text-primary">craft meets precision</strong>

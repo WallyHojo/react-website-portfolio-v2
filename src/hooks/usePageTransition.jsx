@@ -2,7 +2,12 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { requestCursorReset } from "./useMagneticEffect/cursorReset";
 
-const TRANSITION_DURATION = 400; // ms — match CSS
+// ms per phase. Single source of truth: also fed to the overlay CSS as
+// --page-transition-duration (PageTransition.jsx), so the two can't drift.
+export const TRANSITION_DURATION = 600;
+
+const getDuration = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : TRANSITION_DURATION;
 
 /**
  * usePageTransition
@@ -36,14 +41,14 @@ export function usePageTransition() {
       const timer = setTimeout(() => {
         navigate(pendingTo.current);
         setPhase("in");
-      }, TRANSITION_DURATION);
+      }, getDuration());
       return () => clearTimeout(timer);
     }
 
     if (phase === "in") {
       const timer = setTimeout(() => {
         setPhase("idle");
-      }, TRANSITION_DURATION);
+      }, getDuration());
       return () => clearTimeout(timer);
     }
   }, [phase, navigate]);
