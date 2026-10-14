@@ -60,7 +60,7 @@ function Resume() {
       </HeroSection>
 
       {/* Summary */}
-      <section className="section section-padding" aria-labelledby="resume-summary">
+      <section className="section section-padding overflow-hidden" aria-labelledby="resume-summary">
         <SectionLabel labelCount="02" labelSystem="resume.summary" labelTitle="Summary" titleId="resume-summary" />
         <div className="resume__summary">
           <p className="resume__summary-body" sa="up-long glacial mirror">{RESUME_SUMMARY.body}</p>
