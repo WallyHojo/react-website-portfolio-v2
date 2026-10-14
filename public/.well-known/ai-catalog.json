@@ -6,7 +6,7 @@
   },
   "entries": [
     {
-      "identifier": "urn:ai:v2.waltercarlson.dev:knowledge:llms-txt",
+      "identifier": "urn:air:v2.waltercarlson.dev:knowledge:llms-txt",
       "displayName": "Walter Carlson portfolio (llms.txt)",
       "description": "Plain-text guide for AI assistants: pages, case studies, skills and contact details for Walter Carlson, a front-end developer and UI engineer.",
       "type": "text/plain",
